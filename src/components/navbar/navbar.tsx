@@ -1,8 +1,9 @@
 import { Button } from '@/components/ui/button';
-import { Logo } from './logo';
+import { Logo } from '../logo';
 import { NavMenu } from './nav-menu';
 import { NavigationSheet } from './navigation-sheet';
 import ThemeToggle from '../theme-toggle';
+import Link from 'next/link';
 
 const Navbar = () => {
   return (
@@ -15,9 +16,11 @@ const Navbar = () => {
 
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <Button variant="outline" className="hidden sm:inline-flex">
-            Sign In
-          </Button>
+          <Link href="/signup">
+            <Button variant="outline" className="hidden sm:inline-flex">
+              Sign In
+            </Button>
+          </Link>
           <Button className="xs:inline-flex hidden">Get Started</Button>
 
           {/* Mobile Menu */}
