@@ -52,17 +52,25 @@ const NavigationSheet = () => {
             Access your resources and settings from this sidebar menu.
           </SheetDescription>
         </SheetHeader>
-        <div className="grid gap-4 p-4">
-          <NavigationMenu>
-            <NavigationMenuList className="gap-6 space-x-0 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start">
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link href="/profile">Profile</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-        </div>
+        <NavigationMenu>
+          <NavigationMenuList className="grid gap-6 space-x-0 p-4 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start">
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link href="/teams">Teams</Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link href="/teammates">Teammates</Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link href="/profile">Profile</Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
         <SheetFooter>
           <SheetClose asChild>
             <Button variant="outline" className="hidden sm:inline-flex" onClick={handleLogout}>
