@@ -8,7 +8,7 @@ import Stats from '@/components/stats';
 
 export default function Home() {
   return (
-    <div>
+    <>
       <Navbar />
       <Hero />
       <Features />
@@ -16,6 +16,6 @@ export default function Home() {
       <Stats />
       <Pricing />
       <Footer />
-    </div>
+    </>
   );
 }
