@@ -42,7 +42,7 @@ const AuthSignUp = () => {
       email: formData.email,
       password: formData.password,
       options: {
-        emailRedirectTo: 'http://localhost:3100/confirm',
+        emailRedirectTo: `${process.env.NEXT_PUBLIC_URL}/confirm`,
       },
     });
 

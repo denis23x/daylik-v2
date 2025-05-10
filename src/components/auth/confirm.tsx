@@ -8,7 +8,7 @@ import { createClient } from '@/utils/supabase/client';
 import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { toast } from 'sonner';
 
 const AuthConfirmation = () => {
@@ -16,22 +16,21 @@ const AuthConfirmation = () => {
 
   const router = useRouter();
 
+  const checkSession = useCallback(async () => {
+    const { data, error } = await supabase.auth.getSession();
+
+    if (error) {
+      toast.error(error.message);
+    }
+
+    if (data.session) {
+      router.push('/teams');
+    }
+  }, [router, supabase.auth]);
+
   useEffect(() => {
-    const checkSession = async () => {
-      const { data, error } = await supabase.auth.getSession();
-
-      console.log(data);
-      if (error) {
-        toast.error(error.message);
-      }
-
-      if (data.session) {
-        router.push('/teams');
-      }
-    };
-
     checkSession();
-  }, []);
+  }, [checkSession]);
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
