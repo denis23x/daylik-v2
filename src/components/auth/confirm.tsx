@@ -24,7 +24,7 @@ const AuthConfirmation = () => {
     if (data.session) {
       router.push('/teams');
     }
-  }, [router, supabase.auth]);
+  }, [router]);
 
   useEffect(() => {
     checkSession();

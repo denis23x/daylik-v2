@@ -1,15 +1,5 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
 import {
   Form,
   FormControl,
@@ -24,12 +14,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { supabase } from '@/utils/supabase/client';
+import { useEffect, useRef } from 'react';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import type { SupabaseSession } from '@/types/supabaseSession';
+import ResponsiveDialog from '@/components/responsive-dialog';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Team name must be at least 2 characters'),
 });
 
-const TeamsCreate = () => {
+const TeamsCreateForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,71 +32,82 @@ const TeamsCreate = () => {
     },
   });
 
-  // Create a Supabase client
-  const createTeam = async (teamData: z.infer<typeof formSchema>) => {
-    const { error } = await supabase
-      .from('teammate')
+  const session = useRef<SupabaseSession | null>(null);
+
+  useEffect(() => {
+    const getSession = async () => {
+      const { data, error } = await supabase.auth.getSession();
+
+      if (error) {
+        toast.error(error.message);
+      }
+
+      if (data) {
+        session.current = data.session as SupabaseSession;
+      }
+    };
+
+    getSession();
+  }, []);
+
+  const onSubmit = async (formData: z.infer<typeof formSchema>) => {
+    const { data, error } = await supabase
+      .from('team')
       .insert([
         {
-          name: teamData.name,
+          name: formData.name,
+          userId: session.current?.user.id,
         },
       ])
       .select();
 
     if (error) {
-      console.error('Error creating team:', error);
-      return false;
+      toast.error(error.message);
     }
 
-    return true;
-  };
-
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    createTeam(data).then((success) => {
-      if (success) {
-        form.reset();
-        // Optionally refresh the page or update the UI
-        window.location.reload();
-      }
-    });
+    if (data) {
+      toast.success('Team created successfully');
+    }
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
+    <Form {...form}>
+      <form id="teams-create-form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter team name" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </form>
+    </Form>
+  );
+};
+
+const TeamsCreate = () => {
+  return (
+    <ResponsiveDialog
+      title="Create Team"
+      description="Create a new team to start collaborating with your teammates."
+      trigger={
         <Button size="lg" className="rounded-full text-base">
           Create Team <ArrowUpRight className="!h-5 !w-5" />
         </Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Create Team</DialogTitle>
-          <DialogDescription>
-            Create a new team to start collaborating with your teammates.
-          </DialogDescription>
-        </DialogHeader>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter team name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <DialogFooter>
-              <Button type="submit">Create Team</Button>
-            </DialogFooter>
-          </form>
-        </Form>
-      </DialogContent>
-    </Dialog>
+      }
+      content={<TeamsCreateForm />}
+      footer={
+        <Button type="submit" form="teams-create-form">
+          Create
+        </Button>
+      }
+    />
   );
 };
 

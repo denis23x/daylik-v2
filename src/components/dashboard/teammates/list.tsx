@@ -1,4 +1,4 @@
-import { Teammate } from '@/types/teammate';
+import type { Teammate } from '@/types/teammate';
 import Image from 'next/image';
 import TeammatesCreate from './create';
 
