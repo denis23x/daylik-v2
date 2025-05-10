@@ -1,6 +1,5 @@
 'use client';
 
-import { Logo } from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -19,6 +18,7 @@ import { z } from 'zod';
 import { useEffect } from 'react';
 import { redirect, useSearchParams } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
+import { toast } from 'sonner';
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -66,16 +66,15 @@ const AuthLogin = () => {
     });
 
     if (error) {
-      redirect('/error');
+      toast.error(error.message);
     }
 
     redirect('/teams');
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
+    <div className="flex min-h-screen items-center justify-center px-4">
       <div className="flex w-full max-w-xs flex-col items-center">
-        <Logo />
         <p className="mt-4 text-xl font-bold tracking-tight">Log in to Daylik</p>
         <Button className="mt-8 w-full gap-3">Continue with Google</Button>
         <div className="my-7 flex w-full items-center justify-center overflow-hidden">

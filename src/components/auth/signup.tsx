@@ -1,6 +1,5 @@
 'use client';
 
-import { Logo } from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -18,6 +17,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { createClient } from '@/utils/supabase/client';
 import { redirect } from 'next/navigation';
+import { toast } from 'sonner';
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -42,16 +42,15 @@ const AuthSignUp = () => {
     });
 
     if (error) {
-      redirect('/error');
+      toast.error(error.message);
     }
 
-    redirect('/');
+    redirect('/auth/confirm');
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
+    <div className="flex min-h-screen items-center justify-center px-4">
       <div className="flex w-full max-w-xs flex-col items-center">
-        <Logo />
         <p className="mt-4 text-xl font-bold tracking-tight">Sign up for Daylik</p>
         <Button className="mt-8 w-full gap-3">Continue with Google</Button>
         <div className="my-7 flex w-full items-center justify-center overflow-hidden">

@@ -1,5 +1,11 @@
-import LoginForm from '@/components/auth/login';
+import AuthLogin from '@/components/auth/login';
+import Navbar from '@/components/navbar';
 
 export default function Login() {
-  return <LoginForm />;
+  return (
+    <>
+      <Navbar />
+      <AuthLogin />
+    </>
+  );
 }

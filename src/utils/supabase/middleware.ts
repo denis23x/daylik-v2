@@ -38,7 +38,7 @@ export const updateSession = async (request: NextRequest) => {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const publicRoutes = ['/login', '/signup'].includes(request.nextUrl.pathname);
+  const publicRoutes = ['/login', '/signup', '/confirm'].includes(request.nextUrl.pathname);
   const indexRoute = request.nextUrl.pathname === '/';
 
   if (!user && !publicRoutes && !indexRoute) {
