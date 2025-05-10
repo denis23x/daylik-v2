@@ -1,9 +1,9 @@
-import DashboardTeamsHero from '@/components/dashboard/teams/hero';
+import TeamsHero from '@/components/dashboard/teams/hero';
 
 export default function Teams() {
   return (
     <>
-      <DashboardTeamsHero />
+      <TeamsHero />
     </>
   );
 }

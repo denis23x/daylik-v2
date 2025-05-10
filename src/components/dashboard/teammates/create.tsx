@@ -25,35 +25,35 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 const formSchema = z.object({
-  name: z.string().min(2, 'Team name must be at least 2 characters'),
+  name: z.string().min(2, 'Teammate name must be at least 2 characters'),
+  role: z.string().min(2, 'Role must be at least 2 characters'),
 });
 
-const TeamsCreate = () => {
+const TeammatesCreate = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
+      role: '',
     },
   });
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     console.log(data);
-    // TODO: Implement team creation logic
+    // TODO: Implement teammate creation logic
   };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button size="lg" className="rounded-full text-base">
-          Create Team <ArrowUpRight className="!h-5 !w-5" />
+          Add Teammate <ArrowUpRight className="!h-5 !w-5" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Create Team</DialogTitle>
-          <DialogDescription>
-            Create a new team to start collaborating with your teammates.
-          </DialogDescription>
+          <DialogTitle>Add Teammate</DialogTitle>
+          <DialogDescription>Add a new teammate to collaborate with your team.</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -64,14 +64,27 @@ const TeamsCreate = () => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter team name" {...field} />
+                    <Input placeholder="Enter teammate name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="role"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Role</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter teammate role" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <DialogFooter>
-              <Button type="submit">Create Team</Button>
+              <Button type="submit">Add Teammate</Button>
             </DialogFooter>
           </form>
         </Form>
@@ -80,4 +93,4 @@ const TeamsCreate = () => {
   );
 };
 
-export default TeamsCreate;
+export default TeammatesCreate;
