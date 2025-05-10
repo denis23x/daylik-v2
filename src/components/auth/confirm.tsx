@@ -1,11 +1,38 @@
+'use client';
+
 import { AnimatedGridPattern } from '@/components/magicui/animated-grid-pattern';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { createClient } from '@/utils/supabase/client';
 import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { toast } from 'sonner';
 
 const AuthConfirmation = () => {
+  const supabase = createClient();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data, error } = await supabase.auth.getSession();
+
+      console.log(data);
+      if (error) {
+        toast.error(error.message);
+      }
+
+      if (data.session) {
+        router.push('/teams');
+      }
+    };
+
+    checkSession();
+  }, []);
+
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
       <AnimatedGridPattern
@@ -21,7 +48,7 @@ const AuthConfirmation = () => {
       <div className="relative z-10 max-w-2xl text-center">
         <Badge className="bg-primary rounded-full border-none py-1">Just released v1.0.0</Badge>
         <h1 className="mt-6 text-4xl !leading-[1.2] font-bold tracking-tight sm:text-5xl md:text-6xl">
-          Confirm Your Email
+          Email confirmation
         </h1>
         <p className="mt-6 text-[17px] md:text-lg">
           We&apos;ve sent a confirmation email to your inbox. Please check your email and click the

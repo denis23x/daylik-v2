@@ -15,8 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { useEffect } from 'react';
-import { redirect, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { toast } from 'sonner';
 
@@ -28,28 +27,7 @@ const formSchema = z.object({
 const AuthLogin = () => {
   const supabase = createClient();
 
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    const code = searchParams.get('code');
-
-    if (code) {
-      const verifyCode = async () => {
-        const { error } = await supabase.auth.verifyOtp({
-          token_hash: 'hash',
-          type: 'email',
-        });
-
-        if (error) {
-          redirect('/error');
-        }
-
-        redirect('/');
-      };
-
-      verifyCode();
-    }
-  }, [searchParams, supabase]);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
@@ -69,7 +47,7 @@ const AuthLogin = () => {
       toast.error(error.message);
     }
 
-    redirect('/teams');
+    router.push('/teams');
   };
 
   return (

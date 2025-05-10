@@ -41,11 +41,19 @@ export const updateSession = async (request: NextRequest) => {
   const publicRoutes = ['/login', '/signup', '/confirm'].includes(request.nextUrl.pathname);
   const indexRoute = request.nextUrl.pathname === '/';
 
+  // no user, potentially respond by redirecting the user to the login page
   if (!user && !publicRoutes && !indexRoute) {
-    // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone();
 
     url.pathname = '/login';
+
+    return NextResponse.redirect(url);
+  }
+
+  if (user && (publicRoutes || indexRoute)) {
+    const url = request.nextUrl.clone();
+
+    url.pathname = '/teams';
 
     return NextResponse.redirect(url);
   }

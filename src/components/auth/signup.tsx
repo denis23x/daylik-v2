@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { createClient } from '@/utils/supabase/client';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
 const formSchema = z.object({
@@ -26,6 +26,8 @@ const formSchema = z.object({
 
 const AuthSignUp = () => {
   const supabase = createClient();
+
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
@@ -39,13 +41,16 @@ const AuthSignUp = () => {
     const { error } = await supabase.auth.signUp({
       email: formData.email,
       password: formData.password,
+      options: {
+        emailRedirectTo: 'http://localhost:3100/confirm',
+      },
     });
 
     if (error) {
       toast.error(error.message);
     }
 
-    redirect('/auth/confirm');
+    router.push('/confirm');
   };
 
   return (
