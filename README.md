@@ -14,11 +14,64 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3100](http://localhost:3100) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Development Workflow
+
+### Code Quality
+
+This project uses ESLint and Prettier for code quality and formatting. Before committing, the following checks are automatically run:
+
+- ESLint check (`pnpm lint`)
+- Prettier format check (`pnpm format:check`)
+
+To manually format your code, run:
+
+```bash
+pnpm format
+```
+
+### Commit Rules
+
+This project follows the [Conventional Commits](https://www.conventionalcommits.org/) specification. Each commit message must follow this format:
+
+```
+type(scope): subject
+
+[optional body]
+
+[optional footer]
+```
+
+Where `type` must be one of:
+
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation changes
+- `style`: Code style changes (formatting, etc.)
+- `refactor`: Code refactoring
+- `test`: Adding or modifying tests
+- `chore`: Maintenance tasks
+- `build`: Build system or external dependency changes
+- `ci`: CI configuration changes
+- `perf`: Performance improvements
+- `revert`: Reverting changes
+
+Example of a valid commit message:
+
+```
+feat(auth): add login functionality
+
+- Add login form component
+- Implement authentication logic
+- Add error handling
+
+Closes #123
+```
 
 ## Learn More
 
