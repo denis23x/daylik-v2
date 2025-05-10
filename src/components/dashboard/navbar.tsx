@@ -17,16 +17,24 @@ import {
 import { Menu } from 'lucide-react';
 import { supabase } from '@/utils/supabase/client';
 import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
 } from '@radix-ui/react-navigation-menu';
 import { NavigationMenu } from '@radix-ui/react-navigation-menu';
+import { useEffect, useState } from 'react';
 
 const NavigationSheet = () => {
   const router = useRouter();
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+
+  // Close sheet when route changes
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
@@ -39,7 +47,7 @@ const NavigationSheet = () => {
   };
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button variant="outline" size="icon">
           <Menu />
@@ -73,7 +81,7 @@ const NavigationSheet = () => {
         </NavigationMenu>
         <SheetFooter>
           <SheetClose asChild>
-            <Button variant="outline" className="hidden sm:inline-flex" onClick={handleLogout}>
+            <Button variant="outline" onClick={handleLogout}>
               Logout
             </Button>
           </SheetClose>

@@ -27,6 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { cn } from '@/lib/utils';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Teammate name must be at least 2 characters'),
@@ -133,12 +134,18 @@ const TeammatesCreateForm = () => {
         <FormField
           control={form.control}
           name="teamId"
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <FormItem>
               <FormLabel>Team</FormLabel>
               <FormControl>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <SelectTrigger className="w-full">
+                  <SelectTrigger
+                    className={cn(
+                      'w-full',
+                      fieldState.invalid &&
+                        '!border-destructive !ring-destructive/20 dark:!ring-destructive/40'
+                    )}
+                  >
                     <SelectValue placeholder="Select a team" />
                   </SelectTrigger>
                   <SelectContent>
