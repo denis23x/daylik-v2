@@ -1,4 +1,4 @@
-// import TeammatesHero from '@/components/dashboard/teammates/hero';
+import TeammatesHero from '@/components/dashboard/teammates/hero';
 import TeammatesList from '@/components/dashboard/teammates/list';
 import { createClient } from '@/utils/supabase/server';
 
@@ -7,9 +7,9 @@ export default async function Teammates() {
   const { data: teammates } = await supabase.from('teammate').select('*');
 
   return (
-    <div className="relative">
-      {/* <TeammatesHero /> */}
+    <>
+      <TeammatesHero />
       <TeammatesList teammates={teammates ?? []} />
-    </div>
+    </>
   );
 }

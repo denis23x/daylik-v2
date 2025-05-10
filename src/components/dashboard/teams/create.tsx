@@ -59,7 +59,7 @@ const TeamsCreateForm = () => {
           userId: session.current?.user.id,
         },
       ])
-      .select();
+      .select('*');
 
     if (error) {
       toast.error(error.message);

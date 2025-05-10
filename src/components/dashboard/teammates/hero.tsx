@@ -1,5 +1,5 @@
 import { Badge } from '@/components/ui/badge';
-import TeamsCreate from './create';
+import TeammatesCreate from './create';
 
 const TeammatesHero = () => {
   return (
@@ -14,7 +14,7 @@ const TeammatesHero = () => {
           and maintain a structured environment for your various initiatives with your teammates.
         </p>
         <div className="mt-12 flex items-center justify-center gap-4">
-          <TeamsCreate />
+          <TeammatesCreate />
         </div>
       </div>
     </div>
