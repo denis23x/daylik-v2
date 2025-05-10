@@ -23,6 +23,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { createClient } from '@/utils/supabase/client';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Team name must be at least 2 characters'),
@@ -36,9 +37,35 @@ const TeamsCreate = () => {
     },
   });
 
+  // Create a Supabase client
+  const createTeam = async (teamData: z.infer<typeof formSchema>) => {
+    const supabase = createClient();
+
+    const { error } = await supabase
+      .from('teammate')
+      .insert([
+        {
+          name: teamData.name,
+        },
+      ])
+      .select();
+
+    if (error) {
+      console.error('Error creating team:', error);
+      return false;
+    }
+
+    return true;
+  };
+
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
-    // TODO: Implement team creation logic
+    createTeam(data).then((success) => {
+      if (success) {
+        form.reset();
+        // Optionally refresh the page or update the UI
+        window.location.reload();
+      }
+    });
   };
 
   return (

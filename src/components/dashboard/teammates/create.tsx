@@ -19,7 +19,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { ArrowUpRight } from 'lucide-react';
+import { createClient } from '@/utils/supabase/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -29,7 +29,7 @@ const formSchema = z.object({
   role: z.string().min(2, 'Role must be at least 2 characters'),
 });
 
-const TeammatesCreate = () => {
+const TeammatesCreate = ({ children }: { children: React.ReactNode }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -38,18 +38,42 @@ const TeammatesCreate = () => {
     },
   });
 
+  // Create a Supabase client
+  const createTeammate = async (teammateData: z.infer<typeof formSchema>) => {
+    const supabase = createClient();
+
+    const { error } = await supabase
+      .from('teammate')
+      .insert([
+        {
+          name: teammateData.name,
+          role: teammateData.role,
+        },
+      ])
+      .select();
+
+    if (error) {
+      console.error('Error creating teammate:', error);
+      return false;
+    }
+
+    return true;
+  };
+
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
-    // TODO: Implement teammate creation logic
+    // Call the function with form data
+    createTeammate(data).then((success) => {
+      if (success) {
+        form.reset();
+        // Optionally refresh the page or update the UI
+        window.location.reload();
+      }
+    });
   };
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button size="lg" className="rounded-full text-base">
-          Add Teammate <ArrowUpRight className="!h-5 !w-5" />
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Add Teammate</DialogTitle>

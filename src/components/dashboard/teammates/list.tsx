@@ -1,5 +1,6 @@
 import { Teammate } from '@/types/teammate';
 import Image from 'next/image';
+import TeammatesCreate from './create';
 
 const TeammatesList = ({ teammates }: { teammates: Teammate[] }) => {
   return (
@@ -15,6 +16,19 @@ const TeammatesList = ({ teammates }: { teammates: Teammate[] }) => {
         </p>
       </div>
       <div className="mx-auto mt-20 grid w-full max-w-screen-lg grid-cols-2 gap-12 sm:grid-cols-3 md:grid-cols-4">
+        <TeammatesCreate>
+          <div className="text-center">
+            <Image
+              src={'images/placeholder.svg'}
+              alt={'member.name'}
+              className="bg-secondary mx-auto h-20 w-20 rounded-full object-cover"
+              width={120}
+              height={120}
+            />
+            <h3 className="mt-4 text-lg font-semibold">Add</h3>
+            <p className="text-muted-foreground">New Teammate</p>
+          </div>
+        </TeammatesCreate>
         {teammates.map((member) => (
           <div key={member.id} className="text-center">
             <Image
