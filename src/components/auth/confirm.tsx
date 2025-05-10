@@ -4,7 +4,7 @@ import { AnimatedGridPattern } from '@/components/magicui/animated-grid-pattern'
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { createClient } from '@/utils/supabase/client';
+import { supabase } from '@/utils/supabase/client';
 import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -12,8 +12,6 @@ import { useCallback, useEffect } from 'react';
 import { toast } from 'sonner';
 
 const AuthConfirmation = () => {
-  const supabase = createClient();
-
   const router = useRouter();
 
   const checkSession = useCallback(async () => {

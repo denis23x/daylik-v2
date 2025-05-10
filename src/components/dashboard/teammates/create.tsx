@@ -19,7 +19,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { createClient } from '@/utils/supabase/client';
+import { supabase } from '@/utils/supabase/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -40,8 +40,6 @@ const TeammatesCreate = ({ children }: { children: React.ReactNode }) => {
 
   // Create a Supabase client
   const createTeammate = async (teammateData: z.infer<typeof formSchema>) => {
-    const supabase = createClient();
-
     const { error } = await supabase
       .from('teammate')
       .insert([

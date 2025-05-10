@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@/utils/supabase/client';
+import { supabase } from '@/utils/supabase/client';
 import { toast } from 'sonner';
 
 const formSchema = z.object({
@@ -25,8 +25,6 @@ const formSchema = z.object({
 });
 
 const AuthLogin = () => {
-  const supabase = createClient();
-
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({

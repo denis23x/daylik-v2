@@ -15,7 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { createClient } from '@/utils/supabase/client';
+import { supabase } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
@@ -25,8 +25,6 @@ const formSchema = z.object({
 });
 
 const AuthSignUp = () => {
-  const supabase = createClient();
-
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
