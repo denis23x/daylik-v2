@@ -17,7 +17,7 @@ import { useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
-import { ArrowUpRight, Loader2 } from 'lucide-react';
+import { ArrowUpRight, FolderOpenIcon, Loader2, Palette } from 'lucide-react';
 import ResponsiveDialog from '@/components/responsive-dialog';
 import type { Team } from '@/types/team';
 import {
@@ -28,11 +28,14 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
+import { useRandomHexColor } from '@/hooks/useRandomHexColor';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Teammate name must be at least 2 characters'),
   role: z.string().min(2, 'Role must be at least 2 characters'),
   teamId: z.string().min(1, 'Team is required'),
+  avatar: z.string().optional(),
+  color: z.string().min(4, 'Color must be a valid hex code'),
 });
 
 const TeammatesCreateForm = () => {
@@ -82,6 +85,8 @@ const TeammatesCreateForm = () => {
           role: formData.role,
           teamId: formData.teamId,
           userId: session.current?.user.id,
+          avatar: formData.avatar || null,
+          color: formData.color,
         },
       ])
       .select('*');
@@ -166,6 +171,31 @@ const TeammatesCreateForm = () => {
             </FormItem>
           )}
         />
+        <div className="flex items-end justify-end gap-4">
+          <FormField
+            control={form.control}
+            name="avatar"
+            render={({ field, formState }) => (
+              <FormItem className="flex-1">
+                <FormLabel>Avatar URL</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter avatar URL (optional)"
+                    disabled={formState.isSubmitting}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button variant="outline" size="icon">
+            <FolderOpenIcon className="h-5 w-5" />
+          </Button>
+          <Button variant="outline" size="icon">
+            <Palette className="h-5 w-5" />
+          </Button>
+        </div>
       </form>
     </Form>
   );
@@ -183,11 +213,15 @@ const TeammatesCreateFormSubmit = () => {
 };
 
 const TeammatesCreate = () => {
+  const { color } = useRandomHexColor();
+
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       name: '',
       role: '',
       teamId: '',
+      avatar: '',
+      color: color,
     },
     resolver: zodResolver(formSchema),
   });
