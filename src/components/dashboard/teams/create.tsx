@@ -55,7 +55,8 @@ const TeamsCreate = () => {
             userUUID: session?.user.id,
           },
         ])
-        .select('*');
+        .select('UUID')
+        .single();
 
       if (error) {
         toast.error(error.message);

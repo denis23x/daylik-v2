@@ -5,5 +5,10 @@ export type Team = {
   name: string;
   userUUID: string;
   createdAt: string;
-  teammates?: Teammate[];
+  teammates: Teammate[];
+
+  // Relation to teams_teammates
+  teams_teammates?: {
+    teammates: Teammate[];
+  }[];
 };

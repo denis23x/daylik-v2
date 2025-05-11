@@ -89,24 +89,36 @@ const TeammatesCreate = () => {
 
   const handleSubmit = async (formData: z.infer<typeof formSchema>) => {
     try {
-      // teamId: formData.teamId.length > 0 ? formData.teamId : null,
-
       // TODO: Change to session?.user.id
       const { data, error } = await supabase
-        .from('teammate')
+        .from('teammates')
         .insert([
           {
             name: formData.name,
             position: formData.position,
-            userId: session?.user.id,
+            userUUID: session?.user.id,
             avatar: formData.avatar || null,
             color: formData.color,
           },
         ])
-        .select('*');
+        .select('UUID')
+        .single();
 
       if (error) {
         toast.error(error.message);
+        return;
+      }
+
+      // Create team links Many to Many
+      const teamLinks = formData.teams.map((teamUUID: string) => ({
+        teamUUID: teamUUID,
+        teammateUUID: data.UUID,
+      }));
+
+      const { error: errorLink } = await supabase.from('teams_teammates').insert(teamLinks);
+
+      if (errorLink) {
+        toast.error(errorLink.message);
         return;
       }
 

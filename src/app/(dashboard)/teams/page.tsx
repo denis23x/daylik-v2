@@ -15,7 +15,20 @@ export default function Teams() {
       // TODO: Change to session?.user.id
       const { data, error } = await supabase
         .from('teams')
-        .select('*')
+        .select(
+          `
+          *,
+          teams_teammates (
+            teammates (
+              UUID,
+              name,
+              position,
+              color,
+              avatar
+            )
+          )
+        `
+        )
         .eq('userUUID', '6d8479a5-4d38-46c3-b3a0-5b905aa3c92a');
 
       if (error) {
@@ -24,7 +37,16 @@ export default function Teams() {
       }
 
       if (data) {
-        setTeams(data);
+        const teamsWithMembers: Team[] = data.map((team: Team) => {
+          const { teams_teammates, ...rest } = team;
+
+          return {
+            ...rest,
+            teammates: teams_teammates?.map((link) => link.teammates).flat() || [],
+          };
+        });
+
+        setTeams(teamsWithMembers);
         return;
       }
     };
