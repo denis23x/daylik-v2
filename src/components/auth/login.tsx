@@ -37,16 +37,21 @@ const AuthLogin = () => {
   });
 
   const onSubmit = async (formData: z.infer<typeof formSchema>) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email: formData.email,
-      password: formData.password,
-    });
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password,
+      });
 
-    if (error) {
-      toast.error(error.message);
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
+
+      router.push('/teams');
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'An error occurred');
     }
-
-    router.push('/teams');
   };
 
   return (

@@ -37,19 +37,24 @@ const AuthSignUp = () => {
   });
 
   const onSubmit = async (formData: z.infer<typeof formSchema>) => {
-    const { error } = await supabase.auth.signUp({
-      email: formData.email,
-      password: formData.password,
-      options: {
-        emailRedirectTo: `${process.env.NEXT_PUBLIC_URL}/confirm`,
-      },
-    });
+    try {
+      const { error } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          emailRedirectTo: `${process.env.NEXT_PUBLIC_URL}/confirm`,
+        },
+      });
 
-    if (error) {
-      toast.error(error.message);
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
+
+      router.push('/confirm');
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'An error occurred');
     }
-
-    router.push('/confirm');
   };
 
   return (

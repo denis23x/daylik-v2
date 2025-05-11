@@ -29,22 +29,28 @@ const TeamsCreateForm = () => {
   const session = useSupabaseSession();
 
   const onSubmit = async (formData: z.infer<typeof formSchema>) => {
-    const { data, error } = await supabase
-      .from('team')
-      .insert([
-        {
-          name: formData.name,
-          userId: session?.user.id,
-        },
-      ])
-      .select('*');
+    try {
+      const { data, error } = await supabase
+        .from('team')
+        .insert([
+          {
+            name: formData.name,
+            userId: session?.user.id,
+          },
+        ])
+        .select('*');
 
-    if (error) {
-      toast.error(error.message);
-    }
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
 
-    if (data) {
-      toast.success('Team created successfully');
+      if (data) {
+        toast.success('Team created successfully');
+        return;
+      }
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'An error occurred');
     }
   };
 

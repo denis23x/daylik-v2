@@ -49,14 +49,20 @@ const TeammatesCreateForm = () => {
 
   useEffect(() => {
     const getTeams = async () => {
-      const { data, error } = await supabase.from('team').select('*');
+      try {
+        const { data, error } = await supabase.from('team').select('*');
 
-      if (error) {
-        toast.error(error.message);
-      }
+        if (error) {
+          toast.error(error.message);
+          return;
+        }
 
-      if (data) {
-        setTeams(data as Team[]);
+        if (data) {
+          setTeams(data as Team[]);
+          return;
+        }
+      } catch (error) {
+        toast.error(error instanceof Error ? error.message : 'An error occurred');
       }
     };
 
@@ -64,26 +70,32 @@ const TeammatesCreateForm = () => {
   }, []);
 
   const onSubmit = async (formData: z.infer<typeof formSchema>) => {
-    const { data, error } = await supabase
-      .from('teammate')
-      .insert([
-        {
-          name: formData.name,
-          role: formData.role,
-          teamId: formData.teamId,
-          userId: session?.user.id,
-          avatar: formData.avatar || null,
-          color: formData.color,
-        },
-      ])
-      .select('*');
+    try {
+      const { data, error } = await supabase
+        .from('teammate')
+        .insert([
+          {
+            name: formData.name,
+            role: formData.role,
+            teamId: formData.teamId,
+            userId: session?.user.id,
+            avatar: formData.avatar || null,
+            color: formData.color,
+          },
+        ])
+        .select('*');
 
-    if (error) {
-      toast.error(error.message);
-    }
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
 
-    if (data) {
-      toast.success('Teammate created successfully');
+      if (data) {
+        toast.success('Teammate created successfully');
+        return;
+      }
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'An error occurred');
     }
   };
 
