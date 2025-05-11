@@ -4,7 +4,7 @@ import { createClient } from '@/utils/supabase/server';
 
 export default async function Teams() {
   const supabase = await createClient();
-  const { data: teams } = await supabase.from('team').select('*');
+  const { data: teams } = await supabase.from('team').select('*, teammate(*)');
 
   return (
     <>
