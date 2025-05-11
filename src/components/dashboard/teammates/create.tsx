@@ -19,23 +19,16 @@ import { toast } from 'sonner';
 import { FolderOpenIcon, Loader2, Palette, Plus } from 'lucide-react';
 import ResponsiveDialog from '@/components/responsive-dialog';
 import type { Team } from '@/types/team';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { cn } from '@/lib/utils';
 import { useRandomHexColor } from '@/hooks/useRandomHexColor';
 import FileUploader from '@/components/file-uploader';
 import ColorPicker from '@/components/color-picker';
 import { useSupabaseSession } from '@/hooks/useSupabaseSession';
+import { MultiSelect } from '@/components/multi-select';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Teammate name must be at least 2 characters'),
   role: z.string().min(2, 'Role must be at least 2 characters'),
-  teamId: z.string().optional(),
+  teamId: z.array(z.number()),
   avatar: z.string().optional(),
   color: z.string().min(4, 'Color must be a valid hex code'),
 });
@@ -53,7 +46,7 @@ const TeammatesCreate = () => {
     defaultValues: {
       name: '',
       role: '',
-      teamId: '',
+      teamId: [],
       avatar: '',
       color: color,
     },
@@ -98,7 +91,7 @@ const TeammatesCreate = () => {
           {
             name: formData.name,
             role: formData.role,
-            teamId: formData.teamId || null,
+            teamId: formData.teamId.length > 0 ? formData.teamId : null,
             userId: session?.user.id,
             avatar: formData.avatar || null,
             color: formData.color,
@@ -171,39 +164,15 @@ const TeammatesCreate = () => {
                 )}
               />
               {teams && teams.length > 0 ? (
-                <FormField
-                  control={form.control}
+                <MultiSelect
                   name="teamId"
-                  render={({ field, fieldState, formState }) => (
-                    <FormItem>
-                      <FormLabel>Team (Optional)</FormLabel>
-                      <FormControl>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                          disabled={formState.isSubmitting}
-                        >
-                          <SelectTrigger
-                            className={cn(
-                              'w-full',
-                              fieldState.invalid &&
-                                '!border-destructive !ring-destructive/20 dark:!ring-destructive/40'
-                            )}
-                          >
-                            <SelectValue placeholder="Select a team (optional)" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {teams.map((team) => (
-                              <SelectItem key={team.id} value={team.id.toString()}>
-                                {team.name}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Teams"
+                  placeholder="Select teams"
+                  searchPlaceholder="Search"
+                  items={teams.map((team) => ({
+                    id: team.id,
+                    value: team.name,
+                  }))}
                 />
               ) : null}
               <div className="flex items-end justify-end gap-4">
