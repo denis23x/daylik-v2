@@ -14,10 +14,10 @@ import type { SupabaseSession } from '@/types/supabaseSession';
 import { supabase } from '@/utils/supabase/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Loader2 } from 'lucide-react';
 import ResponsiveDialog from '@/components/responsive-dialog';
 import type { Team } from '@/types/team';
 import {
@@ -36,14 +36,7 @@ const formSchema = z.object({
 });
 
 const TeammatesCreateForm = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: '',
-      role: '',
-      teamId: '',
-    },
-  });
+  const form = useFormContext<z.infer<typeof formSchema>>();
 
   const session = useRef<SupabaseSession | null>(null);
   const [teams, setTeams] = useState<Team[]>([]);
@@ -108,11 +101,15 @@ const TeammatesCreateForm = () => {
         <FormField
           control={form.control}
           name="name"
-          render={({ field }) => (
+          render={({ field, formState }) => (
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Enter teammate name" {...field} />
+                <Input
+                  placeholder="Enter teammate name"
+                  disabled={formState.isSubmitting}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -121,11 +118,15 @@ const TeammatesCreateForm = () => {
         <FormField
           control={form.control}
           name="role"
-          render={({ field }) => (
+          render={({ field, formState }) => (
             <FormItem>
               <FormLabel>Role</FormLabel>
               <FormControl>
-                <Input placeholder="Enter teammate role" {...field} />
+                <Input
+                  placeholder="Enter teammate role"
+                  disabled={formState.isSubmitting}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -134,11 +135,15 @@ const TeammatesCreateForm = () => {
         <FormField
           control={form.control}
           name="teamId"
-          render={({ field, fieldState }) => (
+          render={({ field, fieldState, formState }) => (
             <FormItem>
               <FormLabel>Team</FormLabel>
               <FormControl>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  disabled={formState.isSubmitting}
+                >
                   <SelectTrigger
                     className={cn(
                       'w-full',
@@ -166,23 +171,41 @@ const TeammatesCreateForm = () => {
   );
 };
 
-const TeammatesCreate = () => {
+const TeammatesCreateFormSubmit = () => {
+  const form = useFormContext<z.infer<typeof formSchema>>();
+
   return (
-    <ResponsiveDialog
-      title="Create Teammate"
-      description="Create a new teammate to start collaborating with your team."
-      trigger={
-        <Button size="lg" className="rounded-full text-base">
-          Create Teammate <ArrowUpRight className="!h-5 !w-5" />
-        </Button>
-      }
-      content={<TeammatesCreateForm />}
-      footer={
-        <Button type="submit" form="teammates-create-form">
-          Create
-        </Button>
-      }
-    />
+    <Button type="submit" form="teammates-create-form" disabled={form.formState.isSubmitting}>
+      {form.formState.isSubmitting && <Loader2 className="mr-2 animate-spin" />}
+      {form.formState.isSubmitting ? 'Please wait' : 'Create'}
+    </Button>
+  );
+};
+
+const TeammatesCreate = () => {
+  const form = useForm<z.infer<typeof formSchema>>({
+    defaultValues: {
+      name: '',
+      role: '',
+      teamId: '',
+    },
+    resolver: zodResolver(formSchema),
+  });
+
+  return (
+    <FormProvider {...form}>
+      <ResponsiveDialog
+        title="Create Teammate"
+        description="Create a new teammate to start collaborating with your team."
+        trigger={
+          <Button size="lg" className="rounded-full text-base">
+            Create Teammate <ArrowUpRight className="!h-5 !w-5" />
+          </Button>
+        }
+        content={<TeammatesCreateForm />}
+        footer={<TeammatesCreateFormSubmit />}
+      />
+    </FormProvider>
   );
 };
 

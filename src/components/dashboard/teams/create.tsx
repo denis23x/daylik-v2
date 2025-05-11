@@ -9,9 +9,9 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Loader2 } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useForm, FormProvider, useFormContext } from 'react-hook-form';
 import { z } from 'zod';
 import { supabase } from '@/utils/supabase/client';
 import { useEffect, useRef } from 'react';
@@ -25,12 +25,7 @@ const formSchema = z.object({
 });
 
 const TeamsCreateForm = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: '',
-    },
-  });
+  const form = useFormContext<z.infer<typeof formSchema>>();
 
   const session = useRef<SupabaseSession | null>(null);
 
@@ -76,11 +71,11 @@ const TeamsCreateForm = () => {
         <FormField
           control={form.control}
           name="name"
-          render={({ field }) => (
+          render={({ field, formState }) => (
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Enter team name" {...field} />
+                <Input placeholder="Enter team name" disabled={formState.isSubmitting} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -91,23 +86,39 @@ const TeamsCreateForm = () => {
   );
 };
 
-const TeamsCreate = () => {
+const TeamsCreateFormSubmit = () => {
+  const form = useFormContext<z.infer<typeof formSchema>>();
+
   return (
-    <ResponsiveDialog
-      title="Create Team"
-      description="Create a new team to start collaborating with your teammates."
-      trigger={
-        <Button size="lg" className="rounded-full text-base">
-          Create Team <ArrowUpRight className="!h-5 !w-5" />
-        </Button>
-      }
-      content={<TeamsCreateForm />}
-      footer={
-        <Button type="submit" form="teams-create-form">
-          Create
-        </Button>
-      }
-    />
+    <Button type="submit" form="teams-create-form" disabled={form.formState.isSubmitting}>
+      {form.formState.isSubmitting && <Loader2 className="mr-2 animate-spin" />}
+      {form.formState.isSubmitting ? 'Please wait' : 'Create'}
+    </Button>
+  );
+};
+
+const TeamsCreate = () => {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: '',
+    },
+  });
+
+  return (
+    <FormProvider {...form}>
+      <ResponsiveDialog
+        title="Create Team"
+        description="Create a new team to start collaborating with your teammates."
+        trigger={
+          <Button size="lg" className="rounded-full text-base">
+            Create Team <ArrowUpRight className="!h-5 !w-5" />
+          </Button>
+        }
+        content={<TeamsCreateForm />}
+        footer={<TeamsCreateFormSubmit />}
+      />
+    </FormProvider>
   );
 };
 

@@ -18,6 +18,7 @@ import { z } from 'zod';
 import { supabase } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { Loader2 } from 'lucide-react';
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -66,11 +67,17 @@ const AuthSignUp = () => {
             <FormField
               control={form.control}
               name="email"
-              render={({ field }) => (
+              render={({ field, formState }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input type="email" placeholder="Email" className="w-full" {...field} />
+                    <Input
+                      type="email"
+                      placeholder="Email"
+                      className="w-full"
+                      disabled={formState.isSubmitting}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -79,18 +86,25 @@ const AuthSignUp = () => {
             <FormField
               control={form.control}
               name="password"
-              render={({ field }) => (
+              render={({ field, formState }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="Password" className="w-full" {...field} />
+                    <Input
+                      type="password"
+                      placeholder="Password"
+                      className="w-full"
+                      disabled={formState.isSubmitting}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" className="mt-4 w-full">
-              Continue with Email
+            <Button type="submit" className="mt-4 w-full" disabled={form.formState.isSubmitting}>
+              {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
+              {form.formState.isSubmitting ? 'Please wait' : 'Continue with Email'}
             </Button>
           </form>
         </Form>
