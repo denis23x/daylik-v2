@@ -13,24 +13,45 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { useFormContext } from 'react-hook-form';
+import { ControllerRenderProps, useFormContext } from 'react-hook-form';
+
+export type MultiSelectItem = {
+  key: string;
+  value: string;
+  label: string;
+};
 
 export function MultiSelect({
   name,
   label,
   placeholder = 'Select items',
-  searchPlaceholder = 'Search items...',
-  emptyMessage = 'No item found.',
-  items,
+  searchPlaceholder = 'Search',
+  emptyMessage = 'No item found',
+  items = [],
 }: {
   name: string;
   label: string;
   placeholder?: string;
   searchPlaceholder?: string;
   emptyMessage?: string;
-  items: { id: string | number; value: string }[];
+  items: MultiSelectItem[];
 }) {
   const form = useFormContext();
+
+  const handleSelect = (field: ControllerRenderProps, item: MultiSelectItem) => {
+    const id = item.value.toString();
+    const selectedIds = [...field.value];
+
+    if (selectedIds.includes(id)) {
+      const index = selectedIds.indexOf(id);
+
+      selectedIds.splice(index, 1);
+    } else {
+      selectedIds.push(id);
+    }
+
+    form.setValue(name, selectedIds);
+  };
 
   return (
     <FormField
@@ -45,7 +66,7 @@ export function MultiSelect({
                 <div className="relative w-full">
                   <Input
                     className={cn(
-                      'w-full text-left',
+                      'w-full pr-6 text-left',
                       field.value.length === 0 && 'text-muted-foreground'
                     )}
                     role="combobox"
@@ -53,7 +74,15 @@ export function MultiSelect({
                     disabled={formState.isSubmitting}
                     value={
                       field.value.length > 0
-                        ? `${field.value.length} item${field.value.length > 1 ? 's' : ''} selected`
+                        ? field.value
+                            .map((value: string) => {
+                              const item = items.find((item: MultiSelectItem) => {
+                                return item.value === value;
+                              });
+                              return item ? item.label : '';
+                            })
+                            .filter(Boolean)
+                            .join(', ')
                         : placeholder
                     }
                     readOnly
@@ -68,22 +97,17 @@ export function MultiSelect({
                 <CommandList>
                   <CommandEmpty>{emptyMessage}</CommandEmpty>
                   <CommandGroup>
-                    {items.map((item) => (
+                    {items.map((item: MultiSelectItem) => (
                       <CommandItem
+                        key={item.key}
                         value={item.value}
-                        key={item.id}
-                        onSelect={() => {
-                          const selectedIds = Array.from(
-                            new Set([...field.value, item.id.toString()])
-                          );
-                          form.setValue(name, selectedIds);
-                        }}
+                        onSelect={() => handleSelect(field, item)}
                       >
-                        {item.value}
+                        {item.label}
                         <Check
                           className={cn(
                             'ml-auto',
-                            field.value.includes(item.id.toString()) ? 'opacity-100' : 'opacity-0'
+                            field.value.includes(item.value) ? 'opacity-100' : 'opacity-0'
                           )}
                         />
                       </CommandItem>

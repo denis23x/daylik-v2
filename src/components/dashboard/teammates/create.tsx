@@ -28,7 +28,7 @@ import { MultiSelect } from '@/components/multi-select';
 const formSchema = z.object({
   name: z.string().min(2, 'Teammate name must be at least 2 characters'),
   position: z.string().min(2, 'Position must be at least 2 characters'),
-  teamId: z.array(z.number()),
+  teams: z.array(z.string()),
   avatar: z.string().optional(),
   color: z.string().min(4, 'Color must be a valid hex code'),
 });
@@ -46,7 +46,7 @@ const TeammatesCreate = () => {
     defaultValues: {
       name: '',
       position: '',
-      teamId: [],
+      teams: [],
       avatar: '',
       color: color,
     },
@@ -89,13 +89,15 @@ const TeammatesCreate = () => {
 
   const handleSubmit = async (formData: z.infer<typeof formSchema>) => {
     try {
+      // teamId: formData.teamId.length > 0 ? formData.teamId : null,
+
+      // TODO: Change to session?.user.id
       const { data, error } = await supabase
         .from('teammate')
         .insert([
           {
             name: formData.name,
             position: formData.position,
-            teamId: formData.teamId.length > 0 ? formData.teamId : null,
             userId: session?.user.id,
             avatar: formData.avatar || null,
             color: formData.color,
@@ -169,13 +171,15 @@ const TeammatesCreate = () => {
               />
               {teams && teams.length > 0 ? (
                 <MultiSelect
-                  name="teamId"
+                  name="teams"
                   label="Teams"
                   placeholder="Select teams"
                   searchPlaceholder="Search"
+                  emptyMessage="No team found"
                   items={teams.map((team: Team) => ({
-                    id: team.UUID,
-                    value: team.name,
+                    key: team.UUID,
+                    value: team.UUID,
+                    label: team.name,
                   }))}
                 />
               ) : null}
