@@ -57,7 +57,7 @@ const AuthLogin = () => {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="flex w-full max-w-xs flex-col items-center">
-        <p className="mt-4 text-xl font-bold tracking-tight">Log in to Daylik</p>
+        <p className="text-xl font-bold tracking-tight">Log in to Daylik</p>
         <Button className="mt-8 w-full gap-3">Continue with Google</Button>
         <div className="my-7 flex w-full items-center justify-center overflow-hidden">
           <Separator />
