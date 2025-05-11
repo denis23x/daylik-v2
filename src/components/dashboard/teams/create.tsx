@@ -11,24 +11,40 @@ import {
 import { Input } from '@/components/ui/input';
 import { Loader2, Plus } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, FormProvider, useFormContext } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { z } from 'zod';
 import { supabase } from '@/utils/supabase/client';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import ResponsiveDialog from '@/components/responsive-dialog';
 import { useSupabaseSession } from '@/hooks/useSupabaseSession';
+import { useState } from 'react';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Team name must be at least 2 characters'),
 });
 
-const TeamsCreateForm = () => {
-  const form = useFormContext<z.infer<typeof formSchema>>();
-
+const TeamsCreate = () => {
   const session = useSupabaseSession();
 
-  const onSubmit = async (formData: z.infer<typeof formSchema>) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    defaultValues: {
+      name: '',
+    },
+    resolver: zodResolver(formSchema),
+  });
+
+  const handleOpenChange = (open: boolean) => {
+    if (!form.formState.isSubmitting) {
+      form.reset();
+    }
+
+    setIsDialogOpen(open);
+  };
+
+  const handleSubmit = async (formData: z.infer<typeof formSchema>) => {
     try {
       const { data, error } = await supabase
         .from('team')
@@ -51,48 +67,11 @@ const TeamsCreateForm = () => {
       }
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'An error occurred');
+    } finally {
+      // Close the dialog after the form is submitted
+      setIsDialogOpen(false);
     }
   };
-
-  return (
-    <Form {...form}>
-      <form id="teams-create-form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field, formState }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter team name" disabled={formState.isSubmitting} {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </form>
-    </Form>
-  );
-};
-
-const TeamsCreateFormSubmit = () => {
-  const form = useFormContext<z.infer<typeof formSchema>>();
-
-  return (
-    <Button type="submit" form="teams-create-form" disabled={form.formState.isSubmitting}>
-      {form.formState.isSubmitting && <Loader2 className="mr-2 animate-spin" />}
-      {form.formState.isSubmitting ? 'Please wait' : 'Create'}
-    </Button>
-  );
-};
-
-const TeamsCreate = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: '',
-    },
-  });
 
   return (
     <FormProvider {...form}>
@@ -104,8 +83,37 @@ const TeamsCreate = () => {
             <Plus /> Create Team
           </Button>
         }
-        content={<TeamsCreateForm />}
-        footer={<TeamsCreateFormSubmit />}
+        content={
+          <Form {...form}>
+            <form className="space-y-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field, formState }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter team name"
+                        disabled={formState.isSubmitting}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </form>
+          </Form>
+        }
+        footer={
+          <Button onClick={form.handleSubmit(handleSubmit)} disabled={form.formState.isSubmitting}>
+            {form.formState.isSubmitting && <Loader2 className="mr-2 animate-spin" />}
+            {form.formState.isSubmitting ? 'Please wait' : 'Create'}
+          </Button>
+        }
+        open={isDialogOpen}
+        onOpenChange={handleOpenChange}
       />
     </FormProvider>
   );

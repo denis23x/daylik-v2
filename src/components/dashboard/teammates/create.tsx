@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input';
 import { supabase } from '@/utils/supabase/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
-import { FormProvider, useForm, useFormContext } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
 import { FolderOpenIcon, Loader2, Palette, Plus } from 'lucide-react';
@@ -40,12 +40,25 @@ const formSchema = z.object({
   color: z.string().min(4, 'Color must be a valid hex code'),
 });
 
-const TeammatesCreateForm = () => {
-  const form = useFormContext<z.infer<typeof formSchema>>();
-
+const TeammatesCreate = () => {
   const session = useSupabaseSession();
 
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const { color } = useRandomHexColor();
+
   const [teams, setTeams] = useState<Team[]>([]);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    defaultValues: {
+      name: '',
+      role: '',
+      teamId: '',
+      avatar: '',
+      color: color,
+    },
+    resolver: zodResolver(formSchema),
+  });
 
   useEffect(() => {
     const getTeams = async () => {
@@ -69,7 +82,15 @@ const TeammatesCreateForm = () => {
     getTeams();
   }, []);
 
-  const onSubmit = async (formData: z.infer<typeof formSchema>) => {
+  const handleOpenChange = (open: boolean) => {
+    if (!form.formState.isSubmitting) {
+      form.reset();
+    }
+
+    setIsDialogOpen(open);
+  };
+
+  const handleSubmit = async (formData: z.infer<typeof formSchema>) => {
     try {
       const { data, error } = await supabase
         .from('teammate')
@@ -96,140 +117,11 @@ const TeammatesCreateForm = () => {
       }
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'An error occurred');
+    } finally {
+      // Close the dialog after the form is submitted
+      setIsDialogOpen(false);
     }
   };
-
-  return (
-    <Form {...form}>
-      <form id="teammates-create-form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field, formState }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Enter teammate name"
-                  disabled={formState.isSubmitting}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="role"
-          render={({ field, formState }) => (
-            <FormItem>
-              <FormLabel>Role</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Enter teammate role"
-                  disabled={formState.isSubmitting}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        {teams && teams.length > 0 ? (
-          <FormField
-            control={form.control}
-            name="teamId"
-            render={({ field, fieldState, formState }) => (
-              <FormItem>
-                <FormLabel>Team (Optional)</FormLabel>
-                <FormControl>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    disabled={formState.isSubmitting}
-                  >
-                    <SelectTrigger
-                      className={cn(
-                        'w-full',
-                        fieldState.invalid &&
-                          '!border-destructive !ring-destructive/20 dark:!ring-destructive/40'
-                      )}
-                    >
-                      <SelectValue placeholder="Select a team (optional)" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {teams.map((team) => (
-                        <SelectItem key={team.id} value={team.id.toString()}>
-                          {team.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        ) : null}
-        <div className="flex items-end justify-end gap-4">
-          <FormField
-            control={form.control}
-            name="avatar"
-            render={({ field, formState }) => (
-              <FormItem className="flex-1">
-                <FormLabel>Avatar URL</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Enter avatar URL (optional)"
-                    disabled={formState.isSubmitting}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FileUploader>
-            <Button variant="outline" size="icon">
-              <FolderOpenIcon className="h-5 w-5" />
-            </Button>
-          </FileUploader>
-          <ColorPicker>
-            <Button variant="outline" size="icon">
-              <Palette className="h-5 w-5" />
-            </Button>
-          </ColorPicker>
-        </div>
-      </form>
-    </Form>
-  );
-};
-
-const TeammatesCreateFormSubmit = () => {
-  const form = useFormContext<z.infer<typeof formSchema>>();
-
-  return (
-    <Button type="submit" form="teammates-create-form" disabled={form.formState.isSubmitting}>
-      {form.formState.isSubmitting && <Loader2 className="mr-2 animate-spin" />}
-      {form.formState.isSubmitting ? 'Please wait' : 'Create'}
-    </Button>
-  );
-};
-
-const TeammatesCreate = () => {
-  const { color } = useRandomHexColor();
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    defaultValues: {
-      name: '',
-      role: '',
-      teamId: '',
-      avatar: '',
-      color: color,
-    },
-    resolver: zodResolver(formSchema),
-  });
 
   return (
     <FormProvider {...form}>
@@ -241,8 +133,119 @@ const TeammatesCreate = () => {
             <Plus /> Create Teammate
           </Button>
         }
-        content={<TeammatesCreateForm />}
-        footer={<TeammatesCreateFormSubmit />}
+        content={
+          <Form {...form}>
+            <form className="space-y-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field, formState }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter teammate name"
+                        disabled={formState.isSubmitting}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="role"
+                render={({ field, formState }) => (
+                  <FormItem>
+                    <FormLabel>Role</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter teammate role"
+                        disabled={formState.isSubmitting}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {teams && teams.length > 0 ? (
+                <FormField
+                  control={form.control}
+                  name="teamId"
+                  render={({ field, fieldState, formState }) => (
+                    <FormItem>
+                      <FormLabel>Team (Optional)</FormLabel>
+                      <FormControl>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                          disabled={formState.isSubmitting}
+                        >
+                          <SelectTrigger
+                            className={cn(
+                              'w-full',
+                              fieldState.invalid &&
+                                '!border-destructive !ring-destructive/20 dark:!ring-destructive/40'
+                            )}
+                          >
+                            <SelectValue placeholder="Select a team (optional)" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {teams.map((team) => (
+                              <SelectItem key={team.id} value={team.id.toString()}>
+                                {team.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              ) : null}
+              <div className="flex items-end justify-end gap-4">
+                <FormField
+                  control={form.control}
+                  name="avatar"
+                  render={({ field, formState }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>Avatar URL</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter avatar URL (optional)"
+                          disabled={formState.isSubmitting}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FileUploader>
+                  <Button variant="outline" size="icon">
+                    <FolderOpenIcon className="h-5 w-5" />
+                  </Button>
+                </FileUploader>
+                <ColorPicker>
+                  <Button variant="outline" size="icon">
+                    <Palette className="h-5 w-5" />
+                  </Button>
+                </ColorPicker>
+              </div>
+            </form>
+          </Form>
+        }
+        footer={
+          <Button onClick={form.handleSubmit(handleSubmit)} disabled={form.formState.isSubmitting}>
+            {form.formState.isSubmitting && <Loader2 className="mr-2 animate-spin" />}
+            {form.formState.isSubmitting ? 'Please wait' : 'Create'}
+          </Button>
+        }
+        open={isDialogOpen}
+        onOpenChange={handleOpenChange}
       />
     </FormProvider>
   );

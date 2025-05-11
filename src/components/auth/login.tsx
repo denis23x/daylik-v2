@@ -36,7 +36,7 @@ const AuthLogin = () => {
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = async (formData: z.infer<typeof formSchema>) => {
+  const handleSubmit = async (formData: z.infer<typeof formSchema>) => {
     try {
       const { error } = await supabase.auth.signInWithPassword({
         email: formData.email,
@@ -65,7 +65,7 @@ const AuthLogin = () => {
           <Separator />
         </div>
         <Form {...form}>
-          <form className="w-full space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+          <form className="w-full space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
             <FormField
               control={form.control}
               name="email"

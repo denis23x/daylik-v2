@@ -25,25 +25,37 @@ import { useState } from 'react';
 import { Button } from './ui/button';
 import { Separator } from './ui/separator';
 
+interface ResponsiveDialogProps {
+  title: string;
+  description: string;
+  trigger: React.ReactNode;
+  content: React.ReactNode;
+  footer: React.ReactNode;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+}
+
 const ResponsiveDialog = ({
   title,
   description,
   trigger,
   content,
   footer,
-}: {
-  title: string;
-  description: string;
-  trigger: React.ReactNode;
-  content: React.ReactNode;
-  footer: React.ReactNode;
-}) => {
-  const [open, setOpen] = useState(false);
+  open: controlledOpen,
+  onOpenChange: controlledOnOpenChange,
+}: ResponsiveDialogProps) => {
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
   const isDesktop = useMediaQuery('(min-width: 768px)');
+
+  // Use controlled props if provided, otherwise use internal state
+  const isControlled = controlledOpen !== undefined && controlledOnOpenChange !== undefined;
+
+  const open = isControlled ? controlledOpen : uncontrolledOpen;
+  const onOpenChange = isControlled ? controlledOnOpenChange : setUncontrolledOpen;
 
   if (isDesktop) {
     return (
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogTrigger suppressHydrationWarning asChild>
           {trigger}
         </DialogTrigger>
@@ -66,7 +78,7 @@ const ResponsiveDialog = ({
   }
 
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
+    <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerTrigger suppressHydrationWarning asChild>
         {trigger}
       </DrawerTrigger>
