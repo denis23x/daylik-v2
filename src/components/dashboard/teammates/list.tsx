@@ -12,7 +12,9 @@ const TeammatesList = ({ teammates }: { teammates: Teammate[] }) => {
                 className="bg-secondary object-cover"
                 src={teammate.avatar || undefined}
               />
-              <AvatarFallback>{teammate.name.slice(0, 2).toUpperCase()}</AvatarFallback>
+              <AvatarFallback style={{ backgroundColor: teammate.color }}>
+                {teammate.name.slice(0, 2).toUpperCase()}
+              </AvatarFallback>
             </Avatar>
             <h3 className="mt-4 text-lg font-semibold">{teammate.name}</h3>
             <p className="text-muted-foreground">{teammate.role}</p>

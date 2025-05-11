@@ -15,7 +15,7 @@ const ColorPicker = ({ children }: { children: React.ReactNode }) => {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>{children}</PopoverTrigger>
-      <PopoverContent className="w-50">
+      <PopoverContent className="w-80">
         <div className="space-y-4">
           <h4 className="font-medium">Choose a color</h4>
           <FormField
@@ -35,8 +35,8 @@ const ColorPicker = ({ children }: { children: React.ReactNode }) => {
               </FormItem>
             )}
           />
-          <Button size="sm" className="w-full" onClick={() => setOpen(false)}>
-            Apply
+          <Button className="w-full" onClick={() => setOpen(false)}>
+            Close
           </Button>
         </div>
       </PopoverContent>

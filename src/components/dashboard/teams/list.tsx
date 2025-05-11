@@ -9,9 +9,9 @@ const TeamsList = ({ teams }: { teams: Team[] }) => {
   const [mockTeammates] = useState<Teammate[]>([
     {
       id: 1,
-      name: 'John Doe',
-      role: 'Frontend Developer',
-      color: '#4287f5',
+      name: 'TM 1',
+      role: 'Dummy',
+      color: 'var(--background)',
       avatar: null,
       teamId: 1,
       userId: 1,
@@ -19,9 +19,9 @@ const TeamsList = ({ teams }: { teams: Team[] }) => {
     },
     {
       id: 2,
-      name: 'Jane Smith',
-      role: 'UI/UX Designer',
-      color: '#f54242',
+      name: 'TM 2',
+      role: 'Dummy',
+      color: 'var(--background)',
       avatar: null,
       teamId: 1,
       userId: 1,
@@ -29,9 +29,9 @@ const TeamsList = ({ teams }: { teams: Team[] }) => {
     },
     {
       id: 3,
-      name: 'Alex Johnson',
-      role: 'Backend Developer',
-      color: '#42f56f',
+      name: 'TM 3',
+      role: 'Dummy',
+      color: 'var(--background)',
       avatar: null,
       teamId: 1,
       userId: 1,
@@ -39,9 +39,9 @@ const TeamsList = ({ teams }: { teams: Team[] }) => {
     },
     {
       id: 4,
-      name: 'Sam Wilson',
-      role: 'Project Manager',
-      color: '#f5a742',
+      name: 'TM 4',
+      role: 'Dummy',
+      color: 'var(--background)',
       avatar: null,
       teamId: 1,
       userId: 1,
@@ -55,8 +55,9 @@ const TeamsList = ({ teams }: { teams: Team[] }) => {
         {teams.map((team: Team) => (
           <div key={team.id} className="text-center">
             <div className="mx-auto grid aspect-square h-30 w-30 grid-cols-2 grid-rows-2 gap-2">
-              {(team.teammate.length >= 4 ? team.teammate.slice(0, 4) : mockTeammates).map(
-                (teammate: Teammate) => (
+              {(team.teammate.length >= 4 ? team.teammate : [...team.teammate, ...mockTeammates])
+                .slice(0, 4)
+                .map((teammate: Teammate) => (
                   <Avatar
                     className="col-span-1 row-span-1 flex h-14 w-14 items-center justify-center"
                     key={teammate.id}
@@ -65,10 +66,14 @@ const TeamsList = ({ teams }: { teams: Team[] }) => {
                       className="bg-secondary object-cover"
                       src={teammate.avatar || undefined}
                     />
-                    <AvatarFallback>{teammate.name.slice(0, 2).toUpperCase()}</AvatarFallback>
+                    <AvatarFallback
+                      style={{ backgroundColor: teammate.color }}
+                      className={teammate.role === 'Dummy' ? 'border border-dashed' : ''}
+                    >
+                      {teammate.name.slice(0, 2).toUpperCase()}
+                    </AvatarFallback>
                   </Avatar>
-                )
-              )}
+                ))}
             </div>
             <h3 className="mt-4 text-lg font-semibold">{team.name}</h3>
           </div>
