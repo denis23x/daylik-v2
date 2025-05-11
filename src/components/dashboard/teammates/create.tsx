@@ -10,10 +10,9 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import type { SupabaseSession } from '@/types/supabaseSession';
 import { supabase } from '@/utils/supabase/client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
@@ -31,6 +30,7 @@ import { cn } from '@/lib/utils';
 import { useRandomHexColor } from '@/hooks/useRandomHexColor';
 import FileUploader from '@/components/file-uploader';
 import ColorPicker from '@/components/color-picker';
+import { useSupabaseSession } from '@/hooks/useSupabaseSession';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Teammate name must be at least 2 characters'),
@@ -43,24 +43,9 @@ const formSchema = z.object({
 const TeammatesCreateForm = () => {
   const form = useFormContext<z.infer<typeof formSchema>>();
 
-  const session = useRef<SupabaseSession | null>(null);
+  const session = useSupabaseSession();
+
   const [teams, setTeams] = useState<Team[]>([]);
-
-  useEffect(() => {
-    const getSession = async () => {
-      const { data, error } = await supabase.auth.getSession();
-
-      if (error) {
-        toast.error(error.message);
-      }
-
-      if (data) {
-        session.current = data.session as SupabaseSession;
-      }
-    };
-
-    getSession();
-  }, []);
 
   useEffect(() => {
     const getTeams = async () => {
@@ -86,7 +71,7 @@ const TeammatesCreateForm = () => {
           name: formData.name,
           role: formData.role,
           teamId: formData.teamId,
-          userId: session.current?.user.id,
+          userId: session?.user.id,
           avatar: formData.avatar || null,
           color: formData.color,
         },

@@ -14,11 +14,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, FormProvider, useFormContext } from 'react-hook-form';
 import { z } from 'zod';
 import { supabase } from '@/utils/supabase/client';
-import { useEffect, useRef } from 'react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
-import type { SupabaseSession } from '@/types/supabaseSession';
 import ResponsiveDialog from '@/components/responsive-dialog';
+import { useSupabaseSession } from '@/hooks/useSupabaseSession';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Team name must be at least 2 characters'),
@@ -27,23 +26,7 @@ const formSchema = z.object({
 const TeamsCreateForm = () => {
   const form = useFormContext<z.infer<typeof formSchema>>();
 
-  const session = useRef<SupabaseSession | null>(null);
-
-  useEffect(() => {
-    const getSession = async () => {
-      const { data, error } = await supabase.auth.getSession();
-
-      if (error) {
-        toast.error(error.message);
-      }
-
-      if (data) {
-        session.current = data.session as SupabaseSession;
-      }
-    };
-
-    getSession();
-  }, []);
+  const session = useSupabaseSession();
 
   const onSubmit = async (formData: z.infer<typeof formSchema>) => {
     const { data, error } = await supabase
@@ -51,7 +34,7 @@ const TeamsCreateForm = () => {
       .insert([
         {
           name: formData.name,
-          userId: session.current?.user.id,
+          userId: session?.user.id,
         },
       ])
       .select('*');

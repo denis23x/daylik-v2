@@ -10,6 +10,9 @@ import { supabase } from '@/utils/supabase/client';
 import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
+// Max file size 1MB
+const MAX_FILE_SIZE = 1 * 1024 * 1024;
+
 const FileUploader = ({ children }: { children: React.ReactNode }) => {
   const form = useFormContext();
 
@@ -18,19 +21,40 @@ const FileUploader = ({ children }: { children: React.ReactNode }) => {
   const [isUploading, setIsUploading] = useState(false);
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    // Early validation checks
+    if (!file) {
+      toast.warning('No file selected');
+      return;
+    }
+
+    if (!file.type.startsWith('image/')) {
+      toast.error('Only image files are allowed');
+      return;
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+      toast.error('File is too large (max 1MB)');
+      return;
+    }
+
+    if (isUploading) {
+      toast.error('Upload already in progress');
+      return;
+    }
+
+    // Start uploading
+    setIsUploading(true);
+
     try {
-      const file = e.target.files?.[0];
-
-      if (!file) return;
-
-      setIsUploading(true);
-
       // Upload file to Supabase storage
       const fileName = `${Date.now()}-${file.name}`;
       const { error } = await supabase.storage.from('avatars').upload(fileName, file);
 
       if (error) {
         toast.error(error.message);
+        return;
       }
 
       // Get public URL
@@ -38,9 +62,12 @@ const FileUploader = ({ children }: { children: React.ReactNode }) => {
 
       // Update form with the file URL
       form.setValue('avatar', data.publicUrl);
+
+      // Close the popover
       setOpen(false);
     } catch (error) {
-      console.error('Error uploading file:', error);
+      // Display error to user
+      toast.error(error instanceof Error ? error.message : 'Failed to upload file');
     } finally {
       setIsUploading(false);
     }

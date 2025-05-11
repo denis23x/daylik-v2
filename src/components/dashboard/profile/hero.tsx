@@ -1,16 +1,8 @@
 'use client';
 
 import { Badge } from '@/components/ui/badge';
-import { supabase } from '@/utils/supabase/client';
-import { useEffect } from 'react';
 
 const ProfileHero = () => {
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      console.log('Session:', data.session);
-    });
-  }, []);
-
   return (
     <div className="relative flex min-h-screen items-center justify-center px-6">
       <div className="max-w-2xl text-center">

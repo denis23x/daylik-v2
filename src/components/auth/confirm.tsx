@@ -3,32 +3,23 @@
 import { AnimatedGridPattern } from '@/components/magicui/animated-grid-pattern';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { useSupabaseSession } from '@/hooks/useSupabaseSession';
 import { cn } from '@/lib/utils';
-import { supabase } from '@/utils/supabase/client';
 import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useCallback, useEffect } from 'react';
-import { toast } from 'sonner';
+import { useEffect } from 'react';
 
 const AuthConfirmation = () => {
   const router = useRouter();
 
-  const checkSession = useCallback(async () => {
-    const { data, error } = await supabase.auth.getSession();
-
-    if (error) {
-      toast.error(error.message);
-    }
-
-    if (data.session) {
-      router.push('/teams');
-    }
-  }, [router]);
+  const session = useSupabaseSession();
 
   useEffect(() => {
-    checkSession();
-  }, [checkSession]);
+    if (session) {
+      router.push('/teams');
+    }
+  }, [router, session]);
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
