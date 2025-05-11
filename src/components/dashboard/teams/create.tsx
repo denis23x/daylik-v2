@@ -9,7 +9,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { ArrowUpRight, Loader2 } from 'lucide-react';
+import { Loader2, Plus } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, FormProvider, useFormContext } from 'react-hook-form';
 import { z } from 'zod';
@@ -100,8 +100,8 @@ const TeamsCreate = () => {
         title="Create Team"
         description="Create a new team to start collaborating with your teammates."
         trigger={
-          <Button size="lg" className="rounded-full text-base">
-            Create Team <ArrowUpRight className="!h-5 !w-5" />
+          <Button className="cursor-pointer">
+            <Plus /> Create Team
           </Button>
         }
         content={<TeamsCreateForm />}

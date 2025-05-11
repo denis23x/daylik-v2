@@ -16,7 +16,7 @@ import { useEffect, useState } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
-import { ArrowUpRight, FolderOpenIcon, Loader2, Palette } from 'lucide-react';
+import { FolderOpenIcon, Loader2, Palette, Plus } from 'lucide-react';
 import ResponsiveDialog from '@/components/responsive-dialog';
 import type { Team } from '@/types/team';
 import {
@@ -35,7 +35,7 @@ import { useSupabaseSession } from '@/hooks/useSupabaseSession';
 const formSchema = z.object({
   name: z.string().min(2, 'Teammate name must be at least 2 characters'),
   role: z.string().min(2, 'Role must be at least 2 characters'),
-  teamId: z.string().min(1, 'Team is required'),
+  teamId: z.string().optional(),
   avatar: z.string().optional(),
   color: z.string().min(4, 'Color must be a valid hex code'),
 });
@@ -77,7 +77,7 @@ const TeammatesCreateForm = () => {
           {
             name: formData.name,
             role: formData.role,
-            teamId: formData.teamId,
+            teamId: formData.teamId || null,
             userId: session?.user.id,
             avatar: formData.avatar || null,
             color: formData.color,
@@ -136,40 +136,42 @@ const TeammatesCreateForm = () => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="teamId"
-          render={({ field, fieldState, formState }) => (
-            <FormItem>
-              <FormLabel>Team</FormLabel>
-              <FormControl>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                  disabled={formState.isSubmitting}
-                >
-                  <SelectTrigger
-                    className={cn(
-                      'w-full',
-                      fieldState.invalid &&
-                        '!border-destructive !ring-destructive/20 dark:!ring-destructive/40'
-                    )}
+        {teams && teams.length > 0 ? (
+          <FormField
+            control={form.control}
+            name="teamId"
+            render={({ field, fieldState, formState }) => (
+              <FormItem>
+                <FormLabel>Team (Optional)</FormLabel>
+                <FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    disabled={formState.isSubmitting}
                   >
-                    <SelectValue placeholder="Select a team" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {teams.map((team) => (
-                      <SelectItem key={team.id} value={team.id.toString()}>
-                        {team.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                    <SelectTrigger
+                      className={cn(
+                        'w-full',
+                        fieldState.invalid &&
+                          '!border-destructive !ring-destructive/20 dark:!ring-destructive/40'
+                      )}
+                    >
+                      <SelectValue placeholder="Select a team (optional)" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {teams.map((team) => (
+                        <SelectItem key={team.id} value={team.id.toString()}>
+                          {team.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        ) : null}
         <div className="flex items-end justify-end gap-4">
           <FormField
             control={form.control}
@@ -235,8 +237,8 @@ const TeammatesCreate = () => {
         title="Create Teammate"
         description="Create a new teammate to start collaborating with your team."
         trigger={
-          <Button size="lg" className="rounded-full text-base">
-            Create Teammate <ArrowUpRight className="!h-5 !w-5" />
+          <Button className="cursor-pointer">
+            <Plus /> Create Teammate
           </Button>
         }
         content={<TeammatesCreateForm />}

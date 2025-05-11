@@ -1,15 +1,37 @@
+'use client';
+
 import TeammatesHero from '@/components/dashboard/teammates/hero';
 import TeammatesList from '@/components/dashboard/teammates/list';
-import { createClient } from '@/utils/supabase/server';
+import type { Teammate } from '@/types/teammate';
+import { supabase } from '@/utils/supabase/client';
+import { useState, useEffect } from 'react';
+import { toast } from 'sonner';
 
-export default async function Teammates() {
-  const supabase = await createClient();
-  const { data: teammates } = await supabase.from('teammate').select('*');
+export default function Teammates() {
+  const [teammates, setTeammates] = useState<Teammate[]>([]);
+
+  useEffect(() => {
+    const fetchTeammates = async () => {
+      const { data, error } = await supabase.from('teammate').select('*');
+
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
+
+      if (data) {
+        setTeammates(data);
+        return;
+      }
+    };
+
+    fetchTeammates();
+  }, []);
 
   return (
     <>
       <TeammatesHero />
-      <TeammatesList teammates={teammates ?? []} />
+      {teammates && teammates.length > 0 ? <TeammatesList teammates={teammates} /> : null}
     </>
   );
 }
