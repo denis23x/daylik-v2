@@ -29,6 +29,8 @@ import {
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import { useRandomHexColor } from '@/hooks/useRandomHexColor';
+import FileUploader from '@/components/file-uploader';
+import ColorPicker from '@/components/color-picker';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Teammate name must be at least 2 characters'),
@@ -189,12 +191,16 @@ const TeammatesCreateForm = () => {
               </FormItem>
             )}
           />
-          <Button variant="outline" size="icon">
-            <FolderOpenIcon className="h-5 w-5" />
-          </Button>
-          <Button variant="outline" size="icon">
-            <Palette className="h-5 w-5" />
-          </Button>
+          <FileUploader>
+            <Button variant="outline" size="icon">
+              <FolderOpenIcon className="h-5 w-5" />
+            </Button>
+          </FileUploader>
+          <ColorPicker>
+            <Button variant="outline" size="icon">
+              <Palette className="h-5 w-5" />
+            </Button>
+          </ColorPicker>
         </div>
       </form>
     </Form>
