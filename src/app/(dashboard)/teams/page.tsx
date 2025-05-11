@@ -12,7 +12,11 @@ export default function Teams() {
 
   useEffect(() => {
     const fetchTeams = async () => {
-      const { data, error } = await supabase.from('team').select('*, teammate(*)');
+      // TODO: Change to session?.user.id
+      const { data, error } = await supabase
+        .from('teams')
+        .select('*')
+        .eq('userUUID', '6d8479a5-4d38-46c3-b3a0-5b905aa3c92a');
 
       if (error) {
         toast.error(error.message);

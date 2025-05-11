@@ -27,7 +27,7 @@ import { MultiSelect } from '@/components/multi-select';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Teammate name must be at least 2 characters'),
-  role: z.string().min(2, 'Role must be at least 2 characters'),
+  position: z.string().min(2, 'Position must be at least 2 characters'),
   teamId: z.array(z.number()),
   avatar: z.string().optional(),
   color: z.string().min(4, 'Color must be a valid hex code'),
@@ -45,7 +45,7 @@ const TeammatesCreate = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       name: '',
-      role: '',
+      position: '',
       teamId: [],
       avatar: '',
       color: color,
@@ -56,7 +56,11 @@ const TeammatesCreate = () => {
   useEffect(() => {
     const getTeams = async () => {
       try {
-        const { data, error } = await supabase.from('team').select('*');
+        // TODO: Change to session?.user.id
+        const { data, error } = await supabase
+          .from('teams')
+          .select('*')
+          .eq('userUUID', '6d8479a5-4d38-46c3-b3a0-5b905aa3c92a');
 
         if (error) {
           toast.error(error.message);
@@ -90,7 +94,7 @@ const TeammatesCreate = () => {
         .insert([
           {
             name: formData.name,
-            role: formData.role,
+            position: formData.position,
             teamId: formData.teamId.length > 0 ? formData.teamId : null,
             userId: session?.user.id,
             avatar: formData.avatar || null,
@@ -148,13 +152,13 @@ const TeammatesCreate = () => {
               />
               <FormField
                 control={form.control}
-                name="role"
+                name="position"
                 render={({ field, formState }) => (
                   <FormItem>
-                    <FormLabel>Role</FormLabel>
+                    <FormLabel>Position</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Enter teammate role"
+                        placeholder="Enter teammate position"
                         disabled={formState.isSubmitting}
                         {...field}
                       />
@@ -169,8 +173,8 @@ const TeammatesCreate = () => {
                   label="Teams"
                   placeholder="Select teams"
                   searchPlaceholder="Search"
-                  items={teams.map((team) => ({
-                    id: team.id,
+                  items={teams.map((team: Team) => ({
+                    id: team.UUID,
                     value: team.name,
                   }))}
                 />

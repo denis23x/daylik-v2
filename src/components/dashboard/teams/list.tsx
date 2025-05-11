@@ -8,43 +8,39 @@ import { useState } from 'react';
 const TeamsList = ({ teams }: { teams: Team[] }) => {
   const [mockTeammates] = useState<Teammate[]>([
     {
-      id: 1,
+      UUID: '3a7f1e9b-8c5d-4f3a-b8e2-6c9d4a7b1c3e',
       name: 'TM 1',
-      role: 'Dummy',
+      position: 'Dummy',
       color: 'var(--background)',
       avatar: null,
-      teamId: 1,
-      userId: 1,
+      userUUID: '6d8479a5-4d38-46c3-b3a0-5b905aa3c92a',
       createdAt: new Date().toISOString(),
     },
     {
-      id: 2,
+      UUID: 'f8e7d6c5-b4a3-2f1e-9d8c-7b6a5f4e3d2c',
       name: 'TM 2',
-      role: 'Dummy',
+      position: 'Dummy',
       color: 'var(--background)',
       avatar: null,
-      teamId: 1,
-      userId: 1,
+      userUUID: '7b5878a0-3b78-4583-a14a-edb60232ba5e',
       createdAt: new Date().toISOString(),
     },
     {
-      id: 3,
+      UUID: '1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d',
       name: 'TM 3',
-      role: 'Dummy',
+      position: 'Dummy',
       color: 'var(--background)',
       avatar: null,
-      teamId: 1,
-      userId: 1,
+      userUUID: '0c7a87e0-0402-4e6b-9772-1ab49b2307f4',
       createdAt: new Date().toISOString(),
     },
     {
-      id: 4,
+      UUID: 'a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6',
       name: 'TM 4',
-      role: 'Dummy',
+      position: 'Dummy',
       color: 'var(--background)',
       avatar: null,
-      teamId: 1,
-      userId: 1,
+      userUUID: 'f51d3b27-36a2-46c6-8f6e-32d2a3e08636',
       createdAt: new Date().toISOString(),
     },
   ]);
@@ -53,14 +49,17 @@ const TeamsList = ({ teams }: { teams: Team[] }) => {
     <div className="flex min-h-screen flex-col items-center justify-center px-4 py-14 sm:px-6 lg:px-8">
       <div className="mx-auto mt-20 grid w-full max-w-screen-lg grid-cols-2 gap-12 sm:grid-cols-3 md:grid-cols-4">
         {teams.map((team: Team) => (
-          <div key={team.id} className="text-center">
+          <div key={team.UUID} className="text-center">
             <div className="mx-auto grid aspect-square h-30 w-30 grid-cols-2 grid-rows-2 gap-2">
-              {(team.teammate.length >= 4 ? team.teammate : [...team.teammate, ...mockTeammates])
+              {(team.teammates && team.teammates?.length >= 4
+                ? team.teammates
+                : [...(team.teammates || []), ...mockTeammates]
+              )
                 .slice(0, 4)
                 .map((teammate: Teammate) => (
                   <Avatar
                     className="col-span-1 row-span-1 flex h-14 w-14 items-center justify-center"
-                    key={teammate.id}
+                    key={teammate.UUID}
                   >
                     <AvatarImage
                       className="bg-secondary object-cover"
@@ -68,7 +67,7 @@ const TeamsList = ({ teams }: { teams: Team[] }) => {
                     />
                     <AvatarFallback
                       style={{ backgroundColor: teammate.color }}
-                      className={teammate.role === 'Dummy' ? 'border border-dashed' : ''}
+                      className={teammate.position === 'Dummy' ? 'border border-dashed' : ''}
                     >
                       {teammate.name.slice(0, 2).toUpperCase()}
                     </AvatarFallback>

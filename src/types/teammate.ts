@@ -1,10 +1,12 @@
+import type { Team } from './team';
+
 export type Teammate = {
-  id: number;
+  UUID: string;
   name: string;
-  role: string;
+  position: string;
   color: string;
   avatar: string | null;
-  userId: number;
-  teamId: number;
+  userUUID: string;
+  teams?: Team[];
   createdAt: string;
 };

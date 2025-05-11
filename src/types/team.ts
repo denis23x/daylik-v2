@@ -1,9 +1,9 @@
 import type { Teammate } from './teammate';
 
 export type Team = {
-  id: number;
+  UUID: string;
   name: string;
-  userId: number;
+  userUUID: string;
   createdAt: string;
-  teammate: Teammate[];
+  teammates?: Teammate[];
 };

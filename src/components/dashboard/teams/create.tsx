@@ -46,12 +46,13 @@ const TeamsCreate = () => {
 
   const handleSubmit = async (formData: z.infer<typeof formSchema>) => {
     try {
+      // TODO: Change to session?.user.id
       const { data, error } = await supabase
-        .from('team')
+        .from('teams')
         .insert([
           {
             name: formData.name,
-            userId: session?.user.id,
+            userUUID: session?.user.id,
           },
         ])
         .select('*');
