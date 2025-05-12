@@ -7,7 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { FormControl, FormField, FormItem, FormMessage } from './ui/form';
 import { useFormContext } from 'react-hook-form';
 
-const ColorPicker = ({ children }: { children: React.ReactNode }) => {
+const ColorPicker = ({ name, children }: { name: string; children: React.ReactNode }) => {
   const form = useFormContext();
 
   const [open, setOpen] = useState(false);
@@ -20,7 +20,7 @@ const ColorPicker = ({ children }: { children: React.ReactNode }) => {
           <h4 className="font-medium">Choose a color</h4>
           <FormField
             control={form.control}
-            name="color"
+            name={name}
             render={({ field }) => (
               <FormItem>
                 <div className="relative flex items-center gap-2">

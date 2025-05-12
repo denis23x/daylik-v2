@@ -13,7 +13,7 @@ import { toast } from 'sonner';
 // Max file size 1MB
 const MAX_FILE_SIZE = 1 * 1024 * 1024;
 
-const FileUploader = ({ children }: { children: React.ReactNode }) => {
+const FileUploader = ({ name, children }: { name: string; children: React.ReactNode }) => {
   const form = useFormContext();
 
   const [open, setOpen] = useState(false);
@@ -61,7 +61,7 @@ const FileUploader = ({ children }: { children: React.ReactNode }) => {
       const { data } = supabase.storage.from('avatars').getPublicUrl(fileName);
 
       // Update form with the file URL
-      form.setValue('avatar', data.publicUrl);
+      form.setValue(name, data.publicUrl);
 
       // Close the popover
       setOpen(false);
@@ -76,12 +76,12 @@ const FileUploader = ({ children }: { children: React.ReactNode }) => {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>{children}</PopoverTrigger>
-      <PopoverContent className="w-80">
+      <PopoverContent onOpenAutoFocus={(e) => e.preventDefault()} className="w-80">
         <div className="space-y-4">
           <h4 className="font-medium">Upload file</h4>
           <FormField
             control={form.control}
-            name="avatar"
+            name={name}
             render={() => (
               <FormItem>
                 <FormControl>

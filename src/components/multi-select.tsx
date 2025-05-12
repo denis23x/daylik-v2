@@ -100,7 +100,7 @@ export function MultiSelect({
                     {items.map((item: MultiSelectItem) => (
                       <CommandItem
                         key={item.key}
-                        value={item.value}
+                        value={item.label}
                         onSelect={() => handleSelect(field, item)}
                       >
                         {item.label}

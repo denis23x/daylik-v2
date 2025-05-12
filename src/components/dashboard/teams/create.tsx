@@ -87,7 +87,7 @@ const TeamsCreate = () => {
         }
         content={
           <Form {...form}>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
               <FormField
                 control={form.control}
                 name="name"
@@ -109,7 +109,11 @@ const TeamsCreate = () => {
           </Form>
         }
         footer={
-          <Button onClick={form.handleSubmit(handleSubmit)} disabled={form.formState.isSubmitting}>
+          <Button
+            type="button"
+            onClick={form.handleSubmit(handleSubmit)}
+            disabled={form.formState.isSubmitting}
+          >
             {form.formState.isSubmitting && <Loader2 className="mr-2 animate-spin" />}
             {form.formState.isSubmitting ? 'Please wait' : 'Create'}
           </Button>

@@ -146,7 +146,7 @@ const TeammatesCreate = () => {
         }
         content={
           <Form {...form}>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
               <FormField
                 control={form.control}
                 name="name"
@@ -213,12 +213,12 @@ const TeammatesCreate = () => {
                     </FormItem>
                   )}
                 />
-                <FileUploader>
+                <FileUploader name="avatar">
                   <Button variant="outline" size="icon">
                     <FolderOpenIcon className="h-5 w-5" />
                   </Button>
                 </FileUploader>
-                <ColorPicker>
+                <ColorPicker name="color">
                   <Button variant="outline" size="icon">
                     <Palette className="h-5 w-5" />
                   </Button>
@@ -228,7 +228,11 @@ const TeammatesCreate = () => {
           </Form>
         }
         footer={
-          <Button onClick={form.handleSubmit(handleSubmit)} disabled={form.formState.isSubmitting}>
+          <Button
+            type="button"
+            onClick={form.handleSubmit(handleSubmit)}
+            disabled={form.formState.isSubmitting}
+          >
             {form.formState.isSubmitting && <Loader2 className="mr-2 animate-spin" />}
             {form.formState.isSubmitting ? 'Please wait' : 'Create'}
           </Button>
