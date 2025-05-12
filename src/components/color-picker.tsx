@@ -15,7 +15,7 @@ const ColorPicker = ({ children }: { children: React.ReactNode }) => {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>{children}</PopoverTrigger>
-      <PopoverContent className="w-80">
+      <PopoverContent onOpenAutoFocus={(e) => e.preventDefault()} className="w-80">
         <div className="space-y-4">
           <h4 className="font-medium">Choose a color</h4>
           <FormField
@@ -23,9 +23,15 @@ const ColorPicker = ({ children }: { children: React.ReactNode }) => {
             name="color"
             render={({ field }) => (
               <FormItem>
-                <div className="flex items-center gap-2">
+                <div className="relative flex items-center gap-2">
+                  <Button variant="outline" size="icon">
+                    <span
+                      className="h-4 w-4 rounded-full"
+                      style={{ backgroundColor: field.value }}
+                    ></span>
+                  </Button>
                   <FormControl>
-                    <Input type="color" {...field} className="w-12 cursor-pointer" />
+                    <Input type="color" {...field} className="absolute h-9 w-9 opacity-0" />
                   </FormControl>
                   <FormControl>
                     <Input type="text" {...field} placeholder="#000000" className="flex-1" />
