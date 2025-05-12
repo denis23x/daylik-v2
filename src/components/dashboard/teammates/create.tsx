@@ -152,7 +152,9 @@ const TeammatesCreate = () => {
                 name="name"
                 render={({ field, formState }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>
+                      Name <span className="text-destructive">*</span>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Enter teammate name"
@@ -169,7 +171,9 @@ const TeammatesCreate = () => {
                 name="position"
                 render={({ field, formState }) => (
                   <FormItem>
-                    <FormLabel>Position</FormLabel>
+                    <FormLabel>
+                      Position <span className="text-destructive">*</span>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Enter teammate position"
@@ -185,7 +189,7 @@ const TeammatesCreate = () => {
                 <MultiSelect
                   name="teams"
                   label="Teams"
-                  placeholder="Select teams"
+                  placeholder="Select teams (optional)"
                   searchPlaceholder="Search"
                   emptyMessage="No team found"
                   items={teams.map((team: Team) => ({
@@ -201,7 +205,7 @@ const TeammatesCreate = () => {
                   name="avatar"
                   render={({ field, formState }) => (
                     <FormItem className="flex-1">
-                      <FormLabel>Avatar URL</FormLabel>
+                      <FormLabel>Avatar</FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Enter avatar URL (optional)"

@@ -67,7 +67,9 @@ const TeamsList = ({ teams }: { teams: Team[] }) => {
                     />
                     <AvatarFallback
                       style={{ backgroundColor: teammate.color }}
-                      className={teammate.position === 'Dummy' ? 'border border-dashed' : ''}
+                      className={
+                        teammate.position === 'Dummy' ? 'border-primary border border-dashed' : ''
+                      }
                     >
                       {teammate.name.slice(0, 2).toUpperCase()}
                     </AvatarFallback>
