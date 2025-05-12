@@ -78,7 +78,7 @@ const ResponsiveDialog = ({
   }
 
   return (
-    <Drawer open={open} onOpenChange={onOpenChange}>
+    <Drawer repositionInputs={false} open={open} onOpenChange={onOpenChange}>
       <DrawerTrigger suppressHydrationWarning asChild>
         {trigger}
       </DrawerTrigger>
