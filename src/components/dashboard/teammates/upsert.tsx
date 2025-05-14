@@ -39,7 +39,7 @@ const formSchema = z.object({
 
 const TeammatesUpsert = () => {
   const { user } = useAuth();
-  const { data: teams, error } = useTeams(user);
+  const { data: teams, error, refetch } = useTeams(user, false);
   const { mutateAsync: createTeammate } = useCreateTeammate();
   const { mutateAsync: updateTeammate } = useUpdateTeammate();
   const { color: randomColor } = useRandomHexColor();
@@ -55,6 +55,12 @@ const TeammatesUpsert = () => {
     },
     resolver: zodResolver(formSchema),
   });
+
+  useEffect(() => {
+    if (isOpen) {
+      refetch();
+    }
+  }, [isOpen, refetch]);
 
   useEffect(() => {
     if (mode === 'update' && teammate) {

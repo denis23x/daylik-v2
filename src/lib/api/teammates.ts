@@ -3,20 +3,7 @@ import { supabase } from '@/utils/supabase/client';
 import type { User } from '@supabase/supabase-js';
 
 export async function fetchTeammates(user: User): Promise<Teammate[]> {
-  const { data, error } = await supabase
-    .from('teammates')
-    .select(
-      `
-          *,
-          teams_teammates (
-            teams (
-              UUID,
-              name
-            )
-          )
-        `
-    )
-    .eq('userUUID', user.id);
+  const { data, error } = await supabase.from('teammates').select().eq('userUUID', user.id);
   if (error) throw new Error(error.message);
   return data || [];
 }

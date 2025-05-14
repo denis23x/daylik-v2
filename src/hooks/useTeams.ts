@@ -2,11 +2,11 @@ import { fetchTeams, createTeam, updateTeam, deleteTeam } from '@/lib/api/teams'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import type { User } from '@supabase/supabase-js';
 
-export function useTeams(user: User | null) {
+export function useTeams(user: User | null, enabled: boolean = true) {
   return useQuery({
     queryKey: ['teams'],
     queryFn: () => fetchTeams(user!),
-    enabled: !!user,
+    enabled: !!user && enabled,
     staleTime: 1000 * 60 * 5,
   });
 }
