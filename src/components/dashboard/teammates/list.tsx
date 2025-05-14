@@ -8,11 +8,12 @@ import { useAuth } from '@/context/AuthProvider';
 import NotFound from '@/components/not-found';
 import ErrorOccurred from '@/components/error-occurred';
 import Loading from '@/components/loading';
+import { useTeammateUpsertStore } from '@/store/useTeammateUpsertStore';
 
 const TeammatesList = () => {
   const { user } = useAuth();
   const { data, error, isLoading } = useTeammates(user);
-
+  const { openModal } = useTeammateUpsertStore();
   const [teammates, setTeammates] = useState<Teammate[]>([]);
 
   useEffect(() => {
@@ -31,6 +32,10 @@ const TeammatesList = () => {
     }
   }, [data, error]);
 
+  const handleEdit = (teammate: Teammate) => {
+    openModal('update', teammate);
+  };
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center px-4 py-14 sm:px-6 lg:px-8">
       {isLoading && <Loading />}
@@ -39,7 +44,11 @@ const TeammatesList = () => {
       {!isLoading && !error && teammates.length !== 0 && (
         <div className="mx-auto mt-20 grid w-full max-w-screen-lg grid-cols-2 gap-12 sm:grid-cols-3 md:grid-cols-4">
           {teammates.map((teammate: Teammate) => (
-            <div key={teammate.UUID} className="text-center">
+            <button
+              className="text-center"
+              key={teammate.UUID}
+              onClick={() => handleEdit(teammate)}
+            >
               <Avatar className="mx-auto h-30 w-30">
                 <AvatarImage
                   className="bg-secondary object-cover"
@@ -51,7 +60,7 @@ const TeammatesList = () => {
               </Avatar>
               <h3 className="mt-4 text-lg font-semibold">{teammate.name}</h3>
               <p className="text-muted-foreground">{teammate.position}</p>
-            </div>
+            </button>
           ))}
         </div>
       )}

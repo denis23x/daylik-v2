@@ -1,9 +1,18 @@
+'use client';
+
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Plus } from 'lucide-react';
+import { useTeammateUpsertStore } from '@/store/useTeammateUpsertStore';
 
 const TeammatesHero = () => {
+  const { openModal } = useTeammateUpsertStore();
+
+  const handleCreate = () => {
+    openModal('insert');
+  };
+
   return (
     <div className="relative flex min-h-screen items-center justify-center px-6">
       <div className="max-w-2xl text-center">
@@ -20,7 +29,7 @@ const TeammatesHero = () => {
           <Button variant="outline" asChild>
             <Link href="/teams">Teams</Link>
           </Button>
-          <Button className="cursor-pointer">
+          <Button className="cursor-pointer" onClick={handleCreate}>
             <Plus /> Create Teammate
           </Button>
         </div>

@@ -29,7 +29,9 @@ export async function createTeammate(
   return data;
 }
 
-export async function updateTeammate(teammate: Teammate): Promise<Teammate> {
+export async function updateTeammate(
+  teammate: Omit<Teammate, 'userUUID' | 'createdAt'>
+): Promise<Teammate> {
   const { data, error } = await supabase
     .from('teammates')
     .update(teammate)

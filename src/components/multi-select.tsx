@@ -59,7 +59,12 @@ export function MultiSelect({
       name={name}
       render={({ field, formState }) => (
         <FormItem className="flex flex-col">
-          <FormLabel>{label}</FormLabel>
+          <FormLabel>
+            {label}{' '}
+            {field.value.length !== 0 && (
+              <span className="text-muted-foreground">({field.value.length})</span>
+            )}
+          </FormLabel>
           <Popover>
             <PopoverTrigger asChild>
               <FormControl>

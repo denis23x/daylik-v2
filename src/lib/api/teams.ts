@@ -1,8 +1,9 @@
 import type { Team } from '@/types/team.type';
 import { supabase } from '@/utils/supabase/client';
+import type { User } from '@supabase/supabase-js';
 
-export async function fetchTeams(): Promise<Team[]> {
-  const { data, error } = await supabase.from('teams').select();
+export async function fetchTeams(user: User): Promise<Team[]> {
+  const { data, error } = await supabase.from('teams').select().eq('userUUID', user.id);
   if (error) throw new Error(error.message);
   return data || [];
 }
