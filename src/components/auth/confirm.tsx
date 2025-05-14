@@ -3,12 +3,66 @@
 import { AnimatedGridPattern } from '@/components/magicui/animated-grid-pattern';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { useSupabaseSession } from '@/hooks/useSupabaseSession';
 import { cn } from '@/lib/utils';
+import { supabase } from '@/utils/supabase/client';
 import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
+
+export type SupabaseSession = {
+  access_token: string;
+  refresh_token: string;
+  expires_in: number;
+  expires_at: number;
+  token_type: 'bearer';
+  user: {
+    id: string;
+    aud: string;
+    role: string;
+    email: string;
+    phone: string;
+    is_anonymous: boolean;
+    created_at: string;
+    updated_at: string;
+    confirmed_at: string;
+    email_confirmed_at: string;
+    confirmation_sent_at: string;
+    last_sign_in_at: string;
+    app_metadata: {
+      provider: string;
+      providers: string[];
+    };
+    user_metadata: {
+      email: string;
+      email_verified: boolean;
+      phone_verified: boolean;
+      sub: string;
+    };
+  };
+};
+
+export const useSupabaseSession = () => {
+  const [session, setSession] = useState<SupabaseSession | null>(null);
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      const { data, error } = await supabase.auth.getSession();
+
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
+
+      setSession(data.session as SupabaseSession);
+    };
+
+    fetchSession();
+  }, []);
+
+  return session;
+};
 
 const AuthConfirmation = () => {
   const router = useRouter();

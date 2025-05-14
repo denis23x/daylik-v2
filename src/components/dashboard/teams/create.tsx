@@ -17,15 +17,15 @@ import { supabase } from '@/utils/supabase/client';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import ResponsiveDialog from '@/components/responsive-dialog';
-import { useSupabaseSession } from '@/hooks/useSupabaseSession';
 import { useState } from 'react';
+import { useAuth } from '@/context/AuthContextProvider';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Team name must be at least 2 characters'),
 });
 
 const TeamsCreate = () => {
-  const session = useSupabaseSession();
+  const { user } = useAuth();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -46,13 +46,12 @@ const TeamsCreate = () => {
 
   const handleSubmit = async (formData: z.infer<typeof formSchema>) => {
     try {
-      // TODO: Change to session?.user.id
       const { data, error } = await supabase
         .from('teams')
         .insert([
           {
             name: formData.name,
-            userUUID: session?.user.id,
+            userUUID: user?.id,
           },
         ])
         .select('UUID')

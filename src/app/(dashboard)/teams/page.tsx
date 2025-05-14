@@ -2,17 +2,19 @@
 
 import TeamsHero from '@/components/dashboard/teams/hero';
 import TeamsList from '@/components/dashboard/teams/list';
+import { useAuth } from '@/context/AuthContextProvider';
 import type { Team } from '@/types/team';
 import { supabase } from '@/utils/supabase/client';
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 
 export default function Teams() {
+  const { user } = useAuth();
+
   const [teams, setTeams] = useState<Team[]>([]);
 
   useEffect(() => {
     const fetchTeams = async () => {
-      // TODO: Change to session?.user.id
       const { data, error } = await supabase
         .from('teams')
         .select(
@@ -29,7 +31,7 @@ export default function Teams() {
           )
         `
         )
-        .eq('userUUID', '6d8479a5-4d38-46c3-b3a0-5b905aa3c92a');
+        .eq('userUUID', user?.id);
 
       if (error) {
         toast.error(error.message);
@@ -52,7 +54,7 @@ export default function Teams() {
     };
 
     fetchTeams();
-  }, []);
+  }, [user]);
 
   return (
     <>

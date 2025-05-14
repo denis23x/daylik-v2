@@ -2,7 +2,7 @@ import DashboardNavbar from '@/components/dashboard/navbar';
 import { Toaster } from 'sonner';
 import { AuthProvider } from '@/context/AuthContextProvider';
 import { createClient } from '@/utils/supabase/server';
-import ReactQueryProvider from '@/lib/ReactQueryProvider';
+import ReactQueryProvider from '@/context/ReactQueryProvider';
 
 export default async function DashboardLayout({
   children,

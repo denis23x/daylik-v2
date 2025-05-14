@@ -1,4 +1,9 @@
-import { fetchTeammates, createTeammate, updateTeammate, deleteTeammate } from '@/api/teammates';
+import {
+  fetchTeammates,
+  createTeammate,
+  updateTeammate,
+  deleteTeammate,
+} from '@/lib/api/teammates';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import type { User } from '@supabase/supabase-js';
 

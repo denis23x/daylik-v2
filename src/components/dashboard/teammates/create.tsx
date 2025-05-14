@@ -22,8 +22,8 @@ import type { Team } from '@/types/team';
 import { useRandomHexColor } from '@/hooks/useRandomHexColor';
 import FileUploader from '@/components/file-uploader';
 import ColorPicker from '@/components/color-picker';
-import { useSupabaseSession } from '@/hooks/useSupabaseSession';
 import { MultiSelect } from '@/components/multi-select';
+import { useAuth } from '@/context/AuthContextProvider';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Teammate name must be at least 2 characters'),
@@ -34,7 +34,7 @@ const formSchema = z.object({
 });
 
 const TeammatesCreate = () => {
-  const session = useSupabaseSession();
+  const { user } = useAuth();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -56,11 +56,7 @@ const TeammatesCreate = () => {
   useEffect(() => {
     const getTeams = async () => {
       try {
-        // TODO: Change to session?.user.id
-        const { data, error } = await supabase
-          .from('teams')
-          .select('*')
-          .eq('userUUID', '6d8479a5-4d38-46c3-b3a0-5b905aa3c92a');
+        const { data, error } = await supabase.from('teams').select('*').eq('userUUID', user?.id);
 
         if (error) {
           toast.error(error.message);
@@ -77,7 +73,7 @@ const TeammatesCreate = () => {
     };
 
     getTeams();
-  }, []);
+  }, [user]);
 
   const handleOpenChange = (open: boolean) => {
     if (!form.formState.isSubmitting) {
@@ -89,14 +85,13 @@ const TeammatesCreate = () => {
 
   const handleSubmit = async (formData: z.infer<typeof formSchema>) => {
     try {
-      // TODO: Change to session?.user.id
       const { data, error } = await supabase
         .from('teammates')
         .insert([
           {
             name: formData.name,
             position: formData.position,
-            userUUID: session?.user.id,
+            userUUID: user?.id,
             avatar: formData.avatar || null,
             color: formData.color,
           },

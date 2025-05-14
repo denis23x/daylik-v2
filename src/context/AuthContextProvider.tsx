@@ -3,11 +3,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '@/utils/supabase/client';
 import type { User } from '@supabase/supabase-js';
-
-type AuthContextType = {
-  user: User | null;
-  loading: boolean;
-};
+import type { AuthContextType } from '@/types/authContext.type';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -31,7 +27,7 @@ export function AuthProvider({
     if (!initialUser) {
       supabase.auth.getUser().then(({ data, error }) => {
         if (error) {
-          console.error('Ошибка при получении пользователя:', error.message);
+          console.error('Error getting user:', error.message);
         }
         setUser(data?.user ?? null);
         setLoading(false);
@@ -49,7 +45,7 @@ export function AuthProvider({
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth должен использоваться внутри AuthProvider');
+    throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
 }

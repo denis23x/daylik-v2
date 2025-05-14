@@ -1,4 +1,4 @@
-import { fetchTeams, createTeam, updateTeam, deleteTeam } from '@/api/teams';
+import { fetchTeams, createTeam, updateTeam, deleteTeam } from '@/lib/api/teams';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 export function useTeams() {
