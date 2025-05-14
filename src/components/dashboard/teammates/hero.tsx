@@ -1,7 +1,7 @@
 import { Badge } from '@/components/ui/badge';
-import TeammatesCreate from './create';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { Plus } from 'lucide-react';
 
 const TeammatesHero = () => {
   return (
@@ -20,7 +20,9 @@ const TeammatesHero = () => {
           <Button variant="outline" asChild>
             <Link href="/teams">Teams</Link>
           </Button>
-          <TeammatesCreate />
+          <Button className="cursor-pointer">
+            <Plus /> Create Teammate
+          </Button>
         </div>
       </div>
     </div>

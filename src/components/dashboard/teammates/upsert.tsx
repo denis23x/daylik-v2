@@ -33,7 +33,7 @@ const formSchema = z.object({
   color: z.string().min(4, 'Color must be a valid hex code'),
 });
 
-const TeammatesCreate = () => {
+const TeammatesUpsert = () => {
   const { user } = useAuth();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -243,4 +243,4 @@ const TeammatesCreate = () => {
   );
 };
 
-export default TeammatesCreate;
+export default TeammatesUpsert;
