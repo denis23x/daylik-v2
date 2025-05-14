@@ -18,7 +18,7 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import ResponsiveDialog from '@/components/responsive-dialog';
 import { useState } from 'react';
-import { useAuth } from '@/context/AuthContextProvider';
+import { useAuth } from '@/context/AuthProvider';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Team name must be at least 2 characters'),

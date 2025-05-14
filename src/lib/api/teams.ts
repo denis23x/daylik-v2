@@ -1,4 +1,4 @@
-import type { Team } from '@/types/team';
+import type { Team } from '@/types/team.type';
 import { supabase } from '@/utils/supabase/client';
 
 export async function fetchTeams(): Promise<Team[]> {

@@ -1,30 +1,20 @@
 import DashboardNavbar from '@/components/dashboard/navbar';
 import { Toaster } from 'sonner';
-import { AuthProvider } from '@/context/AuthContextProvider';
+import { AuthProvider } from '@/context/AuthProvider';
 import { createClient } from '@/utils/supabase/server';
-import ReactQueryProvider from '@/context/ReactQueryProvider';
+import { ReactQueryProvider } from '@/context/ReactQueryProvider';
 
-export default async function DashboardLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient();
   const { data } = await supabase.auth.getUser();
 
   return (
-    <AuthProvider initialUser={data.user}>
-      <Toaster richColors />
-      <ReactQueryProvider>
+    <ReactQueryProvider>
+      <AuthProvider initialUser={data.user}>
+        <Toaster richColors />
         <DashboardNavbar />
         {children}
-      </ReactQueryProvider>
-    </AuthProvider>
-
-    // <QueryClientProvider client={queryClient}>
-    //   <Toaster richColors />
-    //   <DashboardNavbar />
-    //   {children}
-    // </QueryClientProvider>
+      </AuthProvider>
+    </ReactQueryProvider>
   );
 }

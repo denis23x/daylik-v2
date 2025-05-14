@@ -1,11 +1,11 @@
 'use client';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import type { Teammate } from '@/types/teammate';
+import type { Teammate } from '@/types/teammate.type';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { useTeammates } from '@/hooks/useTeammates';
-import { useAuth } from '@/context/AuthContextProvider';
+import { useAuth } from '@/context/AuthProvider';
 
 const TeammatesList = () => {
   const { user } = useAuth();

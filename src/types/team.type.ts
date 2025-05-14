@@ -1,4 +1,4 @@
-import type { Teammate } from './teammate';
+import type { Teammate } from './teammate.type';
 
 export type Team = {
   UUID: string;

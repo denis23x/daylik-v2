@@ -2,8 +2,8 @@
 
 import TeamsHero from '@/components/dashboard/teams/hero';
 import TeamsList from '@/components/dashboard/teams/list';
-import { useAuth } from '@/context/AuthContextProvider';
-import type { Team } from '@/types/team';
+import { useAuth } from '@/context/AuthProvider';
+import type { Team } from '@/types/team.type';
 import { supabase } from '@/utils/supabase/client';
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';

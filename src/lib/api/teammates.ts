@@ -1,4 +1,4 @@
-import type { Teammate } from '@/types/teammate';
+import type { Teammate } from '@/types/teammate.type';
 import { supabase } from '@/utils/supabase/client';
 import type { User } from '@supabase/supabase-js';
 

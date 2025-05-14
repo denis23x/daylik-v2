@@ -3,9 +3,9 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '@/utils/supabase/client';
 import type { User } from '@supabase/supabase-js';
-import type { AuthContextType } from '@/types/authContext.type';
+import type { AuthType } from '@/types/auth.type';
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const Auth = createContext<AuthType | undefined>(undefined);
 
 export function AuthProvider({
   children,
@@ -39,15 +39,15 @@ export function AuthProvider({
     };
   }, [initialUser]);
 
-  return <AuthContext.Provider value={{ user, loading }}>{children}</AuthContext.Provider>;
+  return <Auth.Provider value={{ user, loading }}>{children}</Auth.Provider>;
 }
 
 export function useAuth() {
-  const context = useContext(AuthContext);
+  const context = useContext(Auth);
   if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
 }
 
-export { AuthContext };
+export { Auth };

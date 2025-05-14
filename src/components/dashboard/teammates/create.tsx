@@ -18,12 +18,12 @@ import { z } from 'zod';
 import { toast } from 'sonner';
 import { FolderOpenIcon, Loader2, Palette, Plus } from 'lucide-react';
 import ResponsiveDialog from '@/components/responsive-dialog';
-import type { Team } from '@/types/team';
+import type { Team } from '@/types/team.type';
 import { useRandomHexColor } from '@/hooks/useRandomHexColor';
 import FileUploader from '@/components/file-uploader';
 import ColorPicker from '@/components/color-picker';
 import { MultiSelect } from '@/components/multi-select';
-import { useAuth } from '@/context/AuthContextProvider';
+import { useAuth } from '@/context/AuthProvider';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Teammate name must be at least 2 characters'),

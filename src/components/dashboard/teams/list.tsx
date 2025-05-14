@@ -1,8 +1,8 @@
 'use client';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import type { Team } from '@/types/team';
-import type { Teammate } from '@/types/teammate';
+import type { Team } from '@/types/team.type';
+import type { Teammate } from '@/types/teammate.type';
 import { useState } from 'react';
 
 const TeamsList = ({ teams }: { teams: Team[] }) => {
