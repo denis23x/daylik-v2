@@ -37,7 +37,7 @@ export default function Teams() {
       }
 
       if (data) {
-        const teamsWithMembers: Team[] = data.map((team: Team) => {
+        const teamsWithTeammates: Team[] = data.map((team: Team) => {
           const { teams_teammates, ...rest } = team;
 
           return {
@@ -46,7 +46,7 @@ export default function Teams() {
           };
         });
 
-        setTeams(teamsWithMembers);
+        setTeams(teamsWithTeammates);
         return;
       }
     };

@@ -4,8 +4,8 @@ export type Team = {
   UUID: string;
   name: string;
   userUUID: string;
+  teammates?: Teammate[];
   createdAt: string;
-  teammates: Teammate[];
 
   // Relation to teams_teammates
   teams_teammates?: {
