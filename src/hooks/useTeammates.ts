@@ -1,10 +1,12 @@
 import { fetchTeammates, createTeammate, updateTeammate, deleteTeammate } from '@/api/teammates';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import type { User } from '@supabase/supabase-js';
 
-export function useTeammates() {
+export function useTeammates(user: User | null) {
   return useQuery({
     queryKey: ['teammates'],
-    queryFn: fetchTeammates,
+    queryFn: () => fetchTeammates(user!),
+    enabled: !!user,
     staleTime: 1000 * 60 * 5,
   });
 }
