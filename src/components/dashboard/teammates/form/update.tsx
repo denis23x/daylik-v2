@@ -12,13 +12,13 @@ import { z } from 'zod';
 
 export default function TeammateUpdateForm() {
   const form = useFormContext<z.infer<typeof TeammatesFormSchema>>();
-  const { mutateAsync: updateTeammate } = useUpdateTeammate();
+  const { mutateAsync } = useUpdateTeammate();
   const { teammate, closeModal } = useTeammateUpsertStore();
 
   const handleSubmit = async (formData: z.infer<typeof TeammatesFormSchema>) => {
     try {
-      if (teammate?.UUID) {
-        await updateTeammate({
+      if (teammate) {
+        await mutateAsync({
           UUID: teammate.UUID,
           name: formData.name,
           position: formData.position,
@@ -26,40 +26,38 @@ export default function TeammateUpdateForm() {
           color: formData.color,
         });
 
-        // const oldTeamIds = [1, 2, 3];
-        // const newTeamIds = [2, 3, 4];
+        // Update teams relations
+        const oldTeams: string[] = teammate.teams as string[];
+        const newTeams: string[] = formData.teams;
+        const toRemove = oldTeams.filter((UUID) => !newTeams.includes(UUID));
+        const toAdd = newTeams.filter((UUID) => !oldTeams.includes(UUID));
 
-        // // Удаляем связи, которых больше нет
-        // const toRemove = oldTeamIds.filter((id) => !newTeamIds.includes(id));
+        if (toRemove.length) {
+          const { error } = await supabase
+            .from('teams_teammates')
+            .delete()
+            .in('teamUUID', toRemove)
+            .eq('teammateUUID', teammate.UUID);
 
-        // // Добавляем только новые
-        // const toAdd = newTeamIds
-        //   .filter((id) => !oldTeamIds.includes(id))
-        //   .map((team_id) => ({
-        //     team_id,
-        //     teammate_id: userId,
-        //   }));
+          if (error) {
+            toast.error(error.message);
+            return;
+          }
+        }
 
-        // if (toRemove.length > 0) {
-        //   await supabase
-        //     .from('teams_teammates')
-        //     .delete()
-        //     .in('team_id', toRemove)
-        //     .eq('teammate_id', userId);
-        // }
+        if (toAdd.length) {
+          const teammateTeamRelations = toAdd.map((teamUUID) => ({
+            teamUUID,
+            teammateUUID: teammate.UUID,
+          }));
 
-        // if (toAdd.length > 0) {
-        //   await supabase.from('teams_teammates').insert(toAdd);
-        // }
+          const { error } = await supabase.from('teams_teammates').insert(teammateTeamRelations);
 
-        await supabase.from('teams_teammates').delete().eq('teammateUUID', teammate.UUID);
-
-        const teammateTeamRelations = (formData.teams ?? []).map((teamUUID: string) => ({
-          teamUUID,
-          teammateUUID: teammate.UUID,
-        }));
-
-        await supabase.from('teams_teammates').insert(teammateTeamRelations);
+          if (error) {
+            toast.error(error.message);
+            return;
+          }
+        }
 
         // Success message
         toast.success('Teammate updated');

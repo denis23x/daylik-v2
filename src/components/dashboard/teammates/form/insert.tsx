@@ -14,12 +14,12 @@ import { z } from 'zod';
 export default function TeammateInsertForm() {
   const form = useFormContext<z.infer<typeof TeammatesFormSchema>>();
   const { user } = useAuth();
-  const { mutateAsync: createTeammate } = useCreateTeammate();
+  const { mutateAsync } = useCreateTeammate();
   const { closeModal } = useTeammateUpsertStore();
 
   const handleSubmit = async (formData: z.infer<typeof TeammatesFormSchema>) => {
     try {
-      const teammate = await createTeammate({
+      const teammate = await mutateAsync({
         name: formData.name,
         position: formData.position,
         userUUID: user!.id,
@@ -27,7 +27,7 @@ export default function TeammateInsertForm() {
         color: formData.color,
       });
 
-      const teammateTeamRelations = (formData.teams ?? []).map((teamUUID: string) => ({
+      const teammateTeamRelations = formData.teams.map((teamUUID) => ({
         teamUUID,
         teammateUUID: teammate.UUID,
       }));
