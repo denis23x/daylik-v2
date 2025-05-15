@@ -4,10 +4,10 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Plus, UserRoundPlus } from 'lucide-react';
-import { useTeamUpsertStore } from '@/store/useTeamUpsertStore';
+import { useTeamsUpsertStore } from '@/store/useTeamsUpsertStore';
 
 const TeamsHero = () => {
-  const { openModal } = useTeamUpsertStore();
+  const { openModal } = useTeamsUpsertStore();
 
   const handleCreate = () => {
     openModal('insert');

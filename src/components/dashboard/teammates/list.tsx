@@ -7,14 +7,14 @@ import { useAuth } from '@/context/AuthProvider';
 import NotFound from '@/components/not-found';
 import ErrorOccurred from '@/components/error-occurred';
 import Loading from '@/components/loading';
-import { useTeammateUpsertStore } from '@/store/useTeammateUpsertStore';
+import { useTeammatesUpsertStore } from '@/store/useTeammatesUpsertStore';
 import { supabase } from '@/utils/supabase/client';
 import { toast } from 'sonner';
 
 const TeammatesList = () => {
   const { user } = useAuth();
   const { data: teammates, error, isLoading } = useTeammates(user);
-  const { openModal } = useTeammateUpsertStore();
+  const { openModal } = useTeammatesUpsertStore();
 
   const handleEdit = async (teammate: Teammate) => {
     const { data, error } = await supabase

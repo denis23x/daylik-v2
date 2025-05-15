@@ -4,10 +4,10 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Plus } from 'lucide-react';
-import { useTeammateUpsertStore } from '@/store/useTeammateUpsertStore';
+import { useTeammatesUpsertStore } from '@/store/useTeammatesUpsertStore';
 
 const TeammatesHero = () => {
-  const { openModal } = useTeammateUpsertStore();
+  const { openModal } = useTeammatesUpsertStore();
 
   const handleCreate = () => {
     openModal('insert');

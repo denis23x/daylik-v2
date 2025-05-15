@@ -6,7 +6,7 @@ import NotFound from '@/components/not-found';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/context/AuthProvider';
 import { useTeams } from '@/hooks/useTeams';
-import { useTeamUpsertStore } from '@/store/useTeamUpsertStore';
+import { useTeamsUpsertStore } from '@/store/useTeamsUpsertStore';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
 import { supabase } from '@/utils/supabase/client';
@@ -16,7 +16,7 @@ import { toast } from 'sonner';
 const TeamsList = () => {
   const { user } = useAuth();
   const { data: teams, error, isLoading } = useTeams(user);
-  const { openModal } = useTeamUpsertStore();
+  const { openModal } = useTeamsUpsertStore();
 
   const [mockTeammates] = useState<Teammate[]>([
     {

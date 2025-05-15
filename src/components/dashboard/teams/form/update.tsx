@@ -7,13 +7,13 @@ import { supabase } from '@/utils/supabase/client';
 import { TeamsFormFields } from './form-fields';
 import { TeamsFormSchema } from './form-schema';
 import { z } from 'zod';
-import { useTeamUpsertStore } from '@/store/useTeamUpsertStore';
+import { useTeamsUpsertStore } from '@/store/useTeamsUpsertStore';
 import { useUpdateTeam } from '@/hooks/useTeams';
 
 export default function TeammateUpdateForm() {
   const form = useFormContext<z.infer<typeof TeamsFormSchema>>();
   const { mutateAsync } = useUpdateTeam();
-  const { team, closeModal } = useTeamUpsertStore();
+  const { team, closeModal } = useTeamsUpsertStore();
 
   const handleSubmit = async (formData: z.infer<typeof TeamsFormSchema>) => {
     try {

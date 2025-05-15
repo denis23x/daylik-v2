@@ -6,7 +6,7 @@ import { Form } from '@/components/ui/form';
 import { useCreateTeammate } from '@/hooks/useTeammates';
 import { useAuth } from '@/context/AuthProvider';
 import { supabase } from '@/utils/supabase/client';
-import { useTeammateUpsertStore } from '@/store/useTeammateUpsertStore';
+import { useTeammatesUpsertStore } from '@/store/useTeammatesUpsertStore';
 import { TeammatesFormFields } from './form-fields';
 import { TeammatesFormSchema } from './form-schema';
 import { z } from 'zod';
@@ -15,7 +15,7 @@ export default function TeammateInsertForm() {
   const form = useFormContext<z.infer<typeof TeammatesFormSchema>>();
   const { user } = useAuth();
   const { mutateAsync } = useCreateTeammate();
-  const { closeModal } = useTeammateUpsertStore();
+  const { closeModal } = useTeammatesUpsertStore();
 
   const handleSubmit = async (formData: z.infer<typeof TeammatesFormSchema>) => {
     try {

@@ -9,13 +9,13 @@ import { TeamsFormFields } from './form-fields';
 import { TeamsFormSchema } from './form-schema';
 import { z } from 'zod';
 import { useCreateTeam } from '@/hooks/useTeams';
-import { useTeamUpsertStore } from '@/store/useTeamUpsertStore';
+import { useTeamsUpsertStore } from '@/store/useTeamsUpsertStore';
 
 export default function TeammateInsertForm() {
   const form = useFormContext<z.infer<typeof TeamsFormSchema>>();
   const { user } = useAuth();
   const { mutateAsync } = useCreateTeam();
-  const { closeModal } = useTeamUpsertStore();
+  const { closeModal } = useTeamsUpsertStore();
 
   const handleSubmit = async (formData: z.infer<typeof TeamsFormSchema>) => {
     alert('handleSubmit');

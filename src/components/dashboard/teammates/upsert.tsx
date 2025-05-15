@@ -1,7 +1,7 @@
 'use client';
 
 import ResponsiveDialog from '@/components/responsive-dialog';
-import { useTeammateUpsertStore } from '@/store/useTeammateUpsertStore';
+import { useTeammatesUpsertStore } from '@/store/useTeammatesUpsertStore';
 import TeammateInsertForm from './form/insert';
 import TeammateUpdateForm from './form/update';
 import { z } from 'zod';
@@ -14,7 +14,7 @@ import { Loader2 } from 'lucide-react';
 import { useEffect } from 'react';
 
 export default function TeammatesUpsert() {
-  const { isOpen, mode, teammate, closeModal } = useTeammateUpsertStore();
+  const { isOpen, mode, teammate, closeModal } = useTeammatesUpsertStore();
   const { color: randomColor } = useRandomHexColor();
 
   const form = useForm<z.infer<typeof TeammatesFormSchema>>({

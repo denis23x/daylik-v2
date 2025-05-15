@@ -10,10 +10,10 @@ import { TeamsFormSchema } from './form/form-schema';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { useEffect } from 'react';
-import { useTeamUpsertStore } from '@/store/useTeamUpsertStore';
+import { useTeamsUpsertStore } from '@/store/useTeamsUpsertStore';
 
 export default function TeamsUpsert() {
-  const { isOpen, mode, team, closeModal } = useTeamUpsertStore();
+  const { isOpen, mode, team, closeModal } = useTeamsUpsertStore();
 
   const form = useForm<z.infer<typeof TeamsFormSchema>>({
     defaultValues: {

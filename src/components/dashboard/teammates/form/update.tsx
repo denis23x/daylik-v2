@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import { toast } from 'sonner';
 import { Form } from '@/components/ui/form';
 import { useUpdateTeammate } from '@/hooks/useTeammates';
-import { useTeammateUpsertStore } from '@/store/useTeammateUpsertStore';
+import { useTeammatesUpsertStore } from '@/store/useTeammatesUpsertStore';
 import { supabase } from '@/utils/supabase/client';
 import { TeammatesFormFields } from './form-fields';
 import { TeammatesFormSchema } from './form-schema';
@@ -13,7 +13,7 @@ import { z } from 'zod';
 export default function TeammateUpdateForm() {
   const form = useFormContext<z.infer<typeof TeammatesFormSchema>>();
   const { mutateAsync } = useUpdateTeammate();
-  const { teammate, closeModal } = useTeammateUpsertStore();
+  const { teammate, closeModal } = useTeammatesUpsertStore();
 
   const handleSubmit = async (formData: z.infer<typeof TeammatesFormSchema>) => {
     try {
