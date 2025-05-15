@@ -1,0 +1,53 @@
+'use client';
+
+import { useFormContext } from 'react-hook-form';
+import { toast } from 'sonner';
+import { Form } from '@/components/ui/form';
+import { useCreateTeammate } from '@/hooks/useTeammates';
+import { useAuth } from '@/context/AuthProvider';
+import { supabase } from '@/utils/supabase/client';
+import { useTeammateUpsertStore } from '@/store/useTeammateUpsertStore';
+import { TeammatesFormFields } from './form-fields';
+import { formSchema } from './form-schema';
+import { z } from 'zod';
+
+export default function TeammateInsertForm() {
+  const form = useFormContext<z.infer<typeof formSchema>>();
+  const { user } = useAuth();
+  const { mutateAsync: createTeammate } = useCreateTeammate();
+  const { closeModal } = useTeammateUpsertStore();
+
+  const handleSubmit = async (formData: z.infer<typeof formSchema>) => {
+    try {
+      const teammate = await createTeammate({
+        name: formData.name,
+        position: formData.position,
+        userUUID: user!.id,
+        avatar: formData.avatar || null,
+        color: formData.color,
+      });
+
+      const teammateTeamRelations = (formData.teams ?? []).map((teamUUID: string) => ({
+        teamUUID,
+        teammateUUID: teammate.UUID,
+      }));
+
+      await supabase.from('teams_teammates').insert(teammateTeamRelations);
+
+      // Success message
+      toast.success('Teammate created');
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'An error occurred');
+    } finally {
+      closeModal();
+    }
+  };
+
+  return (
+    <Form {...form}>
+      <form id="teammate-form" className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
+        <TeammatesFormFields />
+      </form>
+    </Form>
+  );
+}
