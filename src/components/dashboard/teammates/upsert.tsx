@@ -12,7 +12,6 @@ import { TeammatesFormSchema } from './form/form-schema';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { useEffect } from 'react';
-import type { Team } from '@/types/team.type';
 
 export default function TeammatesUpsert() {
   const { isOpen, mode, teammate, closeModal } = useTeammateUpsertStore();
@@ -34,7 +33,7 @@ export default function TeammatesUpsert() {
       form.reset({
         name: teammate.name,
         position: teammate.position,
-        teams: teammate.teams?.map((team: Team) => team.UUID) ?? [],
+        teams: teammate.teams as string[],
         avatar: teammate.avatar ?? null,
         color: teammate.color,
       });

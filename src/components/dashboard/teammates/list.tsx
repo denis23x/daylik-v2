@@ -8,14 +8,31 @@ import NotFound from '@/components/not-found';
 import ErrorOccurred from '@/components/error-occurred';
 import Loading from '@/components/loading';
 import { useTeammateUpsertStore } from '@/store/useTeammateUpsertStore';
+import { supabase } from '@/utils/supabase/client';
+import { toast } from 'sonner';
 
 const TeammatesList = () => {
   const { user } = useAuth();
   const { data: teammates, error, isLoading } = useTeammates(user);
   const { openModal } = useTeammateUpsertStore();
 
-  const handleEdit = (teammate: Teammate) => {
-    openModal('update', teammate);
+  const handleEdit = async (teammate: Teammate) => {
+    const { data, error } = await supabase
+      .from('teams_teammates')
+      .select('teamUUID')
+      .eq('teammateUUID', teammate.UUID);
+
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+
+    if (data) {
+      openModal('update', {
+        ...teammate,
+        teams: data.map(({ teamUUID }) => teamUUID),
+      });
+    }
   };
 
   return (
