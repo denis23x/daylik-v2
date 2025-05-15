@@ -7,15 +7,15 @@ import { useUpdateTeammate } from '@/hooks/useTeammates';
 import { useTeammateUpsertStore } from '@/store/useTeammateUpsertStore';
 import { supabase } from '@/utils/supabase/client';
 import { TeammatesFormFields } from './form-fields';
-import { formSchema } from './form-schema';
+import { TeammatesFormSchema } from './form-schema';
 import { z } from 'zod';
 
 export default function TeammateUpdateForm() {
-  const form = useFormContext<z.infer<typeof formSchema>>();
+  const form = useFormContext<z.infer<typeof TeammatesFormSchema>>();
   const { mutateAsync: updateTeammate } = useUpdateTeammate();
   const { teammate, closeModal } = useTeammateUpsertStore();
 
-  const handleSubmit = async (formData: z.infer<typeof formSchema>) => {
+  const handleSubmit = async (formData: z.infer<typeof TeammatesFormSchema>) => {
     try {
       if (teammate?.UUID) {
         await updateTeammate({

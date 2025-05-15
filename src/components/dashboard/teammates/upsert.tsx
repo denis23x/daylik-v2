@@ -2,13 +2,13 @@
 
 import ResponsiveDialog from '@/components/responsive-dialog';
 import { useTeammateUpsertStore } from '@/store/useTeammateUpsertStore';
-import TeammateInsertForm from './insert';
-import TeammateUpdateForm from './update';
+import TeammateInsertForm from './form/insert';
+import TeammateUpdateForm from './form/update';
 import { z } from 'zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRandomHexColor } from '@/hooks/useRandomHexColor';
-import { formSchema } from './form-schema';
+import { TeammatesFormSchema } from './form/form-schema';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { useEffect } from 'react';
@@ -18,7 +18,7 @@ export default function TeammatesUpsert() {
   const { isOpen, mode, teammate, closeModal } = useTeammateUpsertStore();
   const { color: randomColor } = useRandomHexColor();
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<z.infer<typeof TeammatesFormSchema>>({
     defaultValues: {
       name: '',
       position: '',
@@ -26,7 +26,7 @@ export default function TeammatesUpsert() {
       avatar: null,
       color: randomColor,
     },
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(TeammatesFormSchema),
   });
 
   useEffect(() => {

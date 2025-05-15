@@ -8,13 +8,13 @@ import { MultiSelect } from '@/components/multi-select';
 import FileUploader from '@/components/file-uploader';
 import ColorPicker from '@/components/color-picker';
 import { useFormContext } from 'react-hook-form';
-import { formSchema } from './form-schema';
+import { TeammatesFormSchema } from './form-schema';
 import { z } from 'zod';
 import { useAuth } from '@/context/AuthProvider';
 import { useTeams } from '@/hooks/useTeams';
 
 const TeammatesFormFields = () => {
-  const form = useFormContext<z.infer<typeof formSchema>>();
+  const form = useFormContext<z.infer<typeof TeammatesFormSchema>>();
   const { user } = useAuth();
   const { data: teams } = useTeams(user);
 
