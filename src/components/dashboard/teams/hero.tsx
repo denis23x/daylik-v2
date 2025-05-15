@@ -1,10 +1,18 @@
+'use client';
+
 import { Badge } from '@/components/ui/badge';
-import TeamsCreate from './create';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { UserRoundPlus } from 'lucide-react';
+import { Plus, UserRoundPlus } from 'lucide-react';
+import { useTeamUpsertStore } from '@/store/useTeamUpsertStore';
 
 const TeamsHero = () => {
+  const { openModal } = useTeamUpsertStore();
+
+  const handleCreate = () => {
+    openModal('insert');
+  };
+
   return (
     <div className="relative flex min-h-screen items-center justify-center px-6">
       <div className="max-w-2xl text-center">
@@ -21,7 +29,9 @@ const TeamsHero = () => {
               <UserRoundPlus />
             </Link>
           </Button>
-          <TeamsCreate />
+          <Button className="cursor-pointer" onClick={handleCreate}>
+            <Plus /> Create Team
+          </Button>
         </div>
       </div>
     </div>

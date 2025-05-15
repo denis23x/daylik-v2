@@ -59,7 +59,7 @@ const TeammatesFormFields = () => {
         label="Teams"
         placeholder="Select teams (optional)"
         searchPlaceholder="Search"
-        emptyMessage="No team found"
+        emptyMessage="No teams found"
         items={(teams || []).map((team) => ({
           key: team.UUID,
           value: team.UUID,

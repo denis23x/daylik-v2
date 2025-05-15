@@ -8,13 +8,13 @@ export async function fetchTeams(user: User): Promise<Team[]> {
   return data || [];
 }
 
-export async function createTeam(team: Omit<Team, 'UUID'>): Promise<Team> {
+export async function createTeam(team: Omit<Team, 'UUID' | 'createdAt'>): Promise<Team> {
   const { data, error } = await supabase.from('teams').insert(team).select().single();
   if (error) throw new Error(error.message);
   return data;
 }
 
-export async function updateTeam(team: Team): Promise<Team> {
+export async function updateTeam(team: Omit<Team, 'userUUID' | 'createdAt'>): Promise<Team> {
   const { data, error } = await supabase
     .from('teams')
     .update(team)
