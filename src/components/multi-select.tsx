@@ -65,7 +65,7 @@ export function MultiSelect({
               <span className="text-muted-foreground">({field.value.length})</span>
             )}
           </FormLabel>
-          <Popover>
+          <Popover modal={true}>
             <PopoverTrigger asChild>
               <FormControl>
                 <div className="relative w-full">
@@ -96,7 +96,11 @@ export function MultiSelect({
                 </div>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0" align="start">
+            <PopoverContent
+              className="w-[var(--radix-popover-trigger-width)] p-0"
+              align="start"
+              onOpenAutoFocus={(e) => e.preventDefault()}
+            >
               <Command className="w-full">
                 <CommandInput placeholder={searchPlaceholder} className="h-9" />
                 <CommandList>

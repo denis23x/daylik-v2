@@ -7,10 +7,10 @@ import {
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import type { User } from '@supabase/supabase-js';
 
-export function useTeammates(user: User | null) {
+export function useTeammates(user: User | null, query: string = '*') {
   return useQuery({
     queryKey: ['teammates'],
-    queryFn: () => fetchTeammates(user!),
+    queryFn: () => fetchTeammates(user!, query),
     enabled: !!user,
     staleTime: 1000 * 60 * 5,
   });

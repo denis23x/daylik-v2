@@ -2,8 +2,16 @@ import type { Teammate } from '@/types/teammate.type';
 import { supabase } from '@/utils/supabase/client';
 import type { User } from '@supabase/supabase-js';
 
-export async function fetchTeammates(user: User): Promise<Teammate[]> {
-  const { data, error } = await supabase.from('teammates').select().eq('userUUID', user.id);
+type SupabaseQueryResult<T> = {
+  data: T | null;
+  error: Error | null;
+};
+
+export async function fetchTeammates(user: User, query: string = '*'): Promise<Teammate[]> {
+  const { data, error } = (await supabase
+    .from('teammates')
+    .select(query)
+    .eq('userUUID', user.id)) as SupabaseQueryResult<Teammate[]>;
   if (error) throw new Error(error.message);
   return data || [];
 }
