@@ -2,25 +2,23 @@ import { supabase } from '@/utils/supabase/client';
 import { getSession } from '../session';
 import type { TeamTeammate } from '@/types/teamTeammate.type';
 
-type AddTeammatesToTeam = {
+interface AddTeammatesToTeam {
   teamUUID: string;
   teammates: string[];
-};
+}
 
-type RemoveTeammatesFromTeam = {
-  teamUUID: string;
-  teammates: string[];
-};
+interface RemoveTeammatesFromTeam extends AddTeammatesToTeam {
+  teammatesDisableInvalidateQueries?: boolean;
+}
 
-type AddTeamsToTeammate = {
+interface AddTeamsToTeammate {
   teammateUUID: string;
   teams: string[];
-};
+}
 
-type RemoveTeamsFromTeammate = {
-  teammateUUID: string;
-  teams: string[];
-};
+interface RemoveTeamsFromTeammate extends AddTeamsToTeammate {
+  teamsDisableInvalidateQueries?: boolean;
+}
 
 export async function addTeammatesToTeam({
   teamUUID,

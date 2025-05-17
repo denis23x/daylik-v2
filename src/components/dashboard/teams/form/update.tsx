@@ -37,6 +37,7 @@ export default function TeammateUpdateForm() {
           await removeTeammatesFromTeam({
             teamUUID: team.UUID,
             teammates: toRemove,
+            teammatesDisableInvalidateQueries: !!toAdd.length,
           });
         }
 
@@ -46,6 +47,7 @@ export default function TeammateUpdateForm() {
             teammates: toAdd,
           });
         }
+
         // Success message
         toast.success('Team updated');
       }

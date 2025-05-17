@@ -40,6 +40,7 @@ export default function TeammateUpdateForm() {
           await removeTeamsFromTeammate({
             teammateUUID: teammate.UUID,
             teams: toRemove,
+            teamsDisableInvalidateQueries: !!toAdd.length,
           });
         }
 

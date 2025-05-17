@@ -21,8 +21,10 @@ export function useRemoveTeammatesFromTeam() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: removeTeammatesFromTeam,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['teams'] });
+    onSuccess: (_, variables) => {
+      if (!variables.teammatesDisableInvalidateQueries) {
+        queryClient.invalidateQueries({ queryKey: ['teams'] });
+      }
     },
   });
 }
@@ -41,8 +43,10 @@ export function useRemoveTeamsFromTeammate() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: removeTeamsFromTeammate,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['teams'] });
+    onSuccess: (_, variables) => {
+      if (!variables.teamsDisableInvalidateQueries) {
+        queryClient.invalidateQueries({ queryKey: ['teams'] });
+      }
     },
   });
 }
