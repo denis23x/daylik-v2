@@ -9,6 +9,7 @@ import { TeammatesFormFields } from './form-fields';
 import { TeammatesFormSchema } from './form-schema';
 import { z } from 'zod';
 import { useAddTeamsToTeammate, useRemoveTeamsFromTeammate } from '@/hooks/useTeamsTeammates';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function TeammateUpdateForm() {
   const form = useFormContext<z.infer<typeof TeammatesFormSchema>>();
@@ -16,6 +17,7 @@ export default function TeammateUpdateForm() {
   const { mutateAsync: addTeamsToTeammate } = useAddTeamsToTeammate();
   const { mutateAsync: removeTeamsFromTeammate } = useRemoveTeamsFromTeammate();
   const { teammate, closeModal } = useTeammatesUpsertStore();
+  const { invalidateQueries } = useQueryClient();
 
   const handleSubmit = async (formData: z.infer<typeof TeammatesFormSchema>) => {
     try {
@@ -28,6 +30,9 @@ export default function TeammateUpdateForm() {
             avatar: formData.avatar || null,
             color: formData.color,
           });
+
+          // Invalidate teams queries
+          invalidateQueries({ queryKey: ['teams'] });
         }
 
         // Update teams relations
