@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 export function useTeams(query: string = '*') {
   return useQuery({
-    queryKey: ['teams'],
+    queryKey: ['teams', query],
     queryFn: () => fetchTeams(query),
     staleTime: 1000 * 60 * 5,
   });
