@@ -29,26 +29,31 @@ export default function TeammatesUpsert() {
   });
 
   useEffect(() => {
-    if (mode === 'update' && teammate) {
-      form.reset({
-        name: teammate.name,
-        position: teammate.position,
-        teams: teammate.teams as string[],
-        avatar: teammate.avatar ?? null,
-        color: teammate.color,
-      });
-    }
+    if (isOpen) {
+      if (mode === 'update' && teammate) {
+        form.reset({
+          name: teammate.name,
+          position: teammate.position,
+          teams: teammate.teams as string[],
+          avatar: teammate.avatar ?? null,
+          color: teammate.color,
+        });
+      }
 
-    if (mode === 'insert') {
-      form.reset({
-        name: '',
-        position: '',
-        teams: [],
-        avatar: '',
-        color: randomColor,
-      });
+      if (mode === 'insert') {
+        form.reset({
+          name: '',
+          position: '',
+          teams: [],
+          avatar: '',
+          color: randomColor,
+        });
+      }
+    } else {
+      // Reset form when modal is closed
+      form.reset();
     }
-  }, [mode, teammate, form, randomColor]);
+  }, [mode, teammate, form, randomColor, isOpen]);
 
   return (
     <ResponsiveDialog

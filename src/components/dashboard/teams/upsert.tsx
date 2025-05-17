@@ -24,20 +24,25 @@ export default function TeamsUpsert() {
   });
 
   useEffect(() => {
-    if (mode === 'update' && team) {
-      form.reset({
-        name: team.name,
-        teammates: team.teammates as string[],
-      });
-    }
+    if (isOpen) {
+      if (mode === 'update' && team) {
+        form.reset({
+          name: team.name,
+          teammates: team.teammates as string[],
+        });
+      }
 
-    if (mode === 'insert') {
-      form.reset({
-        name: '',
-        teammates: [],
-      });
+      if (mode === 'insert') {
+        form.reset({
+          name: '',
+          teammates: [],
+        });
+      }
+    } else {
+      // Reset form when modal is closed
+      form.reset();
     }
-  }, [mode, team, form]);
+  }, [mode, team, form, isOpen]);
 
   return (
     <ResponsiveDialog

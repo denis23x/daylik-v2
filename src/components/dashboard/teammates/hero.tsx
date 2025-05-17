@@ -3,7 +3,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Plus } from 'lucide-react';
+import { LayoutGrid, Plus } from 'lucide-react';
 import { useTeammatesUpsertStore } from '@/store/useTeammatesUpsertStore';
 
 const TeammatesHero = () => {
@@ -26,11 +26,13 @@ const TeammatesHero = () => {
           maintaining a structured, efficient environment for your entire team.
         </p>
         <div className="mt-12 flex items-center justify-center gap-4">
-          <Button variant="outline" asChild>
-            <Link href="/teams">Teams</Link>
-          </Button>
           <Button className="cursor-pointer" onClick={handleCreate}>
             <Plus /> Create Teammate
+          </Button>
+          <Button variant="outline" size="icon" asChild>
+            <Link href="/teams">
+              <LayoutGrid />
+            </Link>
           </Button>
         </div>
       </div>

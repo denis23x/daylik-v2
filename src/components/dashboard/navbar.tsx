@@ -14,7 +14,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { Menu, Settings2, UserRoundPlus, UsersRound } from 'lucide-react';
+import { LayoutGrid, Menu, Settings2, UsersRound } from 'lucide-react';
 import { supabase } from '@/utils/supabase/client';
 import { toast } from 'sonner';
 import { useRouter, usePathname } from 'next/navigation';
@@ -71,7 +71,7 @@ const NavigationSheet = () => {
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link className="flex items-center gap-2" href="/teams">
-                  <UsersRound />
+                  <LayoutGrid size={20} />
                   Teams
                 </Link>
               </NavigationMenuLink>
@@ -80,7 +80,7 @@ const NavigationSheet = () => {
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link className="flex items-center gap-2" href="/teammates">
-                  <UserRoundPlus />
+                  <UsersRound size={20} />
                   Teammates
                 </Link>
               </NavigationMenuLink>
@@ -89,7 +89,7 @@ const NavigationSheet = () => {
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link className="flex items-center gap-2" href="/profile">
-                  <Settings2 />
+                  <Settings2 size={20} />
                   Profile
                 </Link>
               </NavigationMenuLink>
@@ -117,12 +117,14 @@ const DashboardNavbar = () => {
         </Link>
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <Button className="inline-flex" variant="outline" asChild>
-            <Link href="/teams">Teams</Link>
+          <Button className="inline-flex" variant="outline" size="icon" asChild>
+            <Link href="/teams">
+              <LayoutGrid />
+            </Link>
           </Button>
           <Button className="inline-flex" variant="outline" size="icon" asChild>
             <Link href="/teammates">
-              <UserRoundPlus />
+              <UsersRound />
             </Link>
           </Button>
           <NavigationSheet />
