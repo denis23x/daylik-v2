@@ -12,10 +12,13 @@ import { TeammatesFormSchema } from './form/form-schema';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { useEffect } from 'react';
+import { useDeleteTeammate } from '@/hooks/useTeammates';
+import { toast } from 'sonner';
 
 export default function TeammatesUpsert() {
   const { isOpen, mode, teammate, closeModal } = useTeammatesUpsertStore();
   const { color: randomColor } = useRandomHexColor();
+  const { mutateAsync: deleteTeammate } = useDeleteTeammate();
 
   const form = useForm<z.infer<typeof TeammatesFormSchema>>({
     defaultValues: {
@@ -55,6 +58,21 @@ export default function TeammatesUpsert() {
     }
   }, [mode, teammate, form, randomColor, isOpen]);
 
+  const handleDelete = async () => {
+    if (teammate?.UUID) {
+      try {
+        await deleteTeammate(teammate.UUID);
+
+        // Success message
+        toast.success('Teammate deleted successfully');
+      } catch (error) {
+        toast.error(error instanceof Error ? error.message : 'An error occurred');
+      } finally {
+        closeModal();
+      }
+    }
+  };
+
   return (
     <ResponsiveDialog
       open={isOpen}
@@ -71,7 +89,14 @@ export default function TeammatesUpsert() {
         </FormProvider>
       }
       trigger={undefined}
-      footer={
+      extraActions={
+        mode === 'update' ? (
+          <Button variant="destructive" onClick={handleDelete}>
+            Delete
+          </Button>
+        ) : undefined
+      }
+      actions={
         <Button type="submit" form="teammate-form" disabled={form.formState.isSubmitting}>
           {form.formState.isSubmitting && <Loader2 className="mr-2 animate-spin" />}
           {form.formState.isSubmitting ? 'Please wait' : mode === 'update' ? 'Update' : 'Create'}

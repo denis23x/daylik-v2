@@ -11,9 +11,12 @@ import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { useEffect } from 'react';
 import { useTeamsUpsertStore } from '@/store/useTeamsUpsertStore';
+import { toast } from 'sonner';
+import { useDeleteTeam } from '@/hooks/useTeams';
 
 export default function TeamsUpsert() {
   const { isOpen, mode, team, closeModal } = useTeamsUpsertStore();
+  const { mutateAsync: deleteTeam } = useDeleteTeam();
 
   const form = useForm<z.infer<typeof TeamsFormSchema>>({
     defaultValues: {
@@ -44,6 +47,21 @@ export default function TeamsUpsert() {
     }
   }, [mode, team, form, isOpen]);
 
+  const handleDelete = async () => {
+    if (team?.UUID) {
+      try {
+        await deleteTeam(team.UUID);
+
+        // Success message
+        toast.success('Team deleted successfully');
+      } catch (error) {
+        toast.error(error instanceof Error ? error.message : 'An error occurred');
+      } finally {
+        closeModal();
+      }
+    }
+  };
+
   return (
     <ResponsiveDialog
       open={isOpen}
@@ -60,7 +78,14 @@ export default function TeamsUpsert() {
         </FormProvider>
       }
       trigger={undefined}
-      footer={
+      extraActions={
+        mode === 'update' ? (
+          <Button variant="destructive" onClick={handleDelete}>
+            Delete
+          </Button>
+        ) : undefined
+      }
+      actions={
         <Button type="submit" form="team-form" disabled={form.formState.isSubmitting}>
           {form.formState.isSubmitting && <Loader2 className="mr-2 animate-spin" />}
           {form.formState.isSubmitting ? 'Please wait' : mode === 'update' ? 'Update' : 'Create'}

@@ -30,7 +30,8 @@ interface ResponsiveDialogProps {
   description: string;
   trigger: React.ReactNode;
   content: React.ReactNode;
-  footer: React.ReactNode;
+  extraActions: React.ReactNode;
+  actions: React.ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
@@ -40,7 +41,8 @@ const ResponsiveDialog = ({
   description,
   trigger,
   content,
-  footer,
+  extraActions,
+  actions,
   open: controlledOpen,
   onOpenChange: controlledOnOpenChange,
 }: ResponsiveDialogProps) => {
@@ -66,11 +68,14 @@ const ResponsiveDialog = ({
           </DialogHeader>
           <Separator />
           {content}
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DialogClose>
-            {footer}
+          <DialogFooter className="gap-4 sm:justify-between">
+            {extraActions}
+            <div className="flex gap-4">
+              <DialogClose asChild>
+                <Button variant="outline">Cancel</Button>
+              </DialogClose>
+              {actions}
+            </div>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -90,10 +95,11 @@ const ResponsiveDialog = ({
         <Separator className="mb-4" />
         <div className="px-4">{content}</div>
         <DrawerFooter className="gap-4">
-          {footer}
+          {actions}
           <DrawerClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline">Close</Button>
           </DrawerClose>
+          {extraActions}
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
