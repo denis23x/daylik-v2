@@ -1,7 +1,7 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 
 // Helper function to generate a random hex color
-const generateRandomHex = () => {
+const generateRandomHexColor = () => {
   const letters = '0123456789ABCDEF';
   let hexColor = '#';
   for (let i = 0; i < 6; i++) {
@@ -12,17 +12,9 @@ const generateRandomHex = () => {
 
 // Hook to generate a random hex color
 export function useRandomHexColor() {
-  const [color, setColor] = useState<string>(generateRandomHex());
-
-  // Memoized version of the generate function
-  const memoizedGenerateRandomHex = useCallback(() => {
-    return generateRandomHex();
+  const generateRandomHex = useCallback((): string => {
+    return generateRandomHexColor();
   }, []);
 
-  // Function to refresh the color
-  const refreshColor = useCallback(() => {
-    setColor(memoizedGenerateRandomHex());
-  }, [memoizedGenerateRandomHex]);
-
-  return { color, refreshColor, generateRandomHex: memoizedGenerateRandomHex };
+  return { generateRandomHex };
 }

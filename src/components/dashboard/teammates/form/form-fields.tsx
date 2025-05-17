@@ -84,12 +84,12 @@ const TeammatesFormFields = () => {
           )}
         />
         <FileUploader name="avatar">
-          <Button variant="outline" size="icon">
+          <Button variant="outline" size="icon" type="button">
             <FolderOpenIcon className="h-5 w-5" />
           </Button>
         </FileUploader>
         <ColorPicker name="color">
-          <Button variant="outline" size="icon">
+          <Button variant="outline" size="icon" type="button">
             <Palette className="h-5 w-5" />
           </Button>
         </ColorPicker>

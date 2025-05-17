@@ -14,11 +14,13 @@ import { Loader2 } from 'lucide-react';
 import { useEffect } from 'react';
 import { useDeleteTeammate } from '@/hooks/useTeammates';
 import { toast } from 'sonner';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function TeammatesUpsert() {
   const { isOpen, mode, teammate, closeModal } = useTeammatesUpsertStore();
-  const { color: randomColor } = useRandomHexColor();
+  const { generateRandomHex } = useRandomHexColor();
   const { mutateAsync: deleteTeammate } = useDeleteTeammate();
+  const queryClient = useQueryClient();
 
   const form = useForm<z.infer<typeof TeammatesFormSchema>>({
     defaultValues: {
@@ -26,7 +28,7 @@ export default function TeammatesUpsert() {
       position: '',
       teams: [],
       avatar: null,
-      color: randomColor,
+      color: '',
     },
     resolver: zodResolver(TeammatesFormSchema),
   });
@@ -49,19 +51,24 @@ export default function TeammatesUpsert() {
           position: '',
           teams: [],
           avatar: '',
-          color: randomColor,
+          color: generateRandomHex(),
         });
       }
     } else {
       // Reset form when modal is closed
       form.reset();
     }
-  }, [mode, teammate, form, randomColor, isOpen]);
+  }, [mode, teammate, form, isOpen, generateRandomHex]);
 
   const handleDelete = async () => {
     if (teammate?.UUID) {
       try {
         await deleteTeammate(teammate.UUID);
+
+        // Invalidate teams queries if the teammate is assigned to any teams
+        if (teammate.teams?.length) {
+          queryClient.invalidateQueries({ queryKey: ['teams'] });
+        }
 
         // Success message
         toast.success('Teammate deleted successfully');

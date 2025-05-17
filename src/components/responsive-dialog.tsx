@@ -68,7 +68,7 @@ const ResponsiveDialog = ({
           </DialogHeader>
           <Separator />
           {content}
-          <DialogFooter className="gap-4 sm:justify-between">
+          <DialogFooter className={extraActions ? 'gap-4 sm:justify-between' : 'gap-4'}>
             {extraActions}
             <div className="flex gap-4">
               <DialogClose asChild>

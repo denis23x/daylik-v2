@@ -6,6 +6,7 @@ import { Input } from './ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { FormControl, FormField, FormItem, FormMessage } from './ui/form';
 import { useFormContext } from 'react-hook-form';
+import { Pipette } from 'lucide-react';
 
 const ColorPicker = ({ name, children }: { name: string; children: React.ReactNode }) => {
   const form = useFormContext();
@@ -14,7 +15,15 @@ const ColorPicker = ({ name, children }: { name: string; children: React.ReactNo
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>{children}</PopoverTrigger>
+      <PopoverTrigger asChild>
+        <div className="relative">
+          {children}
+          <span
+            className="border-input absolute -top-2.5 -right-2.5 h-5 w-5 rounded-full border shadow-xs"
+            style={{ backgroundColor: form.watch(name) }}
+          ></span>
+        </div>
+      </PopoverTrigger>
       <PopoverContent onOpenAutoFocus={(e) => e.preventDefault()} className="w-80">
         <div className="space-y-4">
           <h4 className="font-medium">Choose a color</h4>
@@ -25,10 +34,7 @@ const ColorPicker = ({ name, children }: { name: string; children: React.ReactNo
               <FormItem>
                 <div className="relative flex items-center gap-2">
                   <Button variant="outline" size="icon">
-                    <span
-                      className="h-4 w-4 rounded-full"
-                      style={{ backgroundColor: field.value }}
-                    ></span>
+                    <Pipette />
                   </Button>
                   <FormControl>
                     <Input type="color" {...field} className="absolute h-9 w-9 opacity-0" />
