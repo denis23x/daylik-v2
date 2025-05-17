@@ -33,12 +33,14 @@ export async function createTeammate(
 }
 
 export async function updateTeammate(
-  teammate: Omit<Teammate, 'userUUID' | 'createdAt'>
+  teammate: Pick<Teammate, 'UUID' | 'name' | 'position' | 'color' | 'avatar'>
 ): Promise<Teammate> {
+  const session = await getSession();
   const { data, error } = await supabase
     .from('teammates')
     .update(teammate)
     .eq('UUID', teammate.UUID)
+    .eq('userUUID', session?.user.id)
     .select()
     .single();
   if (error) throw new Error(error.message);
@@ -46,7 +48,13 @@ export async function updateTeammate(
 }
 
 export async function deleteTeammate(UUID: string): Promise<Teammate[]> {
-  const { data, error } = await supabase.from('teammates').delete().eq('UUID', UUID).select();
+  const session = await getSession();
+  const { data, error } = await supabase
+    .from('teammates')
+    .delete()
+    .eq('UUID', UUID)
+    .eq('userUUID', session?.user.id)
+    .select();
   if (error) throw new Error(error.message);
   return data;
 }
