@@ -18,10 +18,12 @@ export default function TeammateUpdateForm() {
   const handleSubmit = async (formData: z.infer<typeof TeamsFormSchema>) => {
     try {
       if (team) {
-        await mutateAsync({
-          UUID: team.UUID,
-          name: formData.name,
-        });
+        if (Object.keys(form.formState.dirtyFields).length) {
+          await mutateAsync({
+            UUID: team.UUID,
+            name: formData.name,
+          });
+        }
 
         // Update teams relations
         const oldTeammates: string[] = team.teammates as string[];

@@ -18,13 +18,15 @@ export default function TeammateUpdateForm() {
   const handleSubmit = async (formData: z.infer<typeof TeammatesFormSchema>) => {
     try {
       if (teammate) {
-        await mutateAsync({
-          UUID: teammate.UUID,
-          name: formData.name,
-          position: formData.position,
-          avatar: formData.avatar || null,
-          color: formData.color,
-        });
+        if (Object.keys(form.formState.dirtyFields).length) {
+          await mutateAsync({
+            UUID: teammate.UUID,
+            name: formData.name,
+            position: formData.position,
+            avatar: formData.avatar || null,
+            color: formData.color,
+          });
+        }
 
         // Update teams relations
         const oldTeams: string[] = teammate.teams as string[];

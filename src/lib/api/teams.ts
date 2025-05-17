@@ -11,7 +11,8 @@ export async function fetchTeams(user: User, query: string = '*'): Promise<Team[
   const { data, error } = (await supabase
     .from('teams')
     .select(query)
-    .eq('userUUID', user.id)) as SupabaseQueryResult<Team[]>;
+    .eq('userUUID', user.id)
+    .order('createdAt', { ascending: false })) as SupabaseQueryResult<Team[]>;
   if (error) throw new Error(error.message);
   return data || [];
 }

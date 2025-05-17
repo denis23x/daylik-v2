@@ -11,7 +11,8 @@ export async function fetchTeammates(user: User, query: string = '*'): Promise<T
   const { data, error } = (await supabase
     .from('teammates')
     .select(query)
-    .eq('userUUID', user.id)) as SupabaseQueryResult<Teammate[]>;
+    .eq('userUUID', user.id)
+    .order('createdAt', { ascending: false })) as SupabaseQueryResult<Teammate[]>;
   if (error) throw new Error(error.message);
   return data || [];
 }
