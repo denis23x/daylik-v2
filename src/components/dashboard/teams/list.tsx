@@ -4,7 +4,6 @@ import ErrorOccurred from '@/components/error-occurred';
 import Loading from '@/components/loading';
 import NotFound from '@/components/not-found';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useAuth } from '@/context/AuthProvider';
 import { useTeams } from '@/hooks/useTeams';
 import { useTeamsUpsertStore } from '@/store/useTeamsUpsertStore';
 import type { Team } from '@/types/team.type';
@@ -14,9 +13,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 const TeamsList = () => {
-  const { user } = useAuth();
   const { data, error, isLoading } = useTeams(
-    user,
     `*, teams_teammates (teammates (UUID, name, position, color, avatar))`
   );
   const { openModal } = useTeamsUpsertStore();

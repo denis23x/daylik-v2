@@ -3,7 +3,6 @@
 import { useFormContext } from 'react-hook-form';
 import { toast } from 'sonner';
 import { Form } from '@/components/ui/form';
-import { useAuth } from '@/context/AuthProvider';
 import { supabase } from '@/utils/supabase/client';
 import { TeamsFormFields } from './form-fields';
 import { TeamsFormSchema } from './form-schema';
@@ -13,7 +12,6 @@ import { useTeamsUpsertStore } from '@/store/useTeamsUpsertStore';
 
 export default function TeammateInsertForm() {
   const form = useFormContext<z.infer<typeof TeamsFormSchema>>();
-  const { user } = useAuth();
   const { mutateAsync } = useCreateTeam();
   const { closeModal } = useTeamsUpsertStore();
 
@@ -22,7 +20,6 @@ export default function TeammateInsertForm() {
     try {
       const team = await mutateAsync({
         name: formData.name,
-        userUUID: user!.id,
       });
 
       const teammateTeamRelations = formData.teammates.map((teammateUUID) => ({

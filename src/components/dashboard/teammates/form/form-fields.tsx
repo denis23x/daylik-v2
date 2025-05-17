@@ -10,13 +10,11 @@ import ColorPicker from '@/components/color-picker';
 import { useFormContext } from 'react-hook-form';
 import { TeammatesFormSchema } from './form-schema';
 import { z } from 'zod';
-import { useAuth } from '@/context/AuthProvider';
 import { useTeams } from '@/hooks/useTeams';
 
 const TeammatesFormFields = () => {
   const form = useFormContext<z.infer<typeof TeammatesFormSchema>>();
-  const { user } = useAuth();
-  const { data: teams } = useTeams(user);
+  const { data: teams } = useTeams();
 
   return (
     <>

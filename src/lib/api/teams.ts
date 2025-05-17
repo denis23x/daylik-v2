@@ -1,24 +1,31 @@
 import type { Team } from '@/types/team.type';
 import { supabase } from '@/utils/supabase/client';
-import type { User } from '@supabase/supabase-js';
+import { getSession } from '../session';
 
 type SupabaseQueryResult<T> = {
   data: T | null;
   error: Error | null;
 };
 
-export async function fetchTeams(user: User, query: string = '*'): Promise<Team[]> {
+export async function fetchTeams(query: string = '*'): Promise<Team[]> {
+  const session = await getSession();
   const { data, error } = (await supabase
     .from('teams')
     .select(query)
-    .eq('userUUID', user.id)
+    .eq('userUUID', session?.user.id)
     .order('createdAt', { ascending: false })) as SupabaseQueryResult<Team[]>;
   if (error) throw new Error(error.message);
   return data || [];
 }
 
-export async function createTeam(team: Omit<Team, 'UUID' | 'createdAt'>): Promise<Team> {
-  const { data, error } = await supabase.from('teams').insert(team).select().single();
+export async function createTeam(team: Pick<Team, 'name'>): Promise<Team> {
+  const session = await getSession();
+  const { data, error } = await supabase
+    .from('teams')
+    .insert(team)
+    .eq('userUUID', session?.user.id)
+    .select()
+    .single();
   if (error) throw new Error(error.message);
   return data;
 }

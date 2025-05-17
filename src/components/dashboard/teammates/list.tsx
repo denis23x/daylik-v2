@@ -3,7 +3,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import type { Teammate } from '@/types/teammate.type';
 import { useTeammates } from '@/hooks/useTeammates';
-import { useAuth } from '@/context/AuthProvider';
 import NotFound from '@/components/not-found';
 import ErrorOccurred from '@/components/error-occurred';
 import Loading from '@/components/loading';
@@ -12,8 +11,7 @@ import { supabase } from '@/utils/supabase/client';
 import { toast } from 'sonner';
 
 const TeammatesList = () => {
-  const { user } = useAuth();
-  const { data: teammates, error, isLoading } = useTeammates(user);
+  const { data: teammates, error, isLoading } = useTeammates();
   const { openModal } = useTeammatesUpsertStore();
 
   const handleEdit = async (teammate: Teammate) => {

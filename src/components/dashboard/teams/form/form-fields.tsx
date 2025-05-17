@@ -6,13 +6,11 @@ import { useFormContext } from 'react-hook-form';
 import { TeamsFormSchema } from './form-schema';
 import { z } from 'zod';
 import { MultiSelect } from '@/components/multi-select';
-import { useAuth } from '@/context/AuthProvider';
 import { useTeammates } from '@/hooks/useTeammates';
 
 const TeamsFormFields = () => {
   const form = useFormContext<z.infer<typeof TeamsFormSchema>>();
-  const { user } = useAuth();
-  const { data: teammates } = useTeammates(user);
+  const { data: teammates } = useTeammates();
 
   return (
     <>
