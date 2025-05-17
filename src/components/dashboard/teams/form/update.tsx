@@ -3,23 +3,25 @@
 import { useFormContext } from 'react-hook-form';
 import { toast } from 'sonner';
 import { Form } from '@/components/ui/form';
-import { supabase } from '@/utils/supabase/client';
 import { TeamsFormFields } from './form-fields';
 import { TeamsFormSchema } from './form-schema';
 import { z } from 'zod';
 import { useTeamsUpsertStore } from '@/store/useTeamsUpsertStore';
 import { useUpdateTeam } from '@/hooks/useTeams';
+import { useAddTeammatesToTeam, useRemoveTeammatesFromTeam } from '@/hooks/useTeamsTeammates';
 
 export default function TeammateUpdateForm() {
   const form = useFormContext<z.infer<typeof TeamsFormSchema>>();
-  const { mutateAsync } = useUpdateTeam();
+  const { mutateAsync: updateTeam } = useUpdateTeam();
+  const { mutateAsync: addTeammatesToTeam } = useAddTeammatesToTeam();
+  const { mutateAsync: removeTeammatesFromTeam } = useRemoveTeammatesFromTeam();
   const { team, closeModal } = useTeamsUpsertStore();
 
   const handleSubmit = async (formData: z.infer<typeof TeamsFormSchema>) => {
     try {
       if (team) {
         if (Object.keys(form.formState.dirtyFields).length) {
-          await mutateAsync({
+          await updateTeam({
             UUID: team.UUID,
             name: formData.name,
           });
@@ -32,30 +34,17 @@ export default function TeammateUpdateForm() {
         const toAdd = newTeammates.filter((UUID) => !oldTeammates.includes(UUID));
 
         if (toRemove.length) {
-          const { error } = await supabase
-            .from('teams_teammates')
-            .delete()
-            .in('teammateUUID', toRemove)
-            .eq('teamUUID', team.UUID);
-
-          if (error) {
-            toast.error(error.message);
-            return;
-          }
+          await removeTeammatesFromTeam({
+            teamUUID: team.UUID,
+            teammates: toRemove,
+          });
         }
 
         if (toAdd.length) {
-          const teamTeammateRelations = toAdd.map((teammateUUID) => ({
+          await addTeammatesToTeam({
             teamUUID: team.UUID,
-            teammateUUID,
-          }));
-
-          const { error } = await supabase.from('teams_teammates').insert(teamTeammateRelations);
-
-          if (error) {
-            toast.error(error.message);
-            return;
-          }
+            teammates: toAdd,
+          });
         }
         // Success message
         toast.success('Team updated');

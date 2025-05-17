@@ -3,31 +3,29 @@
 import { useFormContext } from 'react-hook-form';
 import { toast } from 'sonner';
 import { Form } from '@/components/ui/form';
-import { supabase } from '@/utils/supabase/client';
 import { TeamsFormFields } from './form-fields';
 import { TeamsFormSchema } from './form-schema';
 import { z } from 'zod';
 import { useCreateTeam } from '@/hooks/useTeams';
 import { useTeamsUpsertStore } from '@/store/useTeamsUpsertStore';
+import { useAddTeammatesToTeam } from '@/hooks/useTeamsTeammates';
 
 export default function TeammateInsertForm() {
   const form = useFormContext<z.infer<typeof TeamsFormSchema>>();
-  const { mutateAsync } = useCreateTeam();
+  const { mutateAsync: createTeam } = useCreateTeam();
+  const { mutateAsync: addTeammatesToTeam } = useAddTeammatesToTeam();
   const { closeModal } = useTeamsUpsertStore();
 
   const handleSubmit = async (formData: z.infer<typeof TeamsFormSchema>) => {
-    alert('handleSubmit');
     try {
-      const team = await mutateAsync({
+      const team = await createTeam({
         name: formData.name,
       });
 
-      const teammateTeamRelations = formData.teammates.map((teammateUUID) => ({
+      await addTeammatesToTeam({
         teamUUID: team.UUID,
-        teammateUUID,
-      }));
-
-      await supabase.from('teams_teammates').insert(teammateTeamRelations);
+        teammates: formData.teammates,
+      });
 
       // Success message
       toast.success('Team created');
