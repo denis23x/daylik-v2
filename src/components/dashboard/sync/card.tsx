@@ -31,7 +31,7 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
       setRunning(false);
       setOvertime(overtime + 1);
     }
-  }, [running, remaining, teammate.UUID]);
+  }, [running, remaining, teammate.UUID, overtime]);
 
   const handleClick = () => {
     if (teammate.state.status === 'idle') {

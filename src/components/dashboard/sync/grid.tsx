@@ -74,7 +74,7 @@ export const SyncGrid = () => {
         startSync();
       }
     }
-  }, [teammates]);
+  }, [teammates, startedAt, finishedAt, startSync, finishSync]);
 
   return (
     <div className="container mx-auto flex min-h-screen flex-col items-center justify-center gap-4 px-4">
