@@ -39,10 +39,7 @@ const TeammatesGrid = () => {
       {error && <ErrorOccurred />}
       {!isLoading && !error && teammates?.length === 0 && <NotFound />}
       {!isLoading && !error && teammates?.length !== 0 && (
-        <ul
-          className="mx-auto grid w-full max-w-7xl gap-4"
-          style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(128px, 1fr))' }}
-        >
+        <ul className="grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
           {teammates?.map((teammate: Teammate) => (
             <li className="flex flex-col items-center border" key={teammate.UUID}>
               <button className="text-center" onClick={() => handleEdit(teammate)}>

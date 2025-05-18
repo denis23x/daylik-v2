@@ -55,33 +55,35 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
           <UserRound />
         </div>
         <div className="flip-card-back relative flex flex-col items-center justify-center rounded-xl border">
-          <div className="relative flex flex-col items-center justify-center gap-2">
+          <div className="relative flex flex-col items-center justify-center gap-0.5 sm:gap-2">
             {!!overtime ? (
-              <Badge variant="destructive">Overtime {overtime > 1 ? `x${overtime}` : ''}</Badge>
+              <Badge className="scale-90 sm:scale-100" variant="destructive">
+                Overtime {overtime > 1 ? `x${overtime}` : ''}
+              </Badge>
             ) : (
-              <Badge variant="secondary">
+              <Badge className="scale-90 sm:scale-100" variant="secondary">
                 <span className="first-letter:uppercase">
                   {teammate.state?.status === 'active' ? (running ? 'Active' : 'Paused') : 'Done'}
                 </span>
               </Badge>
             )}
-            <span className="text-2xl font-semibold">{teammate.name}</span>
-            <p className="text-muted-foreground text-sm">{teammate.position}</p>
+            <span className="text-lg font-semibold sm:text-2xl">{teammate.name}</span>
+            <p className="text-muted-foreground text-xs sm:text-sm">{teammate.position}</p>
           </div>
           {teammate.state.status !== 'done' && (
             <>
-              <div className="pointer-events-none absolute inset-0 p-8">
+              <div className="pointer-events-none absolute inset-0 p-6">
                 <CircularProgress
                   className="opacity-50"
                   value={handleProgress(remaining)}
                   strokeWidth={2}
                 />
               </div>
-              <div className="absolute bottom-0 flex w-full items-end justify-between gap-2 p-4">
+              <div className="absolute bottom-0 flex w-full items-end justify-between p-2 2xl:p-3">
                 <Button
                   className="rounded-full"
                   variant="outline"
-                  size="icon"
+                  size="syncIcon"
                   onClick={() => (remaining === 0 ? handleOvertime() : setRunning(!running))}
                 >
                   {remaining === 0 ? <RefreshCcw /> : running ? <Pause /> : <Play />}
@@ -89,7 +91,7 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
                 <Button
                   className="rounded-full"
                   variant="outline"
-                  size="icon"
+                  size="syncIcon"
                   onClick={() => setDone(teammate.UUID)}
                 >
                   <Check />
