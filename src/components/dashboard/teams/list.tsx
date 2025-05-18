@@ -9,6 +9,7 @@ import { useTeamsUpsertStore } from '@/store/useTeamsUpsertStore';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
 import { supabase } from '@/utils/supabase/client';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -106,6 +107,7 @@ const TeamsList = () => {
                 ))}
               </div>
               <h3 className="mt-4 text-lg font-semibold">{team.name}</h3>
+              <Link href={`/sync/${team.UUID}`}>Sync</Link>
             </button>
           ))}
         </div>
