@@ -70,7 +70,7 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
           </div>
           {teammate.state.status !== 'done' && (
             <>
-              <div className="pointer-events-none absolute inset-0 p-10">
+              <div className="pointer-events-none absolute inset-0 p-8">
                 <CircularProgress
                   className="opacity-50"
                   value={handleProgress(remaining)}

@@ -10,7 +10,7 @@ import { useTeammatesUpsertStore } from '@/store/useTeammatesUpsertStore';
 import { supabase } from '@/utils/supabase/client';
 import { toast } from 'sonner';
 
-const TeammatesList = () => {
+const TeammatesGrid = () => {
   const { data: teammates, error, isLoading } = useTeammates();
   const { openModal } = useTeammatesUpsertStore();
 
@@ -34,35 +34,36 @@ const TeammatesList = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center px-4 py-14 sm:px-6 lg:px-8">
+    <div className="container mx-auto flex min-h-screen items-center justify-center px-4">
       {isLoading && <Loading />}
       {error && <ErrorOccurred />}
       {!isLoading && !error && teammates?.length === 0 && <NotFound />}
       {!isLoading && !error && teammates?.length !== 0 && (
-        <div className="mx-auto mt-20 grid w-full max-w-screen-lg grid-cols-2 gap-12 sm:grid-cols-3 md:grid-cols-4">
+        <ul
+          className="mx-auto grid w-full max-w-7xl gap-4"
+          style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(128px, 1fr))' }}
+        >
           {teammates?.map((teammate: Teammate) => (
-            <button
-              className="text-center"
-              key={teammate.UUID}
-              onClick={() => handleEdit(teammate)}
-            >
-              <Avatar className="mx-auto h-30 w-30">
-                <AvatarImage
-                  className="bg-secondary object-cover"
-                  src={teammate.avatar || undefined}
-                />
-                <AvatarFallback style={{ backgroundColor: teammate.color }}>
-                  {teammate.name.slice(0, 2).toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
-              <h3 className="mt-4 text-lg font-semibold">{teammate.name}</h3>
-              <p className="text-muted-foreground">{teammate.position}</p>
-            </button>
+            <li className="flex flex-col items-center border" key={teammate.UUID}>
+              <button className="text-center" onClick={() => handleEdit(teammate)}>
+                <Avatar className="mx-auto h-30 w-30">
+                  <AvatarImage
+                    className="bg-secondary object-cover"
+                    src={teammate.avatar || undefined}
+                  />
+                  <AvatarFallback style={{ backgroundColor: teammate.color }}>
+                    {teammate.name.slice(0, 2).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                <h3 className="mt-4 text-lg font-semibold">{teammate.name}</h3>
+                <p className="text-muted-foreground">{teammate.position}</p>
+              </button>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
     </div>
   );
 };
 
-export default TeammatesList;
+export default TeammatesGrid;

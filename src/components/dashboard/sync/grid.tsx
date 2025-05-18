@@ -77,8 +77,8 @@ export const SyncGrid = () => {
   }, [teammates]);
 
   return (
-    <div className="mt-20 p-4">
-      <div className="mb-4 flex items-center justify-between">
+    <div className="container mx-auto flex min-h-screen flex-col items-center justify-center gap-4 px-4">
+      <div className="flex w-full items-center justify-between">
         <h1 className="text-2xl font-bold">{team?.name}</h1>
         <div className="flex gap-2">
           <Button variant="outline" onClick={shuffle} size="icon">
@@ -89,21 +89,16 @@ export const SyncGrid = () => {
           </Button>
         </div>
       </div>
-      <div
-        className="grid grid-cols-[minmax(256px,_1fr)] gap-4"
+      <ul
+        className="mx-auto grid w-full max-w-7xl gap-4"
         style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(256px, 1fr))' }}
       >
         {teammates.map((teammate) => (
-          <SyncCard key={teammate.UUID} teammate={teammate} />
+          <li className="" key={teammate.UUID}>
+            <SyncCard teammate={teammate} />
+          </li>
         ))}
-      </div>
-      <div className="mt-4 flex flex-col">
-        <p>Started at: {startedAt}</p>
-        <p>Finished at: {finishedAt}</p>
-        <div className="overflow-x-auto">
-          <pre>{JSON.stringify(teammates, null, 2)}</pre>
-        </div>
-      </div>
+      </ul>
     </div>
   );
 };

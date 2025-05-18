@@ -1,12 +1,12 @@
 import TeammatesHero from '@/components/dashboard/teammates/hero';
-import TeammatesList from '@/components/dashboard/teammates/list';
+import TeammatesGrid from '@/components/dashboard/teammates/grid';
 import TeammatesUpsert from '@/components/dashboard/teammates/upsert';
 
 export default async function Teammates() {
   return (
     <>
       <TeammatesHero />
-      <TeammatesList />
+      <TeammatesGrid />
       <TeammatesUpsert />
     </>
   );

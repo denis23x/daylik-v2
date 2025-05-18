@@ -14,7 +14,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-const TeamsList = () => {
+const TeamsGrid = () => {
   const { data, error, isLoading } = useTeams(
     `*, teams_teammates (teammates (UUID, name, position, color, avatar))`
   );
@@ -78,14 +78,17 @@ const TeamsList = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center px-4 py-14 sm:px-6 lg:px-8">
+    <div className="container mx-auto flex min-h-screen items-center justify-center px-4">
       {isLoading && <Loading />}
       {error && <ErrorOccurred />}
       {!isLoading && !error && teams?.length === 0 && <NotFound />}
       {!isLoading && !error && teams?.length !== 0 && (
-        <ul className="mx-auto mt-20 grid w-full max-w-screen-lg grid-cols-2 gap-12 sm:grid-cols-3 md:grid-cols-4">
+        <ul
+          className="mx-auto grid w-full max-w-7xl gap-4"
+          style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(128px, 1fr))' }}
+        >
           {teams?.map((team: Team) => (
-            <li className="flex flex-col items-center" key={team.UUID}>
+            <li className="flex flex-col items-center border" key={team.UUID}>
               <button className="text-center" onClick={() => handleEdit(team)}>
                 <div className="mx-auto grid aspect-square h-30 w-30 grid-cols-2 grid-rows-2 gap-2">
                   {(getDisplayTeammates(team) as Teammate[]).map((teammate: Teammate) => (
@@ -121,4 +124,4 @@ const TeamsList = () => {
   );
 };
 
-export default TeamsList;
+export default TeamsGrid;

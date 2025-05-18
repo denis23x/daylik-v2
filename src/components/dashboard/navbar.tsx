@@ -110,8 +110,8 @@ const NavigationSheet = () => {
 
 const DashboardNavbar = () => {
   return (
-    <nav className="border-accent bg-background/80 fixed top-0 left-0 z-50 h-16 w-full border-b backdrop-blur-sm backdrop-filter">
-      <div className="mx-auto flex h-full max-w-screen-xl items-center justify-between px-4 sm:px-6">
+    <nav className="border-accent bg-background/80 fixed top-0 left-0 z-50 w-full border-b backdrop-blur-sm backdrop-filter">
+      <div className="container mx-auto flex items-center justify-between p-4">
         <Link href="/">
           <Logo />
         </Link>
