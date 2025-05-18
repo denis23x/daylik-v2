@@ -2,15 +2,17 @@ import { useEffect, useState } from 'react';
 import { useSyncStore } from '@/store/useSyncStore';
 import type { TeammateWithState } from '@/types/teammateWithState.type';
 import { Button } from '@/components/ui/button';
-import { Check, Pause, Play, UserRound } from 'lucide-react';
+import { Check, Pause, Play, RefreshCcw, UserRound } from 'lucide-react';
 import { CircularProgress } from '@/components/ui/circular-progress';
+import { Badge } from '@/components/ui/badge';
 
-const TOTAL_SECONDS = 10;
+const TOTAL_SECONDS = 6;
 
 export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
-  const { setActive, finishTeammate } = useSyncStore();
+  const { setActive, setDone } = useSyncStore();
   const [remaining, setRemaining] = useState(TOTAL_SECONDS);
   const [running, setRunning] = useState(false);
+  const [overtime, setOvertime] = useState(0);
 
   useEffect(() => {
     if (teammate.state.status === 'active') {
@@ -27,7 +29,7 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
     }
     if (remaining === 0 && running) {
       setRunning(false);
-      finishTeammate(teammate.UUID);
+      setOvertime(overtime + 1);
     }
   }, [running, remaining, teammate.UUID]);
 
@@ -41,6 +43,11 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
     return (Math.min(Math.max(secondsPassed, 0), TOTAL_SECONDS) / TOTAL_SECONDS) * 100;
   };
 
+  const handleOvertime = () => {
+    setRemaining(TOTAL_SECONDS);
+    setRunning(true);
+  };
+
   return (
     <div className={`flip-card rounded-xl ${teammate.state?.status}`} onClick={handleClick}>
       <div className="flip-card-inner">
@@ -48,37 +55,42 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
           <UserRound />
         </div>
         <div className="flip-card-back relative flex flex-col items-center justify-center rounded-xl border">
-          <div className="flex flex-col items-center justify-center gap-2">
+          <div className="relative flex flex-col items-center justify-center gap-2">
+            {!!overtime ? (
+              <Badge variant="destructive">Overtime {overtime > 1 ? `x${overtime}` : ''}</Badge>
+            ) : (
+              <Badge variant="secondary">
+                <span className="first-letter:uppercase">
+                  {teammate.state?.status === 'active' ? (running ? 'Active' : 'Paused') : 'Done'}
+                </span>
+              </Badge>
+            )}
             <span className="text-2xl font-semibold">{teammate.name}</span>
             <p className="text-muted-foreground text-sm">{teammate.position}</p>
           </div>
           {teammate.state.status !== 'done' && (
             <>
-              <div className="absolute inset-0 p-10">
+              <div className="pointer-events-none absolute inset-0 p-10">
                 <CircularProgress
                   className="opacity-50"
                   value={handleProgress(remaining)}
                   strokeWidth={2}
                 />
               </div>
-              <div className="absolute inset-0 flex items-end justify-between gap-2 p-4">
+              <div className="absolute bottom-0 flex w-full items-end justify-between gap-2 p-4">
                 <Button
                   className="rounded-full"
                   variant="outline"
                   size="icon"
-                  onClick={() => setRunning(!running)}
+                  onClick={() => (remaining === 0 ? handleOvertime() : setRunning(!running))}
                 >
-                  {running ? <Pause /> : <Play />}
+                  {remaining === 0 ? <RefreshCcw /> : running ? <Pause /> : <Play />}
                 </Button>
                 <Button
                   className="rounded-full"
                   variant="outline"
                   size="icon"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setRunning(false);
-                    finishTeammate(teammate.UUID);
-                  }}
+                  onClick={() => setDone(teammate.UUID)}
                 >
                   <Check />
                 </Button>

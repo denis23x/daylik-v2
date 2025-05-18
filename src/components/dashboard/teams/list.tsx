@@ -4,6 +4,7 @@ import ErrorOccurred from '@/components/error-occurred';
 import Loading from '@/components/loading';
 import NotFound from '@/components/not-found';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import { useTeams } from '@/hooks/useTeams';
 import { useTeamsUpsertStore } from '@/store/useTeamsUpsertStore';
 import type { Team } from '@/types/team.type';
@@ -82,35 +83,39 @@ const TeamsList = () => {
       {error && <ErrorOccurred />}
       {!isLoading && !error && teams?.length === 0 && <NotFound />}
       {!isLoading && !error && teams?.length !== 0 && (
-        <div className="mx-auto mt-20 grid w-full max-w-screen-lg grid-cols-2 gap-12 sm:grid-cols-3 md:grid-cols-4">
+        <ul className="mx-auto mt-20 grid w-full max-w-screen-lg grid-cols-2 gap-12 sm:grid-cols-3 md:grid-cols-4">
           {teams?.map((team: Team) => (
-            <button className="text-center" key={team.UUID} onClick={() => handleEdit(team)}>
-              <div className="mx-auto grid aspect-square h-30 w-30 grid-cols-2 grid-rows-2 gap-2">
-                {(getDisplayTeammates(team) as Teammate[]).map((teammate: Teammate) => (
-                  <Avatar
-                    className="col-span-1 row-span-1 flex h-14 w-14 items-center justify-center"
-                    key={teammate.UUID}
-                  >
-                    <AvatarImage
-                      className="bg-secondary object-cover"
-                      src={teammate.avatar || undefined}
-                    />
-                    <AvatarFallback
-                      style={{ backgroundColor: teammate.color }}
-                      className={
-                        teammate.position === 'Dummy' ? 'border-primary border border-dashed' : ''
-                      }
+            <li className="flex flex-col items-center" key={team.UUID}>
+              <button className="text-center" onClick={() => handleEdit(team)}>
+                <div className="mx-auto grid aspect-square h-30 w-30 grid-cols-2 grid-rows-2 gap-2">
+                  {(getDisplayTeammates(team) as Teammate[]).map((teammate: Teammate) => (
+                    <Avatar
+                      className="col-span-1 row-span-1 flex h-14 w-14 items-center justify-center"
+                      key={teammate.UUID}
                     >
-                      {teammate.name.slice(0, 2).toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
-                ))}
-              </div>
-              <h3 className="mt-4 text-lg font-semibold">{team.name}</h3>
-              <Link href={`/sync/${team.UUID}`}>Sync</Link>
-            </button>
+                      <AvatarImage
+                        className="bg-secondary object-cover"
+                        src={teammate.avatar || undefined}
+                      />
+                      <AvatarFallback
+                        style={{ backgroundColor: teammate.color }}
+                        className={
+                          teammate.position === 'Dummy' ? 'border-primary border border-dashed' : ''
+                        }
+                      >
+                        {teammate.name.slice(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                  ))}
+                </div>
+                <h3 className="mt-4 text-lg font-semibold">{team.name}</h3>
+              </button>
+              <Link href={`/sync/${team.UUID}`}>
+                <Button>Sync</Button>
+              </Link>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
     </div>
   );

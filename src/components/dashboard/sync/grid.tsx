@@ -12,10 +12,20 @@ import type { Teammate } from '@/types/teammate.type';
 import { toast } from 'sonner';
 import { Dices, Shuffle } from 'lucide-react';
 
-export const SyncBoard = () => {
+export const SyncGrid = () => {
   const params = useParams();
-  const { team, teammates, setTeam, setTeammates, shuffleTeammates, setActiveRandom } =
-    useSyncStore();
+  const {
+    team,
+    teammates,
+    setTeam,
+    setTeammates,
+    shuffle,
+    setActiveRandom,
+    finishSync,
+    startSync,
+    resetStore,
+  } = useSyncStore();
+  const { startedAt, finishedAt } = useSyncStore();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,15 +58,30 @@ export const SyncBoard = () => {
       }
     };
 
+    // Reset the store before using it
+    resetStore();
+
+    // Fill the store with the data from the database
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (teammates.length) {
+      if (!finishedAt && teammates.every((teammate) => teammate.state.status === 'done')) {
+        finishSync();
+      }
+      if (!startedAt && teammates.some((teammate) => teammate.state.status !== 'idle')) {
+        startSync();
+      }
+    }
+  }, [teammates]);
 
   return (
     <div className="mt-20 p-4">
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-2xl font-bold">{team?.name}</h1>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={shuffleTeammates} size="icon">
+          <Button variant="outline" onClick={shuffle} size="icon">
             <Shuffle />
           </Button>
           <Button variant="outline" onClick={setActiveRandom} size="icon">
@@ -71,6 +96,13 @@ export const SyncBoard = () => {
         {teammates.map((teammate) => (
           <SyncCard key={teammate.UUID} teammate={teammate} />
         ))}
+      </div>
+      <div className="mt-4 flex flex-col">
+        <p>Started at: {startedAt}</p>
+        <p>Finished at: {finishedAt}</p>
+        <div className="overflow-x-auto">
+          <pre>{JSON.stringify(teammates, null, 2)}</pre>
+        </div>
       </div>
     </div>
   );

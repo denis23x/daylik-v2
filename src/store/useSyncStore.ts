@@ -8,18 +8,16 @@ type SyncStore = {
   teammates: TeammateWithState[];
   setTeam: (team: Team) => void;
   setTeammates: (teammates: Teammate[]) => void;
-
   startedAt: number | null;
   finishedAt: number | null;
   startSync: () => void;
   finishSync: () => void;
-
   activeUUID: string | null;
   setActive: (uuid: string) => void;
   setActiveRandom: () => void;
-  finishTeammate: (uuid: string) => void;
-
-  shuffleTeammates: () => void;
+  setDone: (uuid: string) => void;
+  shuffle: () => void;
+  resetStore: () => void;
 };
 
 export const useSyncStore = create<SyncStore>((set, get) => ({
@@ -39,62 +37,78 @@ export const useSyncStore = create<SyncStore>((set, get) => ({
     });
     set({ teammates: teammatesWithState });
   },
-
   startedAt: null,
   finishedAt: null,
   startSync: () => set({ startedAt: Date.now() }),
   finishSync: () => set({ finishedAt: Date.now() }),
-
   activeUUID: null,
-
   setActive: (uuid) => {
-    const prev = get().activeUUID;
+    const state = get();
+    const prev = state.activeUUID;
     const now = Date.now();
-    if (prev && prev !== uuid) get().finishTeammate(prev);
+
     set((state) => ({
       activeUUID: uuid,
-      teammates: state.teammates.map((t) =>
-        t.UUID === uuid
-          ? {
-              ...t,
+      teammates: state.teammates.map((teammate) => {
+        switch (true) {
+          case teammate.UUID === prev:
+            return {
+              ...teammate,
               state: {
-                ...t.state,
-                status: 'active',
-                startedAt: t.state.startedAt ?? now,
+                ...teammate.state,
+                status: 'done',
+                finishedAt: now,
               },
-            }
-          : t
-      ),
+            };
+          case teammate.UUID === uuid:
+            return {
+              ...teammate,
+              state: {
+                ...teammate.state,
+                status: 'active',
+                startedAt: now,
+              },
+            };
+          default:
+            return teammate;
+        }
+      }),
     }));
   },
-
   setActiveRandom: () => {
     const state = get();
-    const idle = state.teammates.filter((t) => t.state.status === 'idle');
-    if (idle.length === 0) return;
-    const random = idle[Math.floor(Math.random() * idle.length)].UUID;
-    if (state.activeUUID) state.finishTeammate(state.activeUUID);
-    state.setActive(random);
-  },
+    const idle = state.teammates.filter((teammate) => teammate.state.status === 'idle');
 
-  finishTeammate: (uuid) => {
+    if (idle.length) {
+      state.setActive(idle[Math.floor(Math.random() * idle.length)].UUID);
+    }
+  },
+  setDone: (uuid) => {
     const now = Date.now();
+
     set((state) => ({
-      activeUUID: state.activeUUID === uuid ? null : state.activeUUID,
-      teammates: state.teammates.map((t) =>
-        t.UUID === uuid
+      activeUUID: null,
+      teammates: state.teammates.map((teammate) => {
+        return teammate.UUID === uuid
           ? {
-              ...t,
+              ...teammate,
               state: {
-                ...t.state,
+                ...teammate.state,
                 status: 'done',
                 finishedAt: now,
               },
             }
-          : t
-      ),
+          : teammate;
+      }),
     }));
   },
-
-  shuffleTeammates: () => set({ teammates: [...get().teammates].sort(() => Math.random() - 0.5) }),
+  shuffle: () => set({ teammates: [...get().teammates].sort(() => Math.random() - 0.5) }),
+  resetStore: () =>
+    set({
+      team: null,
+      teammates: [],
+      startedAt: null,
+      finishedAt: null,
+      activeUUID: null,
+    }),
 }));

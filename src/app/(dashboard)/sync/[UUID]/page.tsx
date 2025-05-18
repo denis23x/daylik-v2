@@ -1,9 +1,9 @@
-import { SyncBoard } from '@/components/dashboard/sync/board';
+import { SyncGrid } from '@/components/dashboard/sync/grid';
 
 export default async function SyncPage() {
   return (
     <>
-      <SyncBoard />
+      <SyncGrid />
     </>
   );
 }
