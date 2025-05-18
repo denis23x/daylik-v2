@@ -57,8 +57,8 @@ const TeammatesGrid = () => {
                   <Pencil />
                 </Button>
               </div>
-              <div className="size-full p-4 sm:p-3">
-                <Avatar className="size-full border">
+              <div className="p-4 sm:p-3">
+                <Avatar className="aspect-square size-full border">
                   <AvatarImage
                     className="bg-secondary object-cover"
                     src={teammate.avatar || undefined}
