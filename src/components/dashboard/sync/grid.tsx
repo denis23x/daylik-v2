@@ -91,7 +91,7 @@ export const SyncGrid = () => {
       </div>
       <ul
         className="mx-auto grid w-full max-w-7xl gap-4"
-        style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(256px, 1fr))' }}
+        style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(128px, 1fr))' }}
       >
         {teammates.map((teammate) => (
           <li className="" key={teammate.UUID}>
