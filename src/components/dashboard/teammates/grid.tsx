@@ -9,6 +9,8 @@ import Loading from '@/components/loading';
 import { useTeammatesUpsertStore } from '@/store/useTeammatesUpsertStore';
 import { supabase } from '@/utils/supabase/client';
 import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { Pencil } from 'lucide-react';
 
 const TeammatesGrid = () => {
   const { data: teammates, error, isLoading } = useTeammates();
@@ -41,9 +43,22 @@ const TeammatesGrid = () => {
       {!isLoading && !error && teammates?.length !== 0 && (
         <ul className="grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
           {teammates?.map((teammate: Teammate) => (
-            <li className="flex flex-col items-center border" key={teammate.UUID}>
-              <button className="text-center" onClick={() => handleEdit(teammate)}>
-                <Avatar className="mx-auto h-30 w-30">
+            <li
+              className="relative flex aspect-square flex-col rounded-xl border p-2"
+              key={teammate.UUID}
+            >
+              <div className="absolute top-0 left-0 flex w-full items-start justify-end p-2 2xl:p-3">
+                <Button
+                  className="rounded-full"
+                  variant="outline"
+                  size="syncIcon"
+                  onClick={() => handleEdit(teammate)}
+                >
+                  <Pencil />
+                </Button>
+              </div>
+              <div className="size-full p-4 sm:p-3">
+                <Avatar className="size-full border">
                   <AvatarImage
                     className="bg-secondary object-cover"
                     src={teammate.avatar || undefined}
@@ -52,9 +67,11 @@ const TeammatesGrid = () => {
                     {teammate.name.slice(0, 2).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
-                <h3 className="mt-4 text-lg font-semibold">{teammate.name}</h3>
-                <p className="text-muted-foreground">{teammate.position}</p>
-              </button>
+              </div>
+              <div className="flex flex-col items-center">
+                <span className="text-lg font-semibold sm:text-2xl">{teammate.name}</span>
+                <p className="text-muted-foreground text-xs sm:text-sm">{teammate.position}</p>
+              </div>
             </li>
           ))}
         </ul>
