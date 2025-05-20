@@ -82,7 +82,7 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
               <div className="absolute bottom-0 flex w-full items-end justify-between p-2 2xl:p-3">
                 <Button
                   className="rounded-full"
-                  variant="outline"
+                  variant="secondary"
                   size="syncIcon"
                   onClick={() => (remaining === 0 ? handleOvertime() : setRunning(!running))}
                 >
@@ -90,7 +90,7 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
                 </Button>
                 <Button
                   className="rounded-full"
-                  variant="outline"
+                  variant="secondary"
                   size="syncIcon"
                   onClick={() => setDone(teammate.UUID)}
                 >

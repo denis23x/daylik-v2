@@ -10,6 +10,7 @@ import { useTeamsUpsertStore } from '@/store/useTeamsUpsertStore';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
 import { supabase } from '@/utils/supabase/client';
+import { Pencil, UserRoundPlus } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -38,24 +39,17 @@ const TeamsGrid = () => {
     }
   }, [data]);
 
-  function generateMockTeammates(count: number): Teammate[] {
-    const UUID = () => Math.random().toString(36).substring(2, 10) + '-' + Date.now();
-
-    return Array.from({ length: count }, () => {
-      return {
-        UUID: UUID(),
-        name: 'TM',
-        position: 'Dummy',
-        color: 'var(--background)',
-        avatar: null,
-        userUUID: UUID(),
-        createdAt: new Date().toISOString(),
-      };
-    });
-  }
-
   const getDisplayTeammates = (team: Team, count = 4) => {
-    return [...(team.teammates || []), ...generateMockTeammates(count)].slice(0, count);
+    if (team.teammates && team.teammates.length < count) {
+      const UUID = () => Math.random().toString(36).substring(2, 10) + '-' + Date.now();
+      const mockTeammates = Array.from({ length: count }, () => ({
+        UUID: UUID(),
+      }));
+
+      return [...(team.teammates || []), ...mockTeammates].slice(0, count);
+    }
+
+    return team.teammates || [];
   };
 
   const handleEdit = async (team: Team) => {
@@ -85,34 +79,74 @@ const TeamsGrid = () => {
       {!isLoading && !error && teams?.length !== 0 && (
         <ul className="grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
           {teams?.map((team: Team) => (
-            <li className="flex flex-col items-center border" key={team.UUID}>
-              <button className="text-center" onClick={() => handleEdit(team)}>
-                <div className="mx-auto grid aspect-square h-30 w-30 grid-cols-2 grid-rows-2 gap-2">
-                  {(getDisplayTeammates(team) as Teammate[]).map((teammate: Teammate) => (
-                    <Avatar
-                      className="col-span-1 row-span-1 flex h-14 w-14 items-center justify-center"
-                      key={teammate.UUID}
-                    >
-                      <AvatarImage
-                        className="bg-secondary object-cover"
-                        src={teammate.avatar || undefined}
-                      />
-                      <AvatarFallback
-                        style={{ backgroundColor: teammate.color }}
-                        className={
-                          teammate.position === 'Dummy' ? 'border-primary border border-dashed' : ''
-                        }
-                      >
-                        {teammate.name.slice(0, 2).toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
-                  ))}
+            <li className="relative flex flex-col rounded-xl border p-2" key={team.UUID}>
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold">{team.name}</h3>
+                <Button
+                  className="rounded-full"
+                  variant="secondary"
+                  size="icon"
+                  onClick={() => handleEdit(team)}
+                >
+                  <Pencil />
+                </Button>
+              </div>
+              {team.teammates?.length ? (
+                <div className="grid aspect-square grid-cols-2 grid-rows-2 gap-2 py-2">
+                  {(getDisplayTeammates(team) as Teammate[]).map(
+                    (teammate: Teammate, index, array) =>
+                      index < 3 ? (
+                        <Avatar
+                          className="col-span-1 row-span-1 flex aspect-square size-full items-center justify-center"
+                          key={teammate.UUID}
+                        >
+                          <AvatarImage
+                            className="bg-secondary object-cover"
+                            src={teammate.avatar || undefined}
+                          />
+                          {teammate.color ? (
+                            <AvatarFallback style={{ backgroundColor: teammate.color }}>
+                              {teammate.name.slice(0, 2).toUpperCase()}
+                            </AvatarFallback>
+                          ) : (
+                            <AvatarFallback>
+                              <UserRoundPlus size={20} />
+                            </AvatarFallback>
+                          )}
+                        </Avatar>
+                      ) : (
+                        index === 3 &&
+                        (teammate.name ? (
+                          <Avatar className="aspect-square size-full border" key={'teammate.UUID'}>
+                            <AvatarImage className="bg-secondary object-cover" src={undefined} />
+                            <AvatarFallback>
+                              <span className="text-lg font-semibold">+{array.length - 3}</span>
+                            </AvatarFallback>
+                          </Avatar>
+                        ) : (
+                          <Avatar className="aspect-square size-full border" key={'teammate.UUID'}>
+                            <AvatarImage className="bg-secondary object-cover" src={undefined} />
+                            <AvatarFallback>
+                              <UserRoundPlus size={20} />
+                            </AvatarFallback>
+                          </Avatar>
+                        ))
+                      )
+                  )}
                 </div>
-                <h3 className="mt-4 text-lg font-semibold">{team.name}</h3>
-              </button>
-              <Link href={`/sync/${team.UUID}`}>
-                <Button>Sync</Button>
-              </Link>
+              ) : (
+                <div className="p-4 sm:p-3">
+                  <Avatar className="aspect-square size-full border">
+                    <AvatarImage className="bg-secondary object-cover" src={undefined} />
+                    <AvatarFallback>
+                      <UserRoundPlus />
+                    </AvatarFallback>
+                  </Avatar>
+                </div>
+              )}
+              <Button disabled={!team.teammates?.length}>
+                <Link href={`/sync/${team.UUID}`}>Sync</Link>
+              </Button>
             </li>
           ))}
         </ul>

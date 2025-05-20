@@ -43,14 +43,11 @@ const TeammatesGrid = () => {
       {!isLoading && !error && teammates?.length !== 0 && (
         <ul className="grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
           {teammates?.map((teammate: Teammate) => (
-            <li
-              className="relative flex aspect-square flex-col rounded-xl border p-2"
-              key={teammate.UUID}
-            >
+            <li className="relative flex flex-col rounded-xl border p-2" key={teammate.UUID}>
               <div className="absolute top-0 left-0 flex w-full items-start justify-end p-2 2xl:p-3">
                 <Button
                   className="rounded-full"
-                  variant="outline"
+                  variant="secondary"
                   size="syncIcon"
                   onClick={() => handleEdit(teammate)}
                 >
