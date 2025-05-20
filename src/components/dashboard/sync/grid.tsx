@@ -13,7 +13,7 @@ import { toast } from 'sonner';
 import { Dices, Shuffle } from 'lucide-react';
 import { motion, spring } from 'motion/react';
 
-export const SyncGrid = () => {
+const SyncGrid = () => {
   const params = useParams();
   const {
     team,
@@ -100,3 +100,5 @@ export const SyncGrid = () => {
     </div>
   );
 };
+
+export default SyncGrid;

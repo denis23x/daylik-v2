@@ -6,7 +6,7 @@ import { Check, Pause, Play, RefreshCcw, UserRound } from 'lucide-react';
 import { CircularProgress } from '@/components/ui/circular-progress';
 import { Badge } from '@/components/ui/badge';
 
-const TOTAL_SECONDS = 6;
+const TOTAL_SECONDS = 10;
 
 export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
   const { setActive, setDone } = useSyncStore();
@@ -55,7 +55,7 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
           <UserRound />
         </div>
         <div className="flip-card-back relative flex flex-col items-center justify-center rounded-xl border">
-          <div className="relative flex flex-col items-center justify-center gap-0.5 sm:gap-2">
+          <div className="flex max-w-full flex-col items-center justify-center gap-0.5 text-center sm:gap-2">
             {!!overtime ? (
               <Badge className="scale-90 sm:scale-100" variant="destructive">
                 Overtime {overtime > 1 ? `x${overtime}` : ''}
@@ -67,8 +67,12 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
                 </span>
               </Badge>
             )}
-            <span className="text-lg font-semibold sm:text-2xl">{teammate.name}</span>
-            <p className="text-muted-foreground text-xs sm:text-sm">{teammate.position}</p>
+            <span className="max-w-full overflow-hidden px-2 text-lg font-semibold text-ellipsis sm:text-2xl">
+              {teammate.name}
+            </span>
+            <p className="text-muted-foreground max-w-full overflow-hidden px-4 text-xs text-ellipsis sm:text-sm">
+              {teammate.position}
+            </p>
           </div>
           {teammate.state.status !== 'done' && (
             <>
@@ -79,24 +83,22 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
                   strokeWidth={2}
                 />
               </div>
-              <div className="absolute bottom-0 flex w-full items-end justify-between p-2 2xl:p-3">
-                <Button
-                  className="rounded-full"
-                  variant="secondary"
-                  size="syncIcon"
-                  onClick={() => (remaining === 0 ? handleOvertime() : setRunning(!running))}
-                >
-                  {remaining === 0 ? <RefreshCcw /> : running ? <Pause /> : <Play />}
-                </Button>
-                <Button
-                  className="rounded-full"
-                  variant="secondary"
-                  size="syncIcon"
-                  onClick={() => setDone(teammate.UUID)}
-                >
-                  <Check />
-                </Button>
-              </div>
+              <Button
+                className="absolute bottom-2 left-2 rounded-full 2xl:bottom-3 2xl:left-3"
+                variant="secondary"
+                size="syncIcon"
+                onClick={() => (remaining === 0 ? handleOvertime() : setRunning(!running))}
+              >
+                {remaining === 0 ? <RefreshCcw /> : running ? <Pause /> : <Play />}
+              </Button>
+              <Button
+                className="absolute right-2 bottom-2 rounded-full 2xl:right-3 2xl:bottom-3"
+                variant="secondary"
+                size="syncIcon"
+                onClick={() => setDone(teammate.UUID)}
+              >
+                <Check />
+              </Button>
             </>
           )}
         </div>

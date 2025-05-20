@@ -44,17 +44,15 @@ const TeammatesGrid = () => {
         <ul className="grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
           {teammates?.map((teammate: Teammate) => (
             <li className="relative flex flex-col rounded-xl border p-2" key={teammate.UUID}>
-              <div className="absolute top-0 left-0 flex w-full items-start justify-end p-2 2xl:p-3">
-                <Button
-                  className="rounded-full"
-                  variant="secondary"
-                  size="syncIcon"
-                  onClick={() => handleEdit(teammate)}
-                >
-                  <Pencil />
-                </Button>
-              </div>
-              <div className="p-4 sm:p-3">
+              <Button
+                className="absolute top-2 right-2 rounded-full 2xl:top-3 2xl:right-3"
+                variant="secondary"
+                size="syncIcon"
+                onClick={() => handleEdit(teammate)}
+              >
+                <Pencil />
+              </Button>
+              <div className="pointer-events-none translate-y-1 p-4 sm:p-3">
                 <Avatar className="aspect-square size-full border">
                   <AvatarImage
                     className="bg-secondary object-cover"
@@ -65,9 +63,13 @@ const TeammatesGrid = () => {
                   </AvatarFallback>
                 </Avatar>
               </div>
-              <div className="flex flex-col items-center">
-                <span className="text-lg font-semibold sm:text-2xl">{teammate.name}</span>
-                <p className="text-muted-foreground text-xs sm:text-sm">{teammate.position}</p>
+              <div className="flex flex-col text-center">
+                <span className="overflow-hidden text-lg font-semibold text-ellipsis sm:text-2xl">
+                  {teammate.name}
+                </span>
+                <p className="text-muted-foreground overflow-hidden text-xs text-ellipsis sm:text-sm">
+                  {teammate.position}
+                </p>
               </div>
             </li>
           ))}

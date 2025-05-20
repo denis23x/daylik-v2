@@ -80,8 +80,10 @@ const TeamsGrid = () => {
         <ul className="grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
           {teams?.map((team: Team) => (
             <li className="relative flex flex-col rounded-xl border p-2" key={team.UUID}>
-              <div className="flex items-center justify-between">
-                <span className="truncate text-base font-semibold">{team.name}</span>
+              <div className="mb-auto flex items-center justify-between gap-1">
+                <span className="overflow-hidden text-base font-semibold text-ellipsis">
+                  {team.name}
+                </span>
                 <Button
                   className="rounded-full"
                   variant="secondary"
@@ -112,8 +114,14 @@ const TeamsGrid = () => {
                               <span className="text-lg font-semibold">+{array.length - 3}</span>
                             </AvatarFallback>
                           ) : (
-                            <AvatarFallback>
-                              <UserRoundPlus size={20} />
+                            <AvatarFallback asChild>
+                              <Button
+                                variant="secondary"
+                                size="icon"
+                                onClick={() => handleEdit(team)}
+                              >
+                                <UserRoundPlus />
+                              </Button>
                             </AvatarFallback>
                           )}
                         </Avatar>
@@ -121,18 +129,25 @@ const TeamsGrid = () => {
                   )}
                 </div>
               ) : (
-                <div className="p-4 sm:p-3">
+                <div className="my-2 p-4 sm:p-3">
                   <Avatar className="aspect-square size-full border">
-                    <AvatarImage className="bg-secondary object-cover" src={undefined} />
-                    <AvatarFallback>
-                      <UserRoundPlus />
+                    <AvatarFallback asChild>
+                      <Button variant="secondary" onClick={() => handleEdit(team)}>
+                        <UserRoundPlus />
+                      </Button>
                     </AvatarFallback>
                   </Avatar>
                 </div>
               )}
-              <Button disabled={!team.teammates?.length}>
-                <Link href={`/sync/${team.UUID}`}>Sync</Link>
-              </Button>
+              {team.teammates?.length ? (
+                <Button asChild>
+                  <Link href={`/sync/${team.UUID}`}>Sync</Link>
+                </Button>
+              ) : (
+                <Button variant="secondary" onClick={() => handleEdit(team)}>
+                  No teammates
+                </Button>
+              )}
             </li>
           ))}
         </ul>
