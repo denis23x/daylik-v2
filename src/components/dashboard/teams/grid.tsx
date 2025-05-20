@@ -92,21 +92,24 @@ const TeamsGrid = () => {
                 </Button>
               </div>
               {team.teammates?.length ? (
-                <div className="grid aspect-square grid-cols-2 grid-rows-2 gap-2 py-2">
+                <div className="my-2 grid aspect-square grid-cols-2 grid-rows-2 gap-2">
                   {(getDisplayTeammates(team) as Teammate[]).map(
                     (teammate: Teammate, index, array) =>
-                      index < 3 ? (
-                        <Avatar
-                          className="col-span-1 row-span-1 flex aspect-square size-full items-center justify-center"
-                          key={teammate.UUID}
-                        >
-                          <AvatarImage
-                            className="bg-secondary object-cover"
-                            src={teammate.avatar || undefined}
-                          />
-                          {teammate.color ? (
+                      index < 4 && (
+                        <Avatar className="aspect-square size-full border" key={teammate.UUID}>
+                          {index < 3 && (
+                            <AvatarImage
+                              className="bg-secondary object-cover"
+                              src={teammate.avatar || undefined}
+                            />
+                          )}
+                          {index !== 3 && teammate.color && teammate.name ? (
                             <AvatarFallback style={{ backgroundColor: teammate.color }}>
                               {teammate.name.slice(0, 2).toUpperCase()}
+                            </AvatarFallback>
+                          ) : teammate.color && teammate.name ? (
+                            <AvatarFallback>
+                              <span className="text-lg font-semibold">+{array.length - 3}</span>
                             </AvatarFallback>
                           ) : (
                             <AvatarFallback>
@@ -114,23 +117,6 @@ const TeamsGrid = () => {
                             </AvatarFallback>
                           )}
                         </Avatar>
-                      ) : (
-                        index === 3 &&
-                        (teammate.name ? (
-                          <Avatar className="aspect-square size-full border" key={'teammate.UUID'}>
-                            <AvatarImage className="bg-secondary object-cover" src={undefined} />
-                            <AvatarFallback>
-                              <span className="text-lg font-semibold">+{array.length - 3}</span>
-                            </AvatarFallback>
-                          </Avatar>
-                        ) : (
-                          <Avatar className="aspect-square size-full border" key={'teammate.UUID'}>
-                            <AvatarImage className="bg-secondary object-cover" src={undefined} />
-                            <AvatarFallback>
-                              <UserRoundPlus size={20} />
-                            </AvatarFallback>
-                          </Avatar>
-                        ))
                       )
                   )}
                 </div>
