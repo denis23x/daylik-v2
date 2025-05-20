@@ -6,7 +6,7 @@ import { Form } from '@/components/ui/form';
 import { TeamsFormFields } from './form-fields';
 import { TeamsFormSchema } from './form-schema';
 import { z } from 'zod';
-import { useTeamsUpsertStore } from '@/store/useTeamsUpsertStore';
+import { useTeamsStore } from '@/store/useTeamsStore';
 import { useUpdateTeam } from '@/hooks/useTeams';
 import { useAddTeammatesToTeam, useRemoveTeammatesFromTeam } from '@/hooks/useTeamsTeammates';
 
@@ -15,7 +15,7 @@ export default function TeammateUpdateForm() {
   const { mutateAsync: updateTeam } = useUpdateTeam();
   const { mutateAsync: addTeammatesToTeam } = useAddTeammatesToTeam();
   const { mutateAsync: removeTeammatesFromTeam } = useRemoveTeammatesFromTeam();
-  const { team, closeModal } = useTeamsUpsertStore();
+  const { team, closeModal } = useTeamsStore();
 
   const handleSubmit = async (formData: z.infer<typeof TeamsFormSchema>) => {
     try {

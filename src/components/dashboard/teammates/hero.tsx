@@ -3,10 +3,10 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { LayoutGrid, Plus } from 'lucide-react';
-import { useTeammatesUpsertStore } from '@/store/useTeammatesUpsertStore';
+import { useTeammatesStore } from '@/store/useTeammatesStore';
 
 const TeammatesHero = () => {
-  const { openModal } = useTeammatesUpsertStore();
+  const { openModal } = useTeammatesStore();
 
   const handleCreate = () => {
     openModal('insert');

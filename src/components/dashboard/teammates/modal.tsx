@@ -1,7 +1,7 @@
 'use client';
 
 import ResponsiveDialog from '@/components/responsive-dialog';
-import { useTeammatesUpsertStore } from '@/store/useTeammatesUpsertStore';
+import { useTeammatesStore } from '@/store/useTeammatesStore';
 import TeammateInsertForm from './form/insert';
 import TeammateUpdateForm from './form/update';
 import { z } from 'zod';
@@ -16,8 +16,8 @@ import { useDeleteTeammate } from '@/hooks/useTeammates';
 import { toast } from 'sonner';
 import { useQueryClient } from '@tanstack/react-query';
 
-export default function TeammatesUpsert() {
-  const { isOpen, mode, teammate, closeModal } = useTeammatesUpsertStore();
+export default function TeammatesModal() {
+  const { isOpen, mode, teammate, closeModal } = useTeammatesStore();
   const { generateRandomHex } = useRandomHexColor();
   const { mutateAsync: deleteTeammate } = useDeleteTeammate();
   const queryClient = useQueryClient();

@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import { toast } from 'sonner';
 import { Form } from '@/components/ui/form';
 import { useCreateTeammate } from '@/hooks/useTeammates';
-import { useTeammatesUpsertStore } from '@/store/useTeammatesUpsertStore';
+import { useTeammatesStore } from '@/store/useTeammatesStore';
 import { TeammatesFormFields } from './form-fields';
 import { TeammatesFormSchema } from './form-schema';
 import { z } from 'zod';
@@ -14,7 +14,7 @@ export default function TeammateInsertForm() {
   const form = useFormContext<z.infer<typeof TeammatesFormSchema>>();
   const { mutateAsync: createTeammate } = useCreateTeammate();
   const { mutateAsync: addTeamsToTeammate } = useAddTeamsToTeammate();
-  const { closeModal } = useTeammatesUpsertStore();
+  const { closeModal } = useTeammatesStore();
 
   const handleSubmit = async (formData: z.infer<typeof TeammatesFormSchema>) => {
     try {

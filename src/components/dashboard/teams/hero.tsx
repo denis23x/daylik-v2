@@ -3,10 +3,10 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Plus, UsersRound } from 'lucide-react';
-import { useTeamsUpsertStore } from '@/store/useTeamsUpsertStore';
+import { useTeamsStore } from '@/store/useTeamsStore';
 
 const TeamsHero = () => {
-  const { openModal } = useTeamsUpsertStore();
+  const { openModal } = useTeamsStore();
 
   const handleCreate = () => {
     openModal('insert');

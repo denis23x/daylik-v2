@@ -3,7 +3,7 @@ import { create } from 'zustand';
 
 type Mode = 'update' | 'insert';
 
-interface TeammatesUpsertStore {
+interface TeammatesStore {
   isOpen: boolean;
   mode: Mode;
   teammate: Teammate | null;
@@ -11,7 +11,7 @@ interface TeammatesUpsertStore {
   closeModal: () => void;
 }
 
-export const useTeammatesUpsertStore = create<TeammatesUpsertStore>((set) => ({
+export const useTeammatesStore = create<TeammatesStore>((set) => ({
   mode: 'insert',
   teammate: null,
   isOpen: false,

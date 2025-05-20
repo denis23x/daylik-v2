@@ -6,7 +6,7 @@ import { useTeammates } from '@/hooks/useTeammates';
 import NotFound from '@/components/not-found';
 import ErrorOccurred from '@/components/error-occurred';
 import Loading from '@/components/loading';
-import { useTeammatesUpsertStore } from '@/store/useTeammatesUpsertStore';
+import { useTeammatesStore } from '@/store/useTeammatesStore';
 import { supabase } from '@/utils/supabase/client';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
@@ -14,7 +14,7 @@ import { Pencil } from 'lucide-react';
 
 const TeammatesGrid = () => {
   const { data: teammates, error, isLoading } = useTeammates();
-  const { openModal } = useTeammatesUpsertStore();
+  const { openModal } = useTeammatesStore();
 
   const handleEdit = async (teammate: Teammate) => {
     const { data, error } = await supabase

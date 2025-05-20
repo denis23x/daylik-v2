@@ -6,7 +6,7 @@ import NotFound from '@/components/not-found';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { useTeams } from '@/hooks/useTeams';
-import { useTeamsUpsertStore } from '@/store/useTeamsUpsertStore';
+import { useTeamsStore } from '@/store/useTeamsStore';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
 import { supabase } from '@/utils/supabase/client';
@@ -19,7 +19,7 @@ const TeamsGrid = () => {
   const { data, error, isLoading } = useTeams(
     `*, teams_teammates (teammates (UUID, name, position, color, avatar))`
   );
-  const { openModal } = useTeamsUpsertStore();
+  const { openModal } = useTeamsStore();
   const [teams, setTeams] = useState<Team[]>();
 
   useEffect(() => {

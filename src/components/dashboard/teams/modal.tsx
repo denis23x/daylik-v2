@@ -10,12 +10,12 @@ import { TeamsFormSchema } from './form/form-schema';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { useEffect } from 'react';
-import { useTeamsUpsertStore } from '@/store/useTeamsUpsertStore';
+import { useTeamsStore } from '@/store/useTeamsStore';
 import { toast } from 'sonner';
 import { useDeleteTeam } from '@/hooks/useTeams';
 
-export default function TeamsUpsert() {
-  const { isOpen, mode, team, closeModal } = useTeamsUpsertStore();
+export default function TeamsModal() {
+  const { isOpen, mode, team, closeModal } = useTeamsStore();
   const { mutateAsync: deleteTeam } = useDeleteTeam();
 
   const form = useForm<z.infer<typeof TeamsFormSchema>>({
