@@ -19,6 +19,7 @@ export type MultiSelectItem = {
   key: string;
   value: string;
   label: string;
+  description?: string;
 };
 
 export function MultiSelect({
@@ -113,6 +114,11 @@ export function MultiSelect({
                         onSelect={() => handleSelect(field, item)}
                       >
                         {item.label}
+                        {item.description && (
+                          <small className="text-muted-foreground text-xs">
+                            {item.description}
+                          </small>
+                        )}
                         <Check
                           className={cn(
                             'ml-auto',

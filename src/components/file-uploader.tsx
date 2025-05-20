@@ -61,7 +61,7 @@ const FileUploader = ({ name, children }: { name: string; children: React.ReactN
       const { data } = supabase.storage.from('avatars').getPublicUrl(fileName);
 
       // Update form with the file URL
-      form.setValue(name, data.publicUrl);
+      form.setValue(name, data.publicUrl, { shouldDirty: true });
 
       // Close the popover
       setOpen(false);

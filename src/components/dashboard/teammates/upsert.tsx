@@ -20,7 +20,7 @@ export default function TeammatesUpsert() {
   const { isOpen, mode, teammate, closeModal } = useTeammatesUpsertStore();
   const { generateRandomHex } = useRandomHexColor();
   const { mutateAsync: deleteTeammate } = useDeleteTeammate();
-  const { invalidateQueries } = useQueryClient();
+  const queryClient = useQueryClient();
 
   const form = useForm<z.infer<typeof TeammatesFormSchema>>({
     defaultValues: {
@@ -67,7 +67,7 @@ export default function TeammatesUpsert() {
 
         // Invalidate teams queries if the teammate is assigned to any teams
         if (teammate.teams?.length) {
-          invalidateQueries({ queryKey: ['teams'] });
+          queryClient.invalidateQueries({ queryKey: ['teams'] });
         }
 
         // Success message

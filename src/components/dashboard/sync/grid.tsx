@@ -11,6 +11,7 @@ import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
 import { toast } from 'sonner';
 import { Dices, Shuffle } from 'lucide-react';
+import { motion, spring } from 'motion/react';
 
 export const SyncGrid = () => {
   const params = useParams();
@@ -91,9 +92,9 @@ export const SyncGrid = () => {
       </div>
       <ul className="grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
         {teammates.map((teammate) => (
-          <li key={teammate.UUID}>
+          <motion.li key={teammate.UUID} layout transition={spring}>
             <SyncCard teammate={teammate} />
-          </li>
+          </motion.li>
         ))}
       </ul>
     </div>

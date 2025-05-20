@@ -17,7 +17,7 @@ export default function TeammateUpdateForm() {
   const { mutateAsync: addTeamsToTeammate } = useAddTeamsToTeammate();
   const { mutateAsync: removeTeamsFromTeammate } = useRemoveTeamsFromTeammate();
   const { teammate, closeModal } = useTeammatesUpsertStore();
-  const { invalidateQueries } = useQueryClient();
+  const queryClient = useQueryClient();
 
   const handleSubmit = async (formData: z.infer<typeof TeammatesFormSchema>) => {
     try {
@@ -32,7 +32,7 @@ export default function TeammateUpdateForm() {
           });
 
           // Invalidate teams queries
-          invalidateQueries({ queryKey: ['teams'] });
+          queryClient.invalidateQueries({ queryKey: ['teams'] });
         }
 
         // Update teams relations
