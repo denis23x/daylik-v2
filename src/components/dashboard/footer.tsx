@@ -183,7 +183,7 @@ const DashboardFooter = () => {
 
             {footerSections.map(({ title, links }) => (
               <div key={title}>
-                <h6 className="font-semibold">{title}</h6>
+                <span className="font-semibold">{title}</span>
                 <ul className="mt-6 space-y-4">
                   {links.map(({ title, href }) => (
                     <li key={title}>

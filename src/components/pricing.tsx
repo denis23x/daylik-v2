@@ -51,7 +51,7 @@ const plans = [
 const Pricing02 = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center px-6 py-12">
-      <h1 className="text-center text-5xl font-bold tracking-tight">Pricing</h1>
+      <span className="text-center text-5xl font-bold tracking-tight">Pricing</span>
       <div className="mx-auto mt-12 grid max-w-screen-lg grid-cols-1 items-center gap-8 lg:grid-cols-3">
         {plans.map((plan) => (
           <div
@@ -65,7 +65,7 @@ const Pricing02 = () => {
                 Most Popular
               </Badge>
             )}
-            <h3 className="text-lg font-medium">{plan.name}</h3>
+            <span className="text-lg font-medium">{plan.name}</span>
             <p className="mt-2 text-4xl font-bold">${plan.price}</p>
             <p className="text-muted-foreground mt-4 font-medium">{plan.description}</p>
             <Separator className="my-4" />

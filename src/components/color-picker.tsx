@@ -26,7 +26,7 @@ const ColorPicker = ({ name, children }: { name: string; children: React.ReactNo
       </PopoverTrigger>
       <PopoverContent onOpenAutoFocus={(e) => e.preventDefault()} className="w-80">
         <div className="space-y-4">
-          <h4 className="font-medium">Choose a color</h4>
+          <span className="font-medium">Choose a color</span>
           <FormField
             control={form.control}
             name={name}

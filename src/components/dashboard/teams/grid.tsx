@@ -81,7 +81,7 @@ const TeamsGrid = () => {
           {teams?.map((team: Team) => (
             <li className="relative flex flex-col rounded-xl border p-2" key={team.UUID}>
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold">{team.name}</h3>
+                <span className="truncate text-base font-semibold">{team.name}</span>
                 <Button
                   className="rounded-full"
                   variant="secondary"

@@ -80,7 +80,7 @@ export const SyncGrid = () => {
   return (
     <div className="container mx-auto flex min-h-screen flex-col items-center justify-center gap-4 px-4">
       <div className="flex w-full items-center justify-between">
-        <h1 className="text-2xl font-bold">{team?.name}</h1>
+        <span className="text-2xl font-bold">{team?.name}</span>
         <div className="flex gap-2">
           <Button variant="outline" onClick={shuffle} size="icon">
             <Shuffle />

@@ -64,9 +64,9 @@ const testimonials = [
 const Testimonial01 = () => (
   <div className="flex min-h-screen items-center justify-center px-6 py-12">
     <div>
-      <h2 className="mb-14 text-center text-5xl font-bold tracking-tight md:text-6xl">
+      <span className="mb-14 text-center text-5xl font-bold tracking-tight md:text-6xl">
         Testimonials
-      </h2>
+      </span>
       <div className="mx-auto max-w-screen-xl columns-1 gap-8 md:columns-2 lg:columns-3">
         {testimonials.map((testimonial) => (
           <div key={testimonial.id} className="bg-accent mb-8 break-inside-avoid rounded-xl p-6">

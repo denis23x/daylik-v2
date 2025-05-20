@@ -78,7 +78,7 @@ const FileUploader = ({ name, children }: { name: string; children: React.ReactN
       <PopoverTrigger asChild>{children}</PopoverTrigger>
       <PopoverContent onOpenAutoFocus={(e) => e.preventDefault()} className="w-80">
         <div className="space-y-4">
-          <h4 className="font-medium">Upload file</h4>
+          <span className="font-medium">Upload file</span>
           <FormField
             control={form.control}
             name={name}

@@ -17,9 +17,9 @@ const Features02Page = () => {
   return (
     <div className="flex min-h-screen items-center justify-center py-12">
       <div className="w-full">
-        <h2 className="text-center text-4xl font-bold tracking-tight sm:text-5xl">
+        <span className="text-center text-4xl font-bold tracking-tight sm:text-5xl">
           Ignite Your Imagination
-        </h2>
+        </span>
         <div className="mx-auto mt-10 grid w-full max-w-md gap-x-6 gap-y-12 px-6 sm:max-w-screen-md sm:grid-cols-2 lg:max-w-screen-lg lg:grid-cols-3">
           {features.map((feature) => (
             <div key={feature.title} className="flex flex-col text-start">
@@ -66,9 +66,9 @@ export default Features02Page;
 // const Features = () => {
 //   return (
 //     <div id="features" className="xs:py-20 mx-auto min-h-screen w-full max-w-screen-xl px-6 py-12">
-//       <h2 className="xs:text-4xl text-3xl font-bold tracking-tight sm:mx-auto sm:max-w-xl sm:text-center md:text-5xl md:leading-[3.5rem]">
+//       <span className="xs:text-4xl text-3xl font-bold tracking-tight sm:mx-auto sm:max-w-xl sm:text-center md:text-5xl md:leading-[3.5rem]">
 //         Boost Your Strategy with Smart Features
-//       </h2>
+//       </span>
 //       <div className="xs:mt-14 mx-auto mt-8 grid w-full gap-x-10 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
 //         {features.map((feature) => (
 //           <Card
@@ -77,7 +77,7 @@ export default Features02Page;
 //           >
 //             <CardHeader>
 //               <feature.icon />
-//               <h4 className="!mt-3 text-xl font-bold tracking-tight">{feature.title}</h4>
+//               <span className="!mt-3 text-xl font-bold tracking-tight">{feature.title}</span>
 //               <p className="text-muted-foreground xs:text-[17px] mt-1 text-sm">
 //                 {feature.description}
 //               </p>
