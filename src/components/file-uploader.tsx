@@ -6,19 +6,17 @@ import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Button } from './ui/button';
 import { FormControl, FormField, FormItem, FormMessage } from './ui/form';
 import { Input } from './ui/input';
-import { supabase } from '@/utils/supabase/client';
 import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { useUploadFile } from '@/hooks/useFiles';
 
 // Max file size 1MB
 const MAX_FILE_SIZE = 1 * 1024 * 1024;
 
 const FileUploader = ({ name, children }: { name: string; children: React.ReactNode }) => {
   const form = useFormContext();
-
   const [open, setOpen] = useState(false);
-
-  const [isUploading, setIsUploading] = useState(false);
+  const { mutateAsync: uploadFile, isPending: isLoading } = useUploadFile('avatars');
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -39,37 +37,24 @@ const FileUploader = ({ name, children }: { name: string; children: React.ReactN
       return;
     }
 
-    if (isUploading) {
+    if (isLoading) {
       toast.error('Upload already in progress');
       return;
     }
 
-    // Start uploading
-    setIsUploading(true);
-
     try {
       // Upload file to Supabase storage
       const fileName = `${Date.now()}-${file.name}`;
-      const { error } = await supabase.storage.from('avatars').upload(fileName, file);
-
-      if (error) {
-        toast.error(error.message);
-        return;
-      }
-
-      // Get public URL
-      const { data } = supabase.storage.from('avatars').getPublicUrl(fileName);
+      const publicUrl = await uploadFile({ fileName, file });
 
       // Update form with the file URL
-      form.setValue(name, data.publicUrl, { shouldDirty: true });
+      form.setValue(name, publicUrl, { shouldDirty: true });
 
       // Close the popover
       setOpen(false);
     } catch (error) {
       // Display error to user
       toast.error(error instanceof Error ? error.message : 'Failed to upload file');
-    } finally {
-      setIsUploading(false);
     }
   };
 
@@ -89,16 +74,16 @@ const FileUploader = ({ name, children }: { name: string; children: React.ReactN
                     type="file"
                     accept="image/*"
                     onChange={handleFileUpload}
-                    disabled={isUploading}
+                    disabled={isLoading}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button className="w-full" onClick={() => setOpen(false)} disabled={isUploading}>
-            {isUploading && <Loader2 className="animate-spin" />}
-            {isUploading ? 'Uploading' : 'Close'}
+          <Button className="w-full" onClick={() => setOpen(false)} disabled={isLoading}>
+            {isLoading && <Loader2 className="animate-spin" />}
+            {isLoading ? 'Uploading' : 'Close'}
           </Button>
         </div>
       </PopoverContent>
