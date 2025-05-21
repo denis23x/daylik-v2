@@ -3,6 +3,7 @@
 import ErrorOccurred from '@/components/error-occurred';
 import Loading from '@/components/loading';
 import NotFound from '@/components/not-found';
+import GridWithHoverEffect from '@/components/grid-with-hover-effect';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { useTeams } from '@/hooks/useTeams';
@@ -77,9 +78,9 @@ const TeamsGrid = () => {
       {error && <ErrorOccurred />}
       {!isLoading && !error && teams?.length === 0 && <NotFound />}
       {!isLoading && !error && teams?.length !== 0 && (
-        <ul className="grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
+        <GridWithHoverEffect>
           {teams?.map((team: Team) => (
-            <li className="relative flex flex-col rounded-xl border p-2" key={team.UUID}>
+            <>
               <div className="mb-auto flex items-center justify-between gap-1">
                 <span className="overflow-hidden text-base font-semibold text-ellipsis">
                   {team.name}
@@ -148,9 +149,9 @@ const TeamsGrid = () => {
                   No teammates
                 </Button>
               )}
-            </li>
+            </>
           ))}
-        </ul>
+        </GridWithHoverEffect>
       )}
     </div>
   );

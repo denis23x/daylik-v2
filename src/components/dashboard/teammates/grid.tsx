@@ -11,6 +11,7 @@ import { supabase } from '@/utils/supabase/client';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Pencil } from 'lucide-react';
+import GridWithHoverEffect from '@/components/grid-with-hover-effect';
 
 const TeammatesGrid = () => {
   const { data: teammates, error, isLoading } = useTeammates();
@@ -41,9 +42,9 @@ const TeammatesGrid = () => {
       {error && <ErrorOccurred />}
       {!isLoading && !error && teammates?.length === 0 && <NotFound />}
       {!isLoading && !error && teammates?.length !== 0 && (
-        <ul className="grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
+        <GridWithHoverEffect>
           {teammates?.map((teammate: Teammate) => (
-            <li className="relative flex flex-col rounded-xl border p-2" key={teammate.UUID}>
+            <>
               <Button
                 className="absolute top-2 right-2 rounded-full 2xl:top-3 2xl:right-3"
                 variant="secondary"
@@ -71,9 +72,9 @@ const TeammatesGrid = () => {
                   {teammate.position}
                 </p>
               </div>
-            </li>
+            </>
           ))}
-        </ul>
+        </GridWithHoverEffect>
       )}
     </div>
   );
