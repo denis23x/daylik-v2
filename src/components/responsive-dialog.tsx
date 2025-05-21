@@ -47,7 +47,7 @@ const ResponsiveDialog = ({
   onOpenChange: controlledOnOpenChange,
 }: ResponsiveDialogProps) => {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
-  const isDesktop = useMediaQuery('(min-width: 768px)');
+  const isDesktop = useMediaQuery('(min-width: 640px)');
 
   // Use controlled props if provided, otherwise use internal state
   const isControlled = controlledOpen !== undefined && controlledOnOpenChange !== undefined;

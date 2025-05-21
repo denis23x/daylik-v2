@@ -60,7 +60,7 @@ export function MultiSelect({
       name={name}
       render={({ field, formState }) => (
         <FormItem className="flex flex-col">
-          <FormLabel>
+          <FormLabel htmlFor={name}>
             {label}{' '}
             {field.value.length !== 0 && (
               <span className="text-muted-foreground">({field.value.length})</span>
@@ -71,6 +71,7 @@ export function MultiSelect({
               <FormControl>
                 <div className="relative w-full">
                   <Input
+                    id={name}
                     className={cn(
                       'w-full pr-6 text-left',
                       field.value.length === 0 && 'text-muted-foreground'

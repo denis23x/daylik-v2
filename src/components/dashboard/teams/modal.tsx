@@ -9,14 +9,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { TeamsFormSchema } from './form/form-schema';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTeamsStore } from '@/store/useTeamsStore';
 import { toast } from 'sonner';
 import { useDeleteTeam } from '@/hooks/useTeams';
+import { ConfirmDialog } from '@/components/confirm-dialog';
 
 export default function TeamsModal() {
   const { isOpen, mode, team, closeModal } = useTeamsStore();
   const { mutateAsync: deleteTeam } = useDeleteTeam();
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   const form = useForm<z.infer<typeof TeamsFormSchema>>({
     defaultValues: {
@@ -75,12 +77,19 @@ export default function TeamsModal() {
       content={
         <FormProvider {...form}>
           {mode === 'update' ? <TeamUpdateForm /> : <TeamInsertForm />}
+          <ConfirmDialog
+            title="Are you absolutely sure?"
+            description="This action cannot be undone."
+            open={isAlertOpen}
+            onOpenChange={setIsAlertOpen}
+            onConfirmAction={handleDelete}
+          />
         </FormProvider>
       }
       trigger={undefined}
       extraActions={
         mode === 'update' ? (
-          <Button variant="destructive" onClick={handleDelete}>
+          <Button variant="destructive" onClick={() => setIsAlertOpen(true)}>
             Delete
           </Button>
         ) : undefined

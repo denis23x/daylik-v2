@@ -11,16 +11,18 @@ import { useRandomHexColor } from '@/hooks/useRandomHexColor';
 import { TeammatesFormSchema } from './form/form-schema';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDeleteTeammate } from '@/hooks/useTeammates';
 import { toast } from 'sonner';
 import { useQueryClient } from '@tanstack/react-query';
+import { ConfirmDialog } from '@/components/confirm-dialog';
 
 export default function TeammatesModal() {
   const { isOpen, mode, teammate, closeModal } = useTeammatesStore();
   const { generateRandomHex } = useRandomHexColor();
   const { mutateAsync: deleteTeammate } = useDeleteTeammate();
   const queryClient = useQueryClient();
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   const form = useForm<z.infer<typeof TeammatesFormSchema>>({
     defaultValues: {
@@ -93,12 +95,19 @@ export default function TeammatesModal() {
       content={
         <FormProvider {...form}>
           {mode === 'update' ? <TeammateUpdateForm /> : <TeammateInsertForm />}
+          <ConfirmDialog
+            title="Are you absolutely sure?"
+            description="This action cannot be undone."
+            open={isAlertOpen}
+            onOpenChange={setIsAlertOpen}
+            onConfirmAction={handleDelete}
+          />
         </FormProvider>
       }
       trigger={undefined}
       extraActions={
         mode === 'update' ? (
-          <Button variant="destructive" onClick={handleDelete}>
+          <Button variant="destructive" onClick={() => setIsAlertOpen(true)}>
             Delete
           </Button>
         ) : undefined

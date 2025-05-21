@@ -6,7 +6,6 @@ import ThemeToggle from '../theme-toggle';
 import Link from 'next/link';
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetDescription,
   SheetFooter,
@@ -26,11 +25,13 @@ import {
 import { NavigationMenu } from '@radix-ui/react-navigation-menu';
 import { useEffect, useState } from 'react';
 import { Separator } from '@/components/ui/separator';
+import { ConfirmDialog } from '../confirm-dialog';
 
 const NavigationSheet = () => {
   const router = useRouter();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   // Close sheet when route changes
   useEffect(() => {
@@ -66,12 +67,19 @@ const NavigationSheet = () => {
             Access your resources and settings from this sidebar menu.
           </SheetDescription>
         </SheetHeader>
+        <ConfirmDialog
+          title="Are you absolutely sure?"
+          description="You’ll need to sign in again to access your account."
+          open={isAlertOpen}
+          onOpenChange={setIsAlertOpen}
+          onConfirmAction={handleLogout}
+        />
         <NavigationMenu>
           <NavigationMenuList className="grid gap-4 space-x-0 p-4 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start">
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link className="flex items-center gap-2" href="/teams">
-                  <LayoutGrid size={20} />
+                  <LayoutGrid size={16} />
                   Teams
                 </Link>
               </NavigationMenuLink>
@@ -80,7 +88,7 @@ const NavigationSheet = () => {
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link className="flex items-center gap-2" href="/teammates">
-                  <UsersRound size={20} />
+                  <UsersRound size={16} />
                   Teammates
                 </Link>
               </NavigationMenuLink>
@@ -89,7 +97,7 @@ const NavigationSheet = () => {
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link className="flex items-center gap-2" href="/profile">
-                  <Settings2 size={20} />
+                  <Settings2 size={16} />
                   Profile
                 </Link>
               </NavigationMenuLink>
@@ -97,11 +105,9 @@ const NavigationSheet = () => {
           </NavigationMenuList>
         </NavigationMenu>
         <SheetFooter>
-          <SheetClose asChild>
-            <Button variant="outline" onClick={handleLogout}>
-              Logout
-            </Button>
-          </SheetClose>
+          <Button variant="outline" onClick={() => setIsAlertOpen(true)}>
+            Logout
+          </Button>
         </SheetFooter>
       </SheetContent>
     </Sheet>
