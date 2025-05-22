@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Button } from './ui/button';
-import { FormControl, FormField, FormItem, FormMessage } from './ui/form';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
 import { Input } from './ui/input';
 import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
@@ -63,12 +63,12 @@ const FileUploader = ({ name, children }: { name: string; children: React.ReactN
       <PopoverTrigger asChild>{children}</PopoverTrigger>
       <PopoverContent onOpenAutoFocus={(e) => e.preventDefault()} className="w-80">
         <div className="space-y-4">
-          <span className="font-medium">Upload file</span>
           <FormField
             control={form.control}
             name={name}
             render={() => (
               <FormItem>
+                <FormLabel>Upload file</FormLabel>
                 <FormControl>
                   <Input
                     type="file"

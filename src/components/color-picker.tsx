@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
-import { FormControl, FormField, FormItem, FormMessage } from './ui/form';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
 import { useFormContext } from 'react-hook-form';
 import { Pipette } from 'lucide-react';
 
@@ -26,13 +26,13 @@ const ColorPicker = ({ name, children }: { name: string; children: React.ReactNo
       </PopoverTrigger>
       <PopoverContent onOpenAutoFocus={(e) => e.preventDefault()} className="w-80">
         <div className="space-y-4">
-          <span className="font-medium">Choose a color</span>
           <FormField
             control={form.control}
             name={name}
             render={({ field }) => (
               <FormItem>
-                <div className="relative flex items-center gap-2">
+                <FormLabel>Choose a color</FormLabel>
+                <div className="relative flex items-center gap-4">
                   <Button variant="outline" size="icon">
                     <Pipette />
                   </Button>
