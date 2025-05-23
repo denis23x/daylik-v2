@@ -1,5 +1,5 @@
-import Navbar from '@/components/navbar';
 import { Toaster } from 'sonner';
+import { ReactQueryProvider } from '@/context/ReactQueryProvider';
 
 export default function AuthLayout({
   children,
@@ -7,10 +7,9 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <ReactQueryProvider>
       <Toaster richColors />
-      <Navbar />
       {children}
-    </>
+    </ReactQueryProvider>
   );
 }

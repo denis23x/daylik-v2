@@ -24,7 +24,7 @@ export async function signUp({ email, password }: SignUpParams) {
     email,
     password,
     options: {
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_URL}/confirm`,
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_URL}/teams?welcomeUser=1`,
     },
   });
   if (error) throw error;
