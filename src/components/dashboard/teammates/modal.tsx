@@ -16,13 +16,16 @@ import { useDeleteTeammate } from '@/hooks/useTeammates';
 import { toast } from 'sonner';
 import { useQueryClient } from '@tanstack/react-query';
 import { ConfirmDialog } from '@/components/confirm-dialog';
-import { useDeleteFile } from '@/hooks/useFiles';
+import { useDeleteFiles } from '@/hooks/useFiles';
+import { getFilePath } from '@/lib/api/files';
+
+const BUCKET = 'avatars';
 
 export default function TeammatesModal() {
   const { isOpen, mode, teammate, closeModal } = useTeammatesStore();
   const { generateRandomHex } = useRandomHexColor();
   const { mutateAsync: deleteTeammate } = useDeleteTeammate();
-  const { mutateAsync: deleteFile } = useDeleteFile('avatars');
+  const { mutate: deleteFiles } = useDeleteFiles();
   const queryClient = useQueryClient();
   const [isAlertOpen, setIsAlertOpen] = useState(false);
 
@@ -71,7 +74,8 @@ export default function TeammatesModal() {
 
         // Delete avatar if it exists
         if (teammate.avatar) {
-          await deleteFile(teammate.avatar);
+          // Sync method
+          deleteFiles({ bucket: BUCKET, paths: [getFilePath(teammate.avatar)] });
         }
 
         // Invalidate teams queries if the teammate is assigned to any teams

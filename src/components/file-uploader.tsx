@@ -9,14 +9,15 @@ import { Input } from './ui/input';
 import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useUploadFile } from '@/hooks/useFiles';
+import { getPublicUrl } from '@/lib/api/files';
 
-// Max file size 1MB
+const BUCKET = 'avatars';
 const MAX_FILE_SIZE = 1 * 1024 * 1024;
 
 const FileUploader = ({ name, children }: { name: string; children: React.ReactNode }) => {
   const form = useFormContext();
   const [open, setOpen] = useState(false);
-  const { mutateAsync: uploadFile, isPending: isLoading } = useUploadFile('avatars');
+  const { mutateAsync: uploadFile, isPending: isLoading } = useUploadFile();
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -45,10 +46,11 @@ const FileUploader = ({ name, children }: { name: string; children: React.ReactN
     try {
       // Upload file to Supabase storage
       const fileName = `${Date.now()}-${file.name}`;
-      const publicUrl = await uploadFile({ fileName, file });
+      const fileUpload = await uploadFile({ bucket: BUCKET, fileName, file });
+      const fileUrl = getPublicUrl({ bucket: BUCKET, path: fileUpload.path });
 
       // Update form with the file URL
-      form.setValue(name, publicUrl, { shouldDirty: true });
+      form.setValue(name, fileUrl.publicUrl, { shouldDirty: true });
 
       // Close the popover
       setOpen(false);

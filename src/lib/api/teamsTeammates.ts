@@ -2,28 +2,28 @@ import { supabase } from '@/utils/supabase/client';
 import { getSession } from '../session';
 import type { TeamTeammate } from '@/types/teamTeammate.type';
 
-interface AddTeammatesToTeam {
+interface AddTeammatesToTeamParams {
   teamUUID: string;
   teammates: string[];
 }
 
-interface RemoveTeammatesFromTeam extends AddTeammatesToTeam {
+interface RemoveTeammatesFromTeamParams extends AddTeammatesToTeamParams {
   teammatesDisableInvalidateQueries?: boolean;
 }
 
-interface AddTeamsToTeammate {
+interface AddTeamsToTeammateParams {
   teammateUUID: string;
   teams: string[];
 }
 
-interface RemoveTeamsFromTeammate extends AddTeamsToTeammate {
+interface RemoveTeamsFromTeammateParams extends AddTeamsToTeammateParams {
   teamsDisableInvalidateQueries?: boolean;
 }
 
 export async function addTeammatesToTeam({
   teamUUID,
   teammates,
-}: AddTeammatesToTeam): Promise<TeamTeammate[]> {
+}: AddTeammatesToTeamParams): Promise<TeamTeammate[]> {
   const session = await getSession();
   const teammateTeamRelations = teammates.map((teammateUUID) => ({
     teamUUID,
@@ -41,7 +41,7 @@ export async function addTeammatesToTeam({
 export async function removeTeammatesFromTeam({
   teamUUID,
   teammates,
-}: RemoveTeammatesFromTeam): Promise<TeamTeammate[]> {
+}: RemoveTeammatesFromTeamParams): Promise<TeamTeammate[]> {
   const { data, error } = await supabase
     .from('teams_teammates')
     .delete()
@@ -55,7 +55,7 @@ export async function removeTeammatesFromTeam({
 export async function addTeamsToTeammate({
   teammateUUID,
   teams,
-}: AddTeamsToTeammate): Promise<TeamTeammate[]> {
+}: AddTeamsToTeammateParams): Promise<TeamTeammate[]> {
   const session = await getSession();
   const teammateTeamRelations = teams.map((teamUUID) => ({
     teamUUID,
@@ -73,7 +73,7 @@ export async function addTeamsToTeammate({
 export async function removeTeamsFromTeammate({
   teammateUUID,
   teams,
-}: RemoveTeamsFromTeammate): Promise<TeamTeammate[]> {
+}: RemoveTeamsFromTeammateParams): Promise<TeamTeammate[]> {
   const { data, error } = await supabase
     .from('teams_teammates')
     .delete()
