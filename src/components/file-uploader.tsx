@@ -44,7 +44,7 @@ const FileUploader = ({ name, children }: { name: string; children: React.ReactN
     }
 
     try {
-      // Upload file to Supabase storage
+      // Upload file to storage
       const fileName = `${Date.now()}-${file.name}`;
       const fileUpload = await uploadFile({ bucket: BUCKET, fileName, file });
       const fileUrl = getPublicUrl({ bucket: BUCKET, path: fileUpload.path });

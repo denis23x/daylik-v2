@@ -15,10 +15,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { supabase } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
+import { useSignUp } from '@/hooks/useAuth';
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -27,6 +27,7 @@ const formSchema = z.object({
 
 const AuthSignUp = () => {
   const router = useRouter();
+  const { mutateAsync: signUp } = useSignUp();
 
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
@@ -38,19 +39,9 @@ const AuthSignUp = () => {
 
   const handleSubmit = async (formData: z.infer<typeof formSchema>) => {
     try {
-      const { error } = await supabase.auth.signUp({
-        email: formData.email,
-        password: formData.password,
-        options: {
-          emailRedirectTo: `${process.env.NEXT_PUBLIC_URL}/confirm`,
-        },
-      });
+      await signUp({ ...formData });
 
-      if (error) {
-        toast.error(error.message);
-        return;
-      }
-
+      // Redirect
       router.push('/confirm');
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'An error occurred');

@@ -34,7 +34,7 @@ export async function addTeammatesToTeam({
     .insert(teammateTeamRelations)
     .eq('userUUID', session?.user.id)
     .select();
-  if (error) throw new Error(error.message);
+  if (error) throw error;
   return data;
 }
 
@@ -48,7 +48,7 @@ export async function removeTeammatesFromTeam({
     .in('teammateUUID', teammates)
     .eq('teamUUID', teamUUID)
     .select();
-  if (error) throw new Error(error.message);
+  if (error) throw error;
   return data;
 }
 
@@ -66,7 +66,7 @@ export async function addTeamsToTeammate({
     .insert(teammateTeamRelations)
     .eq('userUUID', session?.user.id)
     .select();
-  if (error) throw new Error(error.message);
+  if (error) throw error;
   return data;
 }
 
@@ -80,6 +80,6 @@ export async function removeTeamsFromTeammate({
     .in('teamUUID', teams)
     .eq('teammateUUID', teammateUUID)
     .select();
-  if (error) throw new Error(error.message);
+  if (error) throw error;
   return data;
 }

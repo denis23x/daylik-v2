@@ -14,7 +14,7 @@ export async function fetchTeams(query: string = '*'): Promise<Team[]> {
     .select(query)
     .eq('userUUID', session?.user.id)
     .order('createdAt', { ascending: false })) as SupabaseQueryResult<Team[]>;
-  if (error) throw new Error(error.message);
+  if (error) throw error;
   return data || [];
 }
 
@@ -26,7 +26,7 @@ export async function createTeam(team: Pick<Team, 'name'>): Promise<Team> {
     .eq('userUUID', session?.user.id)
     .select()
     .single();
-  if (error) throw new Error(error.message);
+  if (error) throw error;
   return data;
 }
 
@@ -39,7 +39,7 @@ export async function updateTeam(team: Pick<Team, 'UUID' | 'name'>): Promise<Tea
     .eq('userUUID', session?.user.id)
     .select()
     .single();
-  if (error) throw new Error(error.message);
+  if (error) throw error;
   return data;
 }
 
@@ -51,6 +51,6 @@ export async function deleteTeam(UUID: string): Promise<Team[]> {
     .eq('UUID', UUID)
     .eq('userUUID', session?.user.id)
     .select();
-  if (error) throw new Error(error.message);
+  if (error) throw error;
   return data;
 }

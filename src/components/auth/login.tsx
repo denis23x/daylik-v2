@@ -16,9 +16,9 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
-import { supabase } from '@/utils/supabase/client';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
+import { useSignIn } from '@/hooks/useAuth';
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -27,6 +27,7 @@ const formSchema = z.object({
 
 const AuthLogin = () => {
   const router = useRouter();
+  const { mutateAsync: signIn } = useSignIn();
 
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
@@ -38,16 +39,9 @@ const AuthLogin = () => {
 
   const handleSubmit = async (formData: z.infer<typeof formSchema>) => {
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email: formData.email,
-        password: formData.password,
-      });
+      await signIn({ ...formData });
 
-      if (error) {
-        toast.error(error.message);
-        return;
-      }
-
+      // Redirect
       router.push('/teams');
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'An error occurred');

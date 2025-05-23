@@ -14,7 +14,7 @@ export async function fetchTeammates(query: string = '*'): Promise<Teammate[]> {
     .select(query)
     .eq('userUUID', session?.user.id)
     .order('createdAt', { ascending: false })) as SupabaseQueryResult<Teammate[]>;
-  if (error) throw new Error(error.message);
+  if (error) throw error;
   return data || [];
 }
 
@@ -28,7 +28,7 @@ export async function createTeammate(
     .eq('userUUID', session?.user.id)
     .select()
     .single();
-  if (error) throw new Error(error.message);
+  if (error) throw error;
   return data;
 }
 
@@ -43,7 +43,7 @@ export async function updateTeammate(
     .eq('userUUID', session?.user.id)
     .select()
     .single();
-  if (error) throw new Error(error.message);
+  if (error) throw error;
   return data;
 }
 
@@ -55,6 +55,6 @@ export async function deleteTeammate(UUID: string): Promise<Teammate[]> {
     .eq('UUID', UUID)
     .eq('userUUID', session?.user.id)
     .select();
-  if (error) throw new Error(error.message);
+  if (error) throw error;
   return data;
 }
