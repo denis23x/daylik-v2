@@ -104,7 +104,7 @@ export function MultiSelect({
               onOpenAutoFocus={(e) => e.preventDefault()}
             >
               <Command className="w-full">
-                <CommandInput placeholder={searchPlaceholder} className="h-9" />
+                <CommandInput placeholder={searchPlaceholder} className="h-9 text-sm" />
                 <CommandList>
                   <CommandEmpty>{emptyMessage}</CommandEmpty>
                   <CommandGroup>

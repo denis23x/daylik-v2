@@ -14,7 +14,7 @@ import { Pencil } from 'lucide-react';
 import GridWithHoverEffect from '@/components/grid-with-hover-effect';
 
 const TeammatesGrid = () => {
-  const { data: teammates, error, isLoading } = useTeammates();
+  const { data: teammates, error, isLoading } = useTeammates({ query: '*' });
   const { openModal } = useTeammatesStore();
 
   const handleEdit = async (teammate: Teammate) => {

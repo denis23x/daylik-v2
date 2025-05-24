@@ -39,7 +39,7 @@ const TabsEmail = () => {
 
   useEffect(() => {
     form.setValue('oldEmail', data?.user?.email || '');
-  }, [data?.user?.email]);
+  }, [form, data]);
 
   const handleSubmit = async (formData: z.infer<typeof formSchema>) => {
     try {

@@ -1,7 +1,7 @@
 import { fetchTeams, createTeam, updateTeam, deleteTeam } from '@/lib/api/teams';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-export function useTeams(query: string = '*') {
+export function useTeams({ query }: { query: string }) {
   return useQuery({
     queryKey: ['teams', query],
     queryFn: () => fetchTeams(query),

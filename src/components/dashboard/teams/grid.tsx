@@ -17,9 +17,9 @@ import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 const TeamsGrid = () => {
-  const { data, error, isLoading } = useTeams(
-    `*, teams_teammates (teammates (UUID, name, position, color, avatar))`
-  );
+  const { data, error, isLoading } = useTeams({
+    query: `*, teams_teammates (teammates (UUID, name, position, color, avatar))`,
+  });
   const { openModal } = useTeamsStore();
   const [teams, setTeams] = useState<Team[]>();
 

@@ -14,7 +14,7 @@ import { useTeams } from '@/hooks/useTeams';
 
 const TeammatesFormFields = () => {
   const form = useFormContext<z.infer<typeof TeammatesFormSchema>>();
-  const { data: teams } = useTeams();
+  const { data: teams } = useTeams({ query: '*' });
 
   return (
     <>

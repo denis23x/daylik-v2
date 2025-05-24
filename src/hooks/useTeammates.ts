@@ -6,7 +6,7 @@ import {
 } from '@/lib/api/teammates';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-export function useTeammates(query: string = '*') {
+export function useTeammates({ query }: { query: string }) {
   return useQuery({
     queryKey: ['teammates', query],
     queryFn: () => fetchTeammates(query),
