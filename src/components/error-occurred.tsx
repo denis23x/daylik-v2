@@ -1,11 +1,12 @@
 'use client';
 
+import { cn } from '@/lib/utils';
 import { Bug } from 'lucide-react';
 
-const ErrorOccurred = () => {
+const ErrorOccurred = ({ className }: { className?: string }) => {
   return (
-    <div className="flex max-w-md flex-col items-center gap-4">
-      <Bug size={48} />
+    <div className={cn('flex max-w-md flex-col items-center justify-center gap-4', className)}>
+      <Bug />
       <div className="text-center text-base">An error occurred</div>
     </div>
   );

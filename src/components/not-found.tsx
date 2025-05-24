@@ -1,11 +1,12 @@
 'use client';
 
-import { Frown } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { SearchX } from 'lucide-react';
 
-const NotFound = () => {
+const NotFound = ({ className }: { className?: string }) => {
   return (
-    <div className="flex max-w-md flex-col items-center gap-4">
-      <Frown size={48} />
+    <div className={cn('flex max-w-md flex-col items-center justify-center gap-4', className)}>
+      <SearchX />
       <div className="text-center text-base">Not found</div>
     </div>
   );

@@ -1,11 +1,12 @@
 'use client';
 
+import { cn } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 
-const Loading = () => {
+const Loading = ({ className }: { className?: string }) => {
   return (
-    <div className="flex max-w-md flex-col items-center gap-4">
-      <Loader2 className="animate-spin" size={48} />
+    <div className={cn('flex max-w-md flex-col items-center justify-center gap-4', className)}>
+      <Loader2 className="animate-spin" />
       <div className="text-center text-base">Loading, please wait</div>
     </div>
   );

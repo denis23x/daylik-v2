@@ -1,8 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-import { Plus, UsersRound } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { useTeamsStore } from '@/store/useTeamsStore';
 
 const TeamsHero = () => {
@@ -22,13 +21,8 @@ const TeamsHero = () => {
           structured workspace to improve coordination across your organization.
         </p>
         <div className="mt-12 flex items-center justify-center gap-4">
-          <Button className="cursor-pointer" onClick={handleCreate}>
+          <Button onClick={handleCreate}>
             <Plus /> Create Team
-          </Button>
-          <Button variant="outline" size="icon" asChild>
-            <Link href="/teammates">
-              <UsersRound />
-            </Link>
           </Button>
         </div>
       </div>

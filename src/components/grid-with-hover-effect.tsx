@@ -91,7 +91,7 @@ const GridWithHoverEffect = ({ children }: { children: React.ReactNode }) => {
 
         return (
           <li
-            className="bg-background relative flex flex-col rounded-xl border p-2"
+            className="relative"
             key={index}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeaveItem}

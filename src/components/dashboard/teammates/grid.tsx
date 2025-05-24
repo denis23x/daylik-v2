@@ -5,19 +5,25 @@ import type { Teammate } from '@/types/teammate.type';
 import { useTeammates } from '@/hooks/useTeammates';
 import NotFound from '@/components/not-found';
 import ErrorOccurred from '@/components/error-occurred';
-import Loading from '@/components/loading';
 import { useTeammatesStore } from '@/store/useTeammatesStore';
 import { supabase } from '@/utils/supabase/client';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
-import { Pencil, Plus } from 'lucide-react';
+import { Pencil, UserRoundPlus, UsersRound } from 'lucide-react';
 import GridWithHoverEffect from '@/components/grid-with-hover-effect';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { getContrastingColor } from '@/utils/getContrastingColor';
 
 const TeammatesGrid = () => {
   const { data: teammates, error, isLoading } = useTeammates({ query: '*' });
   const { openModal } = useTeammatesStore();
 
-  const handleEdit = async (teammate: Teammate) => {
+  const handleCreate = () => {
+    openModal('insert');
+  };
+
+  const handleUpdate = async (teammate: Teammate) => {
     const { data, error } = await supabase
       .from('teams_teammates')
       .select('teamUUID')
@@ -37,75 +43,93 @@ const TeammatesGrid = () => {
   };
 
   return (
-    <div className="container mx-auto flex min-h-[calc(100dvh-var(--navbar-height))] justify-center px-4 py-4">
-      {isLoading && <Loading />}
-      {error && <ErrorOccurred />}
-      {!isLoading && !error && teammates?.length === 0 && <NotFound />}
-      {!isLoading && !error && teammates?.length !== 0 && (
-        <div className="flex w-full flex-col gap-4">
-          <div className="flex w-full items-center justify-between">
-            <span className="text-3xl font-bold">Teammates</span>
-            {/* <div className="flex gap-4">
-              <Button variant="outline" size="icon">
-                <Shuffle />
-              </Button>
-              <Button variant="outline" size="icon">
-                <Dices />
-              </Button>
-            </div> */}
-          </div>
-          <GridWithHoverEffect>
-            {teammates?.map((teammate: Teammate) => (
-              <>
-                <Button
-                  className="absolute top-2 right-2 rounded-full 2xl:top-3 2xl:right-3"
-                  variant="secondary"
-                  size="syncIcon"
-                  onClick={() => handleEdit(teammate)}
-                >
-                  <Pencil />
-                </Button>
-                <div className="pointer-events-none translate-y-1 p-4 sm:p-3">
-                  <Avatar className="aspect-square size-full border">
-                    <AvatarImage
-                      className="bg-secondary object-cover"
-                      src={teammate.avatar || undefined}
-                    />
-                    <AvatarFallback style={{ backgroundColor: teammate.color }}>
-                      {teammate.name.slice(0, 2).toUpperCase()}
+    <div className="container mx-auto min-h-[calc(100dvh-var(--navbar-height))] p-4">
+      <div className="flex w-full flex-col gap-4">
+        <div className="flex min-h-9 items-center gap-4">
+          <UsersRound />
+          <span className="text-xl font-bold">Teammates</span>
+        </div>
+        <div className="flex w-full flex-col items-center gap-4">
+          {isLoading && (
+            <ul className="relative grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
+              {[1, 2, 3, 4].map((_, index) => (
+                <li key={index}>
+                  <Skeleton className="aspect-[4/4.6] min-h-[224px] max-w-full" />
+                </li>
+              ))}
+            </ul>
+          )}
+          {error && <ErrorOccurred className="min-h-[224px]" />}
+          {!isLoading && !error && teammates?.length === 0 && (
+            <NotFound className="min-h-[224px]" />
+          )}
+          {!isLoading && !error && teammates?.length !== 0 && (
+            <GridWithHoverEffect>
+              <Card className="bg-background aspect-[4/4.6] gap-0 p-2">
+                <CardContent className="translate-y-1 p-4 sm:p-3">
+                  <Avatar
+                    className="aspect-square size-full border border-dashed"
+                    onClick={handleCreate}
+                  >
+                    <AvatarFallback>
+                      <UserRoundPlus />
                     </AvatarFallback>
                   </Avatar>
-                </div>
-                <div className="flex flex-col text-center">
+                </CardContent>
+                <CardFooter className="flex flex-col items-stretch p-0 text-center">
                   <span className="overflow-hidden text-lg font-semibold text-ellipsis sm:text-2xl">
-                    {teammate.name}
+                    New
                   </span>
                   <p className="text-muted-foreground overflow-hidden text-xs text-ellipsis sm:text-sm">
-                    {teammate.position}
+                    Create teammate
                   </p>
-                </div>
-              </>
-            ))}
-            <>
-              <div className="pointer-events-none translate-y-1 p-4 sm:p-3">
-                <Avatar className="aspect-square size-full border">
-                  <AvatarFallback>
-                    <Plus />
-                  </AvatarFallback>
-                </Avatar>
-              </div>
-              <div className="flex flex-col text-center">
-                <span className="overflow-hidden text-lg font-semibold text-ellipsis sm:text-2xl">
-                  name
-                </span>
-                <p className="text-muted-foreground overflow-hidden text-xs text-ellipsis sm:text-sm">
-                  pos
-                </p>
-              </div>
-            </>
-          </GridWithHoverEffect>
+                </CardFooter>
+              </Card>
+              {teammates?.map((teammate: Teammate) => (
+                <Card className="bg-background aspect-[4/4.6] gap-0 p-2" key={teammate.UUID}>
+                  <CardHeader className="relative gap-0">
+                    <Button
+                      className="absolute top-0 right-0 z-10 rounded-full 2xl:top-1 2xl:right-1"
+                      variant="secondary"
+                      size="syncIcon"
+                      onClick={() => handleUpdate(teammate)}
+                    >
+                      <Pencil />
+                    </Button>
+                  </CardHeader>
+                  <CardContent className="translate-y-1 p-4 sm:p-3">
+                    <Avatar
+                      className="aspect-square size-full border"
+                      onClick={() => handleUpdate(teammate)}
+                    >
+                      <AvatarImage
+                        className="bg-secondary object-cover"
+                        src={teammate.avatar || undefined}
+                      />
+                      <AvatarFallback style={{ backgroundColor: teammate.color }}>
+                        <span
+                          className="text-xl"
+                          style={{ color: getContrastingColor(teammate.color) }}
+                        >
+                          {teammate.name.slice(0, 2).toUpperCase()}
+                        </span>
+                      </AvatarFallback>
+                    </Avatar>
+                  </CardContent>
+                  <CardFooter className="flex flex-col items-stretch p-0 text-center">
+                    <span className="overflow-hidden text-lg font-semibold text-ellipsis sm:text-2xl">
+                      {teammate.name}
+                    </span>
+                    <p className="text-muted-foreground overflow-hidden text-xs text-ellipsis sm:text-sm">
+                      {teammate.position}
+                    </p>
+                  </CardFooter>
+                </Card>
+              ))}
+            </GridWithHoverEffect>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };
