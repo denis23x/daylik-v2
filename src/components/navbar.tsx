@@ -15,7 +15,7 @@ const Navbar = () => {
         <div className="flex items-center gap-3">
           <ThemeToggle />
           <Button className="inline-flex" asChild>
-            <Link href="/login">Sign In</Link>
+            <Link href="/auth/login">Sign In</Link>
           </Button>
         </div>
       </div>

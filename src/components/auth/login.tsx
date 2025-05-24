@@ -10,14 +10,13 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Separator } from '@/components/ui/separator';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { Loader2 } from 'lucide-react';
+import { Loader2, LogIn } from 'lucide-react';
 import { useSignIn } from '@/hooks/useAuth';
 
 const formSchema = z.object({
@@ -50,16 +49,14 @@ const AuthLogin = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
-      <div className="flex w-full max-w-xs flex-col items-center">
+      <div className="flex w-full max-w-xs flex-col items-center gap-4">
+        <LogIn />
         <p className="text-xl font-bold tracking-tight">Log in to Daylik</p>
-        <Button className="mt-8 w-full gap-3">Continue with Google</Button>
-        <div className="my-7 flex w-full items-center justify-center overflow-hidden">
-          <Separator />
-          <span className="px-2 text-sm">OR</span>
-          <Separator />
-        </div>
         <Form {...form}>
-          <form className="w-full space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
+          <form
+            className="w-full space-y-4 rounded-xl border p-4"
+            onSubmit={form.handleSubmit(handleSubmit)}
+          >
             <FormField
               control={form.control}
               name="email"
@@ -72,6 +69,10 @@ const AuthLogin = () => {
                       placeholder="Email"
                       className="w-full"
                       disabled={formState.isSubmitting}
+                      autoComplete="email"
+                      inputMode="email"
+                      spellCheck="false"
+                      autoCapitalize="none"
                       {...field}
                     />
                   </FormControl>
@@ -91,6 +92,10 @@ const AuthLogin = () => {
                       placeholder="Password"
                       className="w-full"
                       disabled={formState.isSubmitting}
+                      autoComplete="current-password"
+                      inputMode="text"
+                      spellCheck="false"
+                      autoCapitalize="none"
                       {...field}
                     />
                   </FormControl>
@@ -98,23 +103,27 @@ const AuthLogin = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="mt-4 w-full" disabled={form.formState.isSubmitting}>
+            <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
               {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
               {form.formState.isSubmitting ? 'Please wait' : 'Continue with Email'}
             </Button>
+            <Button type="button" className="w-full" variant="secondary">
+              Continue with Google
+            </Button>
           </form>
         </Form>
-        <div className="mt-5 space-y-5">
-          {/* <Link href="#" className="text-muted-foreground block text-center text-sm underline">
-            Forgot your password?
-          </Link> */}
-          <p className="text-center text-sm">
-            Don&apos;t have an account?
-            <Link href="/signup" className="text-muted-foreground ml-1 underline">
-              Create account
-            </Link>
-          </p>
-        </div>
+        <Link
+          href="/auth/reset-password"
+          className="text-muted-foreground block text-center text-sm underline"
+        >
+          Forgot your password?
+        </Link>
+        <p className="text-center text-sm">
+          Don&apos;t have an account?{' '}
+          <Link href="/auth/signup" className="text-muted-foreground inline underline">
+            Create account
+          </Link>
+        </p>
       </div>
     </div>
   );

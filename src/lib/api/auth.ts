@@ -10,6 +10,14 @@ type SignUpParams = {
   password: string;
 };
 
+type ResetPasswordParams = {
+  email: string;
+};
+
+type UpdatePasswordParams = {
+  password: string;
+};
+
 export async function signIn({ email, password }: SignInParams) {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
@@ -26,6 +34,22 @@ export async function signUp({ email, password }: SignUpParams) {
     options: {
       emailRedirectTo: `${process.env.NEXT_PUBLIC_URL}/teams?welcomeUser=1`,
     },
+  });
+  if (error) throw error;
+  return data;
+}
+
+export async function resetPassword({ email }: ResetPasswordParams) {
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${process.env.NEXT_PUBLIC_URL}/auth/update-password`,
+  });
+  if (error) throw error;
+  return data;
+}
+
+export async function updatePassword({ password }: UpdatePasswordParams) {
+  const { data, error } = await supabase.auth.updateUser({
+    password,
   });
   if (error) throw error;
   return data;

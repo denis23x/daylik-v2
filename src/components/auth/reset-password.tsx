@@ -16,32 +16,30 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { HeartPlus, Loader2, UserRound } from 'lucide-react';
-import { useSignUp } from '@/hooks/useAuth';
+import { Loader2, KeySquare } from 'lucide-react';
+import { useResetPassword } from '@/hooks/useAuth';
 
 const formSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(8, 'Password must be at least 8 characters long'),
 });
 
-const AuthSignUp = () => {
+const AuthResetPassword = () => {
   const router = useRouter();
-  const { mutateAsync: signUp } = useSignUp();
+  const { mutateAsync: resetPassword } = useResetPassword();
 
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       email: '',
-      password: '',
     },
     resolver: zodResolver(formSchema),
   });
 
   const handleSubmit = async (formData: z.infer<typeof formSchema>) => {
     try {
-      await signUp({ ...formData });
+      await resetPassword({ ...formData });
 
       // Redirect
-      router.push('/verify-email');
+      router.push('/auth/verify-email?updatePassword=1');
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'An error occurred');
     }
@@ -50,8 +48,8 @@ const AuthSignUp = () => {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="flex w-full max-w-xs flex-col items-center gap-4">
-        <HeartPlus />
-        <p className="text-xl font-bold tracking-tight">Sign up for Daylik</p>
+        <KeySquare />
+        <p className="text-xl font-bold tracking-tight">Reset your password</p>
         <Form {...form}>
           <form
             className="w-full space-y-4 rounded-xl border p-4"
@@ -80,40 +78,14 @@ const AuthSignUp = () => {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field, formState }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="password"
-                      placeholder="Password"
-                      className="w-full"
-                      disabled={formState.isSubmitting}
-                      autoComplete="new-password"
-                      inputMode="text"
-                      spellCheck="false"
-                      autoCapitalize="none"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
               {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
-              {form.formState.isSubmitting ? 'Please wait' : 'Continue with Email'}
-            </Button>
-            <Button type="button" className="w-full" variant="secondary">
-              Continue with Google
+              {form.formState.isSubmitting ? 'Please wait' : 'Send reset link'}
             </Button>
           </form>
         </Form>
         <p className="text-center text-sm">
-          Already have an account?{' '}
+          Remember your password?{' '}
           <Link href="/auth/login" className="text-muted-foreground underline">
             Log in
           </Link>
@@ -123,4 +95,4 @@ const AuthSignUp = () => {
   );
 };
 
-export default AuthSignUp;
+export default AuthResetPassword;
