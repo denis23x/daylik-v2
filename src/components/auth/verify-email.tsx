@@ -21,7 +21,7 @@ const AuthVerifyEmail = () => {
           </p>
         </div>
         <p className="text-center text-sm">
-          Didn't receive the email?{' '}
+          Didn&apos;t receive the email?{' '}
           <Link href="#" className="text-muted-foreground underline">
             Contact Us
           </Link>

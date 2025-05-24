@@ -16,7 +16,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { HeartPlus, Loader2, UserRound } from 'lucide-react';
+import { HeartPlus, Loader2 } from 'lucide-react';
 import { useSignUp } from '@/hooks/useAuth';
 
 const formSchema = z.object({
