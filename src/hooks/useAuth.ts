@@ -5,6 +5,7 @@ import {
   updatePassword,
   getUser,
   updateEmail,
+  signOut,
 } from '@/lib/api/auth';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
@@ -19,6 +20,12 @@ export function useGetUser() {
 export function useSignIn() {
   return useMutation({
     mutationFn: signIn,
+  });
+}
+
+export function useSignOut() {
+  return useMutation({
+    mutationFn: signOut,
   });
 }
 

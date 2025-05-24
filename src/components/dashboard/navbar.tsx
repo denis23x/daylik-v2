@@ -14,7 +14,6 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { LayoutGrid, Menu, Settings2, UsersRound } from 'lucide-react';
-import { supabase } from '@/utils/supabase/client';
 import { toast } from 'sonner';
 import { useRouter, usePathname } from 'next/navigation';
 import {
@@ -26,12 +25,14 @@ import { NavigationMenu } from '@radix-ui/react-navigation-menu';
 import { useEffect, useState } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { ConfirmDialog } from '../confirm-dialog';
+import { useSignOut } from '@/hooks/useAuth';
 
 const NavigationSheet = () => {
   const router = useRouter();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const { mutateAsync: signOut } = useSignOut();
 
   // Close sheet when route changes
   useEffect(() => {
@@ -40,13 +41,9 @@ const NavigationSheet = () => {
 
   const handleLogout = async () => {
     try {
-      const { error } = await supabase.auth.signOut();
+      await signOut();
 
-      if (error) {
-        toast.error(error.message);
-        return;
-      }
-
+      // Redirect to home page
       router.push('/');
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'An error occurred');

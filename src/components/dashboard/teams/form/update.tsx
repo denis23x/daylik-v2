@@ -48,13 +48,14 @@ export default function TeammateUpdateForm() {
           });
         }
 
+        // Close modal
+        closeModal();
+
         // Success message
         toast.success('Team updated');
       }
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'An error occurred');
-    } finally {
-      closeModal();
     }
   };
 

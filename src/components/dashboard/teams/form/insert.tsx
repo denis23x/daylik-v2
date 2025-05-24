@@ -27,12 +27,13 @@ export default function TeammateInsertForm() {
         teammates: formData.teammates,
       });
 
+      // Close modal
+      closeModal();
+
       // Success message
       toast.success('Team created');
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'An error occurred');
-    } finally {
-      closeModal();
     }
   };
 

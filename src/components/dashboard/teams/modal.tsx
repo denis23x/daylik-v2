@@ -54,12 +54,13 @@ export default function TeamsModal() {
       try {
         await deleteTeam(team.UUID);
 
+        // Close modal
+        closeModal();
+
         // Success message
-        toast.success('Team deleted successfully');
+        toast.success('Team deleted');
       } catch (error) {
         toast.error(error instanceof Error ? error.message : 'An error occurred');
-      } finally {
-        closeModal();
       }
     }
   };

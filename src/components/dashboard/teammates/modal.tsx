@@ -83,12 +83,13 @@ export default function TeammatesModal() {
           queryClient.invalidateQueries({ queryKey: ['teams'] });
         }
 
+        // Close modal
+        closeModal();
+
         // Success message
-        toast.success('Teammate deleted successfully');
+        toast.success('Teammate deleted');
       } catch (error) {
         toast.error(error instanceof Error ? error.message : 'An error occurred');
-      } finally {
-        closeModal();
       }
     }
   };

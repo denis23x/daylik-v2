@@ -37,6 +37,11 @@ export async function signIn({ email, password }: SignInParams) {
   return data;
 }
 
+export async function signOut() {
+  const { error } = await supabase.auth.signOut();
+  if (error) throw error;
+}
+
 export async function signUp({ email, password }: SignUpParams) {
   const { data, error } = await supabase.auth.signUp({
     email,
