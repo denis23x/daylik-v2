@@ -19,7 +19,7 @@ const TeammatesGrid = () => {
   const { data: teammates, error, isLoading } = useTeammates({ query: '*' });
   const { openModal } = useTeammatesStore();
 
-  const handleCreate = () => {
+  const handleInsert = () => {
     openModal('insert');
   };
 
@@ -54,7 +54,7 @@ const TeammatesGrid = () => {
             <ul className="relative grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
               {[1, 2, 3, 4].map((_, index) => (
                 <li key={index}>
-                  <Skeleton className="aspect-[4/4.6] min-h-[224px] max-w-full" />
+                  <Skeleton className="aspect-[3/3.75] min-h-[224px] max-w-full rounded-xl" />
                 </li>
               ))}
             </ul>
@@ -65,14 +65,13 @@ const TeammatesGrid = () => {
           )}
           {!isLoading && !error && teammates?.length !== 0 && (
             <GridWithHoverEffect>
-              <Card className="bg-background aspect-[4/4.6] gap-0 p-2">
+              <Card className="bg-background size-full gap-0 p-2">
                 <CardContent className="translate-y-1 p-4 sm:p-3">
-                  <Avatar
-                    className="aspect-square size-full border border-dashed"
-                    onClick={handleCreate}
-                  >
-                    <AvatarFallback>
-                      <UserRoundPlus />
+                  <Avatar className="aspect-square size-full border border-dashed">
+                    <AvatarFallback asChild>
+                      <Button variant="secondary" size="icon" onClick={handleInsert}>
+                        <UserRoundPlus />
+                      </Button>
                     </AvatarFallback>
                   </Avatar>
                 </CardContent>
@@ -86,18 +85,18 @@ const TeammatesGrid = () => {
                 </CardFooter>
               </Card>
               {teammates?.map((teammate: Teammate) => (
-                <Card className="bg-background aspect-[4/4.6] gap-0 p-2" key={teammate.UUID}>
+                <Card className="bg-background size-full gap-0 p-2" key={teammate.UUID}>
                   <CardHeader className="relative gap-0">
                     <Button
-                      className="absolute top-0 right-0 z-10 rounded-full 2xl:top-1 2xl:right-1"
+                      className="absolute top-0 right-0 z-10 rounded-full"
                       variant="secondary"
-                      size="syncIcon"
+                      size="icon"
                       onClick={() => handleUpdate(teammate)}
                     >
                       <Pencil />
                     </Button>
                   </CardHeader>
-                  <CardContent className="translate-y-1 p-4 sm:p-3">
+                  <CardContent className="translate-y-2 p-4 sm:p-3">
                     <Avatar
                       className="aspect-square size-full border"
                       onClick={() => handleUpdate(teammate)}

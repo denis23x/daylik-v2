@@ -13,7 +13,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { LayoutGrid, Menu, Settings2, UsersRound } from 'lucide-react';
+import { Grid2x2, Menu, Settings, UsersRound } from 'lucide-react';
 import { toast } from 'sonner';
 import { useRouter, usePathname } from 'next/navigation';
 import {
@@ -76,7 +76,7 @@ const NavigationSheet = () => {
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link className="flex items-center gap-2" href="/teams">
-                  <LayoutGrid size={16} />
+                  <Grid2x2 size={16} />
                   Teams
                 </Link>
               </NavigationMenuLink>
@@ -94,7 +94,7 @@ const NavigationSheet = () => {
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link className="flex items-center gap-2" href="/profile">
-                  <Settings2 size={16} />
+                  <Settings size={16} />
                   Profile
                 </Link>
               </NavigationMenuLink>
@@ -122,7 +122,7 @@ const DashboardNavbar = () => {
           <ThemeToggle />
           <Button className="inline-flex" variant="outline" size="icon" asChild>
             <Link href="/teams">
-              <LayoutGrid />
+              <Grid2x2 />
             </Link>
           </Button>
           <Button className="inline-flex" variant="outline" size="icon" asChild>

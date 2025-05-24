@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { ArrowDown, Info, Plus, UsersRound, X } from 'lucide-react';
+import { ArrowDown, Info, Plus, UserRoundCheck, X } from 'lucide-react';
 import { useTeammatesStore } from '@/store/useTeammatesStore';
 import {
   Accordion,
@@ -28,12 +28,12 @@ const TeammatesHero = () => {
     >
       <AccordionItem value="item-1">
         <AccordionTrigger asChild>
-          <Button className="absolute top-4 right-4 z-10" variant="secondary" size="icon">
+          <Button className="absolute top-4 right-4 z-10" variant="ghost" size="icon">
             {isOpen ? <X /> : <Info />}
           </Button>
         </AccordionTrigger>
         <AccordionContent className="mx-auto flex min-h-[calc(100dvh-var(--navbar-height))] max-w-2xl flex-col items-center justify-center gap-6 p-4 text-center">
-          <UsersRound />
+          <UserRoundCheck />
           <span className="text-2xl font-bold sm:text-3xl md:text-4xl">Teammates</span>
           <p className="text-base md:text-lg">
             Add, update, or remove teammates and assign them to teams to streamline collaboration.
