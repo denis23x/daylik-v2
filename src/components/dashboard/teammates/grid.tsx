@@ -10,7 +10,7 @@ import { useTeammatesStore } from '@/store/useTeammatesStore';
 import { supabase } from '@/utils/supabase/client';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
-import { Dices, Pencil, Plus, Shuffle } from 'lucide-react';
+import { Pencil, Plus } from 'lucide-react';
 import GridWithHoverEffect from '@/components/grid-with-hover-effect';
 
 const TeammatesGrid = () => {
