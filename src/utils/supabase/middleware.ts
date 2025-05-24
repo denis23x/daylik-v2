@@ -43,7 +43,6 @@ export const updateSession = async (request: NextRequest) => {
     '/auth/signup',
     '/auth/verify-email',
     '/auth/reset-password',
-    '/auth/update-password',
   ].includes(request.nextUrl.pathname);
   const indexRoute = request.nextUrl.pathname === '/';
 

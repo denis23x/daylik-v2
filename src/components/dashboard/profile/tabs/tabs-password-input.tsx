@@ -2,13 +2,12 @@
 
 import { useMemo, useState } from 'react';
 import { Check, Eye, EyeOff, X } from 'lucide-react';
-import { useFormContext } from 'react-hook-form';
-import { FormField, FormLabel } from './ui/form';
-import { FormControl, FormMessage } from './ui/form';
-import { FormItem } from './ui/form';
-import { Input } from './ui/input';
+import { useFormContext, useWatch } from 'react-hook-form';
+import { FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { FormControl } from '@/components/ui/form';
 
-export function StrongPasswordInput({
+export function TabsPasswordInput({
   name,
   label,
   placeholder,
@@ -17,10 +16,15 @@ export function StrongPasswordInput({
   label: string;
   placeholder: string;
 }) {
-  const [password, setPassword] = useState('');
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const form = useFormContext();
   const toggleVisibility = () => setIsVisible((prevState) => !prevState);
+
+  const password = useWatch({
+    control: form.control,
+    name,
+    defaultValue: '', // Optional but recommended
+  });
 
   const checkStrength = (pass: string) => {
     const requirements = [
@@ -80,10 +84,6 @@ export function StrongPasswordInput({
                   spellCheck="false"
                   autoCapitalize="none"
                   {...field}
-                  onChange={(e) => {
-                    field.onChange(e);
-                    setPassword(e.target.value);
-                  }}
                 />
               </FormControl>
               <button
