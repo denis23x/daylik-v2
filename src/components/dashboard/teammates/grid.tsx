@@ -10,7 +10,7 @@ import { useTeammatesStore } from '@/store/useTeammatesStore';
 import { supabase } from '@/utils/supabase/client';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
-import { Dices, Pencil, Shuffle } from 'lucide-react';
+import { Dices, Pencil, Plus, Shuffle } from 'lucide-react';
 import GridWithHoverEffect from '@/components/grid-with-hover-effect';
 
 const TeammatesGrid = () => {
@@ -37,22 +37,22 @@ const TeammatesGrid = () => {
   };
 
   return (
-    <div className="container mx-auto flex min-h-screen justify-center bg-green-100 px-4 py-4">
+    <div className="container mx-auto flex min-h-[calc(100dvh-var(--navbar-height))] justify-center px-4 py-4">
       {isLoading && <Loading />}
       {error && <ErrorOccurred />}
       {!isLoading && !error && teammates?.length === 0 && <NotFound />}
       {!isLoading && !error && teammates?.length !== 0 && (
         <div className="flex w-full flex-col gap-4">
           <div className="flex w-full items-center justify-between">
-            <span className="text-2xl font-bold">Teams</span>
-            <div className="flex gap-4">
+            <span className="text-3xl font-bold">Teammates</span>
+            {/* <div className="flex gap-4">
               <Button variant="outline" size="icon">
                 <Shuffle />
               </Button>
               <Button variant="outline" size="icon">
                 <Dices />
               </Button>
-            </div>
+            </div> */}
           </div>
           <GridWithHoverEffect>
             {teammates?.map((teammate: Teammate) => (
@@ -86,6 +86,23 @@ const TeammatesGrid = () => {
                 </div>
               </>
             ))}
+            <>
+              <div className="pointer-events-none translate-y-1 p-4 sm:p-3">
+                <Avatar className="aspect-square size-full border">
+                  <AvatarFallback>
+                    <Plus />
+                  </AvatarFallback>
+                </Avatar>
+              </div>
+              <div className="flex flex-col text-center">
+                <span className="overflow-hidden text-lg font-semibold text-ellipsis sm:text-2xl">
+                  name
+                </span>
+                <p className="text-muted-foreground overflow-hidden text-xs text-ellipsis sm:text-sm">
+                  pos
+                </p>
+              </div>
+            </>
           </GridWithHoverEffect>
         </div>
       )}

@@ -4,10 +4,19 @@ import TabsPassword from '@/components/dashboard/profile/tabs/tabs-password';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import TabsEmail from './tabs/tabs-email';
 import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const ProfileTabs = () => {
   const searchParams = useSearchParams();
-  const tabs = searchParams.get('tabs') || 'email';
+  const [tabs, setTabs] = useState('email');
+
+  useEffect(() => {
+    const tabs = searchParams.get('tabs');
+
+    if (tabs) {
+      setTabs(tabs);
+    }
+  }, [searchParams]);
 
   return (
     <div className="container mx-auto flex min-h-screen items-center justify-center px-4">

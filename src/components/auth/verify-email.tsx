@@ -3,10 +3,19 @@
 import Link from 'next/link';
 import { Mail } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const AuthVerifyEmail = () => {
   const searchParams = useSearchParams();
-  const updatePassword = searchParams.get('updatePassword');
+  const [updatePassword, setUpdatePassword] = useState(false);
+
+  useEffect(() => {
+    const updatePassword = searchParams.get('updatePassword');
+
+    if (updatePassword) {
+      setUpdatePassword(true);
+    }
+  }, [searchParams]);
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4">

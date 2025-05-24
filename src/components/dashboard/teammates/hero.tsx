@@ -22,15 +22,14 @@ const TeammatesHero = () => {
     <Accordion type="single" collapsible className="container mx-auto px-4">
       <AccordionItem value="item-1">
         <AccordionTrigger asChild>
-          <div className="flex items-center justify-between py-4">
-            <span className="block text-base font-semibold">Information</span>
-            <Button variant="outline" size="icon">
+          <div className="relative !p-0">
+            <Button className="absolute top-4 right-0" variant="secondary" size="icon">
               <Plus />
             </Button>
           </div>
         </AccordionTrigger>
         <AccordionContent>
-          <div className="mx-auto flex min-h-[calc(100dvh-(var(--navbar-height)+56px))] max-w-2xl flex-col items-center justify-center text-center">
+          <div className="mx-auto flex min-h-[calc(100dvh-var(--navbar-height))] max-w-2xl flex-col items-center justify-center text-center">
             <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl md:leading-[1.2]">
               Teammates
             </h1>
