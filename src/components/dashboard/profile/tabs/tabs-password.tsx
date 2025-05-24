@@ -9,7 +9,7 @@ import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
 import { useUpdatePassword } from '@/hooks/useAuth';
 import { TabsPasswordInput } from './tabs-password-input';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 const formSchema = z.object({
   password: z.string().min(8, 'Password must be at least 8 characters long'),
@@ -41,6 +41,13 @@ const TabsPassword = () => {
 
   return (
     <Card>
+      <CardHeader>
+        <CardTitle>Update Password</CardTitle>
+        <CardDescription className="border-b pb-6">
+          Set a new password to keep your account secure. Choose something strong and unique — your
+          changes will take effect immediately after saving.
+        </CardDescription>
+      </CardHeader>
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
