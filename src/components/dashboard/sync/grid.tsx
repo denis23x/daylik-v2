@@ -7,12 +7,12 @@ import { useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
-import { Dices, Shuffle } from 'lucide-react';
+import { Calendar, Dices, Grid2x2, Shuffle } from 'lucide-react';
 import { motion, spring } from 'motion/react';
 import { useSync } from '@/hooks/useSync';
 import ErrorOccurred from '@/components/error-occurred';
-import Loading from '@/components/loading';
 import NotFound from '@/components/not-found';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const SyncGrid = () => {
   const params = useParams();
@@ -62,32 +62,51 @@ const SyncGrid = () => {
   }, [teammates, startedAt, finishedAt, startSync, finishSync]);
 
   return (
-    <div className="container mx-auto flex min-h-screen flex-col items-center justify-center gap-4 px-4">
-      {isLoading && <Loading />}
-      {error && <ErrorOccurred />}
-      {!isLoading && !error && teammates.length === 0 && <NotFound />}
-      {!isLoading && !error && teammates.length !== 0 && (
-        <>
-          <div className="flex w-full items-center justify-between">
-            <span className="text-2xl font-bold">{team?.name}</span>
-            <div className="flex gap-4">
-              <Button variant="outline" onClick={shuffle} size="icon">
-                <Shuffle />
-              </Button>
-              <Button variant="outline" onClick={setActiveRandom} size="icon">
-                <Dices />
-              </Button>
-            </div>
+    <div className="min-h-screen-daylik container mx-auto p-4">
+      <div className="flex w-full flex-col gap-4">
+        <div className="flex min-h-9 items-center gap-4">
+          <Calendar />
+          <span className="text-xl font-bold">Sync</span>
+        </div>
+        <div className="flex w-full items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <Grid2x2 />
+            <span className="text-xl font-bold">{team?.name}</span>
           </div>
-          <ul className="grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
-            {teammates.map((teammate) => (
-              <motion.li key={teammate.UUID} layout transition={spring}>
-                <SyncCard teammate={teammate} />
-              </motion.li>
-            ))}
-          </ul>
-        </>
-      )}
+          <div className="flex gap-4">
+            <Button variant="outline" onClick={shuffle} size="icon">
+              <Shuffle />
+            </Button>
+            <Button variant="outline" onClick={setActiveRandom} size="icon">
+              <Dices />
+            </Button>
+          </div>
+        </div>
+        <div className="flex w-full flex-col items-center gap-4">
+          {isLoading && (
+            <ul className="relative grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
+              {[1, 2, 3, 4].map((_, index) => (
+                <li key={index}>
+                  <Skeleton className="aspect-square min-h-[194px] max-w-full rounded-xl" />
+                </li>
+              ))}
+            </ul>
+          )}
+          {error && <ErrorOccurred className="min-h-[224px]" />}
+          {!isLoading && !error && teammates?.length === 0 && (
+            <NotFound className="min-h-[224px]" />
+          )}
+          {!isLoading && !error && teammates?.length !== 0 && (
+            <ul className="grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
+              {teammates?.map((teammate) => (
+                <motion.li key={teammate.UUID} layout transition={spring}>
+                  <SyncCard teammate={teammate} />
+                </motion.li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

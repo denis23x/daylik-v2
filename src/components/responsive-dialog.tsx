@@ -1,6 +1,6 @@
 'use client';
 
-import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useMediaQuery } from '@/hooks/ui/useMediaQuery';
 import {
   Dialog,
   DialogClose,

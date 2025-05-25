@@ -5,6 +5,6 @@ export function useSync({ query, UUID }: { query: string; UUID: string }) {
   return useQuery({
     queryKey: ['sync', query, UUID],
     queryFn: () => fetchSync({ query, UUID }),
-    staleTime: 1000 * 60 * 5,
+    staleTime: 0,
   });
 }

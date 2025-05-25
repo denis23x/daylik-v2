@@ -19,7 +19,7 @@ const DashboardHero = ({
   title: string;
   description: string;
   icon: React.ReactNode;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) => {
   const [isOpen, setIsOpen] = useState('');
 

@@ -7,7 +7,7 @@ import TeammateUpdateForm from './form/update';
 import { z } from 'zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRandomHexColor } from '@/hooks/useRandomHexColor';
+import { useRandomHexColor } from '@/hooks/ui/useRandomHexColor';
 import { TeammatesFormSchema } from './form/form-schema';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
