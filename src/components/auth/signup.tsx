@@ -18,6 +18,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { HeartPlus, Loader2 } from 'lucide-react';
 import { useSignUp } from '@/hooks/useAuth';
+import { Card, CardContent } from '../ui/card';
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -48,77 +49,76 @@ const AuthSignUp = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-4">
-      <div className="flex w-full max-w-xs flex-col items-center gap-4">
-        <HeartPlus />
-        <p className="text-xl font-bold tracking-tight">Sign up for Daylik</p>
-        <Form {...form}>
-          <form
-            className="w-full space-y-4 rounded-xl border p-4"
-            onSubmit={form.handleSubmit(handleSubmit)}
-          >
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field, formState }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="email"
-                      placeholder="Email"
-                      className="w-full"
-                      disabled={formState.isSubmitting}
-                      autoComplete="email"
-                      inputMode="email"
-                      spellCheck="false"
-                      autoCapitalize="none"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field, formState }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="password"
-                      placeholder="Password"
-                      className="w-full"
-                      disabled={formState.isSubmitting}
-                      autoComplete="new-password"
-                      inputMode="text"
-                      spellCheck="false"
-                      autoCapitalize="none"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
-              {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
-              {form.formState.isSubmitting ? 'Please wait' : 'Continue with Email'}
-            </Button>
-            <Button type="button" className="w-full" variant="secondary">
-              Continue with Google
-            </Button>
-          </form>
-        </Form>
-        <p className="text-center text-sm">
-          Already have an account?{' '}
-          <Link href="/auth/login" className="text-muted-foreground underline">
-            Log in
-          </Link>
-        </p>
-      </div>
+    <div className="flex min-h-dvh flex-col items-center justify-center gap-4 px-4">
+      <HeartPlus />
+      <p className="text-xl font-bold tracking-tight">Sign up for Daylik</p>
+      <Card className="w-full max-w-xs p-4">
+        <CardContent className="p-0">
+          <Form {...form}>
+            <form className="w-full space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field, formState }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        placeholder="Email"
+                        className="w-full"
+                        disabled={formState.isSubmitting}
+                        autoComplete="email"
+                        inputMode="email"
+                        spellCheck="false"
+                        autoCapitalize="none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field, formState }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="Password"
+                        className="w-full"
+                        disabled={formState.isSubmitting}
+                        autoComplete="new-password"
+                        inputMode="text"
+                        spellCheck="false"
+                        autoCapitalize="none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
+                {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
+                {form.formState.isSubmitting ? 'Please wait' : 'Continue with Email'}
+              </Button>
+              <Button type="button" className="w-full" variant="secondary">
+                Continue with Google
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+      <p className="text-center text-sm">
+        Already have an account?{' '}
+        <Link href="/auth/login" className="text-muted-foreground underline">
+          Log in
+        </Link>
+      </p>
     </div>
   );
 };

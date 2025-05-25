@@ -18,7 +18,7 @@ const ProfileTabs = () => {
           <span className="text-xl font-bold">Profile</span>
         </div>
         <div className="flex w-full flex-col items-center gap-4">
-          <Tabs defaultValue={tabs} className="w-[400px]">
+          <Tabs defaultValue={tabs} className="w-full sm:max-w-md">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="email">Email</TabsTrigger>
               <TabsTrigger value="password">Password</TabsTrigger>

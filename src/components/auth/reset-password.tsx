@@ -16,8 +16,10 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { Loader2, KeySquare } from 'lucide-react';
+import { Loader2, Lock } from 'lucide-react';
 import { useResetPassword } from '@/hooks/useAuth';
+import { Card } from '../ui/card';
+import { CardContent } from '../ui/card';
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -46,51 +48,50 @@ const AuthResetPassword = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-4">
-      <div className="flex w-full max-w-xs flex-col items-center gap-4">
-        <KeySquare />
-        <p className="text-xl font-bold tracking-tight">Reset your password</p>
-        <Form {...form}>
-          <form
-            className="w-full space-y-4 rounded-xl border p-4"
-            onSubmit={form.handleSubmit(handleSubmit)}
-          >
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field, formState }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="email"
-                      placeholder="Email"
-                      className="w-full"
-                      disabled={formState.isSubmitting}
-                      autoComplete="email"
-                      inputMode="email"
-                      spellCheck="false"
-                      autoCapitalize="none"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
-              {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
-              {form.formState.isSubmitting ? 'Please wait' : 'Send reset link'}
-            </Button>
-          </form>
-        </Form>
-        <p className="text-center text-sm">
-          Remember your password?{' '}
-          <Link href="/auth/login" className="text-muted-foreground underline">
-            Log in
-          </Link>
-        </p>
-      </div>
+    <div className="flex min-h-dvh flex-col items-center justify-center gap-4 px-4">
+      <Lock />
+      <p className="text-xl font-bold tracking-tight">Reset your password</p>
+      <Card className="w-full max-w-xs p-4">
+        <CardContent className="p-0">
+          <Form {...form}>
+            <form className="w-full space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field, formState }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        placeholder="Email"
+                        className="w-full"
+                        disabled={formState.isSubmitting}
+                        autoComplete="email"
+                        inputMode="email"
+                        spellCheck="false"
+                        autoCapitalize="none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
+                {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
+                {form.formState.isSubmitting ? 'Please wait' : 'Send reset link'}
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+      <p className="text-center text-sm">
+        Remember your password?{' '}
+        <Link href="/auth/login" className="text-muted-foreground underline">
+          Log in
+        </Link>
+      </p>
     </div>
   );
 };

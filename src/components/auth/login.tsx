@@ -18,6 +18,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Loader2, LogIn } from 'lucide-react';
 import { useSignIn } from '@/hooks/useAuth';
+import { Card, CardContent } from '@/components/ui/card';
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -48,83 +49,82 @@ const AuthLogin = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-4">
-      <div className="flex w-full max-w-xs flex-col items-center gap-4">
-        <LogIn />
-        <p className="text-xl font-bold tracking-tight">Log in to Daylik</p>
-        <Form {...form}>
-          <form
-            className="w-full space-y-4 rounded-xl border p-4"
-            onSubmit={form.handleSubmit(handleSubmit)}
-          >
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field, formState }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="email"
-                      placeholder="Email"
-                      className="w-full"
-                      disabled={formState.isSubmitting}
-                      autoComplete="email"
-                      inputMode="email"
-                      spellCheck="false"
-                      autoCapitalize="none"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field, formState }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="password"
-                      placeholder="Password"
-                      className="w-full"
-                      disabled={formState.isSubmitting}
-                      autoComplete="current-password"
-                      inputMode="text"
-                      spellCheck="false"
-                      autoCapitalize="none"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
-              {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
-              {form.formState.isSubmitting ? 'Please wait' : 'Continue with Email'}
-            </Button>
-            <Button type="button" className="w-full" variant="secondary">
-              Continue with Google
-            </Button>
-          </form>
-        </Form>
-        <Link
-          href="/auth/reset-password"
-          className="text-muted-foreground block text-center text-sm underline"
-        >
-          Forgot your password?
+    <div className="flex min-h-dvh flex-col items-center justify-center gap-4 px-4">
+      <LogIn />
+      <p className="text-xl font-bold tracking-tight">Log in to Daylik</p>
+      <Card className="w-full max-w-xs p-4">
+        <CardContent className="p-0">
+          <Form {...form}>
+            <form className="w-full space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field, formState }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        placeholder="Email"
+                        className="w-full"
+                        disabled={formState.isSubmitting}
+                        autoComplete="email"
+                        inputMode="email"
+                        spellCheck="false"
+                        autoCapitalize="none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field, formState }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="Password"
+                        className="w-full"
+                        disabled={formState.isSubmitting}
+                        autoComplete="current-password"
+                        inputMode="text"
+                        spellCheck="false"
+                        autoCapitalize="none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
+                {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
+                {form.formState.isSubmitting ? 'Please wait' : 'Continue with Email'}
+              </Button>
+              <Button type="button" className="w-full" variant="secondary">
+                Continue with Google
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+      <Link
+        href="/auth/reset-password"
+        className="text-muted-foreground block text-center text-sm underline"
+      >
+        Forgot your password?
+      </Link>
+      <p className="text-center text-sm">
+        Don&apos;t have an account?{' '}
+        <Link href="/auth/signup" className="text-muted-foreground inline underline">
+          Create account
         </Link>
-        <p className="text-center text-sm">
-          Don&apos;t have an account?{' '}
-          <Link href="/auth/signup" className="text-muted-foreground inline underline">
-            Create account
-          </Link>
-        </p>
-      </div>
+      </p>
     </div>
   );
 };
