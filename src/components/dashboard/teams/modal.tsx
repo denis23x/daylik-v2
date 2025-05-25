@@ -69,10 +69,10 @@ export default function TeamsModal() {
     <ResponsiveDialog
       open={isOpen}
       onOpenChange={(open) => !form.formState.isSubmitting && !open && closeModal()}
-      title={mode === 'update' ? 'Update Team' : 'Create Team'}
+      title={mode === 'update' ? 'Edit Team' : 'Create Team'}
       description={
         mode === 'update'
-          ? 'Update team info and manage their members.'
+          ? 'Edit team info and manage their members.'
           : 'Create a new team to start collaborating with your members.'
       }
       content={

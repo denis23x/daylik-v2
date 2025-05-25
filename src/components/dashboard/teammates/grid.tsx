@@ -43,7 +43,7 @@ const TeammatesGrid = () => {
   };
 
   return (
-    <div className="container mx-auto min-h-[calc(100dvh-var(--navbar-height))] p-4">
+    <div className="min-h-screen-daylik container mx-auto p-4">
       <div className="flex w-full flex-col gap-4">
         <div className="flex min-h-9 items-center gap-4">
           <UsersRound />
@@ -80,7 +80,7 @@ const TeammatesGrid = () => {
                     New
                   </span>
                   <p className="text-muted-foreground overflow-hidden text-xs text-ellipsis sm:text-sm">
-                    Create teammate
+                    Add a teammate
                   </p>
                 </CardFooter>
               </Card>

@@ -98,11 +98,11 @@ export default function TeammatesModal() {
     <ResponsiveDialog
       open={isOpen}
       onOpenChange={(open) => !form.formState.isSubmitting && !open && closeModal()}
-      title={mode === 'update' ? 'Update Teammate' : 'Create Teammate'}
+      title={mode === 'update' ? 'Update Teammate' : 'Add Teammate'}
       description={
         mode === 'update'
           ? 'Update teammate info and manage their teams.'
-          : 'Create a new teammate to start collaborating with your team.'
+          : 'Add a new teammate to start collaborating with your team.'
       }
       content={
         <FormProvider {...form}>
@@ -127,7 +127,7 @@ export default function TeammatesModal() {
       actions={
         <Button type="submit" form="teammate-form" disabled={form.formState.isSubmitting}>
           {form.formState.isSubmitting && <Loader2 className="mr-2 animate-spin" />}
-          {form.formState.isSubmitting ? 'Please wait' : mode === 'update' ? 'Update' : 'Create'}
+          {form.formState.isSubmitting ? 'Please wait' : mode === 'update' ? 'Update' : 'Add'}
         </Button>
       }
     />

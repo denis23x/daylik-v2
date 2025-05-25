@@ -1,0 +1,3 @@
+.min-h-screen-daylik {
+  min-height: calc(100dvh - var(--navbar-height));
+}

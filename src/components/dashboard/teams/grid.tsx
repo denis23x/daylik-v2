@@ -79,7 +79,7 @@ const TeamsGrid = () => {
   };
 
   return (
-    <div className="container mx-auto min-h-[calc(100dvh-var(--navbar-height))] p-4">
+    <div className="min-h-screen-daylik container mx-auto p-4">
       <div className="flex w-full flex-col gap-4">
         <div className="flex min-h-9 items-center gap-4">
           <Grid2x2 />
@@ -100,7 +100,7 @@ const TeamsGrid = () => {
           {!isLoading && !error && teams?.length !== 0 && (
             <GridWithHoverEffect>
               <Card className="bg-background size-full gap-0 p-2">
-                <CardHeader className="relative mb-auto flex min-h-9 items-start justify-between gap-x-1.5 gap-y-0 p-0">
+                <CardHeader className="relative mb-auto flex min-h-9 items-center justify-between gap-x-1.5 gap-y-0 p-0">
                   <span className="overflow-hidden text-base font-semibold text-ellipsis">New</span>
                 </CardHeader>
                 <CardContent className="p-0">
@@ -116,7 +116,7 @@ const TeamsGrid = () => {
                 </CardContent>
                 <CardFooter className="flex flex-col items-stretch p-0 text-center">
                   <Button variant="secondary" onClick={handleInsert}>
-                    Create team
+                    Create Team
                   </Button>
                 </CardFooter>
               </Card>
@@ -193,7 +193,7 @@ const TeamsGrid = () => {
                   <CardFooter className="flex flex-col items-stretch p-0 text-center">
                     {team.teammates?.length ? (
                       <Button asChild>
-                        <Link href={`/sync/${team.UUID}`}>Sync</Link>
+                        <Link href={`/sync/${team.UUID}`}>Sync Team</Link>
                       </Button>
                     ) : (
                       <Button variant="ghost" onClick={() => handleUpdate(team)}>

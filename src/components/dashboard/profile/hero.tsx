@@ -1,16 +1,15 @@
 'use client';
 
+import { CalendarCog } from 'lucide-react';
+import DashboardHero from '../hero';
+
 const ProfileHero = () => {
   return (
-    <div className="relative flex min-h-screen items-center justify-center px-6">
-      <div className="max-w-2xl text-center">
-        <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl md:leading-[1.2]">Profile</h1>
-        <p className="mt-6 text-[17px] md:text-lg">
-          Create teams to better organize your projects and resources. Group related work together
-          and maintain a structured environment for your various initiatives.
-        </p>
-      </div>
-    </div>
+    <DashboardHero
+      title="Profile"
+      description="Manage your personal settings and preferences. Update your profile information, customize your experience, and keep your account details up to date for a smoother workflow."
+      icon={<CalendarCog />}
+    ></DashboardHero>
   );
 };
 
