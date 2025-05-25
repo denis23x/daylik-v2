@@ -25,14 +25,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} bg-foreground antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div
+            data-vaul-drawer-wrapper="true"
+            className="bg-background transition-[transform,border-radius] duration-300"
+          >
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>

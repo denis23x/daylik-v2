@@ -21,7 +21,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import { Separator } from './ui/separator';
 
@@ -54,6 +54,25 @@ const ResponsiveDialog = ({
 
   const open = isControlled ? controlledOpen : uncontrolledOpen;
   const onOpenChange = isControlled ? controlledOnOpenChange : setUncontrolledOpen;
+
+  useEffect(() => {
+    const element = document.querySelector('[data-vaul-drawer-wrapper]') as HTMLElement;
+
+    if (element) {
+      if (isDesktop) {
+        element.removeAttribute('style');
+      } else {
+        if (open) {
+          element.style.borderRadius = '8px';
+          element.style.overflow = 'hidden';
+          element.style.transform = 'scale(0.95) translate3d(0, -28px, 0)';
+          element.style.transformOrigin = 'center';
+        } else {
+          element.removeAttribute('style');
+        }
+      }
+    }
+  }, [open, isDesktop]);
 
   if (isDesktop) {
     return (
