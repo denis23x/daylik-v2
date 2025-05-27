@@ -1,4 +1,5 @@
 import { fetchTeams, createTeam, updateTeam, deleteTeam } from '@/lib/api/teams';
+import { normalizeTeammates } from '@/utils/normalizeTeammates';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 export function useTeams({ query }: { query: string }) {
@@ -6,6 +7,7 @@ export function useTeams({ query }: { query: string }) {
     queryKey: ['teams', query],
     queryFn: () => fetchTeams(query),
     staleTime: 1000 * 60 * 5,
+    select: (data) => normalizeTeammates(data),
   });
 }
 

@@ -39,14 +39,11 @@ const SyncGrid = () => {
 
   useEffect(() => {
     if (data) {
-      const { teams_teammates, ...team } = data as {
-        teams_teammates?: { teammates: Teammate }[];
-      } & Team;
+      const team = data as Team;
 
-      const teammates = teams_teammates?.map((relation) => relation.teammates).flat();
-
+      // Pass to render
       setTeam(team);
-      setTeammates(teammates || []);
+      setTeammates(team.teammates as Teammate[]);
     }
   }, [data, setTeam, setTeammates]);
 

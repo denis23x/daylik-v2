@@ -27,18 +27,10 @@ const TeamsGrid = () => {
 
   useEffect(() => {
     if (data) {
-      const teamsWithTeammates: Team[] = data.map((team: Team) => {
-        const { teams_teammates, ...rest } = team as {
-          teams_teammates?: { teammates: Teammate }[];
-        } & Team;
+      const teams = data as Team[];
 
-        return {
-          ...rest,
-          teammates: teams_teammates?.map((relation) => relation.teammates).flat() || [],
-        };
-      });
-
-      setTeams(teamsWithTeammates);
+      // Pass to render
+      setTeams(teams);
     }
   }, [data]);
 
