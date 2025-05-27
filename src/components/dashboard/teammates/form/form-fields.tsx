@@ -11,6 +11,7 @@ import { useFormContext } from 'react-hook-form';
 import { TeammatesFormSchema } from './form-schema';
 import { z } from 'zod';
 import { useTeams } from '@/hooks/useTeams';
+import type { Team } from '@/types/team.type';
 
 const TeammatesFormFields = () => {
   const form = useFormContext<z.infer<typeof TeammatesFormSchema>>();
@@ -58,7 +59,7 @@ const TeammatesFormFields = () => {
         placeholder="Select teams (optional)"
         searchPlaceholder="Search"
         emptyMessage="No teams found"
-        items={(teams || []).map((team) => ({
+        items={(teams as Team[])?.map((team) => ({
           key: team.UUID,
           value: team.UUID,
           label: team.name,

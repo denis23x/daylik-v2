@@ -7,6 +7,7 @@ import { TeamsFormSchema } from './form-schema';
 import { z } from 'zod';
 import { MultiSelect } from '@/components/multi-select';
 import { useTeammates } from '@/hooks/useTeammates';
+import type { Teammate } from '@/types/teammate.type';
 
 const TeamsFormFields = () => {
   const form = useFormContext<z.infer<typeof TeamsFormSchema>>();
@@ -36,7 +37,7 @@ const TeamsFormFields = () => {
         placeholder="Select teammates (optional)"
         searchPlaceholder="Search"
         emptyMessage="No teammates found"
-        items={(teammates || []).map((teammate) => ({
+        items={(teammates as Teammate[])?.map((teammate) => ({
           key: teammate.UUID,
           value: teammate.UUID,
           label: teammate.name,
