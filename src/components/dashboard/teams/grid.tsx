@@ -93,7 +93,7 @@ const TeamsGrid = () => {
             <GridWithHoverEffect>
               <Card className="bg-background size-full gap-0 p-2">
                 <CardHeader className="relative mb-auto flex min-h-9 items-center justify-between gap-x-1.5 gap-y-0 p-0">
-                  <span className="overflow-hidden text-base font-semibold text-ellipsis">New</span>
+                  <span className="truncate text-base font-semibold">New</span>
                 </CardHeader>
                 <CardContent className="p-0">
                   <div className="my-2 p-4 sm:p-3">
@@ -115,9 +115,7 @@ const TeamsGrid = () => {
               {teams?.map((team: Team) => (
                 <Card className="bg-background size-full gap-0 p-2" key={team.UUID}>
                   <CardHeader className="relative mb-auto flex min-h-9 items-center justify-between gap-x-1.5 gap-y-0 p-0">
-                    <span className="overflow-hidden text-base font-semibold text-ellipsis">
-                      {team.name}
-                    </span>
+                    <span className="truncate text-base font-semibold">{team.name}</span>
                     <Button
                       className="self-start rounded-full"
                       variant="secondary"

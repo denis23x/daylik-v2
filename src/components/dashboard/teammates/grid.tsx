@@ -76,10 +76,8 @@ const TeammatesGrid = () => {
                   </Avatar>
                 </CardContent>
                 <CardFooter className="flex flex-col items-stretch p-0 text-center">
-                  <span className="overflow-hidden text-lg font-semibold text-ellipsis sm:text-2xl">
-                    New
-                  </span>
-                  <p className="text-muted-foreground overflow-hidden text-xs text-ellipsis sm:text-sm">
+                  <span className="truncate text-lg font-semibold sm:text-2xl">New</span>
+                  <p className="text-muted-foreground truncate text-xs sm:text-sm">
                     Add a teammate
                   </p>
                 </CardFooter>
@@ -116,10 +114,10 @@ const TeammatesGrid = () => {
                     </Avatar>
                   </CardContent>
                   <CardFooter className="flex flex-col items-stretch p-0 text-center">
-                    <span className="overflow-hidden text-lg font-semibold text-ellipsis sm:text-2xl">
+                    <span className="truncate text-lg font-semibold sm:text-2xl">
                       {teammate.name}
                     </span>
-                    <p className="text-muted-foreground overflow-hidden text-xs text-ellipsis sm:text-sm">
+                    <p className="text-muted-foreground truncate text-xs sm:text-sm">
                       {teammate.position}
                     </p>
                   </CardFooter>

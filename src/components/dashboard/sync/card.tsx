@@ -79,10 +79,10 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
                 </span>
               </Badge>
             )}
-            <span className="max-w-full overflow-hidden px-2 text-lg font-semibold text-ellipsis sm:text-2xl">
+            <span className="max-w-full truncate px-2 text-lg font-semibold sm:text-2xl">
               {teammate.name}
             </span>
-            <p className="text-muted-foreground max-w-full overflow-hidden px-4 text-xs text-ellipsis sm:text-sm">
+            <p className="text-muted-foreground max-w-full truncate px-4 text-xs sm:text-sm">
               {teammate.position}
             </p>
           </div>
