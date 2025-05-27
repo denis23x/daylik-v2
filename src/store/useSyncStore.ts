@@ -18,6 +18,9 @@ type SyncStore = {
   setDone: (uuid: string) => void;
   shuffle: () => void;
   resetStore: () => void;
+  isOpen: boolean;
+  openModal: () => void;
+  closeModal: () => void;
 };
 
 export const useSyncStore = create<SyncStore>((set, get) => ({
@@ -111,4 +114,7 @@ export const useSyncStore = create<SyncStore>((set, get) => ({
       finishedAt: null,
       activeUUID: null,
     }),
+  isOpen: false,
+  openModal: () => set({ isOpen: true }),
+  closeModal: () => set({ isOpen: false }),
 }));
