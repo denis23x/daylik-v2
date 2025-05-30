@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useSyncStore } from '@/store/useSyncStore';
+import { useSyncLiveStore } from '@/store/useSyncLiveStore';
 import type { TeammateWithState } from '@/types/teammateWithState.type';
 import { Button } from '@/components/ui/button';
-import { Check, Pause, Play, RefreshCcw, UserRound, X } from 'lucide-react';
+import { Check, Pause, Play, RefreshCcw, UserRound } from 'lucide-react';
 import { CircularProgress } from '@/components/ui/circular-progress';
 import { Badge } from '@/components/ui/badge';
 
 const TOTAL_SECONDS = 10;
 
 export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
-  const { setDone } = useSyncStore();
+  const { setDone } = useSyncLiveStore();
   const [remaining, setRemaining] = useState(TOTAL_SECONDS);
   const [running, setRunning] = useState(false);
   const [overtime, setOvertime] = useState(0);
@@ -33,10 +33,6 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
     }
   }, [running, remaining, teammate.UUID, overtime]);
 
-  const handleRemove = (UUID: string) => {
-    console.log(UUID);
-  };
-
   // const handleClick = () => {
   //   if (teammate.state.status === 'idle') {
   //     setActive(teammate.UUID);
@@ -57,14 +53,6 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
       <div className="flip-card-inner">
         <div className="flip-card-front bg-muted relative flex items-center justify-center rounded-xl border">
           <UserRound />
-          <Button
-            className="absolute top-2 right-2 rounded-full 2xl:top-3 2xl:right-3"
-            variant="destructive"
-            size="syncIcon"
-            onClick={() => handleRemove(teammate.UUID)}
-          >
-            <X />
-          </Button>
         </div>
         <div className="flip-card-back relative flex flex-col items-center justify-center rounded-xl border">
           <div className="flex max-w-full flex-col items-center justify-center gap-0.5 text-center sm:gap-2">
