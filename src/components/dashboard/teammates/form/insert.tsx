@@ -20,7 +20,7 @@ export default function TeammateInsertForm() {
     try {
       const teammate = await createTeammate({
         name: formData.name,
-        position: formData.position,
+        role: formData.role,
         avatar: formData.avatar || null,
         color: formData.color,
       });

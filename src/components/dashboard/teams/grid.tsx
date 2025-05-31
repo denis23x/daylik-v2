@@ -20,7 +20,7 @@ import { getContrastingColor } from '@/utils/getContrastingColor';
 
 const TeamsGrid = () => {
   const { data, error, isLoading } = useTeams({
-    query: `*, teams_teammates (teammates (UUID, name, position, color, avatar))`,
+    query: `*, teams_teammates (teammates (UUID, name, role, color, avatar))`,
   });
   const { openModal } = useTeamsStore();
   const [teams, setTeams] = useState<Team[]>();

@@ -1,6 +1,5 @@
 .flip-card {
   perspective: 1000px;
-  aspect-ratio: 1/1;
 }
 
 .flip-card-inner {

@@ -39,17 +39,17 @@ const SyncGridSettings = () => {
   const { team, teammates, timer, setTeam, setTeammates } = useSyncSettingsStore();
   const { setSyncStart } = useSyncLiveStore();
   const { data, isLoading, error } = useSync({
-    query: `*, teams_teammates (teammates (UUID, name, position, color, avatar))`,
+    query: `*, teams_teammates (teammates (UUID, name, role, color, avatar))`,
     UUID: params.UUID as string,
   });
 
   useEffect(() => {
     if (data) {
-      const team = data as Team;
+      const { teammates, ...team } = data as Team;
 
       // Pass to render
       setTeam(team);
-      setTeammates(team.teammates as Teammate[]);
+      setTeammates(teammates as Teammate[]);
     }
   }, [data, setTeam, setTeammates]);
 
@@ -167,7 +167,7 @@ const SyncGridSettings = () => {
                       {teammate.name}
                     </span>
                     <p className="text-muted-foreground truncate text-xs sm:text-sm">
-                      {teammate.position}
+                      {teammate.role}
                     </p>
                   </CardFooter>
                 </Card>

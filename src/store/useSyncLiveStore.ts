@@ -9,16 +9,16 @@ type SyncLiveStore = {
   team: Team | null;
   teammates: TeammateWithState[];
   timer: number;
-  showPositions: boolean;
+  showRoles: boolean;
   startedAt: number | null;
   finishedAt: number | null;
   activeUUID: string | null;
   setSyncStart: (team: Team, teammates: Teammate[], timer: number) => void;
   setSyncFinish: () => void;
   setActive: (uuid: string) => void;
-  setActiveRandom: () => void;
+  setRandom: () => void;
   setDone: (uuid: string) => void;
-  setShowPositions: (showPositions: boolean) => void;
+  setShowRoles: (showRoles: boolean) => void;
   shuffle: () => void;
   reset: () => void;
 };
@@ -27,7 +27,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
   team: null,
   teammates: [],
   timer: TIMER,
-  showPositions: false,
+  showRoles: false,
   startedAt: null,
   finishedAt: null,
   activeUUID: null,
@@ -84,7 +84,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
       }),
     }));
   },
-  setActiveRandom: () => {
+  setRandom: () => {
     const state = get();
     const idle = state.teammates.filter((teammate) => teammate.state.status === 'idle');
 
@@ -111,14 +111,14 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
       }),
     }));
   },
-  setShowPositions: (showPositions: boolean) => set({ showPositions }),
+  setShowRoles: (showRoles: boolean) => set({ showRoles }),
   shuffle: () => set({ teammates: [...get().teammates].sort(() => Math.random() - 0.5) }),
   reset: () =>
     set({
       team: null,
       teammates: [],
       timer: TIMER,
-      showPositions: false,
+      showRoles: false,
       startedAt: null,
       finishedAt: null,
       activeUUID: null,

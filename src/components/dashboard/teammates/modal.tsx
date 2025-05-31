@@ -32,7 +32,7 @@ export default function TeammatesModal() {
   const form = useForm<z.infer<typeof TeammatesFormSchema>>({
     defaultValues: {
       name: '',
-      position: '',
+      role: '',
       teams: [],
       avatar: null,
       color: '',
@@ -45,7 +45,7 @@ export default function TeammatesModal() {
       if (mode === 'update' && teammate) {
         form.reset({
           name: teammate.name,
-          position: teammate.position,
+          role: teammate.role,
           teams: teammate.teams as string[],
           avatar: teammate.avatar ?? null,
           color: teammate.color,
@@ -55,7 +55,7 @@ export default function TeammatesModal() {
       if (mode === 'insert') {
         form.reset({
           name: '',
-          position: '',
+          role: '',
           teams: [],
           avatar: '',
           color: generateRandomHex(),

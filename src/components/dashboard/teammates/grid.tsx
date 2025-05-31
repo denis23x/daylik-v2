@@ -118,7 +118,7 @@ const TeammatesGrid = () => {
                       {teammate.name}
                     </span>
                     <p className="text-muted-foreground truncate text-xs sm:text-sm">
-                      {teammate.position}
+                      {teammate.role}
                     </p>
                   </CardFooter>
                 </Card>

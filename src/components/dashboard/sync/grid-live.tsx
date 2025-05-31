@@ -26,7 +26,7 @@ function isAllDoneExceptOneActive(teammates: TeammateWithState[]): boolean {
 }
 
 const SyncGridLive = () => {
-  const { team, teammates, showPositions, shuffle, setActiveRandom, setShowPositions } =
+  const { team, teammates, showRoles, shuffle, setRandom, setShowRoles, setSyncFinish } =
     useSyncLiveStore();
   const [shuffleIsDisabled, setShuffleIsDisabled] = useState(false);
   const [randomIsDisabled, setRandomIsDisabled] = useState(false);
@@ -42,10 +42,10 @@ const SyncGridLive = () => {
       setPositionsIsDisabled(isDone || isAllDoneExceptOneActive(teammates));
 
       if (isDone) {
-        alert('Done!');
+        setSyncFinish();
       }
     }
-  }, [teammates]);
+  }, [teammates, setSyncFinish]);
 
   return (
     <div className="min-h-screen-daylik container mx-auto p-4">
@@ -58,22 +58,17 @@ const SyncGridLive = () => {
           <Button variant="outline" size="icon" onClick={shuffle} disabled={shuffleIsDisabled}>
             <Shuffle />
           </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={setActiveRandom}
-            disabled={randomIsDisabled}
-          >
+          <Button variant="outline" size="icon" onClick={setRandom} disabled={randomIsDisabled}>
             <Dices />
           </Button>
           <div className="flex items-center space-x-2">
             <Switch
-              id="show-positions"
+              id="show-roles"
               disabled={positionsIsDisabled}
-              checked={showPositions}
-              onCheckedChange={(value) => setShowPositions(value)}
+              checked={showRoles}
+              onCheckedChange={(value) => setShowRoles(value)}
             />
-            <Label htmlFor="show-positions">Show positions</Label>
+            <Label htmlFor="show-roles">Show roles</Label>
           </div>
         </div>
         <div className="flex w-full flex-col items-center gap-4">

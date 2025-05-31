@@ -41,7 +41,7 @@ const TeamsFormFields = () => {
           key: teammate.UUID,
           value: teammate.UUID,
           label: teammate.name,
-          description: teammate.position,
+          description: teammate.role,
         }))}
       />
     </>

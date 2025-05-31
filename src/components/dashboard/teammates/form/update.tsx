@@ -26,7 +26,7 @@ export default function TeammateUpdateForm() {
           await updateTeammate({
             UUID: teammate.UUID,
             name: formData.name,
-            position: formData.position,
+            role: formData.role,
             avatar: formData.avatar || null,
             color: formData.color,
           });

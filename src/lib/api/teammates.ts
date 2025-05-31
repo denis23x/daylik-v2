@@ -19,7 +19,7 @@ export async function fetchTeammates(query: string = '*'): Promise<Teammate[]> {
 }
 
 export async function createTeammate(
-  teammate: Pick<Teammate, 'name' | 'position' | 'color' | 'avatar'>
+  teammate: Pick<Teammate, 'name' | 'role' | 'color' | 'avatar'>
 ): Promise<Teammate> {
   const session = await getSession();
   const { data, error } = await supabase
@@ -33,7 +33,7 @@ export async function createTeammate(
 }
 
 export async function updateTeammate(
-  teammate: Pick<Teammate, 'UUID' | 'name' | 'position' | 'color' | 'avatar'>
+  teammate: Pick<Teammate, 'UUID' | 'name' | 'role' | 'color' | 'avatar'>
 ): Promise<Teammate> {
   const session = await getSession();
   const { data, error } = await supabase

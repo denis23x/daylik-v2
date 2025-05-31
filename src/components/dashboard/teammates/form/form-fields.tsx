@@ -40,14 +40,14 @@ const TeammatesFormFields = () => {
       />
       <FormField
         control={form.control}
-        name="position"
+        name="role"
         render={({ field }) => (
           <FormItem>
             <FormLabel>
-              Position <span className="text-destructive">*</span>
+              Role <span className="text-destructive">*</span>
             </FormLabel>
             <FormControl>
-              <Input placeholder="Position" {...field} disabled={form.formState.isSubmitting} />
+              <Input placeholder="Role" {...field} disabled={form.formState.isSubmitting} />
             </FormControl>
             <FormMessage />
           </FormItem>

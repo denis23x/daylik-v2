@@ -3,7 +3,7 @@ import type { Team } from './team.type';
 export type Teammate = {
   UUID: string;
   name: string;
-  position: string;
+  role: string;
   color: string;
   avatar: string | null;
   userUUID: string;
