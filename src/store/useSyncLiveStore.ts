@@ -3,28 +3,35 @@ import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
 import type { TeammateWithState } from '@/types/teammateWithState.type';
 
+const TIMER = 60;
+
 type SyncLiveStore = {
   team: Team | null;
   teammates: TeammateWithState[];
-  setTeam: (team: Team) => void;
-  setTeammates: (teammates: Teammate[]) => void;
+  timer: number;
+  showPositions: boolean;
   startedAt: number | null;
   finishedAt: number | null;
-  startSync: () => void;
-  finishSync: () => void;
   activeUUID: string | null;
+  setSyncStart: (team: Team, teammates: Teammate[], timer: number) => void;
+  setSyncFinish: () => void;
   setActive: (uuid: string) => void;
   setActiveRandom: () => void;
   setDone: (uuid: string) => void;
+  setShowPositions: (showPositions: boolean) => void;
   shuffle: () => void;
-  resetStore: () => void;
+  reset: () => void;
 };
 
 export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
   team: null,
   teammates: [],
-  setTeam: (team) => set({ team }),
-  setTeammates: (teammates) => {
+  timer: TIMER,
+  showPositions: false,
+  startedAt: null,
+  finishedAt: null,
+  activeUUID: null,
+  setSyncStart: (team, teammates, timer) => {
     const teammatesWithState = teammates.map((teammate: Teammate) => {
       return {
         ...teammate,
@@ -35,13 +42,15 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
         },
       };
     });
-    set({ teammates: teammatesWithState });
+
+    set({
+      team,
+      teammates: teammatesWithState,
+      timer,
+      startedAt: Date.now(),
+    });
   },
-  startedAt: null,
-  finishedAt: null,
-  startSync: () => set({ startedAt: Date.now() }),
-  finishSync: () => set({ finishedAt: Date.now() }),
-  activeUUID: null,
+  setSyncFinish: () => set({ finishedAt: Date.now() }),
   setActive: (uuid) => {
     const state = get();
     const prev = state.activeUUID;
@@ -102,11 +111,14 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
       }),
     }));
   },
+  setShowPositions: (showPositions: boolean) => set({ showPositions }),
   shuffle: () => set({ teammates: [...get().teammates].sort(() => Math.random() - 0.5) }),
-  resetStore: () =>
+  reset: () =>
     set({
       team: null,
       teammates: [],
+      timer: TIMER,
+      showPositions: false,
       startedAt: null,
       finishedAt: null,
       activeUUID: null,

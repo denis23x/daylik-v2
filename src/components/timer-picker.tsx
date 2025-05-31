@@ -36,7 +36,7 @@ const TimerPicker = ({ children }: { children: React.ReactNode }) => {
             value={timer}
           >
             <NumberInputScrubArea>
-              <Label className="mb-2 cursor-ew-resize">Timer</Label>
+              <Label className="mb-2 cursor-ew-resize">Timer in seconds</Label>
             </NumberInputScrubArea>
             <NumberInputGroup>
               <NumberInputDecrement />

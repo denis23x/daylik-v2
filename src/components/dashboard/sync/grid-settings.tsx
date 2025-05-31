@@ -2,11 +2,12 @@
 
 import { Button } from '@/components/ui/button';
 import { useSyncSettingsStore } from '@/store/useSyncSettingsStore';
+import { useSyncLiveStore } from '@/store/useSyncLiveStore';
 import { useEffect, useReducer, useState } from 'react';
 import { useParams } from 'next/navigation';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
-import { CalendarCog, Clock, Shuffle, Undo2, X } from 'lucide-react';
+import { CalendarCog, Clock, Undo2, X } from 'lucide-react';
 import { useSync } from '@/hooks/useSync';
 import ErrorOccurred from '@/components/error-occurred';
 import NotFound from '@/components/not-found';
@@ -17,7 +18,9 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { getContrastingColor } from '@/utils/getContrastingColor';
 import TimerPicker from '@/components/timer-picker';
 import { RainbowButton } from '@/components/magicui/rainbow-button';
+import { toast } from 'sonner';
 
+// TODO: move to utils ???
 function reducer(state: string[], action: { type: 'add' | 'remove'; UUID: string }): string[] {
   switch (action.type) {
     case 'add':
@@ -33,15 +36,12 @@ const SyncGridSettings = () => {
   const params = useParams();
   const [teammatesAbsent, dispatch] = useReducer(reducer, []);
   const [teammatesDuration, setTeammatesDuration] = useState('');
-  const { team, teammates, timer, setTeam, setTeammates, shuffle, reset } = useSyncSettingsStore();
+  const { team, teammates, timer, setTeam, setTeammates } = useSyncSettingsStore();
+  const { setSyncStart } = useSyncLiveStore();
   const { data, isLoading, error } = useSync({
     query: `*, teams_teammates (teammates (UUID, name, position, color, avatar))`,
     UUID: params.UUID as string,
   });
-
-  useEffect(() => {
-    reset();
-  }, [reset]);
 
   useEffect(() => {
     if (data) {
@@ -60,7 +60,14 @@ const SyncGridSettings = () => {
   }, [timer, teammates, teammatesAbsent]);
 
   const handleStart = () => {
-    console.log('handleStart');
+    setSyncStart(
+      team as Team,
+      teammates.filter((teammate: Teammate) => !teammatesAbsent.includes(teammate.UUID)),
+      timer
+    );
+
+    // Success
+    toast.success('Sync is live — let the updates begin');
   };
 
   return (
@@ -84,10 +91,12 @@ const SyncGridSettings = () => {
                 <Clock />
               </Button>
             </TimerPicker>
-            <Button variant="outline" size="icon" onClick={shuffle}>
-              <Shuffle />
-            </Button>
-            <RainbowButton onClick={handleStart}>Start {team?.name} Sync</RainbowButton>
+            <RainbowButton
+              disabled={teammatesAbsent.length === teammates?.length}
+              onClick={handleStart}
+            >
+              Start {team?.name} Sync
+            </RainbowButton>
           </div>
         )}
         <div className="flex w-full flex-col items-center gap-4">

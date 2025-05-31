@@ -6,11 +6,9 @@ import { Check, Pause, Play, RefreshCcw, UserRound } from 'lucide-react';
 import { CircularProgress } from '@/components/ui/circular-progress';
 import { Badge } from '@/components/ui/badge';
 
-const TOTAL_SECONDS = 10;
-
 export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
-  const { setDone } = useSyncLiveStore();
-  const [remaining, setRemaining] = useState(TOTAL_SECONDS);
+  const { setDone, timer, showPositions } = useSyncLiveStore();
+  const [remaining, setRemaining] = useState(timer);
   const [running, setRunning] = useState(false);
   const [overtime, setOvertime] = useState(0);
 
@@ -40,11 +38,11 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
   // };
 
   const handleProgress = (secondsPassed: number): number => {
-    return (Math.min(Math.max(secondsPassed, 0), TOTAL_SECONDS) / TOTAL_SECONDS) * 100;
+    return (Math.min(Math.max(secondsPassed, 0), timer) / timer) * 100;
   };
 
   const handleOvertime = () => {
-    setRemaining(TOTAL_SECONDS);
+    setRemaining(timer);
     setRunning(true);
   };
 
@@ -52,7 +50,7 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
     <div className={`flip-card rounded-xl ${teammate.state?.status}`}>
       <div className="flip-card-inner">
         <div className="flip-card-front bg-muted relative flex items-center justify-center rounded-xl border">
-          <UserRound />
+          {showPositions ? teammate.position : <UserRound />}
         </div>
         <div className="flip-card-back relative flex flex-col items-center justify-center rounded-xl border">
           <div className="flex max-w-full flex-col items-center justify-center gap-0.5 text-center sm:gap-2">
