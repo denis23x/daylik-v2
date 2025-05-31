@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import { motion } from 'motion/react';
+import { motion, spring } from 'motion/react';
 
 const GridWithHoverEffect = ({ children }: { children: React.ReactNode }) => {
   const [highlightStyle, setHighlightStyle] = useState({
@@ -86,18 +86,20 @@ const GridWithHoverEffect = ({ children }: { children: React.ReactNode }) => {
         />
       )}
 
-      {React.Children.map(children, (child, index) => {
+      {React.Children.map(children, (child) => {
         if (!child || typeof child !== 'object' || !('type' in child)) return null;
 
         return (
-          <li
+          <motion.li
+            layout
+            transition={spring}
             className="relative"
-            key={index}
+            key={child.key}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeaveItem}
           >
             {child}
-          </li>
+          </motion.li>
         );
       })}
     </ul>
