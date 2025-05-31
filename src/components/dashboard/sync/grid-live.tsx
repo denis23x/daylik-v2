@@ -3,12 +3,12 @@
 import { SyncCard } from '@/components/dashboard/sync/card';
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
 import { Dices, Mic, Shuffle } from 'lucide-react';
-import { motion, spring } from 'motion/react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { useEffect, useState } from 'react';
 import type { TeammateWithState } from '@/types/teammateWithState.type';
+import GridWithHoverEffect from '@/components/grid-with-hover-effect';
 
 // TODO: move to utils
 function isAllDoneExceptOneActive(teammates: TeammateWithState[]): boolean {
@@ -71,15 +71,11 @@ const SyncGridLive = () => {
             <Label htmlFor="show-roles">Show roles</Label>
           </div>
         </div>
-        <div className="flex w-full flex-col items-center gap-4">
-          <ul className="grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
-            {teammates?.map((teammate) => (
-              <motion.li key={teammate.UUID} layout transition={spring}>
-                <SyncCard teammate={teammate} />
-              </motion.li>
-            ))}
-          </ul>
-        </div>
+        <GridWithHoverEffect>
+          {teammates?.map((teammate: TeammateWithState) => (
+            <SyncCard teammate={teammate} key={teammate.UUID} />
+          ))}
+        </GridWithHoverEffect>
       </div>
     </div>
   );

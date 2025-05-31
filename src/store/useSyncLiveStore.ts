@@ -5,6 +5,16 @@ import type { TeammateWithState } from '@/types/teammateWithState.type';
 
 const TIMER = 60;
 
+// TODO: move to utils
+function fisherYatesShuffle<T>(array: T[]): T[] {
+  const result = [...array];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
 type SyncLiveStore = {
   team: Team | null;
   teammates: TeammateWithState[];
@@ -112,7 +122,17 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
     }));
   },
   setShowRoles: (showRoles: boolean) => set({ showRoles }),
-  shuffle: () => set({ teammates: [...get().teammates].sort(() => Math.random() - 0.5) }),
+  shuffle: () => {
+    const original = get().teammates;
+
+    let shuffled = fisherYatesShuffle(original);
+
+    while (shuffled.every((t, i) => t === original[i])) {
+      shuffled = fisherYatesShuffle(original);
+    }
+
+    set({ teammates: shuffled });
+  },
   reset: () =>
     set({
       team: null,
