@@ -20,7 +20,7 @@ import TimerPicker from '@/components/timer-picker';
 import { RainbowButton } from '@/components/magicui/rainbow-button';
 import { toast } from 'sonner';
 
-// TODO: move to utils ???
+// teammatesAbsent reducer
 function reducer(state: string[], action: { type: 'add' | 'remove'; UUID: string }): string[] {
   switch (action.type) {
     case 'add':

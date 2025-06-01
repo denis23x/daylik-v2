@@ -2,18 +2,7 @@ import { create } from 'zustand';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
 import type { TeammateWithState } from '@/types/teammateWithState.type';
-
-const TIMER = 60;
-
-// TODO: move to utils
-function fisherYatesShuffle<T>(array: T[]): T[] {
-  const result = [...array];
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
-  }
-  return result;
-}
+import { fisherYatesShuffle } from '@/utils/fisherYatesShuffle';
 
 type SyncLiveStore = {
   team: Team | null;
@@ -36,7 +25,7 @@ type SyncLiveStore = {
 export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
   team: null,
   teammates: [],
-  timer: TIMER,
+  timer: 0,
   showRoles: false,
   startedAt: null,
   finishedAt: null,
@@ -137,7 +126,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
     set({
       team: null,
       teammates: [],
-      timer: TIMER,
+      timer: 0,
       showRoles: false,
       startedAt: null,
       finishedAt: null,

@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
 
+// TODO: get from saved settings
 const TIMER = 60;
 
 type SyncSettingsStore = {
