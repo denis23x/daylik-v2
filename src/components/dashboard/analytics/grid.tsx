@@ -3,14 +3,13 @@
 import { ChartLine } from 'lucide-react';
 import AnalyticsDataTable from './data-table';
 import type { TeammateWithState } from '@/types/teammateWithState.type';
+import AnalyticsHighlights from './highlights';
+import AnalyticsChart from './chart';
 
 const AnalyticsGrid = () => {
   // const { team, teammates, startedAt, finishedAt } = useSyncLiveStore();
 
   const timer = 60;
-
-  // const startedAt = 1748750493124;
-  // const finishedAt = 1748750947185;
 
   const team = {
     UUID: '33d924a4-9864-4918-b7ec-cf059f50a55e',
@@ -127,6 +126,8 @@ const AnalyticsGrid = () => {
           <ChartLine />
           <span className="text-xl font-bold">Analytics</span>
         </div>
+        <AnalyticsChart teammates={teammates} />
+        <AnalyticsHighlights teammates={teammates} />
         <AnalyticsDataTable teammates={teammates} timer={timer}></AnalyticsDataTable>
       </div>
       {/* <div className="flex w-full flex-col gap-4">
