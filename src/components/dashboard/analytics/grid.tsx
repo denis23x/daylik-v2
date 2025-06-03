@@ -126,8 +126,8 @@ const AnalyticsGrid = () => {
           <ChartLine />
           <span className="text-xl font-bold">Analytics</span>
         </div>
-        <AnalyticsChart teammates={teammates} />
         <AnalyticsHighlights teammates={teammates} />
+        <AnalyticsChart teammates={teammates} />
         <AnalyticsDataTable teammates={teammates} timer={timer}></AnalyticsDataTable>
       </div>
       {/* <div className="flex w-full flex-col gap-4">

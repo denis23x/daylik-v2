@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { formatDuration } from '@/utils/formatDuration';
 import { NumberTicker } from '@/components/magicui/number-ticker';
 import { formatDuration2 } from '@/utils/formatDuration2';
+import TimeTicker from '@/components/time-ticker';
 
 // TODO: get from config
 const TIMER = 60;
@@ -120,7 +121,7 @@ const AnalyticsHighlights = ({ teammates }: { teammates: TeammateWithState[] }) 
           <Card className="gap-4 p-4">
             <CardHeader className="gap-0 p-0">
               <CardTitle className="flex flex-col gap-2">
-                <Rabbit />
+                <Rabbit className="text-emerald-500" />
                 <span className="text-sm">Fastest</span>
               </CardTitle>
               <CardDescription>
@@ -148,6 +149,7 @@ const AnalyticsHighlights = ({ teammates }: { teammates: TeammateWithState[] }) 
                   <span className="text-muted-foreground text-sm">{fastestTeammate.role}</span>
                 </div>
                 <span className="text-lg font-semibold">
+                  <TimeTicker total={128} timer={TIMER} />
                   {formatDuration(
                     fastestTeammate.state.startedAt as number,
                     fastestTeammate.state.finishedAt as number
