@@ -2,12 +2,23 @@
 
 import { ChartLine } from 'lucide-react';
 import AnalyticsDataTable from './data-table';
-import type { TeammateWithState } from '@/types/teammateWithState.type';
 import AnalyticsHighlights from './highlights';
 import AnalyticsChart from './chart';
+import { useAnalytics } from '@/hooks/useAnalytics';
+import { useEffect } from 'react';
+import { useParams } from 'next/navigation';
+import { useGetTeammatesFromAnalytic } from '@/hooks/useAnalyticsTeammates';
+import type { TeammateWithState } from '@/types/teammateWithState.type';
 
 const AnalyticsGrid = () => {
-  // const { team, teammates, startedAt, finishedAt } = useSyncLiveStore();
+  const params = useParams();
+  const { data } = useAnalytics({ query: '*', UUID: params.UUID as string });
+  const { data: data2 } = useGetTeammatesFromAnalytic({ UUID: params.UUID as string });
+
+  useEffect(() => {
+    console.log('analytics', data);
+    console.log('analytics teammates', data2);
+  }, [data, data2]);
 
   const timer = 60;
 
@@ -29,8 +40,8 @@ const AnalyticsGrid = () => {
       createdAt: team.createdAt,
       state: {
         status: 'done',
-        startedAt: 1748750559502,
-        finishedAt: 1748750633240,
+        startedAt: new Date(1748750559502).toISOString(),
+        finishedAt: new Date(1748750633240).toISOString(),
       },
     },
     {
@@ -43,8 +54,8 @@ const AnalyticsGrid = () => {
       createdAt: team.createdAt,
       state: {
         status: 'done',
-        startedAt: 1748750636494,
-        finishedAt: 1748750785745,
+        startedAt: new Date(1748750636494).toISOString(),
+        finishedAt: new Date(1748750785745).toISOString(),
       },
     },
     {
@@ -57,8 +68,8 @@ const AnalyticsGrid = () => {
       createdAt: team.createdAt,
       state: {
         status: 'done',
-        startedAt: 1748750503286,
-        finishedAt: 1748750559502,
+        startedAt: new Date(1748750503286).toISOString(),
+        finishedAt: new Date(1748750559502).toISOString(),
       },
     },
     {
@@ -71,8 +82,8 @@ const AnalyticsGrid = () => {
       createdAt: team.createdAt,
       state: {
         status: 'done',
-        startedAt: 1748750785745,
-        finishedAt: 1748750830882,
+        startedAt: new Date(1748750785745).toISOString(),
+        finishedAt: new Date(1748750830882).toISOString(),
       },
     },
     {
@@ -85,8 +96,8 @@ const AnalyticsGrid = () => {
       createdAt: team.createdAt,
       state: {
         status: 'done',
-        startedAt: 1748750878002,
-        finishedAt: 1748750919023,
+        startedAt: new Date(1748750878002).toISOString(),
+        finishedAt: new Date(1748750919023).toISOString(),
       },
     },
     {
@@ -99,8 +110,8 @@ const AnalyticsGrid = () => {
       createdAt: team.createdAt,
       state: {
         status: 'done',
-        startedAt: 1748750834181,
-        finishedAt: 1748750878002,
+        startedAt: new Date(1748750834181).toISOString(),
+        finishedAt: new Date(1748750878002).toISOString(),
       },
     },
     {
@@ -113,8 +124,8 @@ const AnalyticsGrid = () => {
       createdAt: team.createdAt,
       state: {
         status: 'done',
-        startedAt: 1748750920326,
-        finishedAt: 1748750947150,
+        startedAt: new Date(1748750920326).toISOString(),
+        finishedAt: new Date(1748750947150).toISOString(),
       },
     },
   ];

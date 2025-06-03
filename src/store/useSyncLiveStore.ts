@@ -9,8 +9,8 @@ type SyncLiveStore = {
   teammates: TeammateWithState[];
   timer: number;
   showRoles: boolean;
-  startedAt: number | null;
-  finishedAt: number | null;
+  startedAt: string | null;
+  finishedAt: string | null;
   activeUUID: string | null;
   setSyncStart: (team: Team, teammates: Teammate[], timer: number) => void;
   setSyncFinish: () => void;
@@ -46,14 +46,14 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
       team,
       teammates: teammatesWithState,
       timer,
-      startedAt: Date.now(),
+      startedAt: new Date().toISOString(),
     });
   },
-  setSyncFinish: () => set({ finishedAt: Date.now() }),
+  setSyncFinish: () => set({ finishedAt: new Date().toISOString() }),
   setActive: (uuid) => {
     const state = get();
     const prev = state.activeUUID;
-    const now = Date.now();
+    const now = new Date().toISOString();
 
     set((state) => ({
       activeUUID: uuid,
@@ -92,7 +92,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
     }
   },
   setDone: (uuid) => {
-    const now = Date.now();
+    const now = new Date().toISOString();
 
     set((state) => ({
       activeUUID: null,
