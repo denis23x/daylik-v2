@@ -5,6 +5,7 @@ export function useTeammatesFromAnalytic({ query, UUID }: { query: string; UUID:
   return useQuery({
     queryKey: ['analytics_teammates', query, UUID],
     queryFn: () => fetchTeammatesFromAnalytic({ query, UUID }),
+    staleTime: 1000 * 60 * 5,
   });
 }
 

@@ -1,5 +1,4 @@
 import { supabase } from '@/utils/supabase/client';
-import { getSession } from '../session';
 import type { TeamTeammate } from '@/types/teamTeammate.type';
 
 type AddTeammatesToTeamParams = {
@@ -24,7 +23,6 @@ export async function addTeammatesToTeam({
   teamUUID,
   teammates,
 }: AddTeammatesToTeamParams): Promise<TeamTeammate[]> {
-  const session = await getSession();
   const teammateTeamRelations = teammates.map((teammateUUID) => ({
     teamUUID,
     teammateUUID,
@@ -32,7 +30,6 @@ export async function addTeammatesToTeam({
   const { data, error } = await supabase
     .from('teams_teammates')
     .insert(teammateTeamRelations)
-    .eq('userUUID', session?.user.id)
     .select();
   if (error) throw error;
   return data;
@@ -56,7 +53,6 @@ export async function addTeamsToTeammate({
   teammateUUID,
   teams,
 }: AddTeamsToTeammateParams): Promise<TeamTeammate[]> {
-  const session = await getSession();
   const teammateTeamRelations = teams.map((teamUUID) => ({
     teamUUID,
     teammateUUID,
@@ -64,7 +60,6 @@ export async function addTeamsToTeammate({
   const { data, error } = await supabase
     .from('teams_teammates')
     .insert(teammateTeamRelations)
-    .eq('userUUID', session?.user.id)
     .select();
   if (error) throw error;
   return data;
