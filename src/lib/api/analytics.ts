@@ -1,7 +1,7 @@
 import type { Analytic } from '@/types/analytic.type';
 import { supabase } from '@/utils/supabase/client';
 import { getSession } from '../session';
-import type { SupabaseQueryResult } from '@/types/supabaseQueryResult.type';
+import type { SupabaseQueryResult } from '@/types/utils/supabaseQueryResult.type';
 
 type FetchAnalyticsParams = {
   query: string;

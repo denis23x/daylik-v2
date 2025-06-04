@@ -1,7 +1,7 @@
 import type { Teammate } from '@/types/teammate.type';
 import { supabase } from '@/utils/supabase/client';
 import { getSession } from '../session';
-import type { SupabaseQueryResult } from '@/types/supabaseQueryResult.type';
+import type { SupabaseQueryResult } from '@/types/utils/supabaseQueryResult.type';
 
 type FetchTeammatesParams = {
   query: string;

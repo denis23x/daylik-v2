@@ -11,8 +11,8 @@ export function useTeammatesFromAnalytic({ query, UUID }: { query: string; UUID:
       return data.map((analytic: AnalyticTeammate) => ({
         UUID: analytic.UUID,
         order: analytic.order,
-        startedAt: new Date(analytic.startedAt).toISOString(),
-        finishedAt: new Date(analytic.finishedAt).toISOString(),
+        startedAt: new Date(analytic.startedAt).getTime(),
+        finishedAt: new Date(analytic.finishedAt).getTime(),
         teammate: analytic.teammates,
       }));
     },

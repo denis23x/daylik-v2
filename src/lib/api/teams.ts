@@ -1,7 +1,7 @@
 import type { Team } from '@/types/team.type';
 import { supabase } from '@/utils/supabase/client';
 import { getSession } from '../session';
-import type { SupabaseQueryResult } from '@/types/supabaseQueryResult.type';
+import type { SupabaseQueryResult } from '@/types/utils/supabaseQueryResult.type';
 
 type FetchTeamsParams = {
   query: string;

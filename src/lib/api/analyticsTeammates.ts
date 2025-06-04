@@ -1,7 +1,7 @@
 import type { AnalyticTeammate } from '@/types/analyticTeammate.type';
 import type { TeammateSync } from '@/types/teammateSync.type';
 import { supabase } from '@/utils/supabase/client';
-import type { SupabaseQueryResult } from '@/types/supabaseQueryResult.type';
+import type { SupabaseQueryResult } from '@/types/utils/supabaseQueryResult.type';
 
 type GetTeammatesFromAnalyticParams = {
   query: string;
