@@ -7,13 +7,16 @@ import AnalyticsChart from './chart';
 import { useAnalytics } from '@/hooks/useAnalytics';
 import { useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import { useGetTeammatesFromAnalytic } from '@/hooks/useAnalyticsTeammates';
+import { useTeammatesFromAnalytic } from '@/hooks/useAnalyticsTeammates';
 import type { TeammateWithState } from '@/types/teammateWithState.type';
 
 const AnalyticsGrid = () => {
   const params = useParams();
   const { data } = useAnalytics({ query: '*', UUID: params.UUID as string });
-  const { data: data2 } = useGetTeammatesFromAnalytic({ UUID: params.UUID as string });
+  const { data: data2 } = useTeammatesFromAnalytic({
+    query: '*, teammates (UUID, name, role, color, avatar)',
+    UUID: params.UUID as string,
+  });
 
   useEffect(() => {
     console.log('analytics', data);
@@ -39,6 +42,7 @@ const AnalyticsGrid = () => {
       userUUID: team.userUUID,
       createdAt: team.createdAt,
       state: {
+        order: 1,
         status: 'done',
         startedAt: new Date(1748750559502).toISOString(),
         finishedAt: new Date(1748750633240).toISOString(),
@@ -53,6 +57,7 @@ const AnalyticsGrid = () => {
       userUUID: team.userUUID,
       createdAt: team.createdAt,
       state: {
+        order: 2,
         status: 'done',
         startedAt: new Date(1748750636494).toISOString(),
         finishedAt: new Date(1748750785745).toISOString(),
@@ -67,6 +72,7 @@ const AnalyticsGrid = () => {
       userUUID: team.userUUID,
       createdAt: team.createdAt,
       state: {
+        order: 3,
         status: 'done',
         startedAt: new Date(1748750503286).toISOString(),
         finishedAt: new Date(1748750559502).toISOString(),
@@ -81,6 +87,7 @@ const AnalyticsGrid = () => {
       userUUID: team.userUUID,
       createdAt: team.createdAt,
       state: {
+        order: 4,
         status: 'done',
         startedAt: new Date(1748750785745).toISOString(),
         finishedAt: new Date(1748750830882).toISOString(),
@@ -95,6 +102,7 @@ const AnalyticsGrid = () => {
       userUUID: team.userUUID,
       createdAt: team.createdAt,
       state: {
+        order: 5,
         status: 'done',
         startedAt: new Date(1748750878002).toISOString(),
         finishedAt: new Date(1748750919023).toISOString(),
@@ -109,6 +117,7 @@ const AnalyticsGrid = () => {
       userUUID: team.userUUID,
       createdAt: team.createdAt,
       state: {
+        order: 6,
         status: 'done',
         startedAt: new Date(1748750834181).toISOString(),
         finishedAt: new Date(1748750878002).toISOString(),
@@ -123,6 +132,7 @@ const AnalyticsGrid = () => {
       userUUID: team.userUUID,
       createdAt: team.createdAt,
       state: {
+        order: 7,
         status: 'done',
         startedAt: new Date(1748750920326).toISOString(),
         finishedAt: new Date(1748750947150).toISOString(),

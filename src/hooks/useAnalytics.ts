@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 export function useAnalytics({ query, UUID }: { query: string; UUID: string }) {
   return useQuery({
     queryKey: ['analytics', query, UUID],
-    queryFn: () => fetchAnalytics(query, UUID),
+    queryFn: () => fetchAnalytics({ query, UUID }),
   });
 }
 

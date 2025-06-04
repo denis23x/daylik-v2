@@ -1,22 +1,27 @@
 import type { Analytic } from '@/types/analytic.type';
 import { supabase } from '@/utils/supabase/client';
 import { getSession } from '../session';
+import type { SupabaseQueryResult } from '@/types/supabaseQueryResult.type';
 
-type SupabaseQueryResult<T> = {
-  data: T | null;
-  error: Error | null;
+type FetchAnalyticsParams = {
+  query: string;
+  UUID: string;
 };
 
-export async function fetchAnalytics(query: string = '*', UUID: string): Promise<Analytic[]> {
+export async function fetchAnalytics({
+  query,
+  UUID,
+}: FetchAnalyticsParams): Promise<Analytic | null> {
   const session = await getSession();
   const { data, error } = (await supabase
     .from('analytics')
     .select(query)
     .eq('UUID', UUID)
     .eq('userUUID', session?.user.id)
-    .order('createdAt', { ascending: false })) as SupabaseQueryResult<Analytic[]>;
+    .order('createdAt', { ascending: false })
+    .single()) as SupabaseQueryResult<Analytic>;
   if (error) throw error;
-  return data || [];
+  return data;
 }
 
 export async function createAnalytics(

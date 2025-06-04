@@ -18,15 +18,6 @@ const SyncGrid = () => {
   const { reset: resetSettings } = useSyncSettingsStore();
   const [isStarted, setIsStarted] = useState(false);
 
-  useEffect(() => {
-    resetLive();
-    resetSettings();
-  }, [resetLive, resetSettings]);
-
-  useEffect(() => {
-    setIsStarted(!!startedAt);
-  }, [startedAt]);
-
   const handleSubmit = useCallback(async () => {
     try {
       const analytics = await createAnalytics({
@@ -49,13 +40,22 @@ const SyncGrid = () => {
   }, [
     createAnalytics,
     addTeammatesToAnalytic,
-    team?.UUID,
+    team,
+    teammates,
     timer,
     startedAt,
     finishedAt,
-    teammates,
     router,
   ]);
+
+  useEffect(() => {
+    resetLive();
+    resetSettings();
+  }, [resetLive, resetSettings]);
+
+  useEffect(() => {
+    setIsStarted(!!startedAt);
+  }, [startedAt]);
 
   useEffect(() => {
     if (finishedAt) {

@@ -5,7 +5,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 export function useTeams({ query }: { query: string }) {
   return useQuery({
     queryKey: ['teams', query],
-    queryFn: () => fetchTeams(query),
+    queryFn: () => fetchTeams({ query }),
     staleTime: 1000 * 60 * 5,
     select: (data) => normalizeTeammates(data),
   });

@@ -1,11 +1,7 @@
 import { supabase } from '@/utils/supabase/client';
 import { getSession } from '../session';
 import { Team } from '@/types/team.type';
-
-type SupabaseQueryResult<T> = {
-  data: T | null;
-  error: Error | null;
-};
+import type { SupabaseQueryResult } from '@/types/supabaseQueryResult.type';
 
 type FetchSyncParams = {
   query: string;

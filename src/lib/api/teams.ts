@@ -1,13 +1,13 @@
 import type { Team } from '@/types/team.type';
 import { supabase } from '@/utils/supabase/client';
 import { getSession } from '../session';
+import type { SupabaseQueryResult } from '@/types/supabaseQueryResult.type';
 
-type SupabaseQueryResult<T> = {
-  data: T | null;
-  error: Error | null;
+type FetchTeamsParams = {
+  query: string;
 };
 
-export async function fetchTeams(query: string = '*'): Promise<Team[]> {
+export async function fetchTeams({ query }: FetchTeamsParams): Promise<Team[]> {
   const session = await getSession();
   const { data, error } = (await supabase
     .from('teams')

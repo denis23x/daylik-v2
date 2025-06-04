@@ -35,6 +35,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
       return {
         ...teammate,
         state: {
+          order: null,
           status: 'idle' as const,
           startedAt: null,
           finishedAt: null,
@@ -54,6 +55,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
     const state = get();
     const prev = state.activeUUID;
     const now = new Date().toISOString();
+    const order = state.teammates.filter((teammate) => teammate.state.order);
 
     set((state) => ({
       activeUUID: uuid,
@@ -73,6 +75,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
               ...teammate,
               state: {
                 ...teammate.state,
+                order: order.length + 1,
                 status: 'active',
                 startedAt: now,
               },
