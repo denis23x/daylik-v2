@@ -8,7 +8,7 @@ import { useAnalytics } from '@/hooks/useAnalytics';
 import { useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { useTeammatesFromAnalytic } from '@/hooks/useAnalyticsTeammates';
-import type { TeammateWithState } from '@/types/teammateWithState.type';
+import type { TeammateSync } from '@/types/teammateSync.type';
 
 const AnalyticsGrid = () => {
   const params = useParams();
@@ -32,7 +32,7 @@ const AnalyticsGrid = () => {
     createdAt: '2025-05-25T06:10:14.979011+00:00',
   };
 
-  const teammates: TeammateWithState[] = [
+  const teammates: TeammateSync[] = [
     {
       UUID: '3a6a9bf4-44e1-4f99-80a7-79b04ca4aa83',
       name: 'Анна',
@@ -41,7 +41,7 @@ const AnalyticsGrid = () => {
       avatar: null,
       userUUID: team.userUUID,
       createdAt: team.createdAt,
-      state: {
+      sync: {
         order: 1,
         status: 'done',
         startedAt: new Date(1748750559502).toISOString(),
@@ -56,7 +56,7 @@ const AnalyticsGrid = () => {
       avatar: null,
       userUUID: team.userUUID,
       createdAt: team.createdAt,
-      state: {
+      sync: {
         order: 2,
         status: 'done',
         startedAt: new Date(1748750636494).toISOString(),
@@ -71,7 +71,7 @@ const AnalyticsGrid = () => {
       avatar: null,
       userUUID: team.userUUID,
       createdAt: team.createdAt,
-      state: {
+      sync: {
         order: 3,
         status: 'done',
         startedAt: new Date(1748750503286).toISOString(),
@@ -86,7 +86,7 @@ const AnalyticsGrid = () => {
       avatar: null,
       userUUID: team.userUUID,
       createdAt: team.createdAt,
-      state: {
+      sync: {
         order: 4,
         status: 'done',
         startedAt: new Date(1748750785745).toISOString(),
@@ -101,7 +101,7 @@ const AnalyticsGrid = () => {
       avatar: null,
       userUUID: team.userUUID,
       createdAt: team.createdAt,
-      state: {
+      sync: {
         order: 5,
         status: 'done',
         startedAt: new Date(1748750878002).toISOString(),
@@ -116,7 +116,7 @@ const AnalyticsGrid = () => {
       avatar: null,
       userUUID: team.userUUID,
       createdAt: team.createdAt,
-      state: {
+      sync: {
         order: 6,
         status: 'done',
         startedAt: new Date(1748750834181).toISOString(),
@@ -131,7 +131,7 @@ const AnalyticsGrid = () => {
       avatar: null,
       userUUID: team.userUUID,
       createdAt: team.createdAt,
-      state: {
+      sync: {
         order: 7,
         status: 'done',
         startedAt: new Date(1748750920326).toISOString(),

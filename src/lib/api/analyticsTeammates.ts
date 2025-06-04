@@ -1,5 +1,5 @@
 import type { AnalyticTeammate } from '@/types/analyticTeammate.type';
-import type { TeammateWithState } from '@/types/teammateWithState.type';
+import type { TeammateSync } from '@/types/teammateSync.type';
 import { supabase } from '@/utils/supabase/client';
 import type { SupabaseQueryResult } from '@/types/supabaseQueryResult.type';
 
@@ -10,18 +10,17 @@ type GetTeammatesFromAnalyticParams = {
 
 type AddTeammatesToAnalyticParams = {
   analyticUUID: string;
-  teammates: TeammateWithState[];
+  teammates: TeammateSync[];
 };
 
 export async function fetchTeammatesFromAnalytic({
   query,
   UUID,
-}: GetTeammatesFromAnalyticParams): Promise<TeammateWithState[]> {
+}: GetTeammatesFromAnalyticParams): Promise<AnalyticTeammate[]> {
   const { data, error } = (await supabase
     .from('analytics_teammates')
     .select(query)
-    .eq('analyticUUID', UUID)
-    .order('order', { ascending: false })) as SupabaseQueryResult<TeammateWithState[]>;
+    .eq('analyticUUID', UUID)) as SupabaseQueryResult<AnalyticTeammate[]>;
   if (error) throw error;
   return data || [];
 }
@@ -33,9 +32,9 @@ export async function addTeammatesToAnalytic({
   const teammateAnalyticRelations = teammates.map((teammate) => ({
     analyticUUID,
     teammateUUID: teammate.UUID,
-    order: teammate.state.order,
-    startedAt: teammate.state.startedAt,
-    finishedAt: teammate.state.finishedAt,
+    order: teammate.sync.order,
+    startedAt: teammate.sync.startedAt,
+    finishedAt: teammate.sync.finishedAt,
   }));
   const { data, error } = await supabase
     .from('analytics_teammates')

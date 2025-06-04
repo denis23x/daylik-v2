@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { TeammateWithState } from '@/types/teammateWithState.type';
+import type { TeammateSync } from '@/types/teammateSync.type';
 import { formatDuration } from '@/utils/formatDuration';
 import { getContrastingColor } from '@/utils/getContrastingColor';
 import { ColumnDef } from '@tanstack/react-table';
@@ -10,7 +10,7 @@ import { ArrowDownZA } from 'lucide-react';
 
 const TIMER = 60;
 
-export const columns: ColumnDef<TeammateWithState>[] = [
+export const columns: ColumnDef<TeammateSync>[] = [
   {
     accessorKey: 'queue',
     header: () => {
@@ -79,8 +79,8 @@ export const columns: ColumnDef<TeammateWithState>[] = [
   {
     accessorKey: 'timer',
     accessorFn: (row) => {
-      return row.state.finishedAt && row.state.startedAt
-        ? row.state.finishedAt - row.state.startedAt
+      return row.sync.finishedAt && row.sync.startedAt
+        ? new Date(row.sync.finishedAt).getTime() - new Date(row.sync.startedAt).getTime()
         : null;
     },
     header: ({ column }) => {
@@ -98,10 +98,12 @@ export const columns: ColumnDef<TeammateWithState>[] = [
       );
     },
     cell: ({ row }) => {
-      const { startedAt, finishedAt } = row.original.state;
+      const { startedAt, finishedAt } = row.original.sync;
 
       return (
-        <span className="text-sm">{formatDuration(startedAt as number, finishedAt as number)}</span>
+        <span className="text-sm">
+          {formatDuration(new Date(startedAt).getTime(), new Date(finishedAt).getTime())}
+        </span>
       );
     },
   },
@@ -111,10 +113,13 @@ export const columns: ColumnDef<TeammateWithState>[] = [
       return 'Overtime';
     },
     cell: ({ row }) => {
-      const { startedAt, finishedAt } = row.original.state;
+      const { startedAt, finishedAt } = row.original.sync;
 
       // TODO: add timer here
-      const overtime = finishedAt && startedAt ? (finishedAt - startedAt) / 1000 / TIMER : 0;
+      const overtime =
+        finishedAt && startedAt
+          ? (new Date(finishedAt).getTime() - new Date(startedAt).getTime()) / 1000 / TIMER
+          : 0;
       const overtimeMinutes = overtime > 1 ? Number(overtime.toFixed()) : 0;
 
       return overtimeMinutes > 0 ? (

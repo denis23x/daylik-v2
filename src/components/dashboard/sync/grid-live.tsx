@@ -7,17 +7,17 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { useEffect, useState } from 'react';
-import type { TeammateWithState } from '@/types/teammateWithState.type';
+import type { TeammateSync } from '@/types/teammateSync.type';
 import GridWithHoverEffect from '@/components/grid-with-hover-effect';
 
 // TODO: move to utils
-function isAllDoneExceptOneActive(teammates: TeammateWithState[]): boolean {
+function isAllDoneExceptOneActive(teammates: TeammateSync[]): boolean {
   let activeCount = 0;
 
   for (const teammate of teammates) {
-    if (teammate.state.status === 'active') {
+    if (teammate.sync.status === 'active') {
       activeCount++;
-    } else if (teammate.state.status !== 'done') {
+    } else if (teammate.sync.status !== 'done') {
       return false;
     }
   }
@@ -34,8 +34,8 @@ const SyncGridLive = () => {
 
   useEffect(() => {
     if (teammates.length) {
-      const isPristine = teammates.every((teammate) => teammate.state.status === 'idle');
-      const isDone = teammates.every((teammate) => teammate.state.status === 'done');
+      const isPristine = teammates.every((teammate) => teammate.sync.status === 'idle');
+      const isDone = teammates.every((teammate) => teammate.sync.status === 'done');
 
       setShuffleIsDisabled(isDone || !isPristine);
       setRandomIsDisabled(isDone || isAllDoneExceptOneActive(teammates));
@@ -72,7 +72,7 @@ const SyncGridLive = () => {
           </div>
         </div>
         <GridWithHoverEffect>
-          {teammates?.map((teammate: TeammateWithState) => (
+          {teammates?.map((teammate: TeammateSync) => (
             <SyncCard teammate={teammate} key={teammate.UUID} />
           ))}
         </GridWithHoverEffect>

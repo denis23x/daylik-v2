@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import type { TeammateWithState } from '@/types/teammateWithState.type';
+import type { TeammateSync } from '@/types/teammateSync.type';
 import {
   ColumnFiltersState,
   flexRender,
@@ -25,17 +25,11 @@ import NotFound from '@/components/not-found';
 import { formatDuration } from '@/utils/formatDuration';
 import { columns } from './data-table/columns';
 
-const AnalyticsDataTable = ({
-  teammates,
-  timer,
-}: {
-  teammates: TeammateWithState[];
-  timer: number;
-}) => {
+const AnalyticsDataTable = ({ teammates, timer }: { teammates: TeammateSync[]; timer: number }) => {
   const [totalTimer, setTotalTimer] = useState('');
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const table = useReactTable<TeammateWithState>({
+  const table = useReactTable<TeammateSync>({
     data: teammates,
     columns,
     getCoreRowModel: getCoreRowModel(),
@@ -51,10 +45,14 @@ const AnalyticsDataTable = ({
 
   useEffect(() => {
     const earliestStart = Math.min(
-      ...teammates.map((t) => t.state.startedAt).filter((t): t is number => t !== null)
+      ...teammates
+        .map((t) => new Date(t.sync.startedAt).getTime())
+        .filter((t): t is number => t !== null)
     );
     const latestFinish = Math.max(
-      ...teammates.map((t) => t.state.finishedAt).filter((t): t is number => t !== null)
+      ...teammates
+        .map((t) => new Date(t.sync.finishedAt).getTime())
+        .filter((t): t is number => t !== null)
     );
 
     setTotalTimer(formatDuration(earliestStart, latestFinish));

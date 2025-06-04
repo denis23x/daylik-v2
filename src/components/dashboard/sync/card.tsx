@@ -1,25 +1,25 @@
 import { useEffect, useState } from 'react';
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
-import type { TeammateWithState } from '@/types/teammateWithState.type';
+import type { TeammateSync } from '@/types/teammateSync.type';
 import { Button } from '@/components/ui/button';
 import { Check, Pause, Play, RefreshCcw, UserRound } from 'lucide-react';
 import { CircularProgress } from '@/components/ui/circular-progress';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 
-export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
+export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
   const { timer, showRoles, setActive, setDone } = useSyncLiveStore();
   const [remaining, setRemaining] = useState(timer);
   const [running, setRunning] = useState(false);
   const [overtime, setOvertime] = useState(0);
 
   useEffect(() => {
-    if (teammate.state.status === 'active') {
+    if (teammate.sync.status === 'active') {
       setRunning(true);
-    } else if (teammate.state.status === 'done') {
+    } else if (teammate.sync.status === 'done') {
       setRunning(false);
     }
-  }, [teammate.state.status]);
+  }, [teammate.sync.status]);
 
   useEffect(() => {
     if (running && remaining > 0) {
@@ -33,7 +33,7 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
   }, [running, remaining, teammate.UUID, overtime]);
 
   const handleReveal = () => {
-    if (teammate.state.status === 'idle') {
+    if (teammate.sync.status === 'idle') {
       setActive(teammate.UUID);
     }
   };
@@ -48,7 +48,7 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
   };
 
   return (
-    <div className={`flip-card aspect-[3/3.75] ${teammate.state?.status}`}>
+    <div className={`flip-card aspect-[3/3.75] ${teammate.sync?.status}`}>
       <div className="flip-card-inner p-0">
         <Card className="flip-card-front bg-muted gap-2 p-2">
           <CardContent className="flex size-full items-center justify-center">
@@ -73,7 +73,7 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
               ) : (
                 <Badge className="scale-90 sm:scale-100" variant="secondary">
                   <span className="first-letter:uppercase">
-                    {teammate.state?.status === 'active' ? (running ? 'Active' : 'Paused') : 'Done'}
+                    {teammate.sync?.status === 'active' ? (running ? 'Active' : 'Paused') : 'Done'}
                   </span>
                 </Badge>
               )}
@@ -84,7 +84,7 @@ export const SyncCard = ({ teammate }: { teammate: TeammateWithState }) => {
                 {teammate.role}
               </p>
             </div>
-            {teammate.state.status !== 'done' && (
+            {teammate.sync.status !== 'done' && (
               <>
                 <div className="pointer-events-none absolute inset-0 p-5">
                   <CircularProgress

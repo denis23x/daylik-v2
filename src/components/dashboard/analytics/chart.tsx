@@ -10,7 +10,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-import type { TeammateWithState } from '@/types/teammateWithState.type';
+import type { TeammateSync } from '@/types/teammateSync.type';
 
 const chartConfig = {
   desktop: {
@@ -23,27 +23,30 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-function transformTeammatesToChartData(teammates: TeammateWithState[]) {
+function transformTeammatesToChartData(teammates: TeammateSync[]) {
   return teammates
     .filter(
       (t) =>
-        t.state?.status === 'done' &&
-        typeof t.state.startedAt === 'number' &&
-        typeof t.state.finishedAt === 'number'
+        t.sync?.status === 'done' &&
+        typeof t.sync.startedAt === 'number' &&
+        typeof t.sync.finishedAt === 'number'
     )
     .map((t) => ({
       name: t.name,
       desktop:
-        (t.state.finishedAt && t.state.startedAt ? t.state.finishedAt - t.state.startedAt : 0) /
-        1000,
+        (t.sync.finishedAt && t.sync.startedAt
+          ? new Date(t.sync.finishedAt).getTime() - new Date(t.sync.startedAt).getTime()
+          : 0) / 1000,
       desktop2:
-        (t.state.finishedAt && t.state.startedAt ? t.state.finishedAt - t.state.startedAt : 0) /
+        (t.sync.finishedAt && t.sync.startedAt
+          ? new Date(t.sync.finishedAt).getTime() - new Date(t.sync.startedAt).getTime()
+          : 0) /
           1000 -
         10,
     }));
 }
 
-const AnalyticsChart = ({ teammates }: { teammates: TeammateWithState[] }) => {
+const AnalyticsChart = ({ teammates }: { teammates: TeammateSync[] }) => {
   const chartData = transformTeammatesToChartData(teammates);
 
   return (

@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Rabbit, Snail } from 'lucide-react';
-import type { TeammateWithState } from '@/types/teammateWithState.type';
+import type { TeammateSync } from '@/types/teammateSync.type';
 import { useEffect, useMemo, useState } from 'react';
 import { getContrastingColor } from '@/utils/getContrastingColor';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -14,12 +14,12 @@ import TimeTicker from '@/components/time-ticker';
 // TODO: get from config
 const TIMER = 60;
 
-function getRoleTimeStats(teammates: TeammateWithState[]) {
+function getRoleTimeStats(teammates: TeammateSync[]) {
   const roleTimes: Record<string, { totalTime: number; count: number }> = {};
 
   for (const teammate of teammates) {
-    const { role, state } = teammate;
-    const timeSpent = (state.finishedAt ?? 0) - (state.startedAt ?? 0);
+    const { role, sync } = teammate;
+    const timeSpent = new Date(sync.finishedAt).getTime() - new Date(sync.startedAt).getTime();
 
     if (!roleTimes[role]) {
       roleTimes[role] = { totalTime: 0, count: 0 };
@@ -36,26 +36,26 @@ function getRoleTimeStats(teammates: TeammateWithState[]) {
   }));
 }
 
-const AnalyticsHighlights = ({ teammates }: { teammates: TeammateWithState[] }) => {
+const AnalyticsHighlights = ({ teammates }: { teammates: TeammateSync[] }) => {
   const [fastestTeammate, slowestTeammate] = useMemo(() => {
     const fastest = teammates.reduce((fastest, current) => {
-      return current.state.finishedAt &&
-        current.state.startedAt &&
-        fastest.state.finishedAt &&
-        fastest.state.startedAt &&
-        current.state.finishedAt - current.state.startedAt <
-          fastest.state.finishedAt - fastest.state.startedAt
+      return current.sync.finishedAt &&
+        current.sync.startedAt &&
+        fastest.sync.finishedAt &&
+        fastest.sync.startedAt &&
+        new Date(current.sync.finishedAt).getTime() - new Date(current.sync.startedAt).getTime() <
+          new Date(fastest.sync.finishedAt).getTime() - new Date(fastest.sync.startedAt).getTime()
         ? current
         : fastest;
     }, teammates[0]);
 
     const slowest = teammates.reduce((slowest, current) => {
-      return current.state.finishedAt &&
-        current.state.startedAt &&
-        slowest.state.finishedAt &&
-        slowest.state.startedAt &&
-        current.state.finishedAt - current.state.startedAt >
-          slowest.state.finishedAt - slowest.state.startedAt
+      return current.sync.finishedAt &&
+        current.sync.startedAt &&
+        slowest.sync.finishedAt &&
+        slowest.sync.startedAt &&
+        new Date(current.sync.finishedAt).getTime() - new Date(current.sync.startedAt).getTime() >
+          new Date(slowest.sync.finishedAt).getTime() - new Date(slowest.sync.startedAt).getTime()
         ? current
         : slowest;
     }, teammates[0]);
@@ -79,12 +79,13 @@ const AnalyticsHighlights = ({ teammates }: { teammates: TeammateWithState[] }) 
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
-    const valid = teammates.filter((t) => t.state?.startedAt && t.state?.finishedAt);
+    const valid = teammates.filter((t) => t.sync?.startedAt && t.sync?.finishedAt);
 
     if (valid.length === 0) return;
 
     const totalMs = valid.reduce(
-      (acc, t) => acc + ((t.state.finishedAt ?? 0) - (t.state.startedAt ?? 0)),
+      (acc, t) =>
+        acc + (new Date(t.sync.finishedAt).getTime() - new Date(t.sync.startedAt).getTime()),
       0
     );
 
@@ -151,8 +152,8 @@ const AnalyticsHighlights = ({ teammates }: { teammates: TeammateWithState[] }) 
                 <span className="text-lg font-semibold">
                   <TimeTicker total={128} timer={TIMER} />
                   {formatDuration(
-                    fastestTeammate.state.startedAt as number,
-                    fastestTeammate.state.finishedAt as number
+                    new Date(fastestTeammate.sync.startedAt).getTime(),
+                    new Date(fastestTeammate.sync.finishedAt).getTime()
                   )}
                 </span>
               </div>
@@ -190,8 +191,8 @@ const AnalyticsHighlights = ({ teammates }: { teammates: TeammateWithState[] }) 
                 </div>
                 <span className="text-lg font-semibold">
                   {formatDuration(
-                    slowestTeammate.state.startedAt as number,
-                    slowestTeammate.state.finishedAt as number
+                    new Date(slowestTeammate.sync.startedAt).getTime(),
+                    new Date(slowestTeammate.sync.finishedAt).getTime()
                   )}
                 </span>
               </div>

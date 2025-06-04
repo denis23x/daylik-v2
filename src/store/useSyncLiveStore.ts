@@ -1,12 +1,12 @@
 import { create } from 'zustand';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
-import type { TeammateWithState } from '@/types/teammateWithState.type';
+import type { TeammateSync } from '@/types/teammateSync.type';
 import { fisherYatesShuffle } from '@/utils/fisherYatesShuffle';
 
 type SyncLiveStore = {
   team: Team | null;
-  teammates: TeammateWithState[];
+  teammates: TeammateSync[];
   timer: number;
   showRoles: boolean;
   startedAt: string | null;
@@ -31,10 +31,10 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
   finishedAt: null,
   activeUUID: null,
   setSyncStart: (team, teammates, timer) => {
-    const teammatesWithState = teammates.map((teammate: Teammate) => {
+    const teammatesSync = teammates.map((teammate: Teammate) => {
       return {
         ...teammate,
-        state: {
+        sync: {
           order: null,
           status: 'idle' as const,
           startedAt: null,
@@ -45,7 +45,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
 
     set({
       team,
-      teammates: teammatesWithState,
+      teammates: teammatesSync,
       timer,
       startedAt: new Date().toISOString(),
     });
@@ -55,7 +55,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
     const state = get();
     const prev = state.activeUUID;
     const now = new Date().toISOString();
-    const order = state.teammates.filter((teammate) => teammate.state.order);
+    const order = state.teammates.filter((teammate) => teammate.sync.order);
 
     set((state) => ({
       activeUUID: uuid,
@@ -64,8 +64,8 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
           case teammate.UUID === prev:
             return {
               ...teammate,
-              state: {
-                ...teammate.state,
+              sync: {
+                ...teammate.sync,
                 status: 'done',
                 finishedAt: now,
               },
@@ -73,8 +73,8 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
           case teammate.UUID === uuid:
             return {
               ...teammate,
-              state: {
-                ...teammate.state,
+              sync: {
+                ...teammate.sync,
                 order: order.length + 1,
                 status: 'active',
                 startedAt: now,
@@ -88,7 +88,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
   },
   setRandom: () => {
     const state = get();
-    const idle = state.teammates.filter((teammate) => teammate.state.status === 'idle');
+    const idle = state.teammates.filter((teammate) => teammate.sync.status === 'idle');
 
     if (idle.length) {
       state.setActive(idle[Math.floor(Math.random() * idle.length)].UUID);
@@ -103,8 +103,8 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
         return teammate.UUID === uuid
           ? {
               ...teammate,
-              state: {
-                ...teammate.state,
+              sync: {
+                ...teammate.sync,
                 status: 'done',
                 finishedAt: now,
               },
