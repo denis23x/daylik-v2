@@ -19,13 +19,7 @@ export async function fetchTeams({ query }: FetchTeamsParams): Promise<Team[]> {
 }
 
 export async function createTeam(team: Pick<Team, 'name'>): Promise<Team> {
-  const session = await getSession();
-  const { data, error } = await supabase
-    .from('teams')
-    .insert(team)
-    .eq('userUUID', session?.user.id)
-    .select()
-    .single();
+  const { data, error } = await supabase.from('teams').insert(team).select().single();
   if (error) throw error;
   return data;
 }

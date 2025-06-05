@@ -27,13 +27,7 @@ export async function fetchAnalytics({
 export async function createAnalytics(
   analytics: Pick<Analytic, 'teamUUID' | 'timer' | 'startedAt' | 'finishedAt'>
 ): Promise<Analytic> {
-  const session = await getSession();
-  const { data, error } = await supabase
-    .from('analytics')
-    .insert(analytics)
-    .eq('userUUID', session?.user.id)
-    .select()
-    .single();
+  const { data, error } = await supabase.from('analytics').insert(analytics).select().single();
   if (error) throw error;
   return data;
 }

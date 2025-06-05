@@ -9,7 +9,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import type { TeammateSync } from '@/types/teammateSync.type';
 import {
   ColumnFiltersState,
   flexRender,
@@ -22,16 +21,25 @@ import {
 import { useEffect, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import NotFound from '@/components/not-found';
-import { formatDuration } from '@/utils/formatDuration';
 import { columns } from './data-table/columns';
+import type { AnalyticTeammate } from '@/types/analyticTeammate.type';
+import type { Analytic } from '@/types/analytic.type';
+import { formatDuration2 } from '@/utils/formatDuration2';
 
-const AnalyticsDataTable = ({ teammates, timer }: { teammates: TeammateSync[]; timer: number }) => {
+const AnalyticsDataTable = ({
+  team,
+  teammates,
+}: {
+  team: Analytic;
+  teammates: AnalyticTeammate[];
+}) => {
+  const [totalRoles, setTotalRoles] = useState(0);
   const [totalTimer, setTotalTimer] = useState('');
-  const [sorting, setSorting] = useState<SortingState>([]);
+  const [sorting, setSorting] = useState<SortingState>([{ id: 'order', desc: false }]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const table = useReactTable<TeammateSync>({
+  const table = useReactTable<AnalyticTeammate>({
     data: teammates,
-    columns,
+    columns: columns({ timer: team.timer }),
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
@@ -44,23 +52,19 @@ const AnalyticsDataTable = ({ teammates, timer }: { teammates: TeammateSync[]; t
   });
 
   useEffect(() => {
-    const earliestStart = Math.min(
-      ...teammates
-        .map((t) => new Date(t.sync.startedAt).getTime())
-        .filter((t): t is number => t !== null)
-    );
-    const latestFinish = Math.max(
-      ...teammates
-        .map((t) => new Date(t.sync.finishedAt).getTime())
-        .filter((t): t is number => t !== null)
-    );
+    const totalUniqueRoles = [...new Set(teammates.map((t) => t.teammate.role))];
+    const getTotalSeconds = () => {
+      return teammates.reduce((sum, teammate) => {
+        return sum + Math.floor((teammate.finishedAt - teammate.startedAt) / 1000);
+      }, 0);
+    };
 
-    setTotalTimer(formatDuration(earliestStart, latestFinish));
+    setTotalRoles(totalUniqueRoles.length);
+    setTotalTimer(formatDuration2(getTotalSeconds() * 1000));
   }, [teammates]);
 
   return (
     <div>
-      <span>Timer {timer}</span>
       <div className="flex items-center gap-4 py-4">
         <Input
           placeholder="Filter teammates..."
@@ -81,7 +85,14 @@ const AnalyticsDataTable = ({ teammates, timer }: { teammates: TeammateSync[]; t
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
+                  <TableHead
+                    key={header.id}
+                    style={{
+                      width: header.getSize(),
+                      minWidth: header.column.columnDef.minSize,
+                      maxWidth: header.column.columnDef.maxSize,
+                    }}
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(header.column.columnDef.header, header.getContext())}
@@ -95,7 +106,14 @@ const AnalyticsDataTable = ({ teammates, timer }: { teammates: TeammateSync[]; t
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell
+                      key={cell.id}
+                      style={{
+                        width: cell.column.getSize(),
+                        minWidth: cell.column.columnDef.minSize,
+                        maxWidth: cell.column.columnDef.maxSize,
+                      }}
+                    >
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
@@ -111,9 +129,8 @@ const AnalyticsDataTable = ({ teammates, timer }: { teammates: TeammateSync[]; t
           </TableBody>
           <TableFooter>
             <TableRow>
-              <TableCell></TableCell>
-              <TableCell>N teammates</TableCell>
-              <TableCell>N roles</TableCell>
+              <TableCell colSpan={2}></TableCell>
+              <TableCell>{totalRoles} roles</TableCell>
               <TableCell>{totalTimer}</TableCell>
               <TableCell>N Оvertimes</TableCell>
             </TableRow>

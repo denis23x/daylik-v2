@@ -21,13 +21,7 @@ export async function fetchTeammates({ query }: FetchTeammatesParams): Promise<T
 export async function createTeammate(
   teammate: Pick<Teammate, 'name' | 'role' | 'color' | 'avatar'>
 ): Promise<Teammate> {
-  const session = await getSession();
-  const { data, error } = await supabase
-    .from('teammates')
-    .insert(teammate)
-    .eq('userUUID', session?.user.id)
-    .select()
-    .single();
+  const { data, error } = await supabase.from('teammates').insert(teammate).select().single();
   if (error) throw error;
   return data;
 }

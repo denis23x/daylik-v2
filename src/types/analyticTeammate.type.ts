@@ -6,5 +6,4 @@ export type AnalyticTeammate = {
   startedAt: number;
   finishedAt: number;
   teammate: Teammate;
-  teammates?: Teammate;
 };
