@@ -4,7 +4,6 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -18,13 +17,12 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import NotFound from '@/components/not-found';
 import { columns } from './data-table/columns';
 import type { AnalyticTeammate } from '@/types/analyticTeammate.type';
 import type { Analytic } from '@/types/analytic.type';
-import { formatDuration2 } from '@/utils/formatDuration2';
 
 const AnalyticsDataTable = ({
   team,
@@ -33,13 +31,11 @@ const AnalyticsDataTable = ({
   team: Analytic;
   teammates: AnalyticTeammate[];
 }) => {
-  const [totalRoles, setTotalRoles] = useState(0);
-  const [totalTimer, setTotalTimer] = useState('');
   const [sorting, setSorting] = useState<SortingState>([{ id: 'order', desc: false }]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const table = useReactTable<AnalyticTeammate>({
     data: teammates,
-    columns: columns({ timer: team.timer }),
+    columns: columns({ team }),
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
@@ -50,18 +46,6 @@ const AnalyticsDataTable = ({
       columnFilters,
     },
   });
-
-  useEffect(() => {
-    const totalUniqueRoles = [...new Set(teammates.map((t) => t.teammate.role))];
-    const getTotalSeconds = () => {
-      return teammates.reduce((sum, teammate) => {
-        return sum + Math.floor((teammate.finishedAt - teammate.startedAt) / 1000);
-      }, 0);
-    };
-
-    setTotalRoles(totalUniqueRoles.length);
-    setTotalTimer(formatDuration2(getTotalSeconds() * 1000));
-  }, [teammates]);
 
   return (
     <div>
@@ -127,14 +111,6 @@ const AnalyticsDataTable = ({
               </TableRow>
             )}
           </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TableCell colSpan={2}></TableCell>
-              <TableCell>{totalRoles} roles</TableCell>
-              <TableCell>{totalTimer}</TableCell>
-              <TableCell>N Оvertimes</TableCell>
-            </TableRow>
-          </TableFooter>
         </Table>
       </div>
     </div>

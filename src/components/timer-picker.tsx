@@ -15,7 +15,7 @@ import { Label } from './ui/label';
 import { useSyncSettingsStore } from '@/store/useSyncSettingsStore';
 import { Slider } from './ui/slider';
 
-const MIN_TIMER = 30;
+const MIN_TIMER = 5;
 const MAX_TIMER = 180;
 
 const TimerPicker = ({ children }: { children: React.ReactNode }) => {

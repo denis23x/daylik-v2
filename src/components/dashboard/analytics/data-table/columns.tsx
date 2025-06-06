@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import type { Analytic } from '@/types/analytic.type';
 import type { AnalyticTeammate } from '@/types/analyticTeammate.type';
 import { formatDuration } from '@/utils/formatDuration';
 import { getContrastingColor } from '@/utils/getContrastingColor';
@@ -8,7 +9,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { ArrowDown10, ArrowUp01, ArrowUpAZ } from 'lucide-react';
 import { ArrowDownZA } from 'lucide-react';
 
-export const columns = ({ timer }: { timer: number }): ColumnDef<AnalyticTeammate>[] => {
+export const columns = ({ team }: { team: Analytic }): ColumnDef<AnalyticTeammate>[] => {
   return [
     {
       accessorKey: 'order',
@@ -104,7 +105,7 @@ export const columns = ({ timer }: { timer: number }): ColumnDef<AnalyticTeammat
             variant="text"
             onClick={() => column.toggleSorting(isSorted === 'asc')}
           >
-            Time spent
+            Timer
             {isSorted === 'asc' ? <ArrowUp01 /> : <ArrowDown10 />}
           </Button>
         );
@@ -117,18 +118,30 @@ export const columns = ({ timer }: { timer: number }): ColumnDef<AnalyticTeammat
     },
     {
       accessorKey: 'overtime',
-      header: () => {
-        return 'Overtime';
+      accessorFn: (row) => (row.finishedAt - row.startedAt) / 1000 - team.timer,
+      header: ({ column }) => {
+        const isSorted = column.getIsSorted();
+
+        return (
+          <Button
+            className="!p-0"
+            variant="text"
+            onClick={() => column.toggleSorting(isSorted === 'asc')}
+          >
+            Overtimes
+            {isSorted === 'asc' ? <ArrowUp01 /> : <ArrowDown10 />}
+          </Button>
+        );
       },
       cell: ({ row }) => {
         const { startedAt, finishedAt } = row.original;
 
-        const diffInSeconds = (finishedAt - startedAt) / 1000;
-        const overtimes = diffInSeconds / timer;
+        const overtime = (finishedAt - startedAt) / 1000 - team.timer;
+        const overtimeDecimals = overtime / team.timer;
 
-        return overtimes > 0 ? (
-          <Badge className="scale-90 sm:scale-100" variant="destructive">
-            Overtime {overtimes > 1 ? `x${overtimes}` : ''}
+        return overtime > 0 ? (
+          <Badge variant={overtimeDecimals > 1 ? 'destructive' : 'secondary'}>
+            Overtime x{overtimeDecimals.toFixed(1)}
           </Badge>
         ) : (
           <Badge variant="secondary">On time</Badge>

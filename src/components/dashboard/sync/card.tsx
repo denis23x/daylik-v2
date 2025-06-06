@@ -22,13 +22,15 @@ export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
   }, [teammate.sync.status]);
 
   useEffect(() => {
-    if (running && remaining > 0) {
-      const interval = setInterval(() => setRemaining((r) => r - 1), 1000);
-      return () => clearInterval(interval);
-    }
-    if (remaining === 0 && running) {
-      setRunning(false);
-      setOvertime(overtime + 1);
+    if (running) {
+      if (remaining > 0) {
+        const interval = setInterval(() => setRemaining((r) => r - 1), 1000);
+        return () => clearInterval(interval);
+      }
+      if (remaining === 0) {
+        setRunning(false);
+        setOvertime(overtime + 1);
+      }
     }
   }, [running, remaining, teammate.UUID, overtime]);
 
