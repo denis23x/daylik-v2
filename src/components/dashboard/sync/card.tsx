@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
 import type { SyncTeammate } from '@/types/syncTeammate.type';
 import { Button } from '@/components/ui/button';
@@ -13,10 +13,11 @@ export const SyncCard = ({ syncTeammate }: { syncTeammate: SyncTeammate }) => {
   const [running, setRunning] = useState(false);
   const [overtime, setOvertime] = useState(0);
   const [progress, setProgress] = useState(100);
-  const overtimeRef = useRef<NodeJS.Timeout | null>(null);
-  const progressRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalOvertimeRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalProgressRef = useRef<NodeJS.Timeout | null>(null);
   const startedRef = useRef<number | null>(null);
   const elapsedRef = useRef<number>(0);
+  const timerRef = useRef<number>(team?.sync.timer ?? 0);
 
   useEffect(() => {
     if (running) {
@@ -24,17 +25,16 @@ export const SyncCard = ({ syncTeammate }: { syncTeammate: SyncTeammate }) => {
         startedRef.current = Date.now() - elapsedRef.current;
       }
 
-      progressRef.current = setInterval(() => {
-        const timer = team?.sync.timer ?? 0;
+      intervalProgressRef.current = setInterval(() => {
         const elapsed = Date.now() - (startedRef.current ?? 0);
-        const remaining = timer * 1000 - elapsed;
+        const remaining = timerRef.current * 1000 - elapsed;
 
         // Save elapsed time for next reset
         elapsedRef.current = elapsed;
 
         if (remaining <= 0) {
-          clearInterval(progressRef.current!);
-          progressRef.current = null;
+          clearInterval(intervalProgressRef.current!);
+          intervalProgressRef.current = null;
 
           startedRef.current = null;
           elapsedRef.current = 0;
@@ -42,50 +42,72 @@ export const SyncCard = ({ syncTeammate }: { syncTeammate: SyncTeammate }) => {
           setProgress(0);
           setRunning(false);
         } else {
-          setProgress((remaining / (timer * 1000)) * 100);
+          setProgress((remaining / (timerRef.current * 1000)) * 100);
         }
       }, 50);
     }
 
     return () => {
-      clearInterval(progressRef.current!);
-      progressRef.current = null;
+      clearInterval(intervalProgressRef.current!);
+      intervalProgressRef.current = null;
       startedRef.current = null;
     };
-  }, [running, team?.sync.timer]);
+  }, [running]);
 
   useEffect(() => {
     if (progress === 0 && syncTeammate.sync.status === 'active') {
       const overtime = Date.now();
 
-      overtimeRef.current = setInterval(() => {
-        const timer = team?.sync.timer ?? 0;
+      intervalOvertimeRef.current = setInterval(() => {
         const elapsed = Date.now() - overtime;
-        const ratio = elapsed / (timer * 1000);
+        const ratio = elapsed / (timerRef.current * 1000);
 
         setOvertime(ratio);
       }, 100);
     }
 
     return () => {
-      clearInterval(overtimeRef.current!);
-      overtimeRef.current = null;
+      clearInterval(intervalOvertimeRef.current!);
+      intervalOvertimeRef.current = null;
     };
-  }, [progress, syncTeammate.sync.status, team?.sync.timer]);
+  }, [progress, syncTeammate.sync.status]);
+
+  useEffect(() => {
+    if (syncTeammate.sync.status === 'active') {
+      setRunning(true);
+    } else if (syncTeammate.sync.status === 'done') {
+      setRunning(false);
+    }
+  }, [syncTeammate.sync.status]);
+
+  useEffect(() => {
+    if (syncTeammate.sync.status === 'done') {
+      // Calculate elapsed time
+      const elapsed = elapsedRef.current / 1000 || timerRef.current + timerRef.current * overtime;
+
+      // Set done with elapsed and overtime
+      setDone(syncTeammate.UUID, parseInt(elapsed.toFixed()), parseFloat(overtime.toFixed(1)));
+
+      // Reset progress
+      clearInterval(intervalProgressRef.current!);
+      intervalProgressRef.current = null;
+
+      // Reset overtime
+      clearInterval(intervalOvertimeRef.current!);
+      intervalOvertimeRef.current = null;
+
+      setOvertime(0);
+      setProgress(100);
+      startedRef.current = null;
+      elapsedRef.current = 0;
+    }
+  }, [syncTeammate.sync.status, syncTeammate.UUID, setDone, overtime]);
 
   const handleActive = (status: string) => {
     if (syncTeammate.sync.status === status) {
       setActive(syncTeammate.UUID);
     }
   };
-
-  const handleDone = useCallback(() => {
-    const timer = team?.sync.timer ?? 0;
-    const elapsed = elapsedRef.current / 1000 || timer + timer * overtime;
-
-    // Set done with elapsed and overtime
-    setDone(syncTeammate.UUID, parseInt(elapsed.toFixed()), parseFloat(overtime.toFixed(1)));
-  }, [team?.sync.timer, overtime, setDone, syncTeammate.UUID]);
 
   const handleSiren = (e: React.MouseEvent<HTMLButtonElement>) => {
     const scalar = 3;
@@ -129,30 +151,6 @@ export const SyncCard = ({ syncTeammate }: { syncTeammate: SyncTeammate }) => {
     // Render confetti
     shoot();
   };
-
-  useEffect(() => {
-    if (syncTeammate.sync.status === 'active') {
-      setRunning(true);
-    } else if (syncTeammate.sync.status === 'done') {
-      setRunning(false);
-
-      // Set done
-      handleDone();
-
-      // Reset progress
-      clearInterval(progressRef.current!);
-      progressRef.current = null;
-
-      // Reset overtime
-      clearInterval(overtimeRef.current!);
-      overtimeRef.current = null;
-
-      setOvertime(0);
-      setProgress(100);
-      startedRef.current = null;
-      elapsedRef.current = 0;
-    }
-  }, [syncTeammate.sync.status, handleDone]);
 
   return (
     <div className={`flip-card aspect-[3/3.75] ${syncTeammate.sync?.status}`}>

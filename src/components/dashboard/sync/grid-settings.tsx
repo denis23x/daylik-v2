@@ -35,7 +35,7 @@ function reducer(state: string[], action: { type: 'add' | 'remove'; UUID: string
 const SyncGridSettings = () => {
   const params = useParams();
   const [teammatesAbsent, dispatch] = useReducer(reducer, []);
-  const [teammatesDuration, setTeammatesDuration] = useState('');
+  const [teammatesDuration, setTeammatesDuration] = useState(0);
   const { team, teammates, timer, setTeam, setTeammates } = useSyncSettingsStore();
   const { setSyncStart } = useSyncLiveStore();
   const { data, isLoading, error } = useSync({
@@ -56,7 +56,7 @@ const SyncGridSettings = () => {
   useEffect(() => {
     const duration = (timer * ((teammates?.length || 0) - teammatesAbsent.length)) / 60;
 
-    setTeammatesDuration(duration.toFixed(0));
+    setTeammatesDuration(duration);
   }, [timer, teammates, teammatesAbsent]);
 
   const handleStart = () => {
@@ -80,7 +80,9 @@ const SyncGridSettings = () => {
           {!isLoading && !error && (
             <p className="flex items-center gap-2">
               <span className="text-xl font-bold">Sync</span>
-              <span className="text-muted-foreground mt-1 text-sm">~ {teammatesDuration} min.</span>
+              <span className="text-muted-foreground mt-1 text-sm">
+                ~ {teammatesDuration.toFixed()} min.
+              </span>
             </p>
           )}
         </div>
