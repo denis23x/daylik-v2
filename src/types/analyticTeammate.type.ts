@@ -1,11 +1,11 @@
+import type { SyncTeammate } from './syncTeammate.type';
 import type { Teammate } from './teammate.type';
 
-export type AnalyticTeammate = {
+type SyncFields = Required<SyncTeammate['sync']>;
+
+export type AnalyticTeammate = SyncFields & {
   UUID: string;
-  order: number;
-  elapsed: number;
-  overtime: number;
-  startedAt: number;
-  finishedAt: number;
   teammate: Teammate;
 };
+
+export type AnalyticTeammateWithRelations = AnalyticTeammate & { teammates: Teammate };

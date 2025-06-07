@@ -14,7 +14,7 @@ type SyncLiveStore = {
   setSyncFinish: () => void;
   setActive: (uuid: string) => void;
   setRandom: () => void;
-  setDone: (uuid: string) => void;
+  setDone: (uuid: string, elapsed: number, overtime: number) => void;
   setShowRoles: (showRoles: boolean) => void;
   shuffle: () => void;
   reset: () => void;
@@ -69,21 +69,18 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
   },
   setActive: (uuid) => {
     const state = get();
-    const prev = state.activeUUID;
-    const now = new Date().toISOString();
     const order = state.teammates.filter((teammate) => teammate.sync.order);
 
     set((state) => ({
       activeUUID: uuid,
       teammates: state.teammates.map((teammate) => {
         switch (true) {
-          case teammate.UUID === prev:
+          case teammate.sync.status === 'active':
             return {
               ...teammate,
               sync: {
                 ...teammate.sync,
                 status: 'done',
-                finishedAt: now,
               },
             };
           case teammate.UUID === uuid:
@@ -93,7 +90,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
                 ...teammate.sync,
                 order: order.length + 1,
                 status: 'active',
-                startedAt: now,
+                startedAt: new Date().toISOString(),
               },
             };
           default:
@@ -110,22 +107,25 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
       state.setActive(idle[Math.floor(Math.random() * idle.length)].UUID);
     }
   },
-  setDone: (uuid) => {
-    const now = new Date().toISOString();
-
+  setDone: (uuid, elapsed, overtime) => {
     set((state) => ({
       activeUUID: null,
       teammates: state.teammates.map((teammate) => {
-        return teammate.UUID === uuid
-          ? {
+        switch (true) {
+          case teammate.UUID === uuid:
+            return {
               ...teammate,
               sync: {
                 ...teammate.sync,
+                elapsed,
+                overtime,
                 status: 'done',
-                finishedAt: now,
+                finishedAt: new Date().toISOString(),
               },
-            }
-          : teammate;
+            };
+          default:
+            return teammate;
+        }
       }),
     }));
   },

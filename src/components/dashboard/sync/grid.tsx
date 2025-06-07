@@ -50,13 +50,13 @@ const SyncGrid = () => {
     if (team) {
       setIsStarted(!!team.sync.startedAt);
     }
-  }, [team?.sync.startedAt]);
+  }, [team?.sync.startedAt, team]);
 
   useEffect(() => {
     if (team && team.sync.finishedAt) {
       handleSubmit();
     }
-  }, [team?.sync.finishedAt, handleSubmit]);
+  }, [team?.sync.finishedAt, team, handleSubmit]);
 
   return <>{isStarted ? <SyncGridLive /> : <SyncGridSettings />}</>;
 };
