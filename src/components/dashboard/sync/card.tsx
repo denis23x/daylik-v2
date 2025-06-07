@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
-import type { TeammateSync } from '@/types/teammateSync.type';
+import type { SyncTeammate } from '@/types/syncTeammate.type';
 import { Button } from '@/components/ui/button';
 import { Check, Pause, Play, Siren, UserRound } from 'lucide-react';
 import { CircularProgress } from '@/components/ui/circular-progress';
@@ -8,8 +8,8 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import confetti from 'canvas-confetti';
 
-export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
-  const { timer, showRoles, setActive, setDone } = useSyncLiveStore();
+export const SyncCard = ({ syncTeammate }: { syncTeammate: SyncTeammate }) => {
+  const { team, showRoles, setActive, setDone } = useSyncLiveStore();
   const [running, setRunning] = useState(false);
   const [overtime, setOvertime] = useState(0);
   const [progress, setProgress] = useState(100);
@@ -19,9 +19,9 @@ export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
   const elapsedRef = useRef<number>(0);
 
   useEffect(() => {
-    if (teammate.sync.status === 'active') {
+    if (syncTeammate.sync.status === 'active') {
       setRunning(true);
-    } else if (teammate.sync.status === 'done') {
+    } else if (syncTeammate.sync.status === 'done') {
       setRunning(false);
 
       // Reset progress and overtime
@@ -36,7 +36,7 @@ export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
       startedRef.current = null;
       elapsedRef.current = 0;
     }
-  }, [teammate.sync.status]);
+  }, [syncTeammate.sync.status]);
 
   useEffect(() => {
     if (running) {
@@ -46,7 +46,7 @@ export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
 
       progressRef.current = setInterval(() => {
         const elapsed = Date.now() - (startedRef.current ?? 0);
-        const remaining = timer * 1000 - elapsed;
+        const remaining = (team?.sync.timer ?? 0) * 1000 - elapsed;
 
         // Save elapsed time for next reset
         elapsedRef.current = elapsed;
@@ -61,7 +61,7 @@ export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
           setProgress(0);
           setRunning(false);
         } else {
-          setProgress((remaining / (timer * 1000)) * 100);
+          setProgress((remaining / ((team?.sync.timer ?? 0) * 1000)) * 100);
         }
       }, 50);
     }
@@ -72,15 +72,15 @@ export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
       progressRef.current = null;
       startedRef.current = null;
     };
-  }, [running, timer]);
+  }, [running, team?.sync.timer]);
 
   useEffect(() => {
-    if (progress === 0 && teammate.sync.status === 'active') {
+    if (progress === 0 && syncTeammate.sync.status === 'active') {
       const overtimeStart = Date.now();
 
       overtimeRef.current = setInterval(() => {
         const elapsed = Date.now() - overtimeStart;
-        const ratio = elapsed / (timer * 1000);
+        const ratio = elapsed / ((team?.sync.timer ?? 0) * 1000);
 
         setOvertime(ratio);
       }, 100);
@@ -90,11 +90,11 @@ export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
       clearInterval(overtimeRef.current!);
       overtimeRef.current = null;
     };
-  }, [progress, teammate.sync.status, timer]);
+  }, [progress, syncTeammate.sync.status, team?.sync.timer]);
 
   const handleReveal = () => {
-    if (teammate.sync.status === 'idle') {
-      setActive(teammate.UUID);
+    if (syncTeammate.sync.status === 'idle') {
+      setActive(syncTeammate.UUID);
     }
   };
 
@@ -125,32 +125,23 @@ export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
   };
 
   const handleDone = () => {
-    setDone(teammate.UUID);
+    setDone(syncTeammate.UUID);
 
-    // let elapsed1 = 0;
-    // let elapsed2 = 0;
-
-    // if (elapsedRef.current) {
-    //   elapsed1 = elapsedRef.current;
-    // } else {
-    //   elapsed1 = timer + timer * overtime;
-    // }
-
-    // console.log('overtime', overtime);
-    // elapsed2 = Date.now() - new Date(teammate.sync?.startedAt as unknown as string).getTime();
-
-    // console.log('elapsed1', elapsed1);
-    // console.log('elapsed2', elapsed2);
+    console.log(
+      'elapsed',
+      elapsedRef.current || (team?.sync.timer ?? 0) + (team?.sync.timer ?? 0) * overtime
+    );
+    console.log('overtime', overtime);
   };
 
   return (
-    <div className={`flip-card aspect-[3/3.75] ${teammate.sync?.status}`}>
+    <div className={`flip-card aspect-[3/3.75] ${syncTeammate.sync?.status}`}>
       <div className="flip-card-inner p-0">
         <Card className="flip-card-front bg-muted gap-2 p-2">
           <CardContent className="flex size-full items-center justify-center">
             <div className="flex translate-y-4 flex-col items-center gap-2">
               <UserRound />
-              {showRoles && <span className="font-semibold">{teammate.role}</span>}
+              {showRoles && <span className="font-semibold">{syncTeammate.role}</span>}
             </div>
           </CardContent>
           <CardFooter className="flex flex-col items-stretch p-0">
@@ -172,18 +163,22 @@ export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
               ) : (
                 <Badge className="scale-90 sm:scale-100" variant="secondary">
                   <span className="first-letter:uppercase">
-                    {teammate.sync?.status === 'active' ? (running ? 'Active' : 'Paused') : 'Done'}
+                    {syncTeammate.sync?.status === 'active'
+                      ? running
+                        ? 'Active'
+                        : 'Paused'
+                      : 'Done'}
                   </span>
                 </Badge>
               )}
               <span className="max-w-full truncate px-2 text-lg font-semibold sm:text-2xl">
-                {teammate.name}
+                {syncTeammate.name}
               </span>
               <p className="text-muted-foreground max-w-full truncate px-4 text-xs sm:text-sm">
-                {teammate.role}
+                {syncTeammate.role}
               </p>
             </div>
-            {teammate.sync.status !== 'done' && (
+            {syncTeammate.sync.status !== 'done' && (
               <>
                 <div className="pointer-events-none absolute inset-0 p-5">
                   <CircularProgress className="opacity-50" value={progress} strokeWidth={2} />

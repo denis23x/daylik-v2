@@ -7,17 +7,17 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { useEffect, useState } from 'react';
-import type { TeammateSync } from '@/types/teammateSync.type';
+import type { SyncTeammate } from '@/types/syncTeammate.type';
 import GridWithHoverEffect from '@/components/grid-with-hover-effect';
 
 // TODO: move to utils
-function isAllDoneExceptOneActive(teammates: TeammateSync[]): boolean {
+function isAllDoneExceptOneActive(syncTeammates: SyncTeammate[]): boolean {
   let activeCount = 0;
 
-  for (const teammate of teammates) {
-    if (teammate.sync.status === 'active') {
+  for (const syncTeammate of syncTeammates) {
+    if (syncTeammate.sync.status === 'active') {
       activeCount++;
-    } else if (teammate.sync.status !== 'done') {
+    } else if (syncTeammate.sync.status !== 'done') {
       return false;
     }
   }
@@ -72,8 +72,8 @@ const SyncGridLive = () => {
           </div>
         </div>
         <GridWithHoverEffect>
-          {teammates?.map((teammate: TeammateSync) => (
-            <SyncCard teammate={teammate} key={teammate.UUID} />
+          {teammates?.map((syncTeammate: SyncTeammate) => (
+            <SyncCard syncTeammate={syncTeammate} key={syncTeammate.UUID} />
           ))}
         </GridWithHoverEffect>
       </div>

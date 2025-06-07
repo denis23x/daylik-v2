@@ -1,5 +1,5 @@
 import type { AnalyticTeammate } from '@/types/analyticTeammate.type';
-import type { TeammateSync } from '@/types/teammateSync.type';
+import type { SyncTeammate } from '@/types/syncTeammate.type';
 import { supabase } from '@/utils/supabase/client';
 import type { SupabaseQueryResult } from '@/types/utils/supabaseQueryResult.type';
 
@@ -10,7 +10,7 @@ type GetTeammatesFromAnalyticParams = {
 
 type AddTeammatesToAnalyticParams = {
   analyticUUID: string;
-  teammates: TeammateSync[];
+  teammates: SyncTeammate[];
 };
 
 export async function fetchTeammatesFromAnalytic({

@@ -1,16 +1,14 @@
 import { create } from 'zustand';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
-import type { TeammateSync } from '@/types/teammateSync.type';
+import type { SyncTeammate } from '@/types/syncTeammate.type';
+import type { Sync } from '@/types/sync.type';
 import { fisherYatesShuffle } from '@/utils/fisherYatesShuffle';
 
 type SyncLiveStore = {
-  team: Team | null;
-  teammates: TeammateSync[];
-  timer: number;
+  team: Sync | null;
+  teammates: SyncTeammate[];
   showRoles: boolean;
-  startedAt: string | null;
-  finishedAt: string | null;
   activeUUID: string | null;
   setSyncStart: (team: Team, teammates: Teammate[], timer: number) => void;
   setSyncFinish: () => void;
@@ -25,17 +23,25 @@ type SyncLiveStore = {
 export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
   team: null,
   teammates: [],
-  timer: 0,
   showRoles: false,
-  startedAt: null,
-  finishedAt: null,
   activeUUID: null,
   setSyncStart: (team, teammates, timer) => {
-    const teammatesSync = teammates.map((teammate: Teammate) => {
+    const syncTeam = {
+      ...team,
+      sync: {
+        timer,
+        startedAt: new Date().toISOString(),
+        finishedAt: null,
+      },
+    };
+
+    const syncTeammates = teammates.map((teammate: Teammate) => {
       return {
         ...teammate,
         sync: {
           order: null,
+          elapsed: null,
+          overtime: null,
           status: 'idle' as const,
           startedAt: null,
           finishedAt: null,
@@ -44,13 +50,23 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
     });
 
     set({
-      team,
-      teammates: teammatesSync,
-      timer,
-      startedAt: new Date().toISOString(),
+      team: syncTeam,
+      teammates: syncTeammates,
     });
   },
-  setSyncFinish: () => set({ finishedAt: new Date().toISOString() }),
+  setSyncFinish: () => {
+    set((state) => ({
+      team: state.team
+        ? {
+            ...state.team,
+            sync: {
+              ...state.team.sync,
+              finishedAt: new Date().toISOString(),
+            },
+          }
+        : null,
+    }));
+  },
   setActive: (uuid) => {
     const state = get();
     const prev = state.activeUUID;
@@ -129,10 +145,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
     set({
       team: null,
       teammates: [],
-      timer: 0,
       showRoles: false,
-      startedAt: null,
-      finishedAt: null,
       activeUUID: null,
     }),
 }));

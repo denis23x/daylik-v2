@@ -1,6 +1,13 @@
-export type Sync = {
-  status: 'idle' | 'active' | 'done';
-  order: number | null;
-  startedAt: string | null;
-  finishedAt: string | null;
+import type { Team } from './team.type';
+import type { Nullable } from './utils/nullable.type';
+
+type SyncFields = {
+  startedAt: string;
+  finishedAt: string;
+};
+
+export type Sync = Team & {
+  sync: Nullable<SyncFields> & {
+    timer: number;
+  };
 };
