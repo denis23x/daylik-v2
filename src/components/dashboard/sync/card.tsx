@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
 import type { TeammateSync } from '@/types/teammateSync.type';
 import { Button } from '@/components/ui/button';
@@ -9,9 +9,12 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 
 export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
   const { timer, showRoles, setActive, setDone } = useSyncLiveStore();
-  const [remaining, setRemaining] = useState(timer);
   const [running, setRunning] = useState(false);
   const [overtime, setOvertime] = useState(0);
+  const [progress, setProgress] = useState(100);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const startedRef = useRef<number | null>(null);
+  const elapsedRef = useRef<number>(0);
 
   useEffect(() => {
     if (teammate.sync.status === 'active') {
@@ -23,16 +26,42 @@ export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
 
   useEffect(() => {
     if (running) {
-      if (remaining > 0) {
-        const interval = setInterval(() => setRemaining((r) => r - 1), 1000);
-        return () => clearInterval(interval);
+      if (startedRef.current === null) {
+        startedRef.current = Date.now() - elapsedRef.current;
       }
-      if (remaining === 0) {
-        setRunning(false);
-        setOvertime(overtime + 1);
-      }
+
+      intervalRef.current = setInterval(() => {
+        const elapsed = Date.now() - (startedRef.current ?? 0);
+        const remaining = timer * 1000 - elapsed;
+
+        // Save elapsed time for next reset
+        elapsedRef.current = elapsed;
+
+        if (remaining <= 0) {
+          clearInterval(intervalRef.current!);
+          intervalRef.current = null;
+
+          startedRef.current = null;
+          elapsedRef.current = 0;
+
+          setProgress(0);
+          setRunning(false);
+          setOvertime((prev) => prev + 1);
+        } else {
+          setProgress((remaining / (timer * 1000)) * 100);
+        }
+      }, 50);
+
+      return () => {
+        clearInterval(intervalRef.current!);
+      };
+    } else {
+      clearInterval(intervalRef.current!);
+
+      intervalRef.current = null;
+      startedRef.current = null;
     }
-  }, [running, remaining, teammate.UUID, overtime]);
+  }, [running, timer]);
 
   const handleReveal = () => {
     if (teammate.sync.status === 'idle') {
@@ -40,12 +69,11 @@ export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
     }
   };
 
-  const handleProgress = (secondsPassed: number): number => {
-    return (Math.min(Math.max(secondsPassed, 0), timer) / timer) * 100;
-  };
-
   const handleOvertime = () => {
-    setRemaining(timer);
+    startedRef.current = Date.now();
+    elapsedRef.current = 0;
+
+    setProgress(100);
     setRunning(true);
   };
 
@@ -89,19 +117,15 @@ export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
             {teammate.sync.status !== 'done' && (
               <>
                 <div className="pointer-events-none absolute inset-0 p-5">
-                  <CircularProgress
-                    className="opacity-50"
-                    value={handleProgress(remaining)}
-                    strokeWidth={2}
-                  />
+                  <CircularProgress className="opacity-50" value={progress} strokeWidth={2} />
                 </div>
                 <Button
                   className="absolute bottom-2 left-2 rounded-full 2xl:bottom-3 2xl:left-3"
                   variant="secondary"
                   size="syncIcon"
-                  onClick={() => (remaining === 0 ? handleOvertime() : setRunning(!running))}
+                  onClick={() => (progress === 0 ? handleOvertime() : setRunning(!running))}
                 >
-                  {remaining === 0 ? <RefreshCcw /> : running ? <Pause /> : <Play />}
+                  {progress === 0 ? <RefreshCcw /> : running ? <Pause /> : <Play />}
                 </Button>
                 <Button
                   className="absolute right-2 bottom-2 rounded-full 2xl:right-3 2xl:bottom-3"

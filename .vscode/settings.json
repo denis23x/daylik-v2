@@ -19,5 +19,13 @@
   },
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#f4de70",
+    "statusBar.foreground": "#15202b",
+    "statusBarItem.hoverBackground": "#f0d341",
+    "statusBarItem.remoteBackground": "#f4de70",
+    "statusBarItem.remoteForeground": "#15202b"
+  },
+  "peacock.color": "#f4de70"
 }
