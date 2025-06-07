@@ -10,8 +10,8 @@
   transform-style: preserve-3d;
 }
 
-.flip-card.done {
-  opacity: 0.5;
+.flip-card.done .flip-card-back * {
+  opacity: 0.75;
 }
 
 .flip-card.active .flip-card-inner,

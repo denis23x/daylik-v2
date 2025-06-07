@@ -2,17 +2,19 @@ import { useEffect, useRef, useState } from 'react';
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
 import type { TeammateSync } from '@/types/teammateSync.type';
 import { Button } from '@/components/ui/button';
-import { Check, Pause, Play, RefreshCcw, UserRound } from 'lucide-react';
+import { Check, Pause, Play, Siren, UserRound } from 'lucide-react';
 import { CircularProgress } from '@/components/ui/circular-progress';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import confetti from 'canvas-confetti';
 
 export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
   const { timer, showRoles, setActive, setDone } = useSyncLiveStore();
   const [running, setRunning] = useState(false);
   const [overtime, setOvertime] = useState(0);
   const [progress, setProgress] = useState(100);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const overtimeRef = useRef<NodeJS.Timeout | null>(null);
+  const progressRef = useRef<NodeJS.Timeout | null>(null);
   const startedRef = useRef<number | null>(null);
   const elapsedRef = useRef<number>(0);
 
@@ -21,6 +23,18 @@ export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
       setRunning(true);
     } else if (teammate.sync.status === 'done') {
       setRunning(false);
+
+      // Reset progress and overtime
+      clearInterval(progressRef.current!);
+      progressRef.current = null;
+
+      clearInterval(overtimeRef.current!);
+      overtimeRef.current = null;
+
+      setOvertime(0);
+      setProgress(100);
+      startedRef.current = null;
+      elapsedRef.current = 0;
     }
   }, [teammate.sync.status]);
 
@@ -30,7 +44,7 @@ export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
         startedRef.current = Date.now() - elapsedRef.current;
       }
 
-      intervalRef.current = setInterval(() => {
+      progressRef.current = setInterval(() => {
         const elapsed = Date.now() - (startedRef.current ?? 0);
         const remaining = timer * 1000 - elapsed;
 
@@ -38,30 +52,45 @@ export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
         elapsedRef.current = elapsed;
 
         if (remaining <= 0) {
-          clearInterval(intervalRef.current!);
-          intervalRef.current = null;
+          clearInterval(progressRef.current!);
+          progressRef.current = null;
 
           startedRef.current = null;
           elapsedRef.current = 0;
 
           setProgress(0);
           setRunning(false);
-          setOvertime((prev) => prev + 1);
         } else {
           setProgress((remaining / (timer * 1000)) * 100);
         }
       }, 50);
-
-      return () => {
-        clearInterval(intervalRef.current!);
-      };
-    } else {
-      clearInterval(intervalRef.current!);
-
-      intervalRef.current = null;
-      startedRef.current = null;
     }
+
+    return () => {
+      clearInterval(progressRef.current!);
+
+      progressRef.current = null;
+      startedRef.current = null;
+    };
   }, [running, timer]);
+
+  useEffect(() => {
+    if (progress === 0 && teammate.sync.status === 'active') {
+      const overtimeStart = Date.now();
+
+      overtimeRef.current = setInterval(() => {
+        const elapsed = Date.now() - overtimeStart;
+        const ratio = elapsed / (timer * 1000);
+
+        setOvertime(ratio);
+      }, 100);
+    }
+
+    return () => {
+      clearInterval(overtimeRef.current!);
+      overtimeRef.current = null;
+    };
+  }, [progress, teammate.sync.status, timer]);
 
   const handleReveal = () => {
     if (teammate.sync.status === 'idle') {
@@ -69,12 +98,49 @@ export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
     }
   };
 
-  const handleOvertime = () => {
-    startedRef.current = Date.now();
-    elapsedRef.current = 0;
+  const handleSiren = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const scalar = 3;
+    const emojis = ['❓', '❗️', '❌', '‼️', '⛔️', '⚠️', '🚫', '🚨', '🙅‍♂️', '🔔', '👮‍♂️'];
+    const shapes = emojis.map((emoji) => confetti.shapeFromText({ text: emoji, scalar }));
 
-    setProgress(100);
-    setRunning(true);
+    const x = e.clientX / window.innerWidth;
+    const y = e.clientY / window.innerHeight;
+
+    const shoot = () => {
+      confetti({
+        particleCount: 40,
+        spread: 360,
+        ticks: 60,
+        gravity: 0.6,
+        decay: 0.92,
+        startVelocity: 30,
+        shapes,
+        scalar,
+        origin: { x, y },
+      });
+    };
+
+    // Render confetti
+    shoot();
+  };
+
+  const handleDone = () => {
+    setDone(teammate.UUID);
+
+    // let elapsed1 = 0;
+    // let elapsed2 = 0;
+
+    // if (elapsedRef.current) {
+    //   elapsed1 = elapsedRef.current;
+    // } else {
+    //   elapsed1 = timer + timer * overtime;
+    // }
+
+    // console.log('overtime', overtime);
+    // elapsed2 = Date.now() - new Date(teammate.sync?.startedAt as unknown as string).getTime();
+
+    // console.log('elapsed1', elapsed1);
+    // console.log('elapsed2', elapsed2);
   };
 
   return (
@@ -96,9 +162,12 @@ export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
         <Card className="flip-card-back relative flex flex-col items-center justify-center rounded-xl border">
           <CardContent>
             <div className="flex max-w-full flex-col items-center justify-center gap-0.5 text-center sm:gap-2">
-              {!!overtime ? (
-                <Badge className="scale-90 sm:scale-100" variant="destructive">
-                  Overtime {overtime > 1 ? `x${overtime}` : ''}
+              {progress === 0 ? (
+                <Badge
+                  className="scale-90 sm:scale-100"
+                  variant={overtime >= 1 ? 'destructive' : 'secondary'}
+                >
+                  Overtime {overtime >= 1 ? `x${overtime.toFixed(1)}` : ''}
                 </Badge>
               ) : (
                 <Badge className="scale-90 sm:scale-100" variant="secondary">
@@ -123,15 +192,15 @@ export const SyncCard = ({ teammate }: { teammate: TeammateSync }) => {
                   className="absolute bottom-2 left-2 rounded-full 2xl:bottom-3 2xl:left-3"
                   variant="secondary"
                   size="syncIcon"
-                  onClick={() => (progress === 0 ? handleOvertime() : setRunning(!running))}
+                  onClick={(e) => (progress === 0 ? handleSiren(e) : setRunning(!running))}
                 >
-                  {progress === 0 ? <RefreshCcw /> : running ? <Pause /> : <Play />}
+                  {progress === 0 ? <Siren /> : running ? <Pause /> : <Play />}
                 </Button>
                 <Button
                   className="absolute right-2 bottom-2 rounded-full 2xl:right-3 2xl:bottom-3"
                   variant="secondary"
                   size="syncIcon"
-                  onClick={() => setDone(teammate.UUID)}
+                  onClick={handleDone}
                 >
                   <Check />
                 </Button>

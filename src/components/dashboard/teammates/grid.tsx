@@ -66,7 +66,7 @@ const TeammatesGrid = () => {
           {!isLoading && !error && teammates?.length !== 0 && (
             <GridWithHoverEffect>
               <Card className="bg-background size-full gap-0 p-2">
-                <CardContent className="translate-y-1 p-4 sm:p-3">
+                <CardContent className="translate-y-2 p-4 sm:p-3">
                   <Avatar className="aspect-square size-full border border-dashed">
                     <AvatarFallback asChild>
                       <Button variant="secondary" size="icon" onClick={handleInsert}>
