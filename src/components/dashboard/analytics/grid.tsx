@@ -27,9 +27,7 @@ const AnalyticsGrid = () => {
           <ChartLine />
           <span className="text-xl font-bold">Analytics</span>
         </div>
-        {team && teammates && (
-          <AnalyticsDataTable teammates={teammates} team={team}></AnalyticsDataTable>
-        )}
+        {team && teammates && <AnalyticsDataTable teammates={teammates}></AnalyticsDataTable>}
       </div>
     </div>
   );

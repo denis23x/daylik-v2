@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useSyncTimer } from '@/hooks/useSyncTimer';
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
 import type { SyncTeammate } from '@/types/syncTeammate.type';
 import { Button } from '@/components/ui/button';
@@ -9,99 +9,8 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import confetti from 'canvas-confetti';
 
 export const SyncCard = ({ syncTeammate }: { syncTeammate: SyncTeammate }) => {
-  const { team, showRoles, setActive, setDone } = useSyncLiveStore();
-  const [running, setRunning] = useState(false);
-  const [overtime, setOvertime] = useState(0);
-  const [progress, setProgress] = useState(100);
-  const intervalOvertimeRef = useRef<NodeJS.Timeout | null>(null);
-  const intervalProgressRef = useRef<NodeJS.Timeout | null>(null);
-  const startedRef = useRef<number | null>(null);
-  const elapsedRef = useRef<number>(0);
-  const timerRef = useRef<number>(team?.sync.timer ?? 0);
-
-  useEffect(() => {
-    if (running) {
-      if (startedRef.current === null) {
-        startedRef.current = Date.now() - elapsedRef.current;
-      }
-
-      intervalProgressRef.current = setInterval(() => {
-        const elapsed = Date.now() - (startedRef.current ?? 0);
-        const remaining = timerRef.current * 1000 - elapsed;
-
-        // Save elapsed time for next reset
-        elapsedRef.current = elapsed;
-
-        if (remaining <= 0) {
-          clearInterval(intervalProgressRef.current!);
-          intervalProgressRef.current = null;
-
-          startedRef.current = null;
-          elapsedRef.current = 0;
-
-          setProgress(0);
-          setRunning(false);
-        } else {
-          setProgress((remaining / (timerRef.current * 1000)) * 100);
-        }
-      }, 50);
-    }
-
-    return () => {
-      clearInterval(intervalProgressRef.current!);
-      intervalProgressRef.current = null;
-      startedRef.current = null;
-    };
-  }, [running]);
-
-  useEffect(() => {
-    if (progress === 0 && syncTeammate.sync.status === 'active') {
-      const overtime = Date.now();
-
-      intervalOvertimeRef.current = setInterval(() => {
-        const elapsed = Date.now() - overtime;
-        const ratio = elapsed / (timerRef.current * 1000);
-
-        setOvertime(ratio);
-      }, 100);
-    }
-
-    return () => {
-      clearInterval(intervalOvertimeRef.current!);
-      intervalOvertimeRef.current = null;
-    };
-  }, [progress, syncTeammate.sync.status]);
-
-  useEffect(() => {
-    if (syncTeammate.sync.status === 'active') {
-      setRunning(true);
-    } else if (syncTeammate.sync.status === 'done') {
-      setRunning(false);
-    }
-  }, [syncTeammate.sync.status]);
-
-  useEffect(() => {
-    if (syncTeammate.sync.status === 'done') {
-      // Calculate elapsed time
-      const elapsed = elapsedRef.current / 1000 || timerRef.current + timerRef.current * overtime;
-
-      // Set done with elapsed and overtime
-      setDone(syncTeammate.UUID, parseInt(elapsed.toFixed()), parseFloat(overtime.toFixed(1)));
-
-      // Reset progress
-      clearInterval(intervalProgressRef.current!);
-      intervalProgressRef.current = null;
-
-      // Reset overtime
-      clearInterval(intervalOvertimeRef.current!);
-      intervalOvertimeRef.current = null;
-
-      setOvertime(0);
-      setProgress(100);
-      startedRef.current = null;
-      elapsedRef.current = 0;
-    }
-  }, [syncTeammate.sync.status, syncTeammate.UUID, setDone, overtime]);
+  const { showRoles, setActive } = useSyncLiveStore();
+  const { running, setRunning, progress, overtime } = useSyncTimer(syncTeammate);
 
   const handleActive = (status: string) => {
     if (syncTeammate.sync.status === status) {
@@ -129,27 +38,23 @@ export const SyncCard = ({ syncTeammate }: { syncTeammate: SyncTeammate }) => {
       '🥊',
       '☎️',
     ];
+
     const shapes = emojis.map((emoji) => confetti.shapeFromText({ text: emoji, scalar }));
 
     const x = e.clientX / window.innerWidth;
     const y = e.clientY / window.innerHeight;
 
-    const shoot = () => {
-      confetti({
-        particleCount: 40,
-        spread: 360,
-        ticks: 60,
-        gravity: 0.6,
-        decay: 0.92,
-        startVelocity: 30,
-        shapes,
-        scalar,
-        origin: { x, y },
-      });
-    };
-
-    // Render confetti
-    shoot();
+    confetti({
+      particleCount: 40,
+      spread: 360,
+      ticks: 60,
+      gravity: 0.6,
+      decay: 0.92,
+      startVelocity: 30,
+      shapes,
+      scalar,
+      origin: { x, y },
+    });
   };
 
   return (

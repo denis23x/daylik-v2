@@ -17,25 +17,19 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { useState } from 'react';
-import { Input } from '@/components/ui/input';
+import { useEffect, useState } from 'react';
 import NotFound from '@/components/not-found';
 import { columns } from './data-table/columns';
 import type { AnalyticTeammate } from '@/types/analyticTeammate.type';
-import type { Analytic } from '@/types/analytic.type';
+import { Input } from '@/components/ui/input';
 
-const AnalyticsDataTable = ({
-  team,
-  teammates,
-}: {
-  team: Analytic;
-  teammates: AnalyticTeammate[];
-}) => {
+const AnalyticsDataTable = ({ teammates }: { teammates: AnalyticTeammate[] }) => {
   const [sorting, setSorting] = useState<SortingState>([{ id: 'order', desc: false }]);
+  const [filter, setFilter] = useState('');
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const table = useReactTable<AnalyticTeammate>({
     data: teammates,
-    columns: columns({ team }),
+    columns: columns({ sorting }),
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
@@ -47,22 +41,22 @@ const AnalyticsDataTable = ({
     },
   });
 
+  useEffect(() => {
+    table.getColumn('name')?.setFilterValue(filter.trim());
+  }, [filter, table]);
+
   return (
-    <div>
-      <div className="flex items-center gap-4 py-4">
-        <Input
-          placeholder="Filter teammates..."
-          value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
-          onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
-          className="max-w-sm"
-        />
-        <Input
-          placeholder="Filter role..."
-          value={(table.getColumn('role')?.getFilterValue() as string) ?? ''}
-          onChange={(event) => table.getColumn('role')?.setFilterValue(event.target.value)}
-          className="max-w-sm"
-        />
-      </div>
+    <div className="flex flex-col gap-4">
+      <Input
+        placeholder="Filter teammates..."
+        value={filter}
+        onChange={(event) => setFilter(event.target.value)}
+        autoComplete="off"
+        inputMode="text"
+        spellCheck="false"
+        autoCapitalize="none"
+        className="max-w-xs"
+      />
       <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader className="bg-muted">
@@ -105,7 +99,7 @@ const AnalyticsDataTable = ({
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell colSpan={5}>
                   <NotFound className="mx-auto py-8" />
                 </TableCell>
               </TableRow>

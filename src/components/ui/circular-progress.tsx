@@ -66,7 +66,10 @@ export const CircularProgress = ({
           strokeDasharray={circumference}
           strokeDashoffset={progressOffset}
           fill="transparent"
-          className={cn('stroke-primary transition-[stroke-dashoffset]', progressClassName)}
+          className={cn(
+            'stroke-primary transition-[stroke-dashoffset] duration-75',
+            progressClassName
+          )}
         />
       </svg>
       {showLabel && (

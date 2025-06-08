@@ -1,14 +1,20 @@
 import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration';
+import duration, { type Duration } from 'dayjs/plugin/duration';
 
 dayjs.extend(duration);
 
-export function formatDuration(startTimestamp: number, endTimestamp: number) {
-  const start = dayjs(startTimestamp);
-  const end = dayjs(endTimestamp);
+export function formatDuration(startOrDuration: number, endTimestamp?: number) {
+  let dur: Duration;
 
-  const diffInSeconds = end.diff(start, 'second');
-  const dur = dayjs.duration(diffInSeconds, 'seconds');
+  if (endTimestamp !== undefined) {
+    const start = dayjs(startOrDuration);
+    const end = dayjs(endTimestamp);
+    const diffInSeconds = end.diff(start, 'second');
+
+    dur = dayjs.duration(diffInSeconds, 'seconds');
+  } else {
+    dur = dayjs.duration(startOrDuration);
+  }
 
   const minutes = dur.minutes();
   const seconds = dur.seconds();

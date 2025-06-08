@@ -1,27 +1,27 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import type { Analytic } from '@/types/analytic.type';
 import type { AnalyticTeammate } from '@/types/analyticTeammate.type';
 import { formatDuration } from '@/utils/formatDuration';
 import { getContrastingColor } from '@/utils/getContrastingColor';
-import { ColumnDef } from '@tanstack/react-table';
+import { ColumnDef, SortingState } from '@tanstack/react-table';
 import { ArrowDown10, ArrowUp01, ArrowUpAZ } from 'lucide-react';
 import { ArrowDownZA } from 'lucide-react';
 
-export const columns = ({ team }: { team: Analytic }): ColumnDef<AnalyticTeammate>[] => {
+export const columns = ({ sorting }: { sorting: SortingState }): ColumnDef<AnalyticTeammate>[] => {
   return [
     {
       accessorKey: 'order',
-      size: 16,
+      size: 32,
       minSize: 16,
-      maxSize: 16,
+      maxSize: 32,
       header: ({ column }) => {
+        const [s] = sorting;
         const isSorted = column.getIsSorted();
 
         return (
           <Button
-            className="!p-0"
+            className={`w-full !p-0 ${s.id === 'order' ? 'text-primary' : 'text-muted-foreground'}`}
             variant="text"
             onClick={() => column.toggleSorting(isSorted === 'asc')}
           >
@@ -39,11 +39,12 @@ export const columns = ({ team }: { team: Analytic }): ColumnDef<AnalyticTeammat
       accessorKey: 'name',
       accessorFn: (row) => row.teammate.name,
       header: ({ column }) => {
+        const [s] = sorting;
         const isSorted = column.getIsSorted();
 
         return (
           <Button
-            className="!p-0"
+            className={`!p-0 ${s.id === 'name' ? 'text-primary' : 'text-muted-foreground'}`}
             variant="text"
             onClick={() => column.toggleSorting(isSorted === 'asc')}
           >
@@ -74,11 +75,12 @@ export const columns = ({ team }: { team: Analytic }): ColumnDef<AnalyticTeammat
       accessorKey: 'role',
       accessorFn: (row) => row.teammate.role,
       header: ({ column }) => {
+        const [s] = sorting;
         const isSorted = column.getIsSorted();
 
         return (
           <Button
-            className="!p-0"
+            className={`!p-0 ${s.id === 'role' ? 'text-primary' : 'text-muted-foreground'}`}
             variant="text"
             onClick={() => column.toggleSorting(isSorted === 'asc')}
           >
@@ -95,36 +97,38 @@ export const columns = ({ team }: { team: Analytic }): ColumnDef<AnalyticTeammat
     },
     {
       accessorKey: 'timer',
-      accessorFn: (row) => row.finishedAt - row.startedAt,
+      accessorFn: (row) => row.elapsed,
       header: ({ column }) => {
+        const [s] = sorting;
         const isSorted = column.getIsSorted();
 
         return (
           <Button
-            className="!p-0"
+            className={`!p-0 ${s.id === 'timer' ? 'text-primary' : 'text-muted-foreground'}`}
             variant="text"
             onClick={() => column.toggleSorting(isSorted === 'asc')}
           >
-            Timer
+            Elapsed
             {isSorted === 'asc' ? <ArrowUp01 /> : <ArrowDown10 />}
           </Button>
         );
       },
       cell: ({ row }) => {
-        const { startedAt, finishedAt } = row.original;
+        const { elapsed } = row.original;
 
-        return <span className="text-sm">{formatDuration(startedAt, finishedAt)}</span>;
+        return <span className="text-sm">{formatDuration(elapsed ? elapsed * 1000 : 0)}</span>;
       },
     },
     {
       accessorKey: 'overtime',
-      accessorFn: (row) => (row.finishedAt - row.startedAt) / 1000 - team.timer,
+      accessorFn: (row) => row.overtime,
       header: ({ column }) => {
+        const [s] = sorting;
         const isSorted = column.getIsSorted();
 
         return (
           <Button
-            className="!p-0"
+            className={`!p-0 ${s.id === 'overtime' ? 'text-primary' : 'text-muted-foreground'}`}
             variant="text"
             onClick={() => column.toggleSorting(isSorted === 'asc')}
           >
@@ -134,14 +138,11 @@ export const columns = ({ team }: { team: Analytic }): ColumnDef<AnalyticTeammat
         );
       },
       cell: ({ row }) => {
-        const { startedAt, finishedAt } = row.original;
+        const { overtime } = row.original;
 
-        const overtime = (finishedAt - startedAt) / 1000 - team.timer;
-        const overtimeDecimals = overtime / team.timer;
-
-        return overtime > 0 ? (
-          <Badge variant={overtimeDecimals > 1 ? 'destructive' : 'secondary'}>
-            Overtime x{overtimeDecimals.toFixed(1)}
+        return overtime && overtime > 0 ? (
+          <Badge variant={overtime > 1 ? 'destructive' : 'secondary'}>
+            Overtime x{overtime.toFixed(1)}
           </Badge>
         ) : (
           <Badge variant="secondary">On time</Badge>
