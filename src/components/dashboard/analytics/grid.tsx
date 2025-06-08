@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { useTeammatesFromAnalytic } from '@/hooks/useAnalyticsTeammates';
 import AnalyticsDataTable from './data-table';
+import AnalyticsDataChartLinear from './data-chart-linear';
 
 const AnalyticsGrid = () => {
   const params = useParams();
@@ -27,7 +28,12 @@ const AnalyticsGrid = () => {
           <ChartLine />
           <span className="text-xl font-bold">Analytics</span>
         </div>
-        {team && teammates && <AnalyticsDataTable teammates={teammates}></AnalyticsDataTable>}
+        {team && teammates && (
+          <>
+            <AnalyticsDataChartLinear teammates={teammates}></AnalyticsDataChartLinear>
+            <AnalyticsDataTable teammates={teammates}></AnalyticsDataTable>
+          </>
+        )}
       </div>
     </div>
   );

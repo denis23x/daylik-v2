@@ -23,7 +23,8 @@ export async function fetchTeammatesFromAnalytic({
   const { data, error } = (await supabase
     .from('analytics_teammates')
     .select(query)
-    .eq('analyticUUID', UUID)) as SupabaseQueryResult<AnalyticTeammateWithRelations[]>;
+    .eq('analyticUUID', UUID)
+    .order('order', { ascending: true })) as SupabaseQueryResult<AnalyticTeammateWithRelations[]>;
   if (error) throw error;
   return data || [];
 }
