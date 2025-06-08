@@ -95,8 +95,8 @@ const AnalyticsDataChartLinear = ({ teammates }: { teammates: AnalyticTeammate[]
         </CardAction>
       </CardHeader>
       <CardContent className="p-0">
-        <ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
-          <AreaChart accessibilityLayer data={chartData} margin={{ left: -32, right: 16 }}>
+        <ChartContainer config={chartConfig} className="aspect-auto h-64 w-full">
+          <AreaChart accessibilityLayer data={chartData} margin={{ left: -32, top: 4, right: 16 }}>
             <CartesianGrid vertical={false} />
             <XAxis tickLine={false} axisLine={true} tickMargin={8} dataKey="name" />
             <YAxis tickLine={false} axisLine={true} tickMargin={8} tickCount={5} />

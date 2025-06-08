@@ -30,6 +30,11 @@ const AnalyticsGrid = () => {
         </div>
         {team && teammates && (
           <>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="col-span-1">1</div>
+              <div className="col-span-1">2</div>
+              <div className="col-span-1">3</div>
+            </div>
             <AnalyticsDataChartLinear teammates={teammates}></AnalyticsDataChartLinear>
             <AnalyticsDataTable teammates={teammates}></AnalyticsDataTable>
           </>
