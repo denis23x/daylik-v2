@@ -4,6 +4,7 @@ import type { Teammate } from '@/types/teammate.type';
 import type { SyncTeammate } from '@/types/syncTeammate.type';
 import type { Sync } from '@/types/sync.type';
 import { fisherYatesShuffle } from '@/utils/fisherYatesShuffle';
+import { getDateISOString } from '@/utils/getDateISOString';
 
 type SyncLiveStore = {
   team: Sync | null;
@@ -30,7 +31,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
       ...team,
       sync: {
         timer,
-        startedAt: new Date().toISOString(),
+        startedAt: getDateISOString(),
         finishedAt: null,
       },
     };
@@ -61,7 +62,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
             ...state.team,
             sync: {
               ...state.team.sync,
-              finishedAt: new Date().toISOString(),
+              finishedAt: getDateISOString(),
             },
           }
         : null,
@@ -90,7 +91,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
                 ...teammate.sync,
                 order: order.length + 1,
                 status: 'active',
-                startedAt: new Date().toISOString(),
+                startedAt: getDateISOString(),
               },
             };
           default:
@@ -120,7 +121,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
                 elapsed,
                 overtime,
                 status: 'done',
-                finishedAt: new Date().toISOString(),
+                finishedAt: getDateISOString(),
               },
             };
           default:

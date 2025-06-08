@@ -26,6 +26,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { TooltipFormatter } from './data-chart-linear/tooltip-formatter';
+import { getDateNow } from '@/utils/getDateNow';
 
 type ChartType = 'step' | 'linear' | 'natural';
 
@@ -39,15 +40,15 @@ type ChartData = {
 const chartConfig = {
   elapsed: {
     label: 'Elapsed',
-    color: 'var(--chart-1)',
+    color: 'var(--color-chart-1)',
   },
   overall: {
     label: 'Overall (with pauses)',
-    color: 'var(--chart-2)',
+    color: 'var(--color-chart-2)',
   },
   overtime: {
     label: 'Overtime',
-    color: 'var(--chart-3)',
+    color: 'var(--destructive)',
   },
 } satisfies ChartConfig;
 
@@ -58,8 +59,8 @@ const AnalyticsDataChartLinear = ({ teammates }: { teammates: AnalyticTeammate[]
   useEffect(() => {
     if (teammates.length) {
       const data = teammates.map((analyticTeammate: AnalyticTeammate) => {
-        const startedAt = new Date(analyticTeammate.startedAt as string).getTime();
-        const finishedAt = new Date(analyticTeammate.finishedAt as string).getTime();
+        const startedAt = getDateNow(analyticTeammate.startedAt as string);
+        const finishedAt = getDateNow(analyticTeammate.finishedAt as string);
 
         return {
           name: analyticTeammate.teammate.name,

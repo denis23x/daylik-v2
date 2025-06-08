@@ -17,6 +17,7 @@ import { toast } from 'sonner';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { getContrastingColor } from '@/utils/getContrastingColor';
+import { v4 as uuidv4 } from 'uuid';
 
 const TeamsGrid = () => {
   const { data, error, isLoading } = useTeams({
@@ -36,9 +37,8 @@ const TeamsGrid = () => {
 
   const getDisplayTeammates = (team: Team, count = 4) => {
     if (team.teammates && team.teammates.length < count) {
-      const UUID = () => Math.random().toString(36).substring(2, 10) + '-' + Date.now();
       const mockTeammates = Array.from({ length: count }, () => ({
-        UUID: UUID(),
+        UUID: uuidv4(),
       }));
 
       return [...(team.teammates || []), ...mockTeammates].slice(0, count);

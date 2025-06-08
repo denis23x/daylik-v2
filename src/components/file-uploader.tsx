@@ -10,6 +10,7 @@ import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useUploadFile } from '@/hooks/useFiles';
 import { getPublicUrl } from '@/lib/api/files';
+import { v4 as uuidv4 } from 'uuid';
 
 const BUCKET = 'avatars';
 const MAX_FILE_SIZE = 1 * 1024 * 1024;
@@ -45,7 +46,7 @@ const FileUploader = ({ name, children }: { name: string; children: React.ReactN
 
     try {
       // Upload file to storage
-      const fileName = `${Date.now()}-${file.name}`;
+      const fileName = uuidv4();
       const fileUpload = await uploadFile({ bucket: BUCKET, fileName, file });
       const fileUrl = getPublicUrl({ bucket: BUCKET, path: fileUpload.path });
 

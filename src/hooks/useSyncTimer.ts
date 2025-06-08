@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { SyncTeammate } from '@/types/syncTeammate.type';
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
+import { getDateNow } from '@/utils/getDateNow';
 
 export const useSyncTimer = (syncTeammate: SyncTeammate) => {
   const { team, setDone } = useSyncLiveStore();
@@ -22,11 +23,11 @@ export const useSyncTimer = (syncTeammate: SyncTeammate) => {
   useEffect(() => {
     if (running) {
       if (startedRef.current === null) {
-        startedRef.current = Date.now() - elapsedRef.current;
+        startedRef.current = getDateNow() - elapsedRef.current;
       }
 
       intervalProgressRef.current = setInterval(() => {
-        const elapsed = Date.now() - (startedRef.current ?? 0);
+        const elapsed = getDateNow() - (startedRef.current ?? 0);
         const remaining = timerRef.current * 1000 - elapsed;
 
         // Save elapsed time to handle pause and resume
@@ -56,10 +57,10 @@ export const useSyncTimer = (syncTeammate: SyncTeammate) => {
 
   useEffect(() => {
     if (progress === 0 && syncTeammate.sync.status === 'active') {
-      const overtimeStart = Date.now();
+      const overtimeStart = getDateNow();
 
       intervalOvertimeRef.current = setInterval(() => {
-        const elapsed = Date.now() - overtimeStart;
+        const elapsed = getDateNow() - overtimeStart;
         const ratio = elapsed / (timerRef.current * 1000);
 
         setOvertime(ratio);
