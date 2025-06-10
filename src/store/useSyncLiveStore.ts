@@ -43,9 +43,9 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
           order: null,
           elapsed: null,
           overtime: null,
+          total: null,
+          paused: null,
           status: 'idle' as const,
-          startedAt: null,
-          finishedAt: null,
         },
       };
     });
@@ -91,7 +91,6 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
                 ...teammate.sync,
                 order: order.length + 1,
                 status: 'active',
-                startedAt: getDateISOString(),
               },
             };
           default:
@@ -108,7 +107,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
       state.setActive(idle[Math.floor(Math.random() * idle.length)].UUID);
     }
   },
-  setDone: (uuid, elapsed, overtime) => {
+  setDone: (uuid) => {
     set((state) => ({
       activeUUID: null,
       teammates: state.teammates.map((teammate) => {
@@ -118,10 +117,11 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
               ...teammate,
               sync: {
                 ...teammate.sync,
-                elapsed,
-                overtime,
+                // elapsed,
+                // overtime,
+                // total,
+                // paused,
                 status: 'done',
-                finishedAt: getDateISOString(),
               },
             };
           default:

@@ -4,13 +4,12 @@ import type { SyncTeammate } from '@/types/syncTeammate.type';
 import { Button } from '@/components/ui/button';
 import { Check, Pause, Play, Siren, UserRound } from 'lucide-react';
 import { CircularProgress } from '@/components/ui/circular-progress';
-import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import confetti from 'canvas-confetti';
 
 export const SyncCard = ({ syncTeammate }: { syncTeammate: SyncTeammate }) => {
   const { showRoles, setActive } = useSyncLiveStore();
-  const { running, setRunning, progress, overtime } = useSyncTimer(syncTeammate);
+  const { timer, progress } = useSyncTimer(syncTeammate);
 
   const handleActive = (status: string) => {
     if (syncTeammate.sync.status === status) {
@@ -76,7 +75,7 @@ export const SyncCard = ({ syncTeammate }: { syncTeammate: SyncTeammate }) => {
         <Card className="flip-card-back relative flex flex-col items-center justify-center rounded-xl border">
           <CardContent>
             <div className="flex max-w-full flex-col items-center justify-center gap-0.5 text-center sm:gap-2">
-              {progress === 0 ? (
+              {/* {progress === 0 ? (
                 <Badge
                   className="scale-90 sm:scale-100"
                   variant={overtime >= 1 ? 'destructive' : 'secondary'}
@@ -93,7 +92,7 @@ export const SyncCard = ({ syncTeammate }: { syncTeammate: SyncTeammate }) => {
                       : 'Done'}
                   </span>
                 </Badge>
-              )}
+              )} */}
               <span className="max-w-full truncate px-2 text-lg font-semibold sm:text-2xl">
                 {syncTeammate.name}
               </span>
@@ -110,9 +109,15 @@ export const SyncCard = ({ syncTeammate }: { syncTeammate: SyncTeammate }) => {
                   className="absolute bottom-2 left-2 rounded-full 2xl:bottom-3 2xl:left-3"
                   variant="secondary"
                   size="syncIcon"
-                  onClick={(e) => (progress === 0 ? handleSiren(e) : setRunning(!running))}
+                  onClick={(e) =>
+                    progress === 0
+                      ? handleSiren(e)
+                      : timer.isRunning
+                        ? timer.pause()
+                        : timer.resume()
+                  }
                 >
-                  {progress === 0 ? <Siren /> : running ? <Pause /> : <Play />}
+                  {progress === 0 ? <Siren /> : timer.isRunning ? <Pause /> : <Play />}
                 </Button>
                 <Button
                   className="absolute right-2 bottom-2 rounded-full 2xl:right-3 2xl:bottom-3"

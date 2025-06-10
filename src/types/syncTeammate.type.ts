@@ -5,8 +5,8 @@ type SyncFields = {
   order: number;
   elapsed: number;
   overtime: number;
-  startedAt: string;
-  finishedAt: string;
+  total: number;
+  paused: number;
 };
 
 export type SyncTeammate = Teammate & {

@@ -26,7 +26,6 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { TooltipFormatter } from './data-chart-linear/tooltip-formatter';
-import { getDateNow } from '@/utils/getDateNow';
 
 type ChartType = 'step' | 'linear' | 'natural';
 
@@ -34,7 +33,7 @@ type ChartData = {
   name: string;
   elapsed: number;
   overtime: number;
-  overall: number;
+  // overall: number;
 };
 
 const chartConfig = {
@@ -42,10 +41,10 @@ const chartConfig = {
     label: 'Elapsed',
     color: 'var(--color-chart-1)',
   },
-  overall: {
-    label: 'Overall (with pauses)',
-    color: 'var(--color-chart-2)',
-  },
+  // overall: {
+  //   label: 'Overall (with pauses)',
+  //   color: 'var(--color-chart-2)',
+  // },
   overtime: {
     label: 'Overtime',
     color: 'var(--destructive)',
@@ -59,14 +58,14 @@ const AnalyticsDataChartLinear = ({ teammates }: { teammates: AnalyticTeammate[]
   useEffect(() => {
     if (teammates.length) {
       const data = teammates.map((analyticTeammate: AnalyticTeammate) => {
-        const startedAt = getDateNow(analyticTeammate.startedAt as string);
-        const finishedAt = getDateNow(analyticTeammate.finishedAt as string);
+        // const startedAt = getDateNow(analyticTeammate.startedAt as string);
+        // const finishedAt = getDateNow(analyticTeammate.finishedAt as string);
 
         return {
           name: analyticTeammate.teammate.name,
           elapsed: analyticTeammate.elapsed as number,
           overtime: analyticTeammate.overtime as number,
-          overall: parseInt((Math.floor(finishedAt - startedAt) / 1000).toFixed()),
+          // overall: parseInt((Math.floor(finishedAt - startedAt) / 1000).toFixed()),
         };
       });
 
@@ -124,12 +123,12 @@ const AnalyticsDataChartLinear = ({ teammates }: { teammates: AnalyticTeammate[]
                 <stop offset="95%" stopColor="var(--color-elapsed)" stopOpacity={0.1} />
               </linearGradient>
             </defs>
-            <defs>
+            {/* <defs>
               <linearGradient id="fillOverall" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="var(--color-overall)" stopOpacity={0.8} />
                 <stop offset="95%" stopColor="var(--color-overall)" stopOpacity={0.1} />
               </linearGradient>
-            </defs>
+            </defs> */}
             <defs>
               <linearGradient id="fillOvertime" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="var(--color-overtime)" stopOpacity={0.8} />
@@ -144,14 +143,14 @@ const AnalyticsDataChartLinear = ({ teammates }: { teammates: AnalyticTeammate[]
               stroke="var(--color-elapsed)"
               stackId="a"
             />
-            <Area
+            {/* <Area
               dataKey="overall"
               type={type}
               fill="url(#fillOverall)"
               fillOpacity={0.4}
               stroke="var(--color-overall)"
               stackId="b"
-            />
+            /> */}
             <Area
               dataKey="overtime"
               type={type}
