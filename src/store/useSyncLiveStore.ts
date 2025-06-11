@@ -2,12 +2,12 @@ import { create } from 'zustand';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
 import type { SyncTeammate } from '@/types/syncTeammate.type';
-import type { Sync } from '@/types/sync.type';
+import type { SyncTeam } from '@/types/syncTeam.type';
 import { fisherYatesShuffle } from '@/utils/fisherYatesShuffle';
 import { getDateISOString } from '@/utils/getDateISOString';
 
 type SyncLiveStore = {
-  team: Sync | null;
+  team: SyncTeam | null;
   teammates: SyncTeammate[];
   showRoles: boolean;
   activeUUID: string | null;

@@ -1,20 +1,40 @@
-import { useSyncTimer } from '@/hooks/useSyncTimer';
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
-import type { SyncTeammate } from '@/types/syncTeammate.type';
 import { Button } from '@/components/ui/button';
 import { Check, Pause, Play, Siren, UserRound } from 'lucide-react';
 import { CircularProgress } from '@/components/ui/circular-progress';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import confetti from 'canvas-confetti';
+import { useTimer } from '@/hooks/ui/useTimer';
+import { useStopwatch } from '@/hooks/ui/useStopwatch';
+import { useEffect } from 'react';
+import type { SyncTeam } from '@/types/syncTeam.type';
+import type { SyncTeammate } from '@/types/syncTeammate.type';
 
-export const SyncCard = ({ syncTeammate }: { syncTeammate: SyncTeammate }) => {
+export const SyncCard = ({ team, teammate }: { team: SyncTeam; teammate: SyncTeammate }) => {
   const { showRoles, setActive } = useSyncLiveStore();
-  const { timer, progress, overtime } = useSyncTimer(syncTeammate);
+  const timer = useTimer(team.sync.timer * 1000);
+  const stopwatch = useStopwatch(team.sync.timer * 1000);
+
+  useEffect(() => {
+    if (teammate.sync.status === 'active') {
+      timer.start();
+    }
+    if (teammate.sync.status === 'done') {
+      timer.stop();
+      stopwatch.stop();
+    }
+  }, [teammate.sync.status, timer, stopwatch]);
+
+  useEffect(() => {
+    if (timer.status === 'finished') {
+      stopwatch.start();
+    }
+  }, [timer.status, stopwatch]);
 
   const handleActive = (status: string) => {
-    if (syncTeammate.sync.status === status) {
-      setActive(syncTeammate.UUID);
+    if (teammate.sync.status === status) {
+      setActive(teammate.UUID);
     }
   };
 
@@ -58,13 +78,13 @@ export const SyncCard = ({ syncTeammate }: { syncTeammate: SyncTeammate }) => {
   };
 
   return (
-    <div className={`flip-card aspect-[3/3.75] ${syncTeammate.sync?.status}`}>
+    <div className={`flip-card aspect-[3/3.75] ${teammate.sync?.status}`}>
       <div className="flip-card-inner p-0">
         <Card className="flip-card-front bg-muted gap-2 p-2">
           <CardContent className="flex size-full items-center justify-center">
             <div className="flex translate-y-4 flex-col items-center gap-2">
               <UserRound />
-              {showRoles && <span className="font-semibold">{syncTeammate.role}</span>}
+              {showRoles && <span className="font-semibold">{teammate.role}</span>}
             </div>
           </CardContent>
           <CardFooter className="flex flex-col items-stretch p-0">
@@ -76,18 +96,18 @@ export const SyncCard = ({ syncTeammate }: { syncTeammate: SyncTeammate }) => {
         <Card className="flip-card-back relative flex flex-col items-center justify-center rounded-xl border">
           <CardContent>
             <div className="flex max-w-full flex-col items-center justify-center gap-0.5 text-center sm:gap-2">
-              {progress === 0 ? (
+              {timer.progress === 0 ? (
                 <Badge
                   className="scale-90 sm:scale-100"
-                  variant={overtime >= 1 ? 'destructive' : 'secondary'}
+                  variant={stopwatch.overtime >= 1 ? 'destructive' : 'secondary'}
                 >
-                  Overtime {overtime >= 1 ? `x${overtime.toFixed(1)}` : ''}
+                  Overtime {stopwatch.overtime >= 1 ? `x${stopwatch.overtime.toFixed(1)}` : ''}
                 </Badge>
               ) : (
                 <Badge className="scale-90 sm:scale-100" variant="secondary">
                   <span className="first-letter:uppercase">
-                    {syncTeammate.sync?.status === 'active'
-                      ? timer.isRunning
+                    {teammate.sync?.status === 'active'
+                      ? timer.status === 'running'
                         ? 'Active'
                         : 'Paused'
                       : 'Done'}
@@ -95,30 +115,36 @@ export const SyncCard = ({ syncTeammate }: { syncTeammate: SyncTeammate }) => {
                 </Badge>
               )}
               <span className="max-w-full truncate px-2 text-lg font-semibold sm:text-2xl">
-                {syncTeammate.name}
+                {teammate.name}
               </span>
               <p className="text-muted-foreground max-w-full truncate px-4 text-xs sm:text-sm">
-                {syncTeammate.role}
+                {teammate.role}
               </p>
             </div>
-            {syncTeammate.sync.status !== 'done' && (
+            {teammate.sync.status !== 'done' && (
               <>
                 <div className="pointer-events-none absolute inset-0 p-5">
-                  <CircularProgress className="opacity-50" value={progress} strokeWidth={2} />
+                  <CircularProgress className="opacity-50" value={timer.progress} strokeWidth={2} />
                 </div>
                 <Button
                   className="absolute bottom-2 left-2 rounded-full 2xl:bottom-3 2xl:left-3"
                   variant="secondary"
                   size="syncIcon"
                   onClick={(e) =>
-                    progress === 0
+                    timer.progress === 0
                       ? handleSiren(e)
-                      : timer.isRunning
+                      : timer.status === 'running'
                         ? timer.pause()
                         : timer.resume()
                   }
                 >
-                  {progress === 0 ? <Siren /> : timer.isRunning ? <Pause /> : <Play />}
+                  {timer.progress === 0 ? (
+                    <Siren />
+                  ) : timer.status === 'running' ? (
+                    <Pause />
+                  ) : (
+                    <Play />
+                  )}
                 </Button>
                 <Button
                   className="absolute right-2 bottom-2 rounded-full 2xl:right-3 2xl:bottom-3"

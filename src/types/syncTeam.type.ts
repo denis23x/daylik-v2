@@ -6,7 +6,7 @@ type SyncFields = {
   finishedAt: string;
 };
 
-export type Sync = Team & {
+export type SyncTeam = Team & {
   sync: Nullable<SyncFields> & {
     timer: number;
   };

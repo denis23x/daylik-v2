@@ -1,6 +1,6 @@
-import type { Sync } from './sync.type';
+import type { SyncTeam } from './syncTeam.type';
 
-type SyncFields = Required<Sync['sync']>;
+type SyncFields = Required<SyncTeam['sync']>;
 
 export type Analytic = SyncFields & {
   UUID: string;

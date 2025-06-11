@@ -72,9 +72,10 @@ const SyncGridLive = () => {
           </div>
         </div>
         <GridWithHoverEffect>
-          {teammates?.map((syncTeammate: SyncTeammate) => (
-            <SyncCard syncTeammate={syncTeammate} key={syncTeammate.UUID} />
-          ))}
+          {team &&
+            teammates?.map((teammate: SyncTeammate) => (
+              <SyncCard team={team} teammate={teammate} key={teammate.UUID} />
+            ))}
         </GridWithHoverEffect>
       </div>
     </div>
