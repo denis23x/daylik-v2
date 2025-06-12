@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
+// TODO: env
 const DELAY = 50;
 
 type StopwatchStatus = 'idle' | 'running' | 'finished';

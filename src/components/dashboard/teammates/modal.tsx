@@ -19,6 +19,7 @@ import { ConfirmDialog } from '@/components/confirm-dialog';
 import { useDeleteFiles } from '@/hooks/useFiles';
 import { getFilePath } from '@/lib/api/files';
 
+// TODO: env
 const BUCKET = 'avatars';
 
 export default function TeammatesModal() {

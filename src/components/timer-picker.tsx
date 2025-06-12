@@ -15,6 +15,7 @@ import { Label } from './ui/label';
 import { useSyncSettingsStore } from '@/store/useSyncSettingsStore';
 import { Slider } from './ui/slider';
 
+// TODO: env
 const MIN_TIMER = 30;
 const MAX_TIMER = 180;
 

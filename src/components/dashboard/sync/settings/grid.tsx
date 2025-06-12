@@ -18,7 +18,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { getContrastingColor } from '@/utils/getContrastingColor';
 import TimerPicker from '@/components/timer-picker';
 import { RainbowButton } from '@/components/magicui/rainbow-button';
-import { toast } from 'sonner';
 
 // teammatesAbsent reducer
 function reducer(state: string[], action: { type: 'add' | 'remove'; UUID: string }): string[] {
@@ -37,22 +36,23 @@ const SyncSettingsGrid = () => {
   const router = useRouter();
   const [teammatesAbsent, dispatch] = useReducer(reducer, []);
   const [teammatesDuration, setTeammatesDuration] = useState(0);
-  const { team, teammates, timer, setTeam, setTeammates } = useSyncSettingsStore();
-  const { setSyncStart } = useSyncLiveStore();
+  const { team, teammates, timer, setTeam, setTeammates, setTimer } = useSyncSettingsStore();
+  const { setTeam: setLiveTeam, setTeammates: setLiveTeammates } = useSyncLiveStore();
   const { data, isLoading, error } = useSync({
     query: `*, teams_teammates (teammates (UUID, name, role, color, avatar))`,
     UUID: params.UUID as string,
+    enabled: true,
   });
 
   useEffect(() => {
     if (data) {
       const { teammates, ...team } = data as Team;
 
-      // Pass to render
       setTeam(team);
       setTeammates(teammates as Teammate[]);
+      setTimer(team.timer);
     }
-  }, [data, setTeam, setTeammates]);
+  }, [data, setTeam, setTeammates, setTimer]);
 
   useEffect(() => {
     const duration = (timer * ((teammates?.length || 0) - teammatesAbsent.length)) / 60;
@@ -61,17 +61,13 @@ const SyncSettingsGrid = () => {
   }, [timer, teammates, teammatesAbsent]);
 
   const handleStart = () => {
-    setSyncStart(
-      team as Team,
-      teammates.filter((teammate: Teammate) => !teammatesAbsent.includes(teammate.UUID)),
-      timer
-    );
+    // TODO: update timer on server
+
+    setLiveTeam(team as Team);
+    setLiveTeammates(teammates.filter(({ UUID }) => !teammatesAbsent.includes(UUID)));
 
     // Redirect
     router.push(`/sync/${params.UUID}/live`);
-
-    // Success
-    toast.success('Sync is live — let the updates begin');
   };
 
   return (

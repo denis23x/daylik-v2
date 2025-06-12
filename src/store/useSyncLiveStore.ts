@@ -4,15 +4,14 @@ import type { Teammate } from '@/types/teammate.type';
 import type { SyncTeammate } from '@/types/syncTeammate.type';
 import type { SyncTeam } from '@/types/syncTeam.type';
 import { fisherYatesShuffle } from '@/utils/fisherYatesShuffle';
-import { getDateISOString } from '@/utils/getDateISOString';
 
 type SyncLiveStore = {
   team: SyncTeam | null;
   teammates: SyncTeammate[];
   showRoles: boolean;
   activeUUID: string | null;
-  setSyncStart: (team: Team, teammates: Teammate[], timer: number) => void;
-  setSyncFinish: () => void;
+  setTeam: (team: Team) => void;
+  setTeammates: (teammates: Teammate[]) => void;
   setActive: (uuid: string) => void;
   setRandom: () => void;
   setDone: (uuid: string, elapsed: number, overtime: number) => void;
@@ -26,16 +25,19 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
   teammates: [],
   showRoles: false,
   activeUUID: null,
-  setSyncStart: (team, teammates, timer) => {
+  setTeam: (team) => {
     const syncTeam = {
       ...team,
       sync: {
-        timer,
-        startedAt: getDateISOString(),
+        timer: team.timer,
+        startedAt: null,
         finishedAt: null,
       },
     };
 
+    set({ team: syncTeam });
+  },
+  setTeammates: (teammates) => {
     const syncTeammates = teammates.map((teammate: Teammate) => {
       return {
         ...teammate,
@@ -50,23 +52,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
       };
     });
 
-    set({
-      team: syncTeam,
-      teammates: syncTeammates,
-    });
-  },
-  setSyncFinish: () => {
-    set((state) => ({
-      team: state.team
-        ? {
-            ...state.team,
-            sync: {
-              ...state.team.sync,
-              finishedAt: getDateISOString(),
-            },
-          }
-        : null,
-    }));
+    set({ teammates: syncTeammates });
   },
   setActive: (uuid) => {
     const state = get();

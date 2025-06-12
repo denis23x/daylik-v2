@@ -12,6 +12,7 @@ import { useUploadFile } from '@/hooks/useFiles';
 import { getPublicUrl } from '@/lib/api/files';
 import { v4 as uuidv4 } from 'uuid';
 
+// TODO: env
 const BUCKET = 'avatars';
 const MAX_FILE_SIZE = 1 * 1024 * 1024;
 
