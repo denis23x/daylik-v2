@@ -16,16 +16,14 @@ import { useParams } from 'next/navigation';
 import { Skeleton } from '@/components/ui/skeleton';
 import NotFound from '@/components/not-found';
 import ErrorOccurred from '@/components/error-occurred';
-import { toast } from 'sonner';
 import { getIsLastActive } from '@/utils/getIsLastActive';
 
 const SyncLiveGrid = () => {
   const params = useParams();
-  const { team, teammates, showRoles, setTeam, setTeammates, setShowRoles, shuffle, setRandom } =
-    useSyncLiveStore();
-  const [shuffleIsDisabled, setShuffleIsDisabled] = useState(false);
-  const [randomIsDisabled, setRandomIsDisabled] = useState(false);
-  const [positionsIsDisabled, setPositionsIsDisabled] = useState(false);
+  const { team, teammates, setTeam, setTeammates, shuffle, setRandom } = useSyncLiveStore();
+  const [showRoles, setShowRoles] = useState(false);
+  const [isDone, setIsDone] = useState(false);
+  const [isPristine, setIsPristine] = useState(false);
   const { isLoading, error, refetch } = useSync({
     query: `*, teams_teammates (teammates (UUID, name, role, color, avatar))`,
     UUID: params.UUID as string,
@@ -40,10 +38,6 @@ const SyncLiveGrid = () => {
 
         setTeam(team as Team);
         setTeammates(teammates as Teammate[]);
-
-        toast.success('Sync started — jumping straight in with the full team');
-      } else {
-        toast.success('Sync started — running with your updated settings');
       }
     };
 
@@ -52,14 +46,17 @@ const SyncLiveGrid = () => {
 
   useEffect(() => {
     if (teammates.length) {
-      const isPristine = teammates.every((teammate) => teammate.sync.status === 'idle');
       const isDone = teammates.every((teammate) => teammate.sync.status === 'done');
+      const isPristine = teammates.every((teammate) => teammate.sync.status === 'idle');
 
-      setShuffleIsDisabled(isDone || !isPristine || teammates.length <= 1);
-      setRandomIsDisabled(isDone || getIsLastActive(teammates) || teammates.length <= 1);
-      setPositionsIsDisabled(isDone || getIsLastActive(teammates));
+      setIsDone(isDone);
+      setIsPristine(isPristine);
     }
-  }, [teammates]);
+  }, [teammates, setIsDone, setIsPristine]);
+
+  // const handleStart = () => {
+  //   toast.success('Sync is live — let the updates begin');
+  // };
 
   return (
     <div className="min-h-screen-daylik container mx-auto p-4">
@@ -72,16 +69,26 @@ const SyncLiveGrid = () => {
         </div>
         {!isLoading && !error && teammates?.length !== 0 && (
           <div className="flex w-full items-center gap-4">
-            <Button variant="outline" size="icon" onClick={shuffle} disabled={shuffleIsDisabled}>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={shuffle}
+              disabled={isDone || !isPristine || teammates.length <= 1}
+            >
               <Shuffle />
             </Button>
-            <Button variant="outline" size="icon" onClick={setRandom} disabled={randomIsDisabled}>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={setRandom}
+              disabled={isDone || getIsLastActive(teammates) || teammates.length <= 1}
+            >
               <Dices />
             </Button>
             <div className="flex items-center space-x-2">
               <Switch
                 id="show-roles"
-                disabled={positionsIsDisabled}
+                disabled={isDone || getIsLastActive(teammates)}
                 checked={showRoles}
                 onCheckedChange={(value) => setShowRoles(value)}
               />
@@ -107,7 +114,12 @@ const SyncLiveGrid = () => {
             <HoverEffect>
               {team &&
                 teammates?.map((teammate: SyncTeammate) => (
-                  <SyncLiveCard team={team} teammate={teammate} key={teammate.UUID} />
+                  <SyncLiveCard
+                    team={team}
+                    teammate={teammate}
+                    showRoles={showRoles}
+                    key={teammate.UUID}
+                  />
                 ))}
             </HoverEffect>
           )}

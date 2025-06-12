@@ -8,14 +8,12 @@ import { fisherYatesShuffle } from '@/utils/fisherYatesShuffle';
 type SyncLiveStore = {
   team: SyncTeam | null;
   teammates: SyncTeammate[];
-  showRoles: boolean;
   activeUUID: string | null;
   setTeam: (team: Team) => void;
   setTeammates: (teammates: Teammate[]) => void;
   setActive: (uuid: string) => void;
   setRandom: () => void;
   setDone: (uuid: string, elapsed: number, overtime: number) => void;
-  setShowRoles: (showRoles: boolean) => void;
   shuffle: () => void;
   reset: () => void;
 };
@@ -23,7 +21,6 @@ type SyncLiveStore = {
 export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
   team: null,
   teammates: [],
-  showRoles: false,
   activeUUID: null,
   setTeam: (team) => {
     const syncTeam = {
@@ -116,7 +113,6 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
       }),
     }));
   },
-  setShowRoles: (showRoles: boolean) => set({ showRoles }),
   shuffle: () => {
     const original = get().teammates;
 
@@ -132,7 +128,6 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
     set({
       team: null,
       teammates: [],
-      showRoles: false,
       activeUUID: null,
     }),
 }));
