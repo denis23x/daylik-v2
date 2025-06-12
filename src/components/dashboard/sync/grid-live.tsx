@@ -2,7 +2,7 @@
 
 import { SyncCard } from '@/components/dashboard/sync/card';
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
-import { Dices, Mic, Shuffle } from 'lucide-react';
+import { ClockFading, Dices, Shuffle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
@@ -37,8 +37,8 @@ const SyncGridLive = () => {
       const isPristine = teammates.every((teammate) => teammate.sync.status === 'idle');
       const isDone = teammates.every((teammate) => teammate.sync.status === 'done');
 
-      setShuffleIsDisabled(isDone || !isPristine);
-      setRandomIsDisabled(isDone || isAllDoneExceptOneActive(teammates));
+      setShuffleIsDisabled(isDone || !isPristine || teammates.length <= 1);
+      setRandomIsDisabled(isDone || isAllDoneExceptOneActive(teammates) || teammates.length <= 1);
       setPositionsIsDisabled(isDone || isAllDoneExceptOneActive(teammates));
 
       if (isDone) {
@@ -51,7 +51,7 @@ const SyncGridLive = () => {
     <div className="min-h-screen-daylik container mx-auto p-4">
       <div className="flex w-full flex-col gap-4">
         <div className="flex min-h-9 items-center gap-4">
-          <Mic />
+          <ClockFading />
           <span className="text-xl font-bold">{team?.name}</span>
         </div>
         <div className="flex w-full items-center gap-4">

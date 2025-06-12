@@ -81,7 +81,7 @@ const SyncGridSettings = () => {
             <p className="flex items-center gap-2">
               <span className="text-xl font-bold">Sync</span>
               <span className="text-muted-foreground mt-1 text-sm">
-                ~ {teammatesDuration.toFixed()} min.
+                ~ {teammatesDuration > 1 ? teammatesDuration.toFixed() : 1} min.
               </span>
             </p>
           )}
