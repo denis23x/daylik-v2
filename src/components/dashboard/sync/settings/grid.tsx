@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useSyncSettingsStore } from '@/store/useSyncSettingsStore';
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
 import { useEffect, useReducer, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
 import { CalendarCog, Clock, Undo2, X } from 'lucide-react';
@@ -32,8 +32,9 @@ function reducer(state: string[], action: { type: 'add' | 'remove'; UUID: string
   }
 }
 
-const SyncGridSettings = () => {
+const SyncSettingsGrid = () => {
   const params = useParams();
+  const router = useRouter();
   const [teammatesAbsent, dispatch] = useReducer(reducer, []);
   const [teammatesDuration, setTeammatesDuration] = useState(0);
   const { team, teammates, timer, setTeam, setTeammates } = useSyncSettingsStore();
@@ -65,6 +66,9 @@ const SyncGridSettings = () => {
       teammates.filter((teammate: Teammate) => !teammatesAbsent.includes(teammate.UUID)),
       timer
     );
+
+    // Redirect
+    router.push(`/sync/${params.UUID}/live`);
 
     // Success
     toast.success('Sync is live — let the updates begin');
@@ -182,4 +186,4 @@ const SyncGridSettings = () => {
   );
 };
 
-export default SyncGridSettings;
+export default SyncSettingsGrid;

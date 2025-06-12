@@ -183,7 +183,7 @@ const TeamsGrid = () => {
                   <CardFooter className="flex flex-col items-stretch p-0 text-center">
                     {team.teammates?.length ? (
                       <Button asChild>
-                        <Link href={`/sync/${team.UUID}`}>Sync Team</Link>
+                        <Link href={`/sync/${team.UUID}/settings`}>Sync Team</Link>
                       </Button>
                     ) : (
                       <Button variant="ghost" onClick={() => handleUpdate(team)}>

@@ -1,9 +1,9 @@
 'use client';
 
 import { CalendarCheck2 } from 'lucide-react';
-import DashboardHero from '../hero';
+import DashboardHero from '../../hero';
 
-const SyncHero = () => {
+const SyncSettingsHero = () => {
   return (
     <DashboardHero
       title="Sync"
@@ -13,4 +13,4 @@ const SyncHero = () => {
   );
 };
 
-export default SyncHero;
+export default SyncSettingsHero;

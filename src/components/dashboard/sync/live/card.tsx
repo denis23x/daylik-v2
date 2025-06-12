@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 import type { SyncTeam } from '@/types/syncTeam.type';
 import type { SyncTeammate } from '@/types/syncTeammate.type';
 
-export const SyncCard = ({ team, teammate }: { team: SyncTeam; teammate: SyncTeammate }) => {
+export const SyncLiveCard = ({ team, teammate }: { team: SyncTeam; teammate: SyncTeammate }) => {
   const { showRoles, setActive } = useSyncLiveStore();
   const timer = useTimer(team.sync.timer * 1000);
   const stopwatch = useStopwatch(team.sync.timer * 1000);

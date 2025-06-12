@@ -1,6 +1,6 @@
 'use client';
 
-import { SyncCard } from '@/components/dashboard/sync/card';
+import { SyncLiveCard } from '@/components/dashboard/sync/live/card';
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
 import { ClockFading, Dices, Shuffle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -25,7 +25,7 @@ function isAllDoneExceptOneActive(syncTeammates: SyncTeammate[]): boolean {
   return activeCount === 1;
 }
 
-const SyncGridLive = () => {
+const SyncLiveGrid = () => {
   const { team, teammates, showRoles, shuffle, setRandom, setShowRoles, setSyncFinish } =
     useSyncLiveStore();
   const [shuffleIsDisabled, setShuffleIsDisabled] = useState(false);
@@ -74,7 +74,7 @@ const SyncGridLive = () => {
         <HoverEffect>
           {team &&
             teammates?.map((teammate: SyncTeammate) => (
-              <SyncCard team={team} teammate={teammate} key={teammate.UUID} />
+              <SyncLiveCard team={team} teammate={teammate} key={teammate.UUID} />
             ))}
         </HoverEffect>
       </div>
@@ -82,4 +82,4 @@ const SyncGridLive = () => {
   );
 };
 
-export default SyncGridLive;
+export default SyncLiveGrid;
