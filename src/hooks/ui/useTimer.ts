@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
+const DELAY = 50;
+
 type TimerStatus = 'idle' | 'running' | 'paused' | 'finished';
 
 export const useTimer = (duration: number) => {
@@ -14,11 +16,13 @@ export const useTimer = (duration: number) => {
   const getNow = () => performance.now();
 
   const clear = () => {
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    intervalRef.current = null;
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
   };
 
-  const updateProgress = () => {
+  const update = () => {
     if (!startTimeRef.current) return;
 
     const now = getNow();
@@ -45,7 +49,7 @@ export const useTimer = (duration: number) => {
     pauseStartRef.current = null;
     setStatus('running');
 
-    intervalRef.current = setInterval(updateProgress, 50);
+    intervalRef.current = setInterval(update, DELAY);
   };
 
   const pause = () => {
@@ -64,7 +68,7 @@ export const useTimer = (duration: number) => {
     pauseStartRef.current = null;
     setStatus('running');
 
-    intervalRef.current = setInterval(updateProgress, 50);
+    intervalRef.current = setInterval(update, DELAY);
   };
 
   const stop = () => {

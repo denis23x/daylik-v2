@@ -12,7 +12,7 @@ import { useSync } from '@/hooks/useSync';
 import ErrorOccurred from '@/components/error-occurred';
 import NotFound from '@/components/not-found';
 import { Skeleton } from '@/components/ui/skeleton';
-import GridWithHoverEffect from '@/components/grid-with-hover-effect';
+import HoverEffect from '@/components/hover-effect';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { getContrastingColor } from '@/utils/getContrastingColor';
@@ -116,7 +116,7 @@ const SyncGridSettings = () => {
             <NotFound className="min-h-[224px]" />
           )}
           {!isLoading && !error && teammates?.length !== 0 && (
-            <GridWithHoverEffect>
+            <HoverEffect>
               {teammates?.map((teammate: Teammate) => (
                 <Card className="bg-background size-full gap-0 p-2" key={teammate.UUID}>
                   <CardHeader className="relative gap-0">
@@ -174,7 +174,7 @@ const SyncGridSettings = () => {
                   </CardFooter>
                 </Card>
               ))}
-            </GridWithHoverEffect>
+            </HoverEffect>
           )}
         </div>
       </div>

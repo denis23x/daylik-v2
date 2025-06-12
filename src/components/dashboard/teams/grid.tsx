@@ -2,7 +2,7 @@
 
 import ErrorOccurred from '@/components/error-occurred';
 import NotFound from '@/components/not-found';
-import GridWithHoverEffect from '@/components/grid-with-hover-effect';
+import HoverEffect from '@/components/hover-effect';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { useTeams } from '@/hooks/useTeams';
@@ -90,7 +90,7 @@ const TeamsGrid = () => {
           {error && <ErrorOccurred className="min-h-[224px]" />}
           {!isLoading && !error && teams?.length === 0 && <NotFound className="min-h-[224px]" />}
           {!isLoading && !error && teams?.length !== 0 && (
-            <GridWithHoverEffect>
+            <HoverEffect>
               <Card className="bg-background size-full gap-0 p-2">
                 <CardHeader className="relative mb-auto flex min-h-9 items-center justify-between gap-x-1.5 gap-y-0 p-0">
                   <span className="truncate text-base font-semibold">New</span>
@@ -193,7 +193,7 @@ const TeamsGrid = () => {
                   </CardFooter>
                 </Card>
               ))}
-            </GridWithHoverEffect>
+            </HoverEffect>
           )}
         </div>
       </div>

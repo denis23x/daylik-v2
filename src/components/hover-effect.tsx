@@ -3,7 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { motion, spring } from 'motion/react';
 
-const GridWithHoverEffect = ({ children }: { children: React.ReactNode }) => {
+const HoverEffect = ({ children }: { children: React.ReactNode }) => {
   const [highlightStyle, setHighlightStyle] = useState({
     top: 0,
     left: 0,
@@ -106,4 +106,4 @@ const GridWithHoverEffect = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default GridWithHoverEffect;
+export default HoverEffect;

@@ -10,7 +10,7 @@ import { supabase } from '@/utils/supabase/client';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Pencil, UserRoundPlus, UsersRound } from 'lucide-react';
-import GridWithHoverEffect from '@/components/grid-with-hover-effect';
+import HoverEffect from '@/components/hover-effect';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { getContrastingColor } from '@/utils/getContrastingColor';
@@ -64,7 +64,7 @@ const TeammatesGrid = () => {
             <NotFound className="min-h-[224px]" />
           )}
           {!isLoading && !error && teammates?.length !== 0 && (
-            <GridWithHoverEffect>
+            <HoverEffect>
               <Card className="bg-background size-full gap-0 p-2">
                 <CardContent className="translate-y-2 p-4 sm:p-3">
                   <Avatar className="aspect-square size-full border border-dashed">
@@ -123,7 +123,7 @@ const TeammatesGrid = () => {
                   </CardFooter>
                 </Card>
               ))}
-            </GridWithHoverEffect>
+            </HoverEffect>
           )}
         </div>
       </div>

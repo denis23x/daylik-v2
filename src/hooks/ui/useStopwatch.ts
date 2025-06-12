@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
+const DELAY = 50;
+
 type StopwatchStatus = 'idle' | 'running' | 'finished';
 
 export const useStopwatch = (duration: number) => {
@@ -37,7 +39,7 @@ export const useStopwatch = (duration: number) => {
     setStatus('running');
     setOvertime(0);
 
-    intervalRef.current = setInterval(update, 50);
+    intervalRef.current = setInterval(update, DELAY);
   };
 
   const stop = () => {

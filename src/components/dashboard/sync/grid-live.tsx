@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { useEffect, useState } from 'react';
 import type { SyncTeammate } from '@/types/syncTeammate.type';
-import GridWithHoverEffect from '@/components/grid-with-hover-effect';
+import HoverEffect from '@/components/hover-effect';
 
 // TODO: move to utils
 function isAllDoneExceptOneActive(syncTeammates: SyncTeammate[]): boolean {
@@ -71,12 +71,12 @@ const SyncGridLive = () => {
             <Label htmlFor="show-roles">Show roles</Label>
           </div>
         </div>
-        <GridWithHoverEffect>
+        <HoverEffect>
           {team &&
             teammates?.map((teammate: SyncTeammate) => (
               <SyncCard team={team} teammate={teammate} key={teammate.UUID} />
             ))}
-        </GridWithHoverEffect>
+        </HoverEffect>
       </div>
     </div>
   );
