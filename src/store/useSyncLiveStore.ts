@@ -22,17 +22,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
   team: null,
   teammates: [],
   activeUUID: null,
-  setTeam: (team) => {
-    set(() => ({
-      team: {
-        ...team,
-        sync: {
-          startedAt: null,
-          finishedAt: null,
-        },
-      },
-    }));
-  },
+  setTeam: (team) => set({ team }),
   setTeammates: (teammates) => {
     const syncTeammates = teammates.map((teammate: Teammate) => {
       return {

@@ -6,7 +6,7 @@ import { ClockFading, Dices, Shuffle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import type { SyncTeammate } from '@/types/syncTeammate.type';
 import HoverEffect from '@/components/hover-effect';
 import type { Team } from '@/types/team.type';
@@ -24,11 +24,11 @@ import { toast } from 'sonner';
 const SyncLiveGrid = () => {
   const params = useParams();
   const router = useRouter();
-  const { team, teammates, setTeam, setTeammates, shuffle, setRandom } = useSyncLiveStore();
   const [showRoles, setShowRoles] = useState(false);
   const [isDone, setIsDone] = useState(false);
   const [isPristine, setIsPristine] = useState(false);
-  const [isInitialized, setIsInitialized] = useState(false);
+  const [isStarted, setIsStarted] = useState<string | null>(null);
+  const { team, teammates, setTeam, setTeammates, shuffle, setRandom } = useSyncLiveStore();
   const { isLoading, error, refetch } = useSync({
     query: `*, teams_teammates (teammates (UUID, name, role, color, avatar))`,
     UUID: params.UUID as string,
@@ -36,8 +36,8 @@ const SyncLiveGrid = () => {
   });
 
   useEffect(() => {
-    if (isInitialized) return;
-    const initializeSync = async () => {
+    if (isStarted) return;
+    const handleStart = async () => {
       if (!team || !teammates.length) {
         const { data } = await refetch();
         const { teammates, ...team } = data as Team;
@@ -46,12 +46,37 @@ const SyncLiveGrid = () => {
         setTeammates(teammates as Teammate[]);
       }
 
-      // Sync is ready to go
-      setIsInitialized(true);
+      // Set the startedAt time
+      setIsStarted(new Date().toISOString());
     };
 
-    initializeSync();
-  }, [team, teammates, setTeam, setTeammates, refetch, isInitialized]);
+    handleStart();
+  }, [team, teammates, setTeam, setTeammates, refetch, isStarted]);
+
+  useEffect(() => {
+    if (!isDone) return;
+    const handleFinish = async () => {
+      try {
+        const analytics = await createAnalytics({
+          teamUUID: team?.UUID as string,
+          timer: team?.timer as number,
+          startedAt: isStarted as string,
+          finishedAt: new Date().toISOString(),
+        });
+
+        await addTeammatesToAnalytic({
+          analyticUUID: analytics.UUID,
+          teammates,
+        });
+
+        router.push(`/analytics/${analytics.UUID}`);
+      } catch (error) {
+        toast.error(error instanceof Error ? error.message : 'An error occurred');
+      }
+    };
+
+    handleFinish();
+  }, [isDone, isStarted, team, teammates, router]);
 
   useEffect(() => {
     if (teammates.length) {
@@ -63,59 +88,18 @@ const SyncLiveGrid = () => {
     }
   }, [teammates, setIsDone, setIsPristine]);
 
-  // useEffect(() => {
-  //   if (isInitialized) {
-  //     console.log('isInitialized', isInitialized);
-  //   }
-  // }, [isInitialized]);
-
-  const handleSubmit = useCallback(async () => {
-    try {
-      const analytics = await createAnalytics({
-        teamUUID: team?.UUID as string,
-        timer: team?.timer as number,
-        // TODO: add startedAt and finishedAt
-        startedAt: new Date().toISOString(),
-        finishedAt: new Date().toISOString(),
-      });
-
-      console.log('analytics', teammates);
-
-      await addTeammatesToAnalytic({
-        analyticUUID: analytics.UUID,
-        teammates: teammates,
-      });
-
-      // Redirect
-      router.push(`/analytics/${analytics.UUID}`);
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'An error occurred');
-    }
-  }, [team, teammates, router]);
-
-  useEffect(() => {
-    if (isDone) {
-      console.log('isDone', isDone);
-      handleSubmit();
-    }
-  }, [isDone, handleSubmit]);
-
-  // const handleStart = () => {
-  //   toast.success('Sync is live — let the updates begin');
-  // };
-
   return (
     <div className="min-h-screen-daylik container mx-auto p-4">
       <div className="flex w-full flex-col gap-4">
         <div className="flex min-h-9 items-center gap-4">
           <ClockFading />
-          {(isLoading || !isInitialized) && <Skeleton className="h-7 w-24" />}
+          {(isLoading || !isStarted) && <Skeleton className="h-7 w-24" />}
           {error && <span className="text-xl font-bold">Error</span>}
-          {!isLoading && isInitialized && !error && (
+          {!isLoading && isStarted && !error && (
             <span className="text-xl font-bold">{team?.name}</span>
           )}
         </div>
-        {!isLoading && isInitialized && !error && teammates?.length !== 0 && (
+        {!isLoading && isStarted && !error && teammates?.length !== 0 && (
           <div className="flex w-full items-center gap-4">
             <Button
               variant="outline"
@@ -145,7 +129,7 @@ const SyncLiveGrid = () => {
           </div>
         )}
         <div className="flex w-full flex-col items-center gap-4">
-          {(isLoading || !isInitialized) && (
+          {(isLoading || !isStarted) && (
             <ul className="relative grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
               {[1, 2, 3, 4].map((_, index) => (
                 <li key={index}>
@@ -155,10 +139,10 @@ const SyncLiveGrid = () => {
             </ul>
           )}
           {error && <ErrorOccurred className="min-h-[224px]" />}
-          {!isLoading && isInitialized && !error && teammates?.length === 0 && (
+          {!isLoading && isStarted && !error && teammates?.length === 0 && (
             <NotFound className="min-h-[224px]" />
           )}
-          {!isLoading && isInitialized && !error && teammates?.length !== 0 && (
+          {!isLoading && isStarted && !error && teammates?.length !== 0 && (
             <HoverEffect>
               {team &&
                 teammates?.map((teammate: SyncTeammate) => (
