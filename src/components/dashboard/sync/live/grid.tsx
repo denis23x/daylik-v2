@@ -28,7 +28,7 @@ const SyncLiveGrid = () => {
   const [isDone, setIsDone] = useState(false);
   const [isPristine, setIsPristine] = useState(false);
   const [isStarted, setIsStarted] = useState<string | null>(null);
-  const { team, teammates, setTeam, setTeammates, shuffle, setRandom } = useSyncLiveStore();
+  const { team, teammates, setTeam, setTeammates, setActive, shuffle } = useSyncLiveStore();
   const { isLoading, error, refetch } = useSync({
     query: `*, teams_teammates (teammates (UUID, name, role, color, avatar))`,
     UUID: params.UUID as string,
@@ -88,6 +88,16 @@ const SyncLiveGrid = () => {
     }
   }, [teammates, setIsDone, setIsPristine]);
 
+  const handleRandom = () => {
+    const idle = teammates
+      .filter((teammate) => teammate.sync.status === 'idle')
+      .map((teammate) => teammate.UUID);
+
+    if (idle.length) {
+      setActive(idle[Math.floor(Math.random() * idle.length)]);
+    }
+  };
+
   return (
     <div className="min-h-screen-daylik container mx-auto p-4">
       <div className="flex w-full flex-col gap-4">
@@ -112,7 +122,7 @@ const SyncLiveGrid = () => {
             <Button
               variant="outline"
               size="icon"
-              onClick={setRandom}
+              onClick={handleRandom}
               disabled={isDone || getIsLastActive(teammates) || teammates.length <= 1}
             >
               <Dices />

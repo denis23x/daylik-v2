@@ -25,7 +25,7 @@ export const TooltipFormatter = ({ value, name, item, config }: TooltipFormatter
         <span className="block w-full text-xs first-letter:capitalize">
           {config[name as keyof ChartConfig].label}
         </span>
-        {(name === 'elapsed' || name === 'overall') && (
+        {(name === 'total' || name === 'paused') && (
           <span className="text-muted-foreground text-xs">
             {formatDuration((value as number) * 1000)}
           </span>

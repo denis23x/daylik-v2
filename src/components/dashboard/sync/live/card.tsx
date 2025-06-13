@@ -20,7 +20,7 @@ export const SyncLiveCard = ({
   teammate: SyncTeammate;
   showRoles: boolean;
 }) => {
-  const { setActive } = useSyncLiveStore();
+  const { setActive, setDone } = useSyncLiveStore();
   const timer = useTimer(team.timer * 1000);
   const stopwatch = useStopwatch(team.timer * 1000);
 
@@ -32,7 +32,10 @@ export const SyncLiveCard = ({
       timer.stop();
       stopwatch.stop();
     }
-  }, [teammate.sync.status, timer, stopwatch]);
+    if (teammate.sync.status === 'committed') {
+      setDone(teammate.UUID, timer, stopwatch);
+    }
+  }, [teammate.sync.status, teammate.UUID, timer, stopwatch, setDone]);
 
   useEffect(() => {
     if (timer.status === 'finished') {
@@ -40,9 +43,15 @@ export const SyncLiveCard = ({
     }
   }, [timer.status, stopwatch]);
 
-  const handleActive = (status: string) => {
-    if (teammate.sync.status === status) {
+  const handleActive = () => {
+    if (teammate.sync.status === 'idle') {
       setActive(teammate.UUID);
+    }
+  };
+
+  const handleDone = () => {
+    if (teammate.sync.status === 'active') {
+      setDone(teammate.UUID, timer, stopwatch);
     }
   };
 
@@ -96,7 +105,7 @@ export const SyncLiveCard = ({
             </div>
           </CardContent>
           <CardFooter className="flex flex-col items-stretch p-0">
-            <Button variant="outline" onClick={() => handleActive('idle')}>
+            <Button variant="outline" onClick={handleActive}>
               Reveal
             </Button>
           </CardFooter>
@@ -158,7 +167,7 @@ export const SyncLiveCard = ({
                   className="absolute right-2 bottom-2 rounded-full 2xl:right-3 2xl:bottom-3"
                   variant="secondary"
                   size="syncIcon"
-                  onClick={() => handleActive('active')}
+                  onClick={handleDone}
                 >
                   <Check />
                 </Button>

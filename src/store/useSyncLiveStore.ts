@@ -4,6 +4,8 @@ import type { Teammate } from '@/types/teammate.type';
 import type { SyncTeammate } from '@/types/syncTeammate.type';
 import type { SyncTeam } from '@/types/syncTeam.type';
 import { fisherYatesShuffle } from '@/utils/fisherYatesShuffle';
+import { useTimer } from '@/hooks/ui/useTimer';
+import { useStopwatch } from '@/hooks/ui/useStopwatch';
 
 type SyncLiveStore = {
   team: SyncTeam | null;
@@ -12,8 +14,11 @@ type SyncLiveStore = {
   setTeam: (team: Team) => void;
   setTeammates: (teammates: Teammate[]) => void;
   setActive: (uuid: string) => void;
-  setRandom: () => void;
-  setDone: (uuid: string, elapsed: number, overtime: number) => void;
+  setDone: (
+    uuid: string,
+    timer: ReturnType<typeof useTimer>,
+    stopwatch: ReturnType<typeof useStopwatch>
+  ) => void;
   shuffle: () => void;
   reset: () => void;
 };
@@ -53,7 +58,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
               ...teammate,
               sync: {
                 ...teammate.sync,
-                status: 'done',
+                status: 'committed',
               },
             };
           case teammate.UUID === uuid:
@@ -71,15 +76,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
       }),
     }));
   },
-  setRandom: () => {
-    const state = get();
-    const idle = state.teammates.filter((teammate) => teammate.sync.status === 'idle');
-
-    if (idle.length) {
-      state.setActive(idle[Math.floor(Math.random() * idle.length)].UUID);
-    }
-  },
-  setDone: (uuid) => {
+  setDone: (uuid, timer, stopwatch) => {
     set((state) => ({
       activeUUID: null,
       teammates: state.teammates.map((teammate) => {
@@ -89,10 +86,11 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
               ...teammate,
               sync: {
                 ...teammate.sync,
-                // elapsed,
-                // overtime,
-                // total,
-                // paused,
+                // TODO: format
+                elapsed: parseInt(timer.getElapsedMS().toString()),
+                overtime: parseFloat(stopwatch.overtime.toFixed(1)),
+                total: parseInt(timer.getTotalMS().toString()),
+                paused: parseInt(timer.getPausedMS().toString()),
                 status: 'done',
               },
             };

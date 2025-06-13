@@ -11,6 +11,6 @@ type SyncFields = {
 
 export type SyncTeammate = Teammate & {
   sync: Nullable<SyncFields> & {
-    status: 'idle' | 'active' | 'done';
+    status: 'idle' | 'active' | 'committed' | 'done';
   };
 };
