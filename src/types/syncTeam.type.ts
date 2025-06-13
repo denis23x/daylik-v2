@@ -7,7 +7,5 @@ type SyncFields = {
 };
 
 export type SyncTeam = Team & {
-  sync: Nullable<SyncFields> & {
-    timer: number;
-  };
+  sync: Nullable<SyncFields>;
 };

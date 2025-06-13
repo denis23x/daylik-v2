@@ -6,20 +6,24 @@ import { ClockFading, Dices, Shuffle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import type { SyncTeammate } from '@/types/syncTeammate.type';
 import HoverEffect from '@/components/hover-effect';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
 import { useSync } from '@/hooks/useSync';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { Skeleton } from '@/components/ui/skeleton';
 import NotFound from '@/components/not-found';
 import ErrorOccurred from '@/components/error-occurred';
 import { getIsLastActive } from '@/utils/getIsLastActive';
+import { createAnalytics } from '@/lib/api/analytics';
+import { addTeammatesToAnalytic } from '@/lib/api/analyticsTeammates';
+import { toast } from 'sonner';
 
 const SyncLiveGrid = () => {
   const params = useParams();
+  const router = useRouter();
   const { team, teammates, setTeam, setTeammates, shuffle, setRandom } = useSyncLiveStore();
   const [showRoles, setShowRoles] = useState(false);
   const [isDone, setIsDone] = useState(false);
@@ -47,7 +51,7 @@ const SyncLiveGrid = () => {
     };
 
     initializeSync();
-  }, [team, teammates, refetch, setTeam, setTeammates]);
+  }, [team, teammates, setTeam, setTeammates, refetch, isInitialized]);
 
   useEffect(() => {
     if (teammates.length) {
@@ -58,6 +62,43 @@ const SyncLiveGrid = () => {
       setIsPristine(isPristine);
     }
   }, [teammates, setIsDone, setIsPristine]);
+
+  // useEffect(() => {
+  //   if (isInitialized) {
+  //     console.log('isInitialized', isInitialized);
+  //   }
+  // }, [isInitialized]);
+
+  const handleSubmit = useCallback(async () => {
+    try {
+      const analytics = await createAnalytics({
+        teamUUID: team?.UUID as string,
+        timer: team?.timer as number,
+        // TODO: add startedAt and finishedAt
+        startedAt: new Date().toISOString(),
+        finishedAt: new Date().toISOString(),
+      });
+
+      console.log('analytics', teammates);
+
+      await addTeammatesToAnalytic({
+        analyticUUID: analytics.UUID,
+        teammates: teammates,
+      });
+
+      // Redirect
+      router.push(`/analytics/${analytics.UUID}`);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'An error occurred');
+    }
+  }, [team, teammates, router]);
+
+  useEffect(() => {
+    if (isDone) {
+      console.log('isDone', isDone);
+      handleSubmit();
+    }
+  }, [isDone, handleSubmit]);
 
   // const handleStart = () => {
   //   toast.success('Sync is live — let the updates begin');
