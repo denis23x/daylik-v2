@@ -24,7 +24,9 @@ export async function createTeam(team: Pick<Team, 'name'>): Promise<Team> {
   return data;
 }
 
-export async function updateTeam(team: Pick<Team, 'UUID' | 'name'>): Promise<Team> {
+export async function updateTeam(
+  team: Pick<Team, 'UUID'> & Partial<Pick<Team, 'name' | 'timer'>>
+): Promise<Team> {
   const session = await getSession();
   const { data, error } = await supabase
     .from('teams')

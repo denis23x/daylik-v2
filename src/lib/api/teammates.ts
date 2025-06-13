@@ -27,7 +27,7 @@ export async function createTeammate(
 }
 
 export async function updateTeammate(
-  teammate: Pick<Teammate, 'UUID' | 'name' | 'role' | 'color' | 'avatar'>
+  teammate: Pick<Teammate, 'UUID'> & Partial<Pick<Teammate, 'name' | 'role' | 'color' | 'avatar'>>
 ): Promise<Teammate> {
   const session = await getSession();
   const { data, error } = await supabase

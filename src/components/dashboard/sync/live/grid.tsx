@@ -24,6 +24,7 @@ const SyncLiveGrid = () => {
   const [showRoles, setShowRoles] = useState(false);
   const [isDone, setIsDone] = useState(false);
   const [isPristine, setIsPristine] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
   const { isLoading, error, refetch } = useSync({
     query: `*, teams_teammates (teammates (UUID, name, role, color, avatar))`,
     UUID: params.UUID as string,
@@ -31,6 +32,7 @@ const SyncLiveGrid = () => {
   });
 
   useEffect(() => {
+    if (isInitialized) return;
     const initializeSync = async () => {
       if (!team || !teammates.length) {
         const { data } = await refetch();
@@ -39,6 +41,9 @@ const SyncLiveGrid = () => {
         setTeam(team as Team);
         setTeammates(teammates as Teammate[]);
       }
+
+      // Sync is ready to go
+      setIsInitialized(true);
     };
 
     initializeSync();
@@ -63,11 +68,13 @@ const SyncLiveGrid = () => {
       <div className="flex w-full flex-col gap-4">
         <div className="flex min-h-9 items-center gap-4">
           <ClockFading />
-          {isLoading && <Skeleton className="h-7 w-24" />}
+          {(isLoading || !isInitialized) && <Skeleton className="h-7 w-24" />}
           {error && <span className="text-xl font-bold">Error</span>}
-          {!isLoading && !error && <span className="text-xl font-bold">{team?.name}</span>}
+          {!isLoading && isInitialized && !error && (
+            <span className="text-xl font-bold">{team?.name}</span>
+          )}
         </div>
-        {!isLoading && !error && teammates?.length !== 0 && (
+        {!isLoading && isInitialized && !error && teammates?.length !== 0 && (
           <div className="flex w-full items-center gap-4">
             <Button
               variant="outline"
@@ -97,7 +104,7 @@ const SyncLiveGrid = () => {
           </div>
         )}
         <div className="flex w-full flex-col items-center gap-4">
-          {isLoading && (
+          {(isLoading || !isInitialized) && (
             <ul className="relative grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
               {[1, 2, 3, 4].map((_, index) => (
                 <li key={index}>
@@ -107,10 +114,10 @@ const SyncLiveGrid = () => {
             </ul>
           )}
           {error && <ErrorOccurred className="min-h-[224px]" />}
-          {!isLoading && !error && teammates?.length === 0 && (
+          {!isLoading && isInitialized && !error && teammates?.length === 0 && (
             <NotFound className="min-h-[224px]" />
           )}
-          {!isLoading && !error && teammates?.length !== 0 && (
+          {!isLoading && isInitialized && !error && teammates?.length !== 0 && (
             <HoverEffect>
               {team &&
                 teammates?.map((teammate: SyncTeammate) => (

@@ -18,6 +18,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { getContrastingColor } from '@/utils/getContrastingColor';
 import TimerPicker from '@/components/timer-picker';
 import { RainbowButton } from '@/components/magicui/rainbow-button';
+import { useUpdateTeam } from '@/hooks/useTeams';
 
 // teammatesAbsent reducer
 function reducer(state: string[], action: { type: 'add' | 'remove'; UUID: string }): string[] {
@@ -38,6 +39,7 @@ const SyncSettingsGrid = () => {
   const [teammatesDuration, setTeammatesDuration] = useState(0);
   const { team, teammates, timer, setTeam, setTeammates, setTimer } = useSyncSettingsStore();
   const { setTeam: setLiveTeam, setTeammates: setLiveTeammates } = useSyncLiveStore();
+  const { mutate: updateTeam } = useUpdateTeam();
   const { data, isLoading, error } = useSync({
     query: `*, teams_teammates (teammates (UUID, name, role, color, avatar))`,
     UUID: params.UUID as string,
@@ -61,7 +63,13 @@ const SyncSettingsGrid = () => {
   }, [timer, teammates, teammatesAbsent]);
 
   const handleStart = () => {
-    // TODO: update timer on server
+    // Update timer if it has changed
+    if (team?.timer !== timer) {
+      updateTeam({
+        UUID: team?.UUID as string,
+        timer,
+      });
+    }
 
     setLiveTeam(team as Team);
     setLiveTeammates(teammates.filter(({ UUID }) => !teammatesAbsent.includes(UUID)));
