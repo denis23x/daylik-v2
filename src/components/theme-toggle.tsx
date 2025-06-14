@@ -5,7 +5,15 @@ import { useTheme } from 'next-themes';
 import { Button } from './ui/button';
 import { useEffect, useState } from 'react';
 
-const ThemeToggle = () => {
+const ThemeToggle = ({
+  text,
+  variant,
+  size,
+}: {
+  text?: boolean;
+  variant: 'outline' | 'ghost';
+  size: 'icon' | 'default';
+}) => {
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
 
@@ -13,18 +21,17 @@ const ThemeToggle = () => {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return <Button variant="outline" size="icon" />;
-  }
-
   return (
-    <Button
-      variant="outline"
-      size="icon"
-      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-    >
-      {resolvedTheme === 'dark' ? <SunIcon /> : <MoonIcon />}
-    </Button>
+    mounted && (
+      <Button
+        variant={variant}
+        size={size}
+        onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+      >
+        {resolvedTheme === 'dark' ? <SunIcon /> : <MoonIcon />}
+        {text && (resolvedTheme === 'dark' ? 'Light' : 'Dark')}
+      </Button>
+    )
   );
 };
 

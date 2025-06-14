@@ -13,7 +13,7 @@ const Navbar = () => {
           <Logo />
         </Link>
         <div className="flex items-center gap-3">
-          <ThemeToggle />
+          <ThemeToggle variant="ghost" size="icon" />
           <Button className="inline-flex" asChild>
             <Link href="/auth/login">Sign In</Link>
           </Button>

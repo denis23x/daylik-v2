@@ -111,6 +111,7 @@ const NavigationSheet = () => {
           </NavigationMenuList>
         </NavigationMenu>
         <SheetFooter>
+          <ThemeToggle text variant="outline" size="default" />
           <Button onClick={() => setIsAlertOpen(true)}>Logout</Button>
         </SheetFooter>
       </SheetContent>
@@ -126,7 +127,6 @@ const DashboardNavbar = () => {
           <Logo />
         </Link>
         <div className="flex items-center gap-4">
-          <ThemeToggle />
           <Button className="inline-flex" variant="outline" size="icon" asChild>
             <Link href="/teams">
               <Grid2x2 />
