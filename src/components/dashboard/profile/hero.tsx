@@ -1,14 +1,14 @@
 'use client';
 
-import { CalendarCog } from 'lucide-react';
+import { Settings } from 'lucide-react';
 import DashboardHero from '../hero';
 
 const ProfileHero = () => {
   return (
     <DashboardHero
-      title="Profile"
-      description="Manage your personal settings and preferences. Update your profile information, customize your experience, and keep your account details up to date for a smoother workflow."
-      icon={<CalendarCog />}
+      title="Settings"
+      description="Manage your personal settings and preferences. Update your settings, customize your experience, and keep your account details up to date for a smoother workflow."
+      icon={<Settings />}
     ></DashboardHero>
   );
 };

@@ -56,7 +56,7 @@ export async function signUp({ email, password }: SignUpParams) {
 
 export async function resetPassword({ email }: ResetPasswordParams) {
   const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${process.env.NEXT_PUBLIC_URL}/profile?tabs=password`,
+    redirectTo: `${process.env.NEXT_PUBLIC_URL}/settings?tabs=password`,
   });
   if (error) throw error;
   return data;
@@ -76,7 +76,7 @@ export async function updateEmail({ email }: UpdateEmailParams) {
       email,
     },
     {
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_URL}/profile?tabs=email`,
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_URL}/settings?tabs=email`,
     }
   );
   if (error) throw error;

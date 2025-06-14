@@ -1,8 +1,8 @@
 'use client';
 
-import TabsPassword from '@/components/dashboard/profile/tabs/tabs-password';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import TabsEmail from './tabs/tabs-email';
+import TabsPassword from './tabs/tabs-password';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSearchParams } from 'next/navigation';
 import { Settings } from 'lucide-react';
 
@@ -15,7 +15,7 @@ const ProfileTabs = () => {
       <div className="flex w-full flex-col gap-4">
         <div className="flex min-h-9 items-center gap-4">
           <Settings />
-          <span className="text-xl font-bold">Profile</span>
+          <span className="text-xl font-bold">Settings</span>
         </div>
         <div className="flex w-full flex-col items-center gap-4">
           <Tabs defaultValue={tabs} className="w-full sm:max-w-md">

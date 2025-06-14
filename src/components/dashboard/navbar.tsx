@@ -93,9 +93,9 @@ const NavigationSheet = () => {
             <Separator />
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
-                <Link className="flex items-center gap-2" href="/profile">
+                <Link className="flex items-center gap-2" href="/settings">
                   <Settings size={16} />
-                  Profile
+                  Settings
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
