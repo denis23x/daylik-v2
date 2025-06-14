@@ -1,6 +1,8 @@
-import type { SyncTeam } from './syncTeam.type';
-
-type SyncFields = Required<SyncTeam['sync']>;
+type SyncFields = {
+  startedAt: string;
+  finishedAt: string;
+  timer: number;
+};
 
 export type Analytic = SyncFields & {
   UUID: string;

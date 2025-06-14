@@ -55,7 +55,7 @@ export const SyncLiveCard = ({
     }
   };
 
-  const handleSiren = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSiren = (clientX: number, clientY: number) => {
     const scalar = 3;
     const emojis = [
       '❓',
@@ -78,8 +78,8 @@ export const SyncLiveCard = ({
 
     const shapes = emojis.map((emoji) => confetti.shapeFromText({ text: emoji, scalar }));
 
-    const x = e.clientX / window.innerWidth;
-    const y = e.clientY / window.innerHeight;
+    const x = clientX / window.innerWidth;
+    const y = clientY / window.innerHeight;
 
     confetti({
       particleCount: 40,
@@ -149,7 +149,7 @@ export const SyncLiveCard = ({
                   size="syncIcon"
                   onClick={(e) =>
                     timer.progress === 0
-                      ? handleSiren(e)
+                      ? handleSiren(e.clientX, e.clientY)
                       : timer.status === 'running'
                         ? timer.pause()
                         : timer.resume()

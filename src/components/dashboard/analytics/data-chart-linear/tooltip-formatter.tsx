@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils';
 import { formatDuration } from '@/utils/formatDuration';
 import { ChartConfig } from '@/components/ui/chart';
+import { getMiliseconds } from '@/utils/getMiliseconds';
 
 type TooltipFormatterProps = {
   config: ChartConfig;
@@ -25,9 +26,14 @@ export const TooltipFormatter = ({ value, name, item, config }: TooltipFormatter
         <span className="block w-full text-xs first-letter:capitalize">
           {config[name as keyof ChartConfig].label}
         </span>
-        {(name === 'total' || name === 'paused') && (
+        {name === 'total' && (
           <span className="text-muted-foreground text-xs">
-            {formatDuration((value as number) * 1000)}
+            {formatDuration(getMiliseconds(value))}
+          </span>
+        )}
+        {name === 'paused' && (
+          <span className="text-muted-foreground text-xs">
+            {value > 0 ? formatDuration(getMiliseconds(value)) : '-'}
           </span>
         )}
         {name === 'overtime' && (

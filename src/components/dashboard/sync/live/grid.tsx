@@ -58,8 +58,8 @@ const SyncLiveGrid = () => {
     const handleFinish = async () => {
       try {
         const analytics = await createAnalytics({
-          teamUUID: team?.UUID,
-          timer: team?.timer,
+          teamUUID: team?.UUID as string,
+          timer: team?.timer as number,
           startedAt: isStarted as string,
           finishedAt: new Date().toISOString(),
         });

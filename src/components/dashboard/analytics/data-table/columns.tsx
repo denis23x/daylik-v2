@@ -96,7 +96,7 @@ export const columns = ({ sorting }: { sorting: SortingState }): ColumnDef<Analy
       },
     },
     {
-      accessorKey: 'timer',
+      accessorKey: 'total',
       accessorFn: (row) => row.total,
       header: ({ column }) => {
         const [s] = sorting;
@@ -104,7 +104,7 @@ export const columns = ({ sorting }: { sorting: SortingState }): ColumnDef<Analy
 
         return (
           <Button
-            className={`!p-0 ${s.id === 'timer' ? 'text-primary' : 'text-muted-foreground'}`}
+            className={`!p-0 ${s.id === 'total' ? 'text-primary' : 'text-muted-foreground'}`}
             variant="text"
             onClick={() => column.toggleSorting(isSorted === 'asc')}
           >
@@ -116,7 +116,35 @@ export const columns = ({ sorting }: { sorting: SortingState }): ColumnDef<Analy
       cell: ({ row }) => {
         const { total } = row.original;
 
-        return <span className="text-sm">{formatDuration(total ? total * 1000 : 0)}</span>;
+        return <span className="text-sm">{formatDuration(total as number)}</span>;
+      },
+    },
+    {
+      accessorKey: 'paused',
+      accessorFn: (row) => row.paused,
+      header: ({ column }) => {
+        const [s] = sorting;
+        const isSorted = column.getIsSorted();
+
+        return (
+          <Button
+            className={`!p-0 ${s.id === 'paused' ? 'text-primary' : 'text-muted-foreground'}`}
+            variant="text"
+            onClick={() => column.toggleSorting(isSorted === 'asc')}
+          >
+            Paused
+            {isSorted === 'asc' ? <ArrowUp01 /> : <ArrowDown10 />}
+          </Button>
+        );
+      },
+      cell: ({ row }) => {
+        const { paused } = row.original;
+
+        return paused && paused > 0 ? (
+          <span className="text-sm">{formatDuration(paused as number)}</span>
+        ) : (
+          <span className="text-muted-foreground text-sm">-</span>
+        );
       },
     },
     {
@@ -141,11 +169,9 @@ export const columns = ({ sorting }: { sorting: SortingState }): ColumnDef<Analy
         const { overtime } = row.original;
 
         return overtime && overtime > 0 ? (
-          <Badge variant={overtime > 1 ? 'destructive' : 'secondary'}>
-            Overtime x{overtime.toFixed(1)}
-          </Badge>
+          <Badge variant={overtime >= 1 ? 'destructive' : 'secondary'}>Overtime x{overtime}</Badge>
         ) : (
-          <Badge variant="secondary">On time</Badge>
+          <span className="text-muted-foreground text-sm">-</span>
         );
       },
     },

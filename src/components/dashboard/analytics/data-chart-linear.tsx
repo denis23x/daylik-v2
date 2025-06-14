@@ -26,6 +26,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { TooltipFormatter } from './data-chart-linear/tooltip-formatter';
+import { getSeconds } from '@/utils/getSeconds';
 
 type ChartType = 'step' | 'linear' | 'natural';
 
@@ -60,8 +61,8 @@ const AnalyticsDataChartLinear = ({ teammates }: { teammates: AnalyticTeammate[]
       const data = teammates.map((analyticTeammate: AnalyticTeammate) => ({
         name: analyticTeammate.teammate.name,
         overtime: analyticTeammate.overtime as number,
-        total: Math.floor((analyticTeammate.total as number) / 1000),
-        paused: Math.floor((analyticTeammate.paused as number) / 1000),
+        total: getSeconds(analyticTeammate.total as number),
+        paused: getSeconds(analyticTeammate.paused as number),
       }));
 
       setChartData(data);
@@ -71,8 +72,8 @@ const AnalyticsDataChartLinear = ({ teammates }: { teammates: AnalyticTeammate[]
   return (
     <Card className="p-4">
       <CardHeader className="p-0">
-        <CardTitle>Sync flow</CardTitle>
-        <CardDescription>How much time each teammate spoke today</CardDescription>
+        <CardTitle>Daily Sync Timeline</CardTitle>
+        <CardDescription>A complete breakdown of today&apos;s standup</CardDescription>
         <CardAction>
           <Select value={type} onValueChange={(value) => setType(value as typeof type)}>
             <SelectTrigger className="w-30">

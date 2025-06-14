@@ -99,7 +99,7 @@ const AnalyticsDataTable = ({ teammates }: { teammates: AnalyticTeammate[] }) =>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={5}>
+                <TableCell colSpan={6}>
                   <NotFound className="mx-auto py-8" />
                 </TableCell>
               </TableRow>
