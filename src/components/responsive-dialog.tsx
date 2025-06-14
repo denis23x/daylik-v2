@@ -77,7 +77,7 @@ const ResponsiveDialog = ({
         }
       }
     }
-  }, [open, isDesktop]);
+  }, [open, isDesktop, resolvedTheme]);
 
   if (isDesktop) {
     return (

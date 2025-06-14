@@ -8,4 +8,5 @@ export type Analytic = SyncFields & {
   UUID: string;
   teamUUID: string;
   userUUID: string;
+  createdAt: string;
 };
