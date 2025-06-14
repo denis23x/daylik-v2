@@ -97,7 +97,7 @@ export const columns = ({ sorting }: { sorting: SortingState }): ColumnDef<Analy
     },
     {
       accessorKey: 'timer',
-      accessorFn: (row) => row.elapsed,
+      accessorFn: (row) => row.total,
       header: ({ column }) => {
         const [s] = sorting;
         const isSorted = column.getIsSorted();
@@ -108,15 +108,15 @@ export const columns = ({ sorting }: { sorting: SortingState }): ColumnDef<Analy
             variant="text"
             onClick={() => column.toggleSorting(isSorted === 'asc')}
           >
-            Elapsed
+            Total
             {isSorted === 'asc' ? <ArrowUp01 /> : <ArrowDown10 />}
           </Button>
         );
       },
       cell: ({ row }) => {
-        const { elapsed } = row.original;
+        const { total } = row.original;
 
-        return <span className="text-sm">{formatDuration(elapsed ? elapsed * 1000 : 0)}</span>;
+        return <span className="text-sm">{formatDuration(total ? total * 1000 : 0)}</span>;
       },
     },
     {

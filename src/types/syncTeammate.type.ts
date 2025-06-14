@@ -3,7 +3,6 @@ import type { Nullable } from './utils/nullable.type';
 
 type SyncFields = {
   order: number;
-  elapsed: number;
   overtime: number;
   total: number;
   paused: number;

@@ -31,17 +31,12 @@ type ChartType = 'step' | 'linear' | 'natural';
 
 type ChartData = {
   name: string;
-  // elapsed: number;
   overtime: number;
   total: number;
   paused: number;
 };
 
 const chartConfig = {
-  // elapsed: {
-  //   label: 'Elapsed',
-  //   color: 'var(--color-chart-1)',
-  // },
   total: {
     label: 'Total',
     color: 'var(--color-chart-1)',
@@ -64,13 +59,10 @@ const AnalyticsDataChartLinear = ({ teammates }: { teammates: AnalyticTeammate[]
     if (teammates.length) {
       const data = teammates.map((analyticTeammate: AnalyticTeammate) => ({
         name: analyticTeammate.teammate.name,
-        // elapsed: (analyticTeammate.elapsed as number) / 1000,
         overtime: analyticTeammate.overtime as number,
         total: Math.floor((analyticTeammate.total as number) / 1000),
         paused: Math.floor((analyticTeammate.paused as number) / 1000),
       }));
-
-      console.log('data', data);
 
       setChartData(data);
     }
@@ -120,12 +112,6 @@ const AnalyticsDataChartLinear = ({ teammates }: { teammates: AnalyticTeammate[]
                 />
               }
             />
-            {/* <defs>
-              <linearGradient id="fillElapsed" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="var(--color-elapsed)" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="var(--color-elapsed)" stopOpacity={0.1} />
-              </linearGradient>
-            </defs> */}
             <defs>
               <linearGradient id="fillTotal" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="var(--color-total)" stopOpacity={0.8} />
@@ -144,21 +130,13 @@ const AnalyticsDataChartLinear = ({ teammates }: { teammates: AnalyticTeammate[]
                 <stop offset="95%" stopColor="var(--color-overtime)" stopOpacity={0.1} />
               </linearGradient>
             </defs>
-            {/* <Area
-              dataKey="elapsed"
-              type={type}
-              fill="url(#fillElapsed)"
-              fillOpacity={0.4}
-              stroke="var(--color-elapsed)"
-              stackId="a"
-            /> */}
             <Area
               dataKey="total"
               type={type}
               fill="url(#fillTotal)"
               fillOpacity={0.4}
               stroke="var(--color-total)"
-              stackId="b"
+              stackId="a"
             />
             <Area
               dataKey="paused"
@@ -166,7 +144,7 @@ const AnalyticsDataChartLinear = ({ teammates }: { teammates: AnalyticTeammate[]
               fill="url(#fillPaused)"
               fillOpacity={0.4}
               stroke="var(--color-paused)"
-              stackId="c"
+              stackId="b"
             />
             <Area
               dataKey="overtime"
@@ -174,7 +152,7 @@ const AnalyticsDataChartLinear = ({ teammates }: { teammates: AnalyticTeammate[]
               fill="url(#fillOvertime)"
               fillOpacity={0.4}
               stroke="var(--color-overtime)"
-              stackId="d"
+              stackId="c"
             />
           </AreaChart>
         </ChartContainer>

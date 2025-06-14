@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import {
@@ -14,6 +14,8 @@ import {
 import { Label } from './ui/label';
 import { useSyncSettingsStore } from '@/store/useSyncSettingsStore';
 import { Slider } from './ui/slider';
+import { getMiliseconds } from '@/utils/getMiliseconds';
+import { getSeconds } from '@/utils/getSeconds';
 
 // TODO: env
 const MIN_TIMER = 30;
@@ -21,7 +23,12 @@ const MAX_TIMER = 180;
 
 const TimerPicker = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false);
-  const { timer, setTimer } = useSyncSettingsStore();
+  const { timer: syncTimer, setTimer: setSyncTimer } = useSyncSettingsStore();
+  const [timer, setTimer] = useState(getSeconds(syncTimer));
+
+  useEffect(() => {
+    setSyncTimer(getMiliseconds(timer));
+  }, [timer, setSyncTimer]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

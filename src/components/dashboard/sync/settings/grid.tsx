@@ -19,6 +19,7 @@ import { getContrastingColor } from '@/utils/getContrastingColor';
 import TimerPicker from '@/components/timer-picker';
 import { RainbowButton } from '@/components/magicui/rainbow-button';
 import { useUpdateTeam } from '@/hooks/useTeams';
+import { getSeconds } from '@/utils/getSeconds';
 
 // teammatesAbsent reducer
 function reducer(state: string[], action: { type: 'add' | 'remove'; UUID: string }): string[] {
@@ -57,7 +58,8 @@ const SyncSettingsGrid = () => {
   }, [data, setTeam, setTeammates, setTimer]);
 
   useEffect(() => {
-    const duration = (timer * ((teammates?.length || 0) - teammatesAbsent.length)) / 60;
+    const teammatesActive = teammates.length - teammatesAbsent.length;
+    const duration = Math.ceil((getSeconds(timer) * teammatesActive) / 60);
 
     setTeammatesDuration(duration);
   }, [timer, teammates, teammatesAbsent]);
@@ -88,9 +90,7 @@ const SyncSettingsGrid = () => {
           {!isLoading && !error && (
             <p className="flex items-center gap-2">
               <span className="text-xl font-bold">Sync</span>
-              <span className="text-muted-foreground mt-1 text-sm">
-                ~ {teammatesDuration > 1 ? teammatesDuration.toFixed() : 1} min.
-              </span>
+              <span className="text-muted-foreground mt-1 text-sm">~ {teammatesDuration} min.</span>
             </p>
           )}
         </div>

@@ -81,12 +81,6 @@ export const useTimer = (duration: number) => {
     setStatus('idle');
   };
 
-  const getElapsedMS = () => {
-    if (!startTimeRef.current) return 0;
-    const now = status === 'paused' && pauseStartRef.current ? pauseStartRef.current : getNow();
-    return Math.min(duration, now - startTimeRef.current - totalPausedRef.current);
-  };
-
   const getPausedMS = () => {
     if (!startTimeRef.current) return 0;
     const now = getNow();
@@ -111,7 +105,6 @@ export const useTimer = (duration: number) => {
     stop,
     progress,
     status,
-    getElapsedMS,
     getPausedMS,
     getTotalMS,
   };

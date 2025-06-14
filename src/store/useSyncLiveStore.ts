@@ -34,7 +34,6 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
         ...teammate,
         sync: {
           order: null,
-          elapsed: null,
           overtime: null,
           total: null,
           paused: null,
@@ -87,7 +86,6 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
               sync: {
                 ...teammate.sync,
                 // TODO: format
-                elapsed: parseInt(timer.getElapsedMS().toString()),
                 overtime: parseFloat(stopwatch.overtime.toFixed(1)),
                 total: parseInt(timer.getTotalMS().toString()),
                 paused: parseInt(timer.getPausedMS().toString()),
