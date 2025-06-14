@@ -23,6 +23,40 @@ const DashboardHero = ({
 }) => {
   const [isOpen, setIsOpen] = useState('');
 
+  const handleScroll = () => {
+    const element = document.querySelector('.min-h-screen-grid');
+
+    if (element) {
+      const computedStyle = getComputedStyle(document.documentElement);
+      const offset = parseInt(computedStyle.getPropertyValue('--navbar-height'));
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetTarget = elementPosition + window.scrollY - offset;
+
+      const start = window.scrollY;
+      const distance = offsetTarget - start;
+      const duration = 400;
+
+      let startTime: number | null = null;
+
+      // Fast and smooth scroll
+      const step = (timestamp: number) => {
+        if (!startTime) startTime = timestamp;
+        const timeElapsed = timestamp - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+
+        const easeInOutQuad = (t: number) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
+
+        window.scrollTo(0, start + distance * easeInOutQuad(progress));
+
+        if (timeElapsed < duration) {
+          requestAnimationFrame(step);
+        }
+      };
+
+      requestAnimationFrame(step);
+    }
+  };
+
   return (
     <Accordion
       type="single"
@@ -36,12 +70,12 @@ const DashboardHero = ({
             {isOpen ? <X /> : <Info />}
           </Button>
         </AccordionTrigger>
-        <AccordionContent className="min-h-screen-daylik mx-auto flex max-w-2xl flex-col items-center justify-center gap-6 p-4 text-center">
+        <AccordionContent className="min-h-screen-hero mx-auto flex max-w-2xl flex-col items-center justify-center gap-6 p-4 text-center">
           {icon}
           <span className="text-2xl font-bold sm:text-3xl md:text-4xl">{title}</span>
           <p className="text-base md:text-lg">{description}</p>
           {children}
-          <ArrowDown className="mt-4 animate-bounce" />
+          <ArrowDown className="mt-4 animate-bounce cursor-pointer" onClick={handleScroll} />
         </AccordionContent>
       </AccordionItem>
     </Accordion>

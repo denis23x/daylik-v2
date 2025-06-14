@@ -22,7 +22,7 @@ const AnalyticsGrid = () => {
   }, [team, teammates]);
 
   return (
-    <div className="min-h-screen-daylik container mx-auto p-4">
+    <div className="min-h-screen-grid container mx-auto p-4">
       <div className="flex w-full flex-col gap-4">
         <div className="flex min-h-9 items-center gap-4">
           <ChartLine />
