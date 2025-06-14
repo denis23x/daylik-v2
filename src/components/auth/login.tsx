@@ -65,7 +65,7 @@ const AuthLogin = () => {
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="Email"
+                        placeholder="What's your email?"
                         className="w-full"
                         disabled={formState.isSubmitting}
                         autoComplete="email"
@@ -88,7 +88,7 @@ const AuthLogin = () => {
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="Password"
+                        placeholder="Shhh... it's a secret"
                         className="w-full"
                         disabled={formState.isSubmitting}
                         autoComplete="current-password"

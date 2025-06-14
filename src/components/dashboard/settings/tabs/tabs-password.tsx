@@ -51,10 +51,10 @@ const TabsPassword = () => {
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
-            <TabsPasswordInput name="password" placeholder="New password" label="New Password" />
+            <TabsPasswordInput name="password" />
             <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
               {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
-              {form.formState.isSubmitting ? 'Please wait' : 'Update Password'}
+              {form.formState.isSubmitting ? 'Please wait' : 'Update'}
             </Button>
           </form>
         </Form>

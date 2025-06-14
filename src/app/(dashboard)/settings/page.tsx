@@ -1,11 +1,11 @@
-import ProfileHero from '@/components/dashboard/profile/hero';
-import ProfileTabs from '@/components/dashboard/profile/tabs-suspense';
+import SettingsHero from '@/components/dashboard/settings/hero';
+import SettingsTabs from '@/components/dashboard/settings/tabs-suspense';
 
-export default async function Profile() {
+export default async function Settings() {
   return (
     <>
-      <ProfileHero />
-      <ProfileTabs />
+      <SettingsHero />
+      <SettingsTabs />
     </>
   );
 }

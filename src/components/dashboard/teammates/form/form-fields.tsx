@@ -29,7 +29,7 @@ const TeammatesFormFields = () => {
             </FormLabel>
             <FormControl>
               <Input
-                placeholder="Teammate name"
+                placeholder="What's their name?"
                 {...field}
                 disabled={form.formState.isSubmitting}
               />
@@ -47,7 +47,11 @@ const TeammatesFormFields = () => {
               Role <span className="text-destructive">*</span>
             </FormLabel>
             <FormControl>
-              <Input placeholder="Role" {...field} disabled={form.formState.isSubmitting} />
+              <Input
+                placeholder="What's their role in the team?"
+                {...field}
+                disabled={form.formState.isSubmitting}
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -74,7 +78,7 @@ const TeammatesFormFields = () => {
               <FormLabel>Avatar</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Avatar URL"
+                  placeholder="Got a cool picture? Paste the link"
                   {...field}
                   value={field.value || ''}
                   disabled={form.formState.isSubmitting}

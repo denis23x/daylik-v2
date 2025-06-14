@@ -48,7 +48,7 @@ const AnalyticsDataTable = ({ teammates }: { teammates: AnalyticTeammate[] }) =>
   return (
     <div className="flex flex-col gap-4">
       <Input
-        placeholder="Filter teammates..."
+        placeholder="Who's on your mind?"
         value={filter}
         onChange={(event) => setFilter(event.target.value)}
         autoComplete="off"

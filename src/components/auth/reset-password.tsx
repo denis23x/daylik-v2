@@ -64,7 +64,7 @@ const AuthResetPassword = () => {
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="Email"
+                        placeholder="We'll send you a link"
                         className="w-full"
                         disabled={formState.isSubmitting}
                         autoComplete="email"
@@ -80,7 +80,7 @@ const AuthResetPassword = () => {
               />
               <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
                 {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
-                {form.formState.isSubmitting ? 'Please wait' : 'Send reset link'}
+                {form.formState.isSubmitting ? 'Please wait' : 'Send link'}
               </Button>
             </form>
           </Form>

@@ -7,15 +7,7 @@ import { FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/for
 import { Input } from '@/components/ui/input';
 import { FormControl } from '@/components/ui/form';
 
-export function TabsPasswordInput({
-  name,
-  label,
-  placeholder,
-}: {
-  name: string;
-  label: string;
-  placeholder: string;
-}) {
+export function TabsPasswordInput({ name }: { name: string }) {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const form = useFormContext();
   const toggleVisibility = () => setIsVisible((prevState) => !prevState);
@@ -57,7 +49,7 @@ export function TabsPasswordInput({
   };
 
   const getStrengthText = (score: number) => {
-    if (score === 0) return 'Password strength';
+    if (score === 0) return 'New password';
     if (score <= 2) return 'Weak password';
     if (score <= 3) return 'Medium password';
     if (score === 4) return 'Strong password';
@@ -71,12 +63,12 @@ export function TabsPasswordInput({
         name={name}
         render={({ field, formState }) => (
           <FormItem>
-            <FormLabel>{label}</FormLabel>
+            <FormLabel>{getStrengthText(strengthScore)}</FormLabel>
             <div className="relative">
               <FormControl>
                 <Input
                   type={isVisible ? 'text' : 'password'}
-                  placeholder={placeholder}
+                  placeholder="Make it strong (min. 8 characters)"
                   className="w-full"
                   disabled={formState.isSubmitting}
                   autoComplete="new-password"
@@ -105,7 +97,6 @@ export function TabsPasswordInput({
           </FormItem>
         )}
       />
-
       {/* Password strength indicator */}
       <div
         className="bg-border my-4 h-1 w-full overflow-hidden rounded-full"
@@ -122,11 +113,6 @@ export function TabsPasswordInput({
           style={{ width: `${(strengthScore / 5) * 100}%` }}
         ></div>
       </div>
-
-      {/* Password strength description */}
-      <p id="password-strength" className="text-foreground mb-2 text-sm font-medium">
-        {getStrengthText(strengthScore)}
-      </p>
 
       {/* Password requirements list */}
       <ul className="space-y-1.5" aria-label="Password requirements">

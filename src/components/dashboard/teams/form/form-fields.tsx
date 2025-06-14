@@ -25,7 +25,11 @@ const TeamsFormFields = () => {
               <span className="text-destructive">*</span>
             </FormLabel>
             <FormControl>
-              <Input placeholder="Enter team name" disabled={formState.isSubmitting} {...field} />
+              <Input
+                placeholder="What's your team called?"
+                disabled={formState.isSubmitting}
+                {...field}
+              />
             </FormControl>
             <FormMessage />
           </FormItem>

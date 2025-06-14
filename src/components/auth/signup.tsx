@@ -65,7 +65,7 @@ const AuthSignUp = () => {
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="Email"
+                        placeholder="What's your email?"
                         className="w-full"
                         disabled={formState.isSubmitting}
                         autoComplete="email"
@@ -88,7 +88,7 @@ const AuthSignUp = () => {
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="Password"
+                        placeholder="Make it strong (min. 8 characters)"
                         className="w-full"
                         disabled={formState.isSubmitting}
                         autoComplete="new-password"

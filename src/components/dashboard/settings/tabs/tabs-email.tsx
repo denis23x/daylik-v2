@@ -58,7 +58,7 @@ const TabsEmail = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Update Email</CardTitle>
+        <CardTitle>Update Email Address</CardTitle>
         <CardDescription className="border-b pb-6">
           Change the email address linked to your account. A confirmation link will be sent to
           verify the new address before the update is applied.
@@ -68,7 +68,7 @@ const TabsEmail = () => {
         {form.formState.isSubmitSuccessful && (
           <Alert className="mb-6" variant="destructive">
             <AlertDescription className="inline">
-              We&apos;ve sent confirmation emails to both your <strong>old</strong> and{' '}
+              We&apos;ve sent confirmation emails to both your <strong>current</strong> and{' '}
               <strong>new</strong> email addresses. Please check both inboxes and click the links to
               complete the process.
             </AlertDescription>
@@ -81,11 +81,11 @@ const TabsEmail = () => {
               name="newEmail"
               render={({ field, formState }) => (
                 <FormItem>
-                  <FormLabel>New Email</FormLabel>
+                  <FormLabel>New</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
-                      placeholder="New Email"
+                      placeholder="What's your new email?"
                       className="w-full"
                       disabled={formState.isSubmitting}
                       autoComplete="email"
@@ -104,11 +104,10 @@ const TabsEmail = () => {
               name="oldEmail"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Old Email</FormLabel>
+                  <FormLabel>Current</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
-                      placeholder="Old Email"
                       className="w-full"
                       disabled={true}
                       autoComplete="email"
@@ -124,7 +123,7 @@ const TabsEmail = () => {
             />
             <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
               {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
-              {form.formState.isSubmitting ? 'Please wait' : 'Update Email'}
+              {form.formState.isSubmitting ? 'Please wait' : 'Send link'}
             </Button>
           </form>
         </Form>
