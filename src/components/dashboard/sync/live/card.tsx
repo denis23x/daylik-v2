@@ -21,8 +21,8 @@ export const SyncLiveCard = ({
   showRoles: boolean;
 }) => {
   const { setActive, setDone } = useSyncLiveStore();
-  const timer = useTimer(team.timer * 1000);
-  const stopwatch = useStopwatch(team.timer * 1000);
+  const timer = useTimer(team.timer);
+  const stopwatch = useStopwatch(team.timer);
 
   useEffect(() => {
     if (teammate.sync.status === 'active') {

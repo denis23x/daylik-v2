@@ -24,11 +24,15 @@ const MAX_TIMER = 180;
 const TimerPicker = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false);
   const { timer: syncTimer, setTimer: setSyncTimer } = useSyncSettingsStore();
-  const [timer, setTimer] = useState(getSeconds(syncTimer));
+  const [timer, setTimer] = useState(0);
 
   useEffect(() => {
-    setSyncTimer(getMiliseconds(timer));
-  }, [timer, setSyncTimer]);
+    setTimer(getSeconds(syncTimer));
+  }, [syncTimer]);
+
+  const handleChange = (value: number) => {
+    setSyncTimer(getMiliseconds(value));
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -40,7 +44,7 @@ const TimerPicker = ({ children }: { children: React.ReactNode }) => {
           <NumberInput
             min={MIN_TIMER}
             max={MAX_TIMER}
-            onValueChange={(value) => setTimer(value as number)}
+            onValueChange={(value) => handleChange(value as number)}
             value={timer}
           >
             <NumberInputScrubArea>
@@ -57,7 +61,7 @@ const TimerPicker = ({ children }: { children: React.ReactNode }) => {
             max={MAX_TIMER}
             step={10}
             value={[timer]}
-            onValueChange={([value]) => setTimer(value)}
+            onValueChange={([value]) => handleChange(value)}
           />
           <Button className="w-full" onClick={() => setOpen(false)}>
             Close

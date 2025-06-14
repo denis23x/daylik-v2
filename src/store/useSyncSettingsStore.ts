@@ -3,7 +3,7 @@ import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
 
 // TODO: env
-const TIMER = 10;
+const TIMER = 10000;
 
 type SyncSettingsStore = {
   team: Team | null;

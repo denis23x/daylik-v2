@@ -58,8 +58,8 @@ const SyncLiveGrid = () => {
     const handleFinish = async () => {
       try {
         const analytics = await createAnalytics({
-          teamUUID: team?.UUID as string,
-          timer: team?.timer as number,
+          teamUUID: team?.UUID,
+          timer: team?.timer,
           startedAt: isStarted as string,
           finishedAt: new Date().toISOString(),
         });
@@ -69,7 +69,7 @@ const SyncLiveGrid = () => {
           teammates,
         });
 
-        router.push(`/analytics/${analytics.UUID}`);
+        router.replace(`/analytics/${analytics.UUID}`);
       } catch (error) {
         toast.error(error instanceof Error ? error.message : 'An error occurred');
       }
