@@ -24,6 +24,7 @@ import {
 import { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import { Separator } from './ui/separator';
+import { useTheme } from 'next-themes';
 
 interface ResponsiveDialogProps {
   title: string;
@@ -48,6 +49,7 @@ const ResponsiveDialog = ({
 }: ResponsiveDialogProps) => {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
   const isDesktop = useMediaQuery('(min-width: 640px)');
+  const { resolvedTheme } = useTheme();
 
   // Use controlled props if provided, otherwise use internal state
   const isControlled = controlledOpen !== undefined && controlledOnOpenChange !== undefined;
@@ -62,12 +64,15 @@ const ResponsiveDialog = ({
       if (isDesktop) {
         element.removeAttribute('style');
       } else {
+        const bodyClass = resolvedTheme === 'dark' ? 'bg-background' : 'bg-foreground';
         if (open) {
+          document.body.classList.add(bodyClass);
           element.style.borderRadius = '8px';
           element.style.overflow = 'hidden';
           element.style.transform = 'scale(0.95) translate3d(0, -28px, 0)';
           element.style.transformOrigin = 'center';
         } else {
+          document.body.classList.remove(bodyClass);
           element.removeAttribute('style');
         }
       }
