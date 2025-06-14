@@ -20,6 +20,7 @@ import TimerPicker from '@/components/timer-picker';
 import { RainbowButton } from '@/components/magicui/rainbow-button';
 import { useUpdateTeam } from '@/hooks/useTeams';
 import { getSeconds } from '@/utils/getSeconds';
+import { formatDuration } from '@/utils/formatDuration';
 
 // teammatesAbsent reducer
 function reducer(state: string[], action: { type: 'add' | 'remove'; UUID: string }): string[] {
@@ -97,8 +98,8 @@ const SyncSettingsGrid = () => {
         {!isLoading && !error && teammates?.length !== 0 && (
           <div className="flex w-full items-end gap-4">
             <TimerPicker>
-              <Button variant="outline" size="icon">
-                <Clock />
+              <Button variant="outline">
+                <Clock /> {formatDuration(timer)}
               </Button>
             </TimerPicker>
             <RainbowButton

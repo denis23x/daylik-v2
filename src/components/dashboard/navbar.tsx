@@ -13,7 +13,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { Grid2x2, Menu, Settings, UsersRound } from 'lucide-react';
+import { ChartLine, Grid2x2, Menu, Settings, UsersRound } from 'lucide-react';
 import { toast } from 'sonner';
 import { useRouter, usePathname } from 'next/navigation';
 import {
@@ -93,6 +93,15 @@ const NavigationSheet = () => {
             <Separator />
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
+                <Link className="flex items-center gap-2" href="/analytics">
+                  <ChartLine size={16} />
+                  Analytics
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <Separator />
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
                 <Link className="flex items-center gap-2" href="/settings">
                   <Settings size={16} />
                   Settings
@@ -102,9 +111,7 @@ const NavigationSheet = () => {
           </NavigationMenuList>
         </NavigationMenu>
         <SheetFooter>
-          <Button variant="outline" onClick={() => setIsAlertOpen(true)}>
-            Logout
-          </Button>
+          <Button onClick={() => setIsAlertOpen(true)}>Logout</Button>
         </SheetFooter>
       </SheetContent>
     </Sheet>

@@ -1,12 +1,12 @@
 'use client';
 
 import { Suspense } from 'react';
-import ProfileTabs from './tabs';
+import SettingsTabs from './tabs';
 
 const ProfileTabsSuspense = () => {
   return (
     <Suspense>
-      <ProfileTabs />
+      <SettingsTabs />
     </Suspense>
   );
 };

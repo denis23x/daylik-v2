@@ -3,12 +3,31 @@
 import TabsEmail from './tabs/tabs-email';
 import TabsPassword from './tabs/tabs-password';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useSearchParams } from 'next/navigation';
+import { getQueryParams } from '@/utils/getQueryParams';
 import { Settings } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
-const ProfileTabs = () => {
-  const searchParams = useSearchParams();
-  const tabs = searchParams.get('tabs') || 'email';
+const SettingsTabs = () => {
+  const [tab, setTab] = useState('email');
+
+  useEffect(() => {
+    const onPopState = () => setTab(getQueryParams('tabs') || 'email');
+
+    onPopState();
+
+    window.addEventListener('popstate', onPopState);
+
+    return () => {
+      window.removeEventListener('popstate', onPopState);
+    };
+  }, []);
+
+  const handleTabsChange = (value: string) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set('tabs', value);
+    window.history.pushState({}, '', url.toString());
+    setTab(value);
+  };
 
   return (
     <div className="min-h-screen-grid container mx-auto p-4">
@@ -18,7 +37,7 @@ const ProfileTabs = () => {
           <span className="text-xl font-bold">Settings</span>
         </div>
         <div className="flex w-full flex-col items-center gap-4">
-          <Tabs defaultValue={tabs} className="w-full sm:max-w-md">
+          <Tabs value={tab} onValueChange={handleTabsChange} className="w-full sm:max-w-md">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="email">Email</TabsTrigger>
               <TabsTrigger value="password">Password</TabsTrigger>
@@ -36,4 +55,4 @@ const ProfileTabs = () => {
   );
 };
 
-export default ProfileTabs;
+export default SettingsTabs;
