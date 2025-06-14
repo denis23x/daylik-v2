@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { ArrowDown, Info, X } from 'lucide-react';
+import { ArrowDown, Text, X } from 'lucide-react';
 import {
   Accordion,
   AccordionTrigger,
@@ -67,7 +67,7 @@ const DashboardHero = ({
       <AccordionItem value="item-1">
         <AccordionTrigger asChild>
           <Button className="absolute top-4 right-4 z-10" variant="ghost" size="icon">
-            {isOpen ? <X /> : <Info />}
+            {isOpen ? <X /> : <Text />}
           </Button>
         </AccordionTrigger>
         <AccordionContent className="min-h-screen-hero mx-auto flex max-w-2xl flex-col items-center justify-center gap-6 p-4 text-center">

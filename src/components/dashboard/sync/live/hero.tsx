@@ -1,14 +1,14 @@
 'use client';
 
-import { CalendarCheck2 } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import DashboardHero from '../../hero';
 
 const SyncLiveHero = () => {
   return (
     <DashboardHero
       title="Sync"
-      description="Run your daily stand-ups here to keep your team in sync. Use this space to share updates, discuss blockers, and align on priorities. Maintain momentum and ensure everyone stays on the same page."
-      icon={<CalendarCheck2 />}
+      description="Run your daily sync in real time. Choose who speaks next, manage the timing and flow, pause when needed, and guide your team through a focused, engaging stand-up from start to finish."
+      icon={<Clock />}
     ></DashboardHero>
   );
 };

@@ -6,8 +6,8 @@ import DashboardHero from '../../hero';
 const SyncSettingsHero = () => {
   return (
     <DashboardHero
-      title="Sync"
-      description="Run your daily stand-ups here to keep your team in sync. Use this space to share updates, discuss blockers, and align on priorities. Maintain momentum and ensure everyone stays on the same page."
+      title="Setup"
+      description="Configure your sync before it starts. Select who’s in, set the timer, remove unavailable teammates, and fine-tune the flow to make sure your sync runs smoothly from the very first second."
       icon={<CalendarCheck2 />}
     ></DashboardHero>
   );
