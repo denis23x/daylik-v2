@@ -47,7 +47,12 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>{children}</PopoverTrigger>
-      <PopoverContent onOpenAutoFocus={(e) => e.preventDefault()} className="w-auto p-0">
+      <PopoverContent
+        onOpenAutoFocus={(e) => e.preventDefault()}
+        className="w-auto p-0"
+        sideOffset={16}
+        collisionPadding={16}
+      >
         <div className="flex flex-col">
           <Calendar
             mode="single"
@@ -59,17 +64,18 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
                   <CalendarDayButton day={day} modifiers={modifiers} {...props}>
                     {children}
                     {data && (
-                      <ul className="absolute right-0 bottom-0 left-0 flex scale-80 justify-center gap-1 px-2 py-1">
+                      <ul className="absolute right-0 bottom-0 left-0 flex scale-75 justify-center gap-1 px-2 py-1">
                         {data
                           .filter((item) =>
                             day.dateLib.isSameDay(new Date(item.createdAt), day.date)
                           )
+                          .slice(0, 3)
                           .map((item) => {
                             const bg = modifiers.selected ? 'bg-background' : 'bg-foreground';
 
                             return (
                               <li
-                                className={`h-1 w-1 rounded-full transition-colors ${bg}`}
+                                className={`aspect-square h-1 w-1 rounded-full transition-colors ${bg}`}
                                 key={item.UUID}
                               ></li>
                             );

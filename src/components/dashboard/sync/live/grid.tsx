@@ -17,9 +17,9 @@ import { Skeleton } from '@/components/ui/skeleton';
 import NotFound from '@/components/not-found';
 import ErrorOccurred from '@/components/error-occurred';
 import { getIsLastActive } from '@/utils/getIsLastActive';
-import { createAnalytics } from '@/lib/api/analytics';
-import { addTeammatesToAnalytic } from '@/lib/api/analyticsTeammates';
 import { toast } from 'sonner';
+import { useCreateAnalytics } from '@/hooks/useAnalytics';
+import { useAddTeammatesToAnalytic } from '@/hooks/useAnalyticsTeammates';
 
 const SyncLiveGrid = () => {
   const params = useParams();
@@ -28,6 +28,8 @@ const SyncLiveGrid = () => {
   const [isDone, setIsDone] = useState(false);
   const [isPristine, setIsPristine] = useState(false);
   const [isStarted, setIsStarted] = useState<string | null>(null);
+  const { mutateAsync: createAnalytics } = useCreateAnalytics();
+  const { mutateAsync: addTeammatesToAnalytic } = useAddTeammatesToAnalytic();
   const { team, teammates, setTeam, setTeammates, setActive, shuffle } = useSyncLiveStore();
   const { isLoading, error, refetch } = useSync({
     query: `*, teams_teammates (teammates (UUID, name, role, color, avatar))`,
@@ -57,6 +59,9 @@ const SyncLiveGrid = () => {
     if (!isDone) return;
     const handleFinish = async () => {
       try {
+        toast.success('Saving your data — analytics coming right up');
+
+        // Create analytics
         const analytics = await createAnalytics({
           teamUUID: team?.UUID as string,
           timer: team?.timer as number,
