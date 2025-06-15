@@ -24,16 +24,6 @@ export async function fetchAnalytics({
   return data;
 }
 
-export async function fetchAnalytics2({ query }: { query: string }): Promise<Analytic[]> {
-  const session = await getSession();
-  const { data, error } = (await supabase
-    .from('analytics')
-    .select(query)
-    .eq('userUUID', session?.user.id)) as SupabaseQueryResult<Analytic[]>;
-  if (error) throw error;
-  return data || [];
-}
-
 export async function createAnalytics(
   analytics: Pick<Analytic, 'teamUUID' | 'timer' | 'startedAt' | 'finishedAt'>
 ): Promise<Analytic> {

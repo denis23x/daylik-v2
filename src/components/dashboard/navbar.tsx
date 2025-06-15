@@ -13,7 +13,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { ChartLine, Grid2x2, Menu, Settings, UsersRound } from 'lucide-react';
+import { CalendarSearch, Grid2x2, Menu, Settings, UsersRound } from 'lucide-react';
 import { toast } from 'sonner';
 import { useRouter, usePathname } from 'next/navigation';
 import {
@@ -26,6 +26,7 @@ import { useEffect, useState } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { ConfirmDialog } from '../confirm-dialog';
 import { useSignOut } from '@/hooks/useAuth';
+import NavbarCalendar from './navbar-calendar';
 
 const NavigationSheet = () => {
   const router = useRouter();
@@ -93,15 +94,6 @@ const NavigationSheet = () => {
             <Separator />
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
-                <Link className="flex items-center gap-2" href="/analytics">
-                  <ChartLine size={16} />
-                  Analytics
-                </Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <Separator />
-            <NavigationMenuItem>
-              <NavigationMenuLink asChild>
                 <Link className="flex items-center gap-2" href="/settings">
                   <Settings size={16} />
                   Settings
@@ -137,6 +129,11 @@ const DashboardNavbar = () => {
               <UsersRound />
             </Link>
           </Button>
+          <NavbarCalendar>
+            <Button variant="outline" size="icon" type="button">
+              <CalendarSearch className="h-5 w-5" />
+            </Button>
+          </NavbarCalendar>
           <NavigationSheet />
         </div>
       </div>
