@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Popover } from '@radix-ui/react-popover';
 import { Separator } from '../ui/separator';
-import dayjs from 'dayjs';
+import { isSameDay, format } from 'date-fns';
 import { useTeamsFromAnalytic } from '@/hooks/useAnalyticsTeams';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -15,8 +15,8 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [open, setOpen] = useState(false);
-  const [analytics, setAnalytics] = useState<Analytics[]>([]);
-  const { data } = useTeamsFromAnalytic({
+  const [analyticsByDate, setAnalyticsByDate] = useState<Analytics[]>([]);
+  const { data: analytics } = useTeamsFromAnalytic({
     query: `*, teams (UUID, name)`,
   });
 
@@ -26,23 +26,10 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
   }, [pathname]);
 
   useEffect(() => {
-    if (data) {
-      const analytics = data
-        .filter((analytic) => dayjs(analytic.createdAt).isSame(date, 'day'))
-        .map((analytic) => {
-          const createdAt = dayjs(analytic.createdAt).format('MMM D');
-          const startedAt = dayjs(analytic.startedAt).format('HH:mm');
-          const finishedAt = dayjs(analytic.finishedAt).format('HH:mm');
-
-          return {
-            ...analytic,
-            createdAt: `${createdAt}, ${startedAt} - ${finishedAt}`,
-          };
-        });
-
-      setAnalytics(analytics);
+    if (date && analytics) {
+      setAnalyticsByDate(analytics.filter((analytic) => isSameDay(analytic.createdAt, date)));
     }
-  }, [date, data, setAnalytics]);
+  }, [date, analytics, setAnalyticsByDate]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -63,19 +50,15 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
                 return (
                   <CalendarDayButton day={day} modifiers={modifiers} {...props}>
                     {children}
-                    {data && (
+                    {analytics && (
                       <ul className="absolute right-0 bottom-0 left-0 flex scale-75 justify-center gap-1 px-2 py-1">
-                        {data
-                          .filter((item) =>
-                            day.dateLib.isSameDay(new Date(item.createdAt), day.date)
-                          )
+                        {analytics
+                          .filter((a) => isSameDay(new Date(a.createdAt), day.date))
                           .slice(0, 3)
                           .map((item) => {
-                            const bg = modifiers.selected ? 'bg-background' : 'bg-foreground';
-
                             return (
                               <li
-                                className={`aspect-square h-1 w-1 rounded-full transition-colors ${bg}`}
+                                className={`aspect-square h-1 w-1 rounded-full transition-colors ${modifiers.selected ? 'bg-background' : 'bg-foreground'}`}
                                 key={item.UUID}
                               ></li>
                             );
@@ -87,23 +70,26 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
               },
             }}
           />
-          {analytics.length > 0 && (
-            <>
+          {analyticsByDate.length > 0 && (
+            <div className="flex flex-col">
               <Separator />
               <ul className="flex w-full flex-col gap-2 p-3">
-                {analytics.map((analytic) => (
+                {analyticsByDate.map((analytic) => (
                   <li key={analytic.UUID}>
                     <Link
                       href={`/analytics/${analytic.UUID}`}
                       className="bg-muted after:bg-primary/70 relative flex flex-col rounded-md p-2 pl-6 text-sm after:absolute after:inset-y-2 after:left-2 after:w-1 after:rounded-full"
                     >
                       <div className="font-medium">{analytic.team?.name}</div>
-                      <div className="text-muted-foreground text-xs">{analytic.createdAt}</div>
+                      <div className="text-muted-foreground text-xs">
+                        {format(analytic.createdAt, 'MMM d')}, {format(analytic.startedAt, 'HH:mm')}{' '}
+                        - {format(analytic.finishedAt, 'HH:mm')}
+                      </div>
                     </Link>
                   </li>
                 ))}
               </ul>
-            </>
+            </div>
           )}
         </div>
       </PopoverContent>

@@ -1,25 +1,26 @@
-import dayjs from 'dayjs';
-import duration, { type Duration } from 'dayjs/plugin/duration';
+import { differenceInSeconds, isDate } from 'date-fns';
 
-dayjs.extend(duration);
+type Duration = number | Date;
 
-export function formatDuration(startOrDuration: number, endTimestamp?: number) {
-  let dur: Duration;
+export function formatDuration(startOrDuration: Duration, endTimestamp?: Duration): string {
+  let totalSeconds: number;
 
   if (endTimestamp !== undefined) {
-    const start = dayjs(startOrDuration);
-    const end = dayjs(endTimestamp);
-    const diffInSeconds = end.diff(start, 'second');
+    const start = isDate(startOrDuration) ? startOrDuration : new Date(startOrDuration);
+    const end = isDate(endTimestamp) ? endTimestamp : new Date(endTimestamp);
 
-    dur = dayjs.duration(diffInSeconds, 'seconds');
+    totalSeconds = differenceInSeconds(end, start);
   } else {
-    dur = dayjs.duration(startOrDuration);
+    totalSeconds =
+      typeof startOrDuration === 'number'
+        ? Math.floor(startOrDuration / 1000)
+        : Math.floor(startOrDuration.getTime() / 1000);
   }
 
-  const minutes = dur.minutes();
-  const seconds = dur.seconds();
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
 
-  const parts = [];
+  const parts: string[] = [];
 
   if (minutes > 0) {
     parts.push(`${minutes}m`);
