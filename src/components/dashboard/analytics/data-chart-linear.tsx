@@ -15,7 +15,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-import type { AnalyticTeammate } from '@/types/analyticTeammate.type';
+import type { AnalyticsTeammate } from '@/types/analyticsTeammate.type';
 import { useEffect, useState } from 'react';
 import {
   Select,
@@ -52,22 +52,22 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-const AnalyticsDataChartLinear = ({ teammates }: { teammates: AnalyticTeammate[] }) => {
+const AnalyticsDataChartLinear = ({ analytics }: { analytics: AnalyticsTeammate[] }) => {
   const [type, setType] = useState<ChartType>('natural');
   const [chartData, setChartData] = useState<ChartData[]>([]);
 
   useEffect(() => {
-    if (teammates.length) {
-      const data = teammates.map((analyticTeammate: AnalyticTeammate) => ({
-        name: analyticTeammate.teammate.name,
-        overtime: analyticTeammate.overtime as number,
-        total: getSeconds(analyticTeammate.total as number),
-        paused: getSeconds(analyticTeammate.paused as number),
+    if (analytics.length) {
+      const data = analytics.map((analytics: AnalyticsTeammate) => ({
+        name: analytics.teammate?.name as string,
+        overtime: analytics.overtime as number,
+        total: getSeconds(analytics.total as number),
+        paused: getSeconds(analytics.paused as number),
       }));
 
       setChartData(data);
     }
-  }, [teammates]);
+  }, [analytics]);
 
   return (
     <Card className="p-4">

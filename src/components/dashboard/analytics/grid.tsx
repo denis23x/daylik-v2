@@ -53,7 +53,7 @@ const AnalyticsGrid = () => {
           {!isLoading && !error && team && teammates && teammates?.length !== 0 && (
             <div className="flex w-full flex-col gap-4">
               <AnalyticsDataHighlights team={team} teammates={teammates}></AnalyticsDataHighlights>
-              <AnalyticsDataChartLinear teammates={teammates}></AnalyticsDataChartLinear>
+              <AnalyticsDataChartLinear analytics={teammates}></AnalyticsDataChartLinear>
               <AnalyticsDataTable teammates={teammates}></AnalyticsDataTable>
             </div>
           )}

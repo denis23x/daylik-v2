@@ -1,14 +1,15 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import type { AnalyticTeammate } from '@/types/analyticTeammate.type';
+import type { AnalyticsTeammate } from '@/types/analyticsTeammate.type';
+import type { Teammate } from '@/types/teammate.type';
 import { formatDuration } from '@/utils/formatDuration';
 import { getContrastingColor } from '@/utils/getContrastingColor';
 import { ColumnDef, SortingState } from '@tanstack/react-table';
 import { ArrowDown10, ArrowUp01, ArrowUpAZ } from 'lucide-react';
 import { ArrowDownZA } from 'lucide-react';
 
-export const columns = ({ sorting }: { sorting: SortingState }): ColumnDef<AnalyticTeammate>[] => {
+export const columns = ({ sorting }: { sorting: SortingState }): ColumnDef<AnalyticsTeammate>[] => {
   return [
     {
       accessorKey: 'order',
@@ -37,7 +38,7 @@ export const columns = ({ sorting }: { sorting: SortingState }): ColumnDef<Analy
     },
     {
       accessorKey: 'name',
-      accessorFn: (row) => row.teammate.name,
+      accessorFn: (row) => row.teammate?.name as string,
       header: ({ column }) => {
         const [s] = sorting;
         const isSorted = column.getIsSorted();
@@ -54,7 +55,7 @@ export const columns = ({ sorting }: { sorting: SortingState }): ColumnDef<Analy
         );
       },
       cell: ({ row }) => {
-        const { name, avatar, color } = row.original.teammate;
+        const { name, avatar, color } = row.original.teammate as Teammate;
 
         return (
           <div className="flex items-center gap-2">
@@ -73,7 +74,7 @@ export const columns = ({ sorting }: { sorting: SortingState }): ColumnDef<Analy
     },
     {
       accessorKey: 'role',
-      accessorFn: (row) => row.teammate.role,
+      accessorFn: (row) => row.teammate?.role as string,
       header: ({ column }) => {
         const [s] = sorting;
         const isSorted = column.getIsSorted();
@@ -90,7 +91,7 @@ export const columns = ({ sorting }: { sorting: SortingState }): ColumnDef<Analy
         );
       },
       cell: ({ row }) => {
-        const { role } = row.original.teammate;
+        const { role } = row.original.teammate as Teammate;
 
         return <span className="text-muted-foreground text-sm">{role}</span>;
       },

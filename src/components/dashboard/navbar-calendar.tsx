@@ -7,15 +7,15 @@ import { Popover } from '@radix-ui/react-popover';
 import { Separator } from '../ui/separator';
 import dayjs from 'dayjs';
 import { useTeamsFromAnalytic } from '@/hooks/useAnalyticsTeams';
-import type { AnalyticTeam } from '@/types/analyticTeam.type';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import type { Analytics } from '@/types/analytics.type';
 
 const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [open, setOpen] = useState(false);
-  const [analytics, setAnalytics] = useState<AnalyticTeam[]>([]);
+  const [analytics, setAnalytics] = useState<Analytics[]>([]);
   const { data } = useTeamsFromAnalytic({
     query: `*, teams (UUID, name)`,
   });
@@ -97,7 +97,7 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
                       href={`/analytics/${analytic.UUID}`}
                       className="bg-muted after:bg-primary/70 relative flex flex-col rounded-md p-2 pl-6 text-sm after:absolute after:inset-y-2 after:left-2 after:w-1 after:rounded-full"
                     >
-                      <div className="font-medium">{analytic.team.name}</div>
+                      <div className="font-medium">{analytic.team?.name}</div>
                       <div className="text-muted-foreground text-xs">{analytic.createdAt}</div>
                     </Link>
                   </li>

@@ -81,7 +81,7 @@ const SyncLiveGrid = () => {
     };
 
     handleFinish();
-  }, [isDone, isStarted, team, teammates, router]);
+  }, [isDone, isStarted, team, teammates, router, createAnalytics, addTeammatesToAnalytic]);
 
   useEffect(() => {
     if (teammates.length) {

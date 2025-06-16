@@ -1,11 +1,11 @@
 import type {
-  AnalyticTeammate,
-  AnalyticTeammateWithRelations,
-} from '@/types/analyticTeammate.type';
+  AnalyticsTeammate,
+  AnalyticsTeammateWithRelations,
+} from '@/types/analyticsTeammate.type';
 
 export function normalizeAnalyticTeammates(
-  data: AnalyticTeammateWithRelations[]
-): AnalyticTeammate[] {
+  data: AnalyticsTeammateWithRelations[]
+): AnalyticsTeammate[] {
   return data.map((analytic) => {
     const { teammates: teammate, ...analyticTeammate } = analytic;
 

@@ -1,6 +1,6 @@
-import type { AnalyticTeam, AnalyticTeamWithRelations } from '@/types/analyticTeam.type';
+import type { Analytics, AnalyticsTeamWithRelations } from '@/types/analytics.type';
 
-export function normalizeAnalyticTeams(data: AnalyticTeamWithRelations[]): AnalyticTeam[] {
+export function normalizeAnalyticTeams(data: AnalyticsTeamWithRelations[]): Analytics[] {
   return data.map((analytic) => {
     const { teams: team, ...analyticTeam } = analytic;
 

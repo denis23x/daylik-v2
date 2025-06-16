@@ -1,10 +1,10 @@
 'use client';
 
-import { AnalyticTeammate } from '@/types/analyticTeammate.type';
-import { Analytic } from '@/types/analytic.type';
+import type { AnalyticsTeammate } from '@/types/analyticsTeammate.type';
+import type { Analytics } from '@/types/analytics.type';
 import AverageTime from './data-highlights/average-time';
 
-// function getRoleTimeStats(teammates: AnalyticTeammate[]) {
+// function getRoleTimeStats(teammates: AnalyticsTeammate[]) {
 //   const roleTimes: Record<string, { totalTime: number; count: number }> = {};
 
 //   for (const teammate of teammates) {
@@ -29,8 +29,8 @@ const AnalyticsDataHighlights = ({
   team,
   teammates,
 }: {
-  team: Analytic;
-  teammates: AnalyticTeammate[];
+  team: Analytics;
+  teammates: AnalyticsTeammate[];
 }) => {
   // const [fastestTeammate, slowestTeammate] = useMemo(() => {
   //   const fastest = Math.min(...teammates.map((teammate) => teammate.total ?? 0));

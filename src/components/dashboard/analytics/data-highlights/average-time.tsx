@@ -3,10 +3,10 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
 import { formatDuration } from '@/utils/formatDuration';
-import { AnalyticTeammate } from '@/types/analyticTeammate.type';
-import { Analytic } from '@/types/analytic.type';
+import type { AnalyticsTeammate } from '@/types/analyticsTeammate.type';
+import type { Analytics } from '@/types/analytics.type';
 
-const AverageTime = ({ team, teammates }: { team: Analytic; teammates: AnalyticTeammate[] }) => {
+const AverageTime = ({ team, teammates }: { team: Analytics; teammates: AnalyticsTeammate[] }) => {
   const [finishedAt, setFinishedAt] = useState(0);
   const [startedAt, setStartedAt] = useState(0);
   const [average, setAverage] = useState(0);
@@ -20,7 +20,7 @@ const AverageTime = ({ team, teammates }: { team: Analytic; teammates: AnalyticT
     setFinishedAt(finishedAt);
     setStartedAt(startedAt);
     setAverage(avgMs);
-  }, [team]);
+  }, [team, teammates]);
 
   return (
     <Card className="gap-4 p-4">

@@ -20,14 +20,14 @@ import {
 import { useEffect, useState } from 'react';
 import NotFound from '@/components/not-found';
 import { columns } from './data-table/columns';
-import type { AnalyticTeammate } from '@/types/analyticTeammate.type';
+import type { AnalyticsTeammate } from '@/types/analyticsTeammate.type';
 import { Input } from '@/components/ui/input';
 
-const AnalyticsDataTable = ({ teammates }: { teammates: AnalyticTeammate[] }) => {
+const AnalyticsDataTable = ({ teammates }: { teammates: AnalyticsTeammate[] }) => {
   const [sorting, setSorting] = useState<SortingState>([{ id: 'order', desc: false }]);
   const [filter, setFilter] = useState('');
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const table = useReactTable<AnalyticTeammate>({
+  const table = useReactTable<AnalyticsTeammate>({
     data: teammates,
     columns: columns({ sorting }),
     getCoreRowModel: getCoreRowModel(),
