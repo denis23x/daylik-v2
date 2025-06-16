@@ -91,7 +91,7 @@ const TeamsGrid = () => {
           {!isLoading && !error && teams?.length === 0 && <NotFound className="min-h-[224px]" />}
           {!isLoading && !error && teams?.length !== 0 && (
             <HoverEffect>
-              <Card className="bg-background size-full gap-0 p-2">
+              <Card className="size-full gap-0 p-2">
                 <CardHeader className="relative mb-auto flex min-h-9 items-center justify-between gap-x-1.5 gap-y-0 p-0">
                   <span className="truncate text-base font-semibold">New</span>
                 </CardHeader>
@@ -113,7 +113,7 @@ const TeamsGrid = () => {
                 </CardFooter>
               </Card>
               {teams?.map((team: Team) => (
-                <Card className="bg-background size-full gap-0 p-2" key={team.UUID}>
+                <Card className="size-full gap-0 p-2" key={team.UUID}>
                   <CardHeader className="relative mb-auto flex min-h-9 items-center justify-between gap-x-1.5 gap-y-0 p-0">
                     <span className="truncate text-base font-semibold">{team.name}</span>
                     <Button

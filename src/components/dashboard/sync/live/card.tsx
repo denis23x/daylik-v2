@@ -97,7 +97,7 @@ export const SyncLiveCard = ({
   return (
     <div className={`flip-card aspect-[3/3.75] ${teammate.sync?.status}`}>
       <div className="flip-card-inner p-0">
-        <Card className="flip-card-front bg-muted gap-2 p-2">
+        <Card className="flip-card-front gap-2 p-2">
           <CardContent className="flex size-full items-center justify-center">
             <div className="flex translate-y-4 flex-col items-center gap-2">
               <UserRound />

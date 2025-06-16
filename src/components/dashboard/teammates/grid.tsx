@@ -65,7 +65,7 @@ const TeammatesGrid = () => {
           )}
           {!isLoading && !error && teammates?.length !== 0 && (
             <HoverEffect>
-              <Card className="bg-background size-full gap-0 p-2">
+              <Card className="size-full gap-0 p-2">
                 <CardContent className="translate-y-2 p-4 sm:p-3">
                   <Avatar className="aspect-square size-full border border-dashed">
                     <AvatarFallback asChild>
@@ -83,7 +83,7 @@ const TeammatesGrid = () => {
                 </CardFooter>
               </Card>
               {teammates?.map((teammate: Teammate) => (
-                <Card className="bg-background size-full gap-0 p-2" key={teammate.UUID}>
+                <Card className="size-full gap-0 p-2" key={teammate.UUID}>
                   <CardHeader className="relative gap-0">
                     <Button
                       className="absolute top-0 right-0 z-10 rounded-full"

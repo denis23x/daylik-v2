@@ -127,7 +127,7 @@ const SyncSettingsGrid = () => {
           {!isLoading && !error && teammates?.length !== 0 && (
             <HoverEffect>
               {teammates?.map((teammate: Teammate) => (
-                <Card className="bg-background size-full gap-0 p-2" key={teammate.UUID}>
+                <Card className="size-full gap-0 p-2" key={teammate.UUID}>
                   <CardHeader className="relative gap-0">
                     {teammatesAbsent.includes(teammate.UUID) ? (
                       <Button

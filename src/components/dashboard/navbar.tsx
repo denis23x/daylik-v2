@@ -102,7 +102,7 @@ const NavigationSheet = () => {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
-        <SheetFooter>
+        <SheetFooter className="gap-3">
           <ThemeToggle text variant="outline" size="default" />
           <Button onClick={() => setIsAlertOpen(true)}>Logout</Button>
         </SheetFooter>
