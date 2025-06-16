@@ -1,5 +1,5 @@
 import { fetchTeamsFromAnalytic } from '@/lib/api/analyticsTeams';
-import { normalizeAnalyticTeams } from '@/utils/normalizeAnalyticTeams';
+import { normalizeAnalyticsTeams } from '@/utils/normalizeAnalyticsTeams';
 import { useQuery } from '@tanstack/react-query';
 
 export function useTeamsFromAnalytic({ query }: { query: string }) {
@@ -7,6 +7,6 @@ export function useTeamsFromAnalytic({ query }: { query: string }) {
     queryKey: ['analytics', query],
     queryFn: () => fetchTeamsFromAnalytic({ query }),
     staleTime: 1000 * 60 * 5,
-    select: (data) => normalizeAnalyticTeams(data),
+    select: (data) => normalizeAnalyticsTeams(data),
   });
 }

@@ -3,7 +3,7 @@ import type {
   AnalyticsTeammateWithRelations,
 } from '@/types/analyticsTeammate.type';
 
-export function normalizeAnalyticTeammates(
+export function normalizeAnalyticsTeammates(
   data: AnalyticsTeammateWithRelations[]
 ): AnalyticsTeammate[] {
   return data.map((analytic) => {

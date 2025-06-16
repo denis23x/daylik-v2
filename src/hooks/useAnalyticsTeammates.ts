@@ -1,5 +1,5 @@
 import { addTeammatesToAnalytic, fetchTeammatesFromAnalytic } from '@/lib/api/analyticsTeammates';
-import { normalizeAnalyticTeammates } from '@/utils/normalizeAnalyticTeammates';
+import { normalizeAnalyticsTeammates } from '@/utils/normalizeAnalyticsTeammates';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useTeammatesFromAnalytic({ query, UUID }: { query: string; UUID: string }) {
@@ -7,7 +7,7 @@ export function useTeammatesFromAnalytic({ query, UUID }: { query: string; UUID:
     queryKey: ['analytics_teammates', query, UUID],
     queryFn: () => fetchTeammatesFromAnalytic({ query, UUID }),
     staleTime: 1000 * 60 * 5,
-    select: (data) => normalizeAnalyticTeammates(data),
+    select: (data) => normalizeAnalyticsTeammates(data),
   });
 }
 
