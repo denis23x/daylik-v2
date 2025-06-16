@@ -24,7 +24,12 @@ const ColorPicker = ({ name, children }: { name: string; children: React.ReactNo
           ></span>
         </div>
       </PopoverTrigger>
-      <PopoverContent onOpenAutoFocus={(e) => e.preventDefault()} className="w-80">
+      <PopoverContent
+        onOpenAutoFocus={(e) => e.preventDefault()}
+        className="w-64"
+        sideOffset={16}
+        collisionPadding={16}
+      >
         <div className="space-y-4">
           <FormField
             control={form.control}
