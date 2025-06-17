@@ -18,6 +18,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { getContrastingColor } from '@/utils/getContrastingColor';
 import { v4 as uuidv4 } from 'uuid';
+import { BorderBeam } from '@/components/magicui/border-beam';
 
 const TeamsGrid = () => {
   const { data, error, isLoading } = useTeams({
@@ -91,7 +92,7 @@ const TeamsGrid = () => {
           {!isLoading && !error && teams?.length === 0 && <NotFound className="min-h-[224px]" />}
           {!isLoading && !error && teams?.length !== 0 && (
             <HoverEffect>
-              <Card className="size-full gap-0 p-2">
+              <Card className="relative size-full gap-0 p-2">
                 <CardHeader className="relative mb-auto flex min-h-9 items-center justify-between gap-x-1.5 gap-y-0 p-0">
                   <span className="truncate text-base font-semibold">New</span>
                 </CardHeader>
@@ -111,6 +112,7 @@ const TeamsGrid = () => {
                     Create Team
                   </Button>
                 </CardFooter>
+                <BorderBeam duration={8} size={100} />
               </Card>
               {teams?.map((team: Team) => (
                 <Card className="size-full gap-0 p-2" key={team.UUID}>

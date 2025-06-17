@@ -10,6 +10,7 @@ import { useStopwatch } from '@/hooks/ui/useStopwatch';
 import { useEffect } from 'react';
 import type { SyncTeam } from '@/types/syncTeam.type';
 import type { SyncTeammate } from '@/types/syncTeammate.type';
+import { AnimatePresence, motion } from 'motion/react';
 
 export const SyncLiveCard = ({
   team,
@@ -101,7 +102,17 @@ export const SyncLiveCard = ({
           <CardContent className="flex size-full items-center justify-center">
             <div className="flex translate-y-4 flex-col items-center gap-2">
               <UserRound />
-              {showRoles && <span className="font-semibold">{teammate.role}</span>}
+              <AnimatePresence initial={false}>
+                {showRoles ? (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0 }}
+                  >
+                    <span className="font-semibold">{teammate.role}</span>
+                  </motion.div>
+                ) : null}
+              </AnimatePresence>
             </div>
           </CardContent>
           <CardFooter className="flex flex-col items-stretch p-0">

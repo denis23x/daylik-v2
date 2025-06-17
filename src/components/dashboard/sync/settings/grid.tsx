@@ -16,7 +16,7 @@ import HoverEffect from '@/components/hover-effect';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { getContrastingColor } from '@/utils/getContrastingColor';
-import TimerPicker from '@/components/timer-picker';
+import TimerPicker from '@/components/dashboard/sync/settings/timer-picker';
 import { RainbowButton } from '@/components/magicui/rainbow-button';
 import { useUpdateTeam } from '@/hooks/useTeams';
 import { getSeconds } from '@/utils/getSeconds';

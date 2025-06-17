@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Button } from './ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
+import { Button } from '../../../ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '../../../ui/popover';
 import {
   NumberInput,
   NumberInputDecrement,
@@ -10,10 +10,10 @@ import {
   NumberInputGroup,
   NumberInputIncrement,
   NumberInputScrubArea,
-} from './ui/number-input';
-import { Label } from './ui/label';
+} from '../../../ui/number-input';
+import { Label } from '../../../ui/label';
 import { useSyncSettingsStore } from '@/store/useSyncSettingsStore';
-import { Slider } from './ui/slider';
+import { Slider } from '../../../ui/slider';
 import { getMiliseconds } from '@/utils/getMiliseconds';
 import { getSeconds } from '@/utils/getSeconds';
 
@@ -64,7 +64,7 @@ const TimerPicker = ({ children }: { children: React.ReactNode }) => {
           <Slider
             min={MIN_TIMER}
             max={MAX_TIMER}
-            step={10}
+            step={5}
             value={[timer]}
             onValueChange={([value]) => handleChange(value)}
           />

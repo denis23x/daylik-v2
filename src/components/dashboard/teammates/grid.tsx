@@ -14,6 +14,7 @@ import HoverEffect from '@/components/hover-effect';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { getContrastingColor } from '@/utils/getContrastingColor';
+import { BorderBeam } from '@/components/magicui/border-beam';
 
 const TeammatesGrid = () => {
   const { data: teammates, error, isLoading } = useTeammates({ query: '*' });
@@ -65,7 +66,7 @@ const TeammatesGrid = () => {
           )}
           {!isLoading && !error && teammates?.length !== 0 && (
             <HoverEffect>
-              <Card className="size-full gap-0 p-2">
+              <Card className="relative size-full gap-0 p-2">
                 <CardContent className="translate-y-2 p-4 sm:p-3">
                   <Avatar className="aspect-square size-full border border-dashed">
                     <AvatarFallback asChild>
@@ -81,6 +82,7 @@ const TeammatesGrid = () => {
                     Add a teammate
                   </p>
                 </CardFooter>
+                <BorderBeam duration={8} size={100} />
               </Card>
               {teammates?.map((teammate: Teammate) => (
                 <Card className="size-full gap-0 p-2" key={teammate.UUID}>
