@@ -26,7 +26,7 @@ const AverageTime = ({ team, teammates }: { team: Analytics; teammates: Analytic
     <Card className="gap-4 p-4">
       <CardContent className="flex flex-col gap-2 p-0">
         <p className="text-sm">
-          Sync for “team name” (<strong>{teammates.length}</strong> members,{' '}
+          Estimated Sync for {team.team?.name} (<strong>{teammates.length}</strong> members,{' '}
           <strong>{formatDuration(team.timer)}</strong> timer) was expected to last about{' '}
           <strong>{formatDuration(team.timer * teammates.length + team.timer)}</strong>, actual
           duration:{' '}

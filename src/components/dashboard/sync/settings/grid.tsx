@@ -21,6 +21,7 @@ import { RainbowButton } from '@/components/magicui/rainbow-button';
 import { useUpdateTeam } from '@/hooks/useTeams';
 import { getSeconds } from '@/utils/getSeconds';
 import { formatDuration } from '@/utils/formatDuration';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 // teammatesAbsent reducer
 function reducer(state: string[], action: { type: 'add' | 'remove'; UUID: string }): string[] {
@@ -60,7 +61,7 @@ const SyncSettingsGrid = () => {
 
   useEffect(() => {
     const teammatesActive = teammates.length - teammatesAbsent.length;
-    const duration = Math.ceil((getSeconds(timer) * teammatesActive) / 60);
+    const duration = Math.ceil((getSeconds(timer) * teammatesActive + getSeconds(timer)) / 60);
 
     setTeammatesDuration(duration);
   }, [timer, teammates, teammatesAbsent]);
@@ -91,7 +92,19 @@ const SyncSettingsGrid = () => {
           {!isLoading && !error && (
             <p className="flex items-center gap-2">
               <span className="text-xl font-bold">Sync</span>
-              <span className="text-muted-foreground mt-1 text-sm">~ {teammatesDuration} min.</span>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <span className="text-muted-foreground mt-1 text-sm">
+                    ~ {teammatesDuration} min.
+                  </span>
+                </TooltipTrigger>
+                <TooltipContent collisionPadding={16} side="right">
+                  <div className="flex flex-col gap-1">
+                    <p>Estimated Sync time:</p>
+                    <p>Timer × Participants + Timer for the host</p>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
             </p>
           )}
         </div>
