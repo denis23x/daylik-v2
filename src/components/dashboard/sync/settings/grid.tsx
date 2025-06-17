@@ -19,9 +19,9 @@ import { getContrastingColor } from '@/utils/getContrastingColor';
 import TimerPicker from '@/components/dashboard/sync/settings/timer-picker';
 import { RainbowButton } from '@/components/magicui/rainbow-button';
 import { useUpdateTeam } from '@/hooks/useTeams';
-import { getSeconds } from '@/utils/getSeconds';
 import { formatDuration } from '@/utils/formatDuration';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { useEstimatedSyncTime } from '@/hooks/ui/useEstimatedSyncTime';
 
 // teammatesAbsent reducer
 function reducer(state: string[], action: { type: 'add' | 'remove'; UUID: string }): string[] {
@@ -39,7 +39,8 @@ const SyncSettingsGrid = () => {
   const params = useParams();
   const router = useRouter();
   const [teammatesAbsent, dispatch] = useReducer(reducer, []);
-  const [teammatesDuration, setTeammatesDuration] = useState(0);
+  const [estimatedSyncTime, setEstimatedSyncTime] = useState(0);
+  const { getEstimatedSyncTime } = useEstimatedSyncTime();
   const { team, teammates, timer, setTeam, setTeammates, setTimer } = useSyncSettingsStore();
   const { setTeam: setLiveTeam, setTeammates: setLiveTeammates } = useSyncLiveStore();
   const { mutate: updateTeam } = useUpdateTeam();
@@ -61,10 +62,10 @@ const SyncSettingsGrid = () => {
 
   useEffect(() => {
     const teammatesActive = teammates.length - teammatesAbsent.length;
-    const duration = Math.ceil((getSeconds(timer) * teammatesActive + getSeconds(timer)) / 60);
+    const estimatedSyncTime = Math.ceil(getEstimatedSyncTime(teammatesActive, timer) / 60);
 
-    setTeammatesDuration(duration);
-  }, [timer, teammates, teammatesAbsent]);
+    setEstimatedSyncTime(estimatedSyncTime);
+  }, [timer, teammates, teammatesAbsent, getEstimatedSyncTime]);
 
   const handleStart = () => {
     // Update timer if it has changed
@@ -95,7 +96,7 @@ const SyncSettingsGrid = () => {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <span className="text-muted-foreground mt-1 text-sm">
-                    ~ {teammatesDuration} min.
+                    ~ {estimatedSyncTime} min.
                   </span>
                 </TooltipTrigger>
                 <TooltipContent collisionPadding={16} side="right">
