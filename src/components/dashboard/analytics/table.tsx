@@ -19,16 +19,18 @@ import {
 } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 import NotFound from '@/components/not-found';
-import { columns } from './data-table/columns';
+import { columns } from './table/columns';
 import type { AnalyticsTeammate } from '@/types/analyticsTeammate.type';
 import { Input } from '@/components/ui/input';
+import { useAnalyticsStore } from '@/store/useAnalyticsStore';
 
-const AnalyticsDataTable = ({ teammates }: { teammates: AnalyticsTeammate[] }) => {
+const AnalyticsTable = () => {
   const [sorting, setSorting] = useState<SortingState>([{ id: 'order', desc: false }]);
   const [filter, setFilter] = useState('');
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const { analyticsTeammates } = useAnalyticsStore();
   const table = useReactTable<AnalyticsTeammate>({
-    data: teammates,
+    data: analyticsTeammates,
     columns: columns({ sorting }),
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
@@ -111,4 +113,4 @@ const AnalyticsDataTable = ({ teammates }: { teammates: AnalyticsTeammate[] }) =
   );
 };
 
-export default AnalyticsDataTable;
+export default AnalyticsTable;

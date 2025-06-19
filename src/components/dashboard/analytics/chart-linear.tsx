@@ -25,8 +25,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { TooltipFormatter } from './data-chart-linear/tooltip-formatter';
+import { TooltipFormatter } from './chart-linear/tooltip-formatter';
 import { getSeconds } from '@/utils/getSeconds';
+import { useAnalyticsStore } from '@/store/useAnalyticsStore';
 
 type ChartType = 'step' | 'linear' | 'natural';
 
@@ -52,13 +53,14 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-const AnalyticsDataChartLinear = ({ analytics }: { analytics: AnalyticsTeammate[] }) => {
+const AnalyticsChartLinear = () => {
   const [type, setType] = useState<ChartType>('natural');
   const [chartData, setChartData] = useState<ChartData[]>([]);
+  const { analyticsTeammates } = useAnalyticsStore();
 
   useEffect(() => {
-    if (analytics.length) {
-      const data = analytics.map((analytics: AnalyticsTeammate) => ({
+    if (analyticsTeammates.length) {
+      const data = analyticsTeammates.map((analytics: AnalyticsTeammate) => ({
         name: analytics.teammate?.name as string,
         overtime: analytics.overtime as number,
         total: getSeconds(analytics.total as number),
@@ -67,7 +69,7 @@ const AnalyticsDataChartLinear = ({ analytics }: { analytics: AnalyticsTeammate[
 
       setChartData(data);
     }
-  }, [analytics]);
+  }, [analyticsTeammates]);
 
   return (
     <Card className="p-4">
@@ -162,4 +164,4 @@ const AnalyticsDataChartLinear = ({ analytics }: { analytics: AnalyticsTeammate[
   );
 };
 
-export default AnalyticsDataChartLinear;
+export default AnalyticsChartLinear;

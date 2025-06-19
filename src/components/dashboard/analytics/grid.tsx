@@ -2,32 +2,51 @@
 
 import { ChartLine } from 'lucide-react';
 import { useAnalytics } from '@/hooks/useAnalytics';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useTeammatesFromAnalytic } from '@/hooks/useAnalyticsTeammates';
-import AnalyticsDataHighlights from './data-highlights';
-import AnalyticsDataTable from './data-table';
-import AnalyticsDataChartLinear from './data-chart-linear';
+import AnalyticsHighlights from './highlights';
+import AnalyticsTable from './table';
+import AnalyticsChartLinear from './chart-linear';
 import { Skeleton } from '@/components/ui/skeleton';
 import ErrorOccurred from '@/components/error-occurred';
 import NotFound from '@/components/not-found';
+import { useAnalyticsStore } from '@/store/useAnalyticsStore';
 
 const AnalyticsGrid = () => {
   const params = useParams();
-  const { data: team } = useAnalytics({ query: '*', UUID: params.UUID as string });
+  const { analytics, analyticsTeammates, setAnalytics, setAnalyticsTeammates } =
+    useAnalyticsStore();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState<Error | null>(null);
   const {
-    data: teammates,
-    error,
-    isLoading,
+    data: analyticsData,
+    isLoading: analyticsIsLoading,
+    error: analyticsError,
+  } = useAnalytics({ query: '*', UUID: params.UUID as string });
+  const {
+    data: analyticsTeammatesData,
+    error: analyticsTeammatesError,
+    isLoading: analyticsTeammatesIsLoading,
   } = useTeammatesFromAnalytic({
     query: '*, teammates (UUID, name, role, color, avatar)',
     UUID: params.UUID as string,
   });
 
   useEffect(() => {
-    console.log('team', team);
-    console.log('analytics teammates', teammates);
-  }, [team, teammates]);
+    setIsLoading(analyticsIsLoading || analyticsTeammatesIsLoading);
+  }, [analyticsIsLoading, analyticsTeammatesIsLoading, setIsLoading]);
+
+  useEffect(() => {
+    setIsError(analyticsError || analyticsTeammatesError);
+  }, [analyticsError, analyticsTeammatesError, setIsError]);
+
+  useEffect(() => {
+    if (analyticsData && analyticsTeammatesData) {
+      setAnalytics(analyticsData);
+      setAnalyticsTeammates(analyticsTeammatesData);
+    }
+  }, [analyticsData, analyticsTeammatesData, setAnalytics, setAnalyticsTeammates]);
 
   return (
     <div className="min-h-screen-grid container mx-auto p-4">
@@ -46,15 +65,15 @@ const AnalyticsGrid = () => {
               ))}
             </ul>
           )}
-          {error && <ErrorOccurred className="min-h-[224px]" />}
-          {!isLoading && !error && team && teammates && teammates?.length === 0 && (
+          {isError && <ErrorOccurred className="min-h-[224px]" />}
+          {!isLoading && !isError && analytics && analyticsTeammates?.length === 0 && (
             <NotFound className="min-h-[224px]" />
           )}
-          {!isLoading && !error && team && teammates && teammates?.length !== 0 && (
+          {!isLoading && !isError && analytics && analyticsTeammates?.length !== 0 && (
             <div className="flex w-full flex-col gap-4">
-              <AnalyticsDataHighlights team={team} teammates={teammates}></AnalyticsDataHighlights>
-              <AnalyticsDataChartLinear analytics={teammates}></AnalyticsDataChartLinear>
-              <AnalyticsDataTable teammates={teammates}></AnalyticsDataTable>
+              <AnalyticsHighlights></AnalyticsHighlights>
+              <AnalyticsChartLinear></AnalyticsChartLinear>
+              <AnalyticsTable></AnalyticsTable>
             </div>
           )}
         </div>
