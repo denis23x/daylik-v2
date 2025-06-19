@@ -22,7 +22,7 @@ const Fastest = () => {
 
   return teammate ? (
     <CardContainer>
-      <CardBody className="group/card bg-card relative flex size-full flex-col items-center justify-center gap-4 rounded-xl border">
+      <CardBody className="group/card bg-card relative flex size-full flex-col items-center justify-between gap-4 rounded-xl border p-4">
         <CardItem
           translateZ="20"
           className="flex w-full items-center justify-center gap-2 text-lg font-semibold italic"

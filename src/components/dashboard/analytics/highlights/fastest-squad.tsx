@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { formatDuration } from '@/utils/formatDuration';
 import { useAnalyticsStore } from '@/store/useAnalyticsStore';
+import { ThumbsUp } from 'lucide-react';
+import NumberTicker from '../number-ticker';
 
 const FastestSquad = () => {
   const { analyticsTeammates } = useAnalyticsStore();
@@ -34,13 +35,19 @@ const FastestSquad = () => {
   }, [analyticsTeammates]);
 
   return role && total ? (
-    <Card>
-      <CardHeader>
-        <CardTitle>Fastest Squad</CardTitle>
+    <Card className="size-full gap-2 p-4">
+      <CardHeader className="gap-0 p-0">
+        <CardTitle className="flex w-full items-center gap-2 text-lg font-semibold">
+          <ThumbsUp />
+          Fastest Squad
+        </CardTitle>
       </CardHeader>
-      <CardContent>
-        <CardDescription>
-          {role} - {formatDuration(total)}
+      <CardContent className="gap-0 p-0">
+        <CardDescription className="flex flex-col gap-2">
+          <span className="text-4xl font-semibold text-emerald-500">{role}</span>
+          <span className="text-muted-foreground text-lg font-semibold">
+            <NumberTicker total={total} />
+          </span>
         </CardDescription>
       </CardContent>
     </Card>
