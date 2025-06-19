@@ -35,17 +35,17 @@ const FastestSquad = () => {
   }, [analyticsTeammates]);
 
   return role && total ? (
-    <Card className="size-full gap-2 p-4">
+    <Card className="size-full gap-2 p-2">
       <CardHeader className="gap-0 p-0">
-        <CardTitle className="flex w-full items-center gap-2 text-lg font-semibold">
-          <ThumbsUp />
+        <CardTitle className="flex w-full items-center gap-2 text-sm font-semibold">
+          <ThumbsUp className="size-4" />
           Fastest Squad
         </CardTitle>
       </CardHeader>
       <CardContent className="gap-0 p-0">
         <CardDescription className="flex flex-col gap-2">
-          <span className="text-4xl font-semibold text-emerald-500">{role}</span>
-          <span className="text-muted-foreground text-lg font-semibold">
+          <span className="text-xl font-semibold text-emerald-500">{role}</span>
+          <span className="text-muted-foreground text-sm font-semibold">
             <NumberTicker total={total} />
           </span>
         </CardDescription>

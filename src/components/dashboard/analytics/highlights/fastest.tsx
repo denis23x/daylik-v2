@@ -22,16 +22,16 @@ const Fastest = () => {
 
   return teammate ? (
     <CardContainer>
-      <CardBody className="group/card bg-card relative flex size-full flex-col items-center justify-between gap-4 rounded-xl border p-4">
+      <CardBody className="group/card bg-card relative flex size-full flex-col items-center justify-between rounded-xl border p-2">
         <CardItem
           translateZ="20"
-          className="flex w-full items-center justify-center gap-2 text-lg font-semibold italic"
+          className="flex w-full items-center justify-center gap-2 text-sm font-semibold italic"
         >
-          <Zap />
+          <Zap className="size-4" />
           Fastest Speaker
         </CardItem>
-        <CardItem as="div" translateZ="40">
-          <Avatar className="aspect-square size-36 border">
+        <CardItem as="div" translateZ="40" className="w-full p-4 sm:p-3">
+          <Avatar className="aspect-square size-full border">
             <AvatarImage className="bg-secondary object-cover" src={teammate.avatar || undefined} />
             <AvatarFallback style={{ backgroundColor: teammate.color }}>
               <span className="text-lg" style={{ color: getContrastingColor(teammate.color) }}>

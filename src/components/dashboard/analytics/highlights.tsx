@@ -1,16 +1,25 @@
 'use client';
 
 import Fastest from './highlights/fastest';
-import { Card, CardContent } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
 import FastestSquad from './highlights/fastest-squad';
 import SlowestSquad from './highlights/slowest-squad';
-import AverageSync from './highlights/average-sync';
 
 const AnalyticsHighlights = () => {
   return (
     <div>
-      <ul className="-m-2 grid grid-cols-2 grid-rows-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 [&_li]:p-2">
+      <ul className="-m-2 grid grid-cols-2 grid-rows-2 [&_li]:p-2">
+        <li className="col-span-1 row-span-2">
+          <Fastest />
+        </li>
+        <li className="col-span-1">
+          <FastestSquad />
+        </li>
+        <li className="col-span-1">
+          <SlowestSquad />
+        </li>
+      </ul>
+
+      {/* <ul className="-m-2 grid grid-cols-2 grid-rows-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 [&_li]:p-2">
         <li className="col-span-2 col-start-1 row-start-1 aspect-[2/1]">
           <AverageSync />
         </li>
@@ -57,7 +66,7 @@ const AnalyticsHighlights = () => {
             всего овертаймов
           </div>
         </li>
-      </ul>
+      </ul> */}
     </div>
   );
 };
