@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription } from '@/components/ui/card';
 import { useAnalyticsStore } from '@/store/useAnalyticsStore';
-import { ThumbsUp } from 'lucide-react';
+import { Zap } from 'lucide-react';
 import NumberTicker from '../number-ticker';
 
 const FastestSquad = () => {
@@ -36,15 +36,13 @@ const FastestSquad = () => {
 
   return role && total ? (
     <Card className="size-full gap-2 p-2">
-      <CardHeader className="gap-0 p-0">
-        <CardTitle className="flex w-full items-center gap-2 text-sm font-semibold">
-          <ThumbsUp className="size-4" />
-          Fastest Squad
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="gap-0 p-0">
-        <CardDescription className="flex flex-col gap-2">
-          <span className="text-xl font-semibold text-emerald-500">{role}</span>
+      <CardContent className="size-full gap-0 p-0">
+        <CardDescription className="flex size-full flex-col items-center justify-between gap-0">
+          <p className="text-foreground flex w-full items-center justify-center gap-2 text-sm font-semibold italic">
+            <Zap className="size-4 min-w-4" />
+            <span className="truncate">Fastest Squad</span>
+          </p>
+          <span className="text-2xl font-semibold text-emerald-500">{role}</span>
           <span className="text-muted-foreground text-sm font-semibold">
             <NumberTicker total={total} />
           </span>

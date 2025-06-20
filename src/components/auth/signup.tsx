@@ -19,6 +19,7 @@ import { toast } from 'sonner';
 import { HeartPlus, Loader2 } from 'lucide-react';
 import { useSignUp } from '@/hooks/useAuth';
 import { Card, CardContent } from '../ui/card';
+import { MagicCard } from '../magicui/magic-card';
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -52,66 +53,68 @@ const AuthSignUp = () => {
     <div className="flex min-h-dvh flex-col items-center justify-center gap-4 px-4">
       <HeartPlus />
       <p className="text-xl font-bold tracking-tight">Sign up for Daylik</p>
-      <Card className="w-full max-w-xs p-4">
-        <CardContent className="p-0">
-          <Form {...form}>
-            <form className="w-full space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field, formState }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="email"
-                        placeholder="What's your email?"
-                        className="w-full"
-                        disabled={formState.isSubmitting}
-                        autoComplete="email"
-                        inputMode="email"
-                        spellCheck="false"
-                        autoCapitalize="none"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field, formState }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="Make it strong (min. 8 characters)"
-                        className="w-full"
-                        disabled={formState.isSubmitting}
-                        autoComplete="new-password"
-                        inputMode="text"
-                        spellCheck="false"
-                        autoCapitalize="none"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
-                {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
-                {form.formState.isSubmitting ? 'Please wait' : 'Continue with Email'}
-              </Button>
-              <Button type="button" className="w-full" variant="secondary">
-                Continue with Google
-              </Button>
-            </form>
-          </Form>
-        </CardContent>
+      <Card className="w-full max-w-xs border-none p-0 shadow-none">
+        <MagicCard className="p-4">
+          <CardContent className="p-0">
+            <Form {...form}>
+              <form className="w-full space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field, formState }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="What's your email?"
+                          className="w-full"
+                          disabled={formState.isSubmitting}
+                          autoComplete="email"
+                          inputMode="email"
+                          spellCheck="false"
+                          autoCapitalize="none"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field, formState }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="password"
+                          placeholder="Make it strong (min. 8 characters)"
+                          className="w-full"
+                          disabled={formState.isSubmitting}
+                          autoComplete="new-password"
+                          inputMode="text"
+                          spellCheck="false"
+                          autoCapitalize="none"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
+                  {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
+                  {form.formState.isSubmitting ? 'Please wait' : 'Continue with Email'}
+                </Button>
+                <Button type="button" className="w-full" variant="secondary">
+                  Continue with Google
+                </Button>
+              </form>
+            </Form>
+          </CardContent>
+        </MagicCard>
       </Card>
       <p className="text-center text-sm">
         Already have an account?{' '}
