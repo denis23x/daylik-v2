@@ -1,13 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import AvatarInitials from '@/components/avatar-initials';
 import { CardBody, CardContainer, CardItem } from '@/components/ui/3d-card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { getContrastingColor } from '@/utils/getContrastingColor';
 import { BorderBeam } from '@/components/magicui/border-beam';
+import { useAnalyticsStore } from '@/store/useAnalyticsStore';
 import type { Teammate } from '@/types/teammate.type';
 import { Zap } from 'lucide-react';
-import { useAnalyticsStore } from '@/store/useAnalyticsStore';
 
 const Fastest = () => {
   const { analyticsTeammates } = useAnalyticsStore();
@@ -34,9 +34,7 @@ const Fastest = () => {
           <Avatar className="aspect-square size-full border">
             <AvatarImage className="bg-secondary object-cover" src={teammate.avatar || undefined} />
             <AvatarFallback style={{ backgroundColor: teammate.color }}>
-              <span className="text-lg" style={{ color: getContrastingColor(teammate.color) }}>
-                {teammate.name.slice(0, 2).toUpperCase()}
-              </span>
+              <AvatarInitials teammate={teammate} />
             </AvatarFallback>
           </Avatar>
         </CardItem>

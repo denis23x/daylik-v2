@@ -15,13 +15,13 @@ import { Skeleton } from '@/components/ui/skeleton';
 import HoverEffect from '@/components/hover-effect';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { getContrastingColor } from '@/utils/getContrastingColor';
 import TimerPicker from '@/components/dashboard/sync/settings/timer-picker';
 import { RainbowButton } from '@/components/magicui/rainbow-button';
 import { useUpdateTeam } from '@/hooks/useTeams';
 import { formatDuration } from '@/utils/formatDuration';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { useEstimatedSyncTime } from '@/hooks/ui/useEstimatedSyncTime';
+import AvatarInitials from '@/components/avatar-initials';
 
 // teammatesAbsent reducer
 function reducer(state: string[], action: { type: 'add' | 'remove'; UUID: string }): string[] {
@@ -174,12 +174,7 @@ const SyncSettingsGrid = () => {
                         src={teammate.avatar || undefined}
                       />
                       <AvatarFallback style={{ backgroundColor: teammate.color }}>
-                        <span
-                          className="text-xl"
-                          style={{ color: getContrastingColor(teammate.color) }}
-                        >
-                          {teammate.name.slice(0, 2).toUpperCase()}
-                        </span>
+                        <AvatarInitials className="text-2xl" teammate={teammate} />
                       </AvatarFallback>
                     </Avatar>
                   </CardContent>

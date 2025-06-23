@@ -1,10 +1,10 @@
+import AvatarInitials from '@/components/avatar-initials';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import type { AnalyticsTeammate } from '@/types/analyticsTeammate.type';
 import type { Teammate } from '@/types/teammate.type';
 import { formatDuration } from '@/utils/formatDuration';
-import { getContrastingColor } from '@/utils/getContrastingColor';
 import { ColumnDef, SortingState } from '@tanstack/react-table';
 import { ArrowDown10, ArrowUp01, ArrowUpAZ } from 'lucide-react';
 import { ArrowDownZA } from 'lucide-react';
@@ -62,9 +62,10 @@ export const columns = ({ sorting }: { sorting: SortingState }): ColumnDef<Analy
             <Avatar className="aspect-square size-8 border">
               <AvatarImage className="bg-secondary object-cover" src={avatar || undefined} />
               <AvatarFallback style={{ backgroundColor: color }}>
-                <span className="scale-90 text-xs" style={{ color: getContrastingColor(color) }}>
-                  {name.slice(0, 2).toUpperCase()}
-                </span>
+                <AvatarInitials
+                  className="scale-75 text-xs"
+                  teammate={row.original.teammate as Teammate}
+                />
               </AvatarFallback>
             </Avatar>
             <span className="text-sm">{name}</span>

@@ -16,9 +16,9 @@ import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { getContrastingColor } from '@/utils/getContrastingColor';
 import { v4 as uuidv4 } from 'uuid';
 import { BorderBeam } from '@/components/magicui/border-beam';
+import AvatarInitials from '@/components/avatar-initials';
 
 const TeamsGrid = () => {
   const { data, error, isLoading } = useTeams({
@@ -145,9 +145,7 @@ const TeamsGrid = () => {
                                 )}
                                 {index !== 3 && teammate.color && teammate.name ? (
                                   <AvatarFallback style={{ backgroundColor: teammate.color }}>
-                                    <span style={{ color: getContrastingColor(teammate.color) }}>
-                                      {teammate.name.slice(0, 2).toUpperCase()}
-                                    </span>
+                                    <AvatarInitials className="lg:text-lg" teammate={teammate} />
                                   </AvatarFallback>
                                 ) : teammate.color && teammate.name ? (
                                   <AvatarFallback>

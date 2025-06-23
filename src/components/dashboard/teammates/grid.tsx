@@ -13,8 +13,8 @@ import { Pencil, UserRoundPlus, UsersRound } from 'lucide-react';
 import HoverEffect from '@/components/hover-effect';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { getContrastingColor } from '@/utils/getContrastingColor';
 import { BorderBeam } from '@/components/magicui/border-beam';
+import AvatarInitials from '@/components/avatar-initials';
 
 const TeammatesGrid = () => {
   const { data: teammates, error, isLoading } = useTeammates({ query: '*' });
@@ -106,12 +106,7 @@ const TeammatesGrid = () => {
                         src={teammate.avatar || undefined}
                       />
                       <AvatarFallback style={{ backgroundColor: teammate.color }}>
-                        <span
-                          className="text-xl"
-                          style={{ color: getContrastingColor(teammate.color) }}
-                        >
-                          {teammate.name.slice(0, 2).toUpperCase()}
-                        </span>
+                        <AvatarInitials className="text-2xl" teammate={teammate} />
                       </AvatarFallback>
                     </Avatar>
                   </CardContent>
