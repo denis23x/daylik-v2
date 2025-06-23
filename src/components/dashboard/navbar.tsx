@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/sheet';
 import { CalendarSearch, Grid2x2, Menu, Settings, UsersRound } from 'lucide-react';
 import { toast } from 'sonner';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import {
   NavigationMenuItem,
   NavigationMenuLink,
@@ -29,7 +29,6 @@ import { useSignOut } from '@/hooks/useAuth';
 import NavbarCalendar from './navbar-calendar';
 
 const NavigationSheet = () => {
-  const router = useRouter();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
@@ -44,8 +43,8 @@ const NavigationSheet = () => {
     try {
       await signOut();
 
-      // Redirect to home page
-      router.push('/');
+      // Redirect to home page with reload
+      window.location.href = '/';
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'An error occurred');
     }

@@ -118,7 +118,7 @@ const AuthSignUp = () => {
       </Card>
       <p className="text-center text-sm">
         Already have an account?{' '}
-        <Link href="/auth/login" className="text-muted-foreground underline">
+        <Link href="/login" className="text-muted-foreground underline">
           Log in
         </Link>
       </p>

@@ -42,7 +42,7 @@ const AuthResetPassword = () => {
       await resetPassword({ ...formData });
 
       // Redirect
-      router.push('/auth/verify-email?updatePassword=1');
+      router.push('/verify-email?updatePassword=1');
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'An error occurred');
     }
@@ -91,7 +91,7 @@ const AuthResetPassword = () => {
       </Card>
       <p className="text-center text-sm">
         Remember your password?{' '}
-        <Link href="/auth/login" className="text-muted-foreground underline">
+        <Link href="/login" className="text-muted-foreground underline">
           Log in
         </Link>
       </p>

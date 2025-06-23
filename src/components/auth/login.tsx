@@ -117,14 +117,14 @@ const AuthLogin = () => {
         </MagicCard>
       </Card>
       <Link
-        href="/auth/reset-password"
+        href="/reset-password"
         className="text-muted-foreground block text-center text-sm underline"
       >
         Forgot your password?
       </Link>
       <p className="text-center text-sm">
         Don&apos;t have an account?{' '}
-        <Link href="/auth/signup" className="text-muted-foreground inline underline">
+        <Link href="/signup" className="text-muted-foreground inline underline">
           Create account
         </Link>
       </p>
