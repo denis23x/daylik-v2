@@ -60,7 +60,7 @@ const AnalyticsGrid = () => {
             <ul className="relative grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
               {[1, 2, 3, 4].map((_, index) => (
                 <li key={index}>
-                  <Skeleton className="aspect-[2/2.75] min-h-[224px] max-w-full rounded-xl" />
+                  <Skeleton className="aspect-[3/3.75] min-h-[224px] max-w-full rounded-xl" />
                 </li>
               ))}
             </ul>
