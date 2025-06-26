@@ -171,7 +171,7 @@ export const columns = ({ sorting }: { sorting: SortingState }): ColumnDef<Analy
         const { overtime } = row.original;
 
         return overtime && overtime > 0 ? (
-          <Badge variant={overtime >= 1 ? 'destructive' : 'secondary'}>Overtime x{overtime}</Badge>
+          <Badge variant={overtime >= 1 ? 'destructive' : 'secondary'}>x{overtime}</Badge>
         ) : (
           <span className="text-muted-foreground text-sm">-</span>
         );

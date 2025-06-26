@@ -1,8 +1,8 @@
 'use client';
 
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Crown, Ghost, Infinity, RadioTower, Snowflake } from 'lucide-react';
+import { CircleCheckBig, Crown, Ghost, RadioTower, Snowflake } from 'lucide-react';
 import { BorderBeam } from '@/components/magicui/border-beam';
 import HoverEffect from '@/components/hover-effect';
 import { useEffect, useState } from 'react';
@@ -32,32 +32,41 @@ const AnalyticsHighlights = () => {
       const frozen = clone.sort((a, b) => b.paused - a.paused).at(0);
       const talker = clone.sort((a, b) => b.total - a.total).at(0);
       const ghost = clone.sort((a, b) => a.total - b.total).at(0);
-      const lord = clone.sort((a, b) => b.overtime - a.overtime).at(0);
+
+      const lord = clone
+        .filter((t) => t.overtime !== 0)
+        .sort((a, b) => Math.abs(a.overtime - 1.0) - Math.abs(b.overtime - 1.0))
+        .at(0);
 
       const formatted = [
         {
-          icon: <Crown size={32} />,
+          icon: <Crown />,
           label: 'MVP',
           teammate: mvp?.teammate,
         },
         {
-          icon: <Snowflake size={32} />,
+          icon: <Snowflake />,
           label: 'Frozen Hero',
           teammate: frozen?.teammate,
         },
         {
-          icon: <RadioTower size={32} />,
+          icon: <RadioTower />,
           label: 'Radio Tower',
           teammate: talker?.teammate,
         },
         {
-          icon: <Ghost size={32} />,
-          label: 'Ghost Teammate',
+          icon: <Ghost />,
+          label: 'Mystery Ghost',
           teammate: ghost?.teammate,
         },
+        // {
+        //   icon: <Infinity />,
+        //   label: 'Overtime Lord',
+        //   teammate: lord?.teammate,
+        // },
         {
-          icon: <Infinity size={32} />,
-          label: 'Overtime Lord',
+          icon: <CircleCheckBig />,
+          label: 'Edge Runner',
           teammate: lord?.teammate,
         },
       ];
@@ -72,14 +81,14 @@ const AnalyticsHighlights = () => {
         .filter((highlight) => highlight.teammate)
         .map((highlight) => (
           <Card key={highlight.label} className="relative size-full gap-0 p-2">
-            <CardHeader className="relative gap-0 p-0">
+            <CardHeader className="bg-muted relative gap-0 rounded-lg border p-2">
               <div className="flex flex-col items-center">
                 {highlight.icon}
-                <span className="truncate text-lg font-semibold">{highlight.label}</span>
+                <span className="truncate text-base font-semibold">{highlight.label}</span>
               </div>
             </CardHeader>
             <CardContent className="p-4 sm:p-3">
-              <Avatar className="aspect-square size-full border">
+              <Avatar className="aspect-square size-full translate-y-1 border">
                 <AvatarImage
                   className="bg-secondary object-cover"
                   src={highlight.teammate?.avatar || undefined}
@@ -89,14 +98,6 @@ const AnalyticsHighlights = () => {
                 </AvatarFallback>
               </Avatar>
             </CardContent>
-            <CardFooter className="flex flex-col items-stretch p-0 text-center">
-              <span className="truncate text-lg font-semibold sm:text-2xl">
-                {highlight.teammate?.name}
-              </span>
-              <p className="text-muted-foreground truncate text-xs sm:text-sm">
-                {highlight.teammate?.role}
-              </p>
-            </CardFooter>
             <BorderBeam duration={8} size={100} />
           </Card>
         ))}
