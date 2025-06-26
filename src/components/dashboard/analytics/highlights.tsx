@@ -3,17 +3,17 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { CircleCheckBig, Crown, Ghost, RadioTower, Snowflake } from 'lucide-react';
-import { BorderBeam } from '@/components/magicui/border-beam';
 import HoverEffect from '@/components/hover-effect';
 import { useEffect, useState } from 'react';
 import { useAnalyticsStore } from '@/store/useAnalyticsStore';
 import AvatarInitials from '@/components/avatar-initials';
-import type { Teammate } from '@/types/teammate.type';
+import type { AnalyticsTeammate } from '@/types/analyticsTeammate.type';
+import { formatDuration } from '@/utils/formatDuration';
 
-type Highlight = {
+type Highlight = AnalyticsTeammate & {
   icon: React.ReactNode;
   label: string;
-  teammate?: Teammate;
+  key: string;
 };
 
 const AnalyticsHighlights = () => {
@@ -40,38 +40,38 @@ const AnalyticsHighlights = () => {
 
       const formatted = [
         {
-          icon: <Crown />,
-          label: 'MVP',
-          teammate: mvp?.teammate,
+          icon: <Crown className="fill-current text-amber-400" />,
+          label: 'Limit Master',
+          key: 'limit-master',
+          ...mvp,
         },
         {
-          icon: <Snowflake />,
+          icon: <Snowflake className="text-blue-400" />,
           label: 'Frozen Hero',
-          teammate: frozen?.teammate,
+          key: 'frozen-hero',
+          ...frozen,
         },
         {
-          icon: <RadioTower />,
+          icon: <RadioTower className="text-red-400" />,
           label: 'Radio Tower',
-          teammate: talker?.teammate,
+          key: 'radio-tower',
+          ...talker,
         },
         {
-          icon: <Ghost />,
+          icon: <Ghost className="text-foreground" />,
           label: 'Mystery Ghost',
-          teammate: ghost?.teammate,
+          key: 'mystery-ghost',
+          ...ghost,
         },
-        // {
-        //   icon: <Infinity />,
-        //   label: 'Overtime Lord',
-        //   teammate: lord?.teammate,
-        // },
         {
-          icon: <CircleCheckBig />,
-          label: 'Edge Runner',
-          teammate: lord?.teammate,
+          icon: <CircleCheckBig className="text-emerald-400" />,
+          label: 'Edgerunner',
+          key: 'edgerunner',
+          ...lord,
         },
       ];
 
-      setHighlights(formatted);
+      setHighlights(formatted as Highlight[]);
     }
   }, [analytics, analyticsTeammates]);
 
@@ -80,15 +80,28 @@ const AnalyticsHighlights = () => {
       {highlights
         .filter((highlight) => highlight.teammate)
         .map((highlight) => (
-          <Card key={highlight.label} className="relative size-full gap-0 p-2">
-            <CardHeader className="bg-muted relative gap-0 rounded-lg border p-2">
-              <div className="flex flex-col items-center">
-                {highlight.icon}
-                <span className="truncate text-base font-semibold">{highlight.label}</span>
+          <Card key={highlight.label} className="group relative size-full gap-0 p-2">
+            <CardHeader className="relative gap-0 p-0 transition-all">
+              <div className="flex items-center gap-2">
+                <span className="flex size-8 items-center justify-center">{highlight.icon}</span>
+                <div className="flex flex-col">
+                  <span className="truncate text-base font-semibold">{highlight.label}</span>
+                  <span className="text-muted-foreground truncate text-xs">
+                    {highlight.key === 'edgerunner' && `Overtime x${highlight.overtime}`}
+                    {highlight.key === 'radio-tower' &&
+                      `Most talkative ${formatDuration(highlight.total)}`}
+                    {highlight.key === 'frozen-hero' &&
+                      `Paused time ${formatDuration(highlight.paused)}`}
+                    {highlight.key === 'mystery-ghost' &&
+                      `Gone in ${formatDuration(highlight.total)}`}
+                    {highlight.key === 'limit-master' &&
+                      `Wrapped in ${formatDuration(highlight.total)}`}
+                  </span>
+                </div>
               </div>
             </CardHeader>
             <CardContent className="p-4 sm:p-3">
-              <Avatar className="aspect-square size-full translate-y-1 border">
+              <Avatar className="animate-shine aspect-square size-full translate-y-1 border">
                 <AvatarImage
                   className="bg-secondary object-cover"
                   src={highlight.teammate?.avatar || undefined}
@@ -98,7 +111,6 @@ const AnalyticsHighlights = () => {
                 </AvatarFallback>
               </Avatar>
             </CardContent>
-            <BorderBeam duration={8} size={100} />
           </Card>
         ))}
     </HoverEffect>

@@ -3,7 +3,9 @@
 
 @import './styles/abstracts/variables.css';
 @import './styles/abstracts/height.css';
+
 @import './styles/components/flip-card.css';
+@import './styles/components/shine.css';
 
 @custom-variant dark (&:is(.dark *));
 
