@@ -4,16 +4,17 @@ import ResponsiveDialog from '@/components/responsive-dialog';
 import TeamInsertForm from './form/insert';
 import TeamUpdateForm from './form/update';
 import { z } from 'zod';
-import { FormProvider, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TeamsFormSchema } from './form/form-schema';
 import { Button } from '@/components/ui/button';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTeamsStore } from '@/store/useTeamsStore';
 import { toast } from 'sonner';
 import { useDeleteTeam } from '@/hooks/useTeams';
 import { ConfirmDialog } from '@/components/confirm-dialog';
+import { Form as FormProvider } from '@/components/ui/form';
 
 export default function TeamsModal() {
   const { isOpen, mode, team, closeModal } = useTeamsStore();
@@ -50,7 +51,7 @@ export default function TeamsModal() {
   }, [mode, team, form, isOpen]);
 
   const handleDelete = async () => {
-    if (team?.UUID) {
+    if (team) {
       try {
         await deleteTeam(team.UUID);
 
@@ -58,7 +59,7 @@ export default function TeamsModal() {
         closeModal();
 
         // Success message
-        toast.success('Team deleted');
+        toast.success(`Poof! ${team.name} disbanded`);
       } catch (error) {
         toast.error(error instanceof Error ? error.message : 'An error occurred');
       }
@@ -83,14 +84,20 @@ export default function TeamsModal() {
             description="This action cannot be undone."
             open={isAlertOpen}
             onOpenChange={setIsAlertOpen}
-            onConfirmAction={handleDelete}
+            onConfirmAction={form.handleSubmit(handleDelete)}
           />
         </FormProvider>
       }
       trigger={undefined}
       extraActions={
         mode === 'update' ? (
-          <Button variant="destructive" onClick={() => setIsAlertOpen(true)}>
+          <Button
+            type="button"
+            variant="destructive"
+            disabled={form.formState.isSubmitting}
+            onClick={() => setIsAlertOpen(true)}
+          >
+            <Trash2 className="hidden sm:block" />
             Delete
           </Button>
         ) : undefined

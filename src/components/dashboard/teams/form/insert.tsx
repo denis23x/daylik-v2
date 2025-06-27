@@ -2,7 +2,6 @@
 
 import { useFormContext } from 'react-hook-form';
 import { toast } from 'sonner';
-import { Form } from '@/components/ui/form';
 import { TeamsFormFields } from './form-fields';
 import { TeamsFormSchema } from './form-schema';
 import { z } from 'zod';
@@ -31,17 +30,15 @@ export default function TeammateInsertForm() {
       closeModal();
 
       // Success message
-      toast.success('Team created');
+      toast.success(`${team.name} is online!`);
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'An error occurred');
     }
   };
 
   return (
-    <Form {...form}>
-      <form id="team-form" className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
-        <TeamsFormFields />
-      </form>
-    </Form>
+    <form id="team-form" className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
+      <TeamsFormFields />
+    </form>
   );
 }

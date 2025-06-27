@@ -2,7 +2,6 @@
 
 import { useFormContext } from 'react-hook-form';
 import { toast } from 'sonner';
-import { Form } from '@/components/ui/form';
 import { useUpdateTeammate } from '@/hooks/useTeammates';
 import { useTeammatesStore } from '@/store/useTeammatesStore';
 import { TeammatesFormFields } from './form-fields';
@@ -20,8 +19,8 @@ export default function TeammateUpdateForm() {
   const queryClient = useQueryClient();
 
   const handleSubmit = async (formData: z.infer<typeof TeammatesFormSchema>) => {
-    try {
-      if (teammate) {
+    if (teammate) {
+      try {
         if (Object.keys(form.formState.dirtyFields).length) {
           await updateTeammate({
             UUID: teammate.UUID,
@@ -60,18 +59,16 @@ export default function TeammateUpdateForm() {
         closeModal();
 
         // Success message
-        toast.success('Teammate updated');
+        toast.success(`${teammate.name} has been patched!`);
+      } catch (error) {
+        toast.error(error instanceof Error ? error.message : 'An error occurred');
       }
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'An error occurred');
     }
   };
 
   return (
-    <Form {...form}>
-      <form id="teammate-form" className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
-        <TeammatesFormFields />
-      </form>
-    </Form>
+    <form id="teammate-form" className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
+      <TeammatesFormFields />
+    </form>
   );
 }

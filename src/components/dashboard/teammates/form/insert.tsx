@@ -2,7 +2,6 @@
 
 import { useFormContext } from 'react-hook-form';
 import { toast } from 'sonner';
-import { Form } from '@/components/ui/form';
 import { useCreateTeammate } from '@/hooks/useTeammates';
 import { useTeammatesStore } from '@/store/useTeammatesStore';
 import { TeammatesFormFields } from './form-fields';
@@ -34,17 +33,15 @@ export default function TeammateInsertForm() {
       closeModal();
 
       // Success message
-      toast.success('Teammate created');
+      toast.success(`${teammate.name} joined the mission!`);
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'An error occurred');
     }
   };
 
   return (
-    <Form {...form}>
-      <form id="teammate-form" className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
-        <TeammatesFormFields />
-      </form>
-    </Form>
+    <form id="teammate-form" className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
+      <TeammatesFormFields />
+    </form>
   );
 }

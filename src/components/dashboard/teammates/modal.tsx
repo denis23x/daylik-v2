@@ -5,12 +5,12 @@ import { useTeammatesStore } from '@/store/useTeammatesStore';
 import TeammateInsertForm from './form/insert';
 import TeammateUpdateForm from './form/update';
 import { z } from 'zod';
-import { FormProvider, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRandomHexColor } from '@/hooks/ui/useRandomHexColor';
 import { TeammatesFormSchema } from './form/form-schema';
 import { Button } from '@/components/ui/button';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useDeleteTeammate } from '@/hooks/useTeammates';
 import { toast } from 'sonner';
@@ -18,6 +18,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { ConfirmDialog } from '@/components/confirm-dialog';
 import { useDeleteFiles } from '@/hooks/useFiles';
 import { getFilePath } from '@/lib/api/files';
+import { Form as FormProvider } from '@/components/ui/form';
 
 // TODO: env
 const BUCKET = 'avatars';
@@ -69,7 +70,7 @@ export default function TeammatesModal() {
   }, [mode, teammate, form, isOpen, generateRandomHex]);
 
   const handleDelete = async () => {
-    if (teammate?.UUID) {
+    if (teammate) {
       try {
         await deleteTeammate(teammate.UUID);
 
@@ -88,7 +89,7 @@ export default function TeammatesModal() {
         closeModal();
 
         // Success message
-        toast.success('Teammate deleted');
+        toast.success(`${teammate.name} has left the building`);
       } catch (error) {
         toast.error(error instanceof Error ? error.message : 'An error occurred');
       }
@@ -105,6 +106,7 @@ export default function TeammatesModal() {
           ? 'Update teammate info and manage their teams.'
           : 'Add a new teammate to start collaborating with your team.'
       }
+      disabledCloseButton={form.formState.isSubmitting}
       content={
         <FormProvider {...form}>
           {mode === 'update' ? <TeammateUpdateForm /> : <TeammateInsertForm />}
@@ -113,14 +115,20 @@ export default function TeammatesModal() {
             description="This action cannot be undone."
             open={isAlertOpen}
             onOpenChange={setIsAlertOpen}
-            onConfirmAction={handleDelete}
+            onConfirmAction={form.handleSubmit(handleDelete)}
           />
         </FormProvider>
       }
       trigger={undefined}
       extraActions={
         mode === 'update' ? (
-          <Button variant="destructive" onClick={() => setIsAlertOpen(true)}>
+          <Button
+            type="button"
+            variant="destructive"
+            disabled={form.formState.isSubmitting}
+            onClick={() => setIsAlertOpen(true)}
+          >
+            <Trash2 className="hidden sm:block" />
             Delete
           </Button>
         ) : undefined

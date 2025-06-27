@@ -88,12 +88,12 @@ const TeammatesFormFields = () => {
             </FormItem>
           )}
         />
-        <FileUploader name="avatar">
+        <FileUploader name="avatar" disabled={form.formState.isSubmitting}>
           <Button variant="outline" size="icon" type="button">
             <FolderOpenIcon className="h-5 w-5" />
           </Button>
         </FileUploader>
-        <ColorPicker name="color">
+        <ColorPicker name="color" disabled={form.formState.isSubmitting}>
           <Button variant="outline" size="icon" type="button">
             <Palette className="h-5 w-5" />
           </Button>

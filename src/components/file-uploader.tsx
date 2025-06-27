@@ -16,7 +16,15 @@ import { v4 as uuidv4 } from 'uuid';
 const BUCKET = 'avatars';
 const MAX_FILE_SIZE = 1 * 1024 * 1024;
 
-const FileUploader = ({ name, children }: { name: string; children: React.ReactNode }) => {
+const FileUploader = ({
+  name,
+  disabled = false,
+  children,
+}: {
+  name: string;
+  disabled?: boolean;
+  children: React.ReactNode;
+}) => {
   const form = useFormContext();
   const [open, setOpen] = useState(false);
   const { mutateAsync: uploadFile, isPending: isLoading } = useUploadFile();
@@ -63,8 +71,10 @@ const FileUploader = ({ name, children }: { name: string; children: React.ReactN
   };
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>{children}</PopoverTrigger>
+    <Popover open={open && !disabled} onOpenChange={setOpen}>
+      <PopoverTrigger asChild disabled={disabled}>
+        {children}
+      </PopoverTrigger>
       <PopoverContent
         onOpenAutoFocus={(e) => e.preventDefault()}
         className="w-64"

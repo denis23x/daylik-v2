@@ -1,23 +1,32 @@
 'use client';
 
-import { useState } from 'react';
+import { cloneElement, ReactNode, ReactElement, useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
 import { useFormContext } from 'react-hook-form';
 import { Pipette } from 'lucide-react';
+import type { Attributes } from 'react';
 
-const ColorPicker = ({ name, children }: { name: string; children: React.ReactNode }) => {
+const ColorPicker = ({
+  name,
+  disabled = false,
+  children,
+}: {
+  name: string;
+  disabled?: boolean;
+  children: ReactNode;
+}) => {
   const form = useFormContext();
 
   const [open, setOpen] = useState(false);
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+    <Popover open={open && !disabled} onOpenChange={setOpen}>
+      <PopoverTrigger asChild disabled={disabled}>
         <div className="relative">
-          {children}
+          {cloneElement(children as ReactElement, { disabled } as Attributes)}
           <span
             className="border-input absolute -top-2.5 -right-2.5 h-5 w-5 rounded-full border shadow-xs"
             style={{ backgroundColor: form.watch(name) }}
