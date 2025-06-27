@@ -26,7 +26,7 @@ const FileUploader = ({ name, children }: { name: string; children: React.ReactN
 
     // Early validation checks
     if (!file) {
-      toast.warning('No file selected');
+      toast.error('No file selected');
       return;
     }
 

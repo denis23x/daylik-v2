@@ -10,6 +10,7 @@ import { useTeamsFromAnalytic } from '@/hooks/useAnalyticsTeams';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { Analytics } from '@/types/analytics.type';
+import { ArrowRight } from 'lucide-react';
 
 const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
@@ -78,13 +79,16 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
                   <li key={analytic.UUID}>
                     <Link
                       href={`/analytics/${analytic.UUID}`}
-                      className="bg-muted after:bg-primary/70 relative flex flex-col rounded-md p-2 pl-6 text-sm after:absolute after:inset-y-2 after:left-2 after:w-1 after:rounded-full"
+                      className="bg-muted after:bg-primary/70 relative flex items-center justify-between gap-4 rounded-md py-2 pr-4 pl-6 text-sm after:absolute after:inset-y-2 after:left-2 after:w-1 after:rounded-full"
                     >
-                      <div className="font-medium">{analytic.team?.name}</div>
-                      <div className="text-muted-foreground text-xs">
-                        {format(analytic.createdAt, 'MMM d')}, {format(analytic.startedAt, 'HH:mm')}{' '}
-                        - {format(analytic.finishedAt, 'HH:mm')}
+                      <div className="flex flex-col">
+                        <span className="font-medium">{analytic.team?.name}</span>
+                        <div className="text-muted-foreground text-xs">
+                          {format(analytic.startedAt, 'HH:mm')} -{' '}
+                          {format(analytic.finishedAt, 'HH:mm')}
+                        </div>
                       </div>
+                      <ArrowRight size={16} />
                     </Link>
                   </li>
                 ))}

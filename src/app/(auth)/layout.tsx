@@ -1,5 +1,5 @@
-import { Toaster } from 'sonner';
 import { ReactQueryProvider } from '@/context/ReactQueryProvider';
+import Sonner from '@/components/sonner';
 
 export default function AuthLayout({
   children,
@@ -8,7 +8,7 @@ export default function AuthLayout({
 }>) {
   return (
     <ReactQueryProvider>
-      <Toaster richColors />
+      <Sonner />
       {children}
     </ReactQueryProvider>
   );

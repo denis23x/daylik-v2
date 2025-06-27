@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { CircleCheckBig, Crown, Ghost, RadioTower, Snowflake } from 'lucide-react';
 import HoverEffect from '@/components/hover-effect';
@@ -82,14 +82,15 @@ const AnalyticsHighlights = () => {
         .map((highlight) => (
           <Card key={highlight.label} className="group relative size-full gap-0 p-2">
             <CardHeader className="relative gap-0 p-0 transition-all">
-              <div className="flex items-center gap-2">
-                <span className="flex size-8 items-center justify-center">{highlight.icon}</span>
-                <div className="flex flex-col">
+              <div className="flex items-center gap-2 overflow-hidden rounded-lg border p-2">
+                <span className="flex aspect-square size-8 items-center justify-center">
+                  {highlight.icon}
+                </span>
+                <div className="flex flex-1 flex-col overflow-hidden">
                   <span className="truncate text-base font-semibold">{highlight.label}</span>
                   <span className="text-muted-foreground truncate text-xs">
                     {highlight.key === 'edgerunner' && `Overtime x${highlight.overtime}`}
-                    {highlight.key === 'radio-tower' &&
-                      `Most talkative ${formatDuration(highlight.total)}`}
+                    {highlight.key === 'radio-tower' && `On Air ${formatDuration(highlight.total)}`}
                     {highlight.key === 'frozen-hero' &&
                       `Paused time ${formatDuration(highlight.paused)}`}
                     {highlight.key === 'mystery-ghost' &&
@@ -111,6 +112,11 @@ const AnalyticsHighlights = () => {
                 </AvatarFallback>
               </Avatar>
             </CardContent>
+            <CardFooter className="flex flex-col items-stretch p-0 text-center">
+              <span className="truncate text-lg font-semibold sm:text-2xl">
+                {highlight.teammate?.name}
+              </span>
+            </CardFooter>
           </Card>
         ))}
     </HoverEffect>
