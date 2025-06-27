@@ -19,6 +19,7 @@ export default function TeammateInsertForm() {
     try {
       const team = await createTeam({
         name: formData.name,
+        image: formData.image || null,
       });
 
       await addTeammatesToTeam({

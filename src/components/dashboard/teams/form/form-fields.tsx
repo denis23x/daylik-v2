@@ -8,6 +8,9 @@ import { z } from 'zod';
 import { MultiSelect } from '@/components/multi-select';
 import { useTeammates } from '@/hooks/useTeammates';
 import type { Teammate } from '@/types/teammate.type';
+import { Button } from '@/components/ui/button';
+import { FolderOpenIcon } from 'lucide-react';
+import FileUploader from '@/components/file-uploader';
 
 const TeamsFormFields = () => {
   const form = useFormContext<z.infer<typeof TeamsFormSchema>>();
@@ -48,6 +51,31 @@ const TeamsFormFields = () => {
           description: teammate.role,
         }))}
       />
+      <div className="flex items-end justify-end gap-4">
+        <FormField
+          control={form.control}
+          name="image"
+          render={({ field }) => (
+            <FormItem className="flex-1">
+              <FormLabel>Image</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Got a cool picture? Paste the link"
+                  {...field}
+                  value={field.value || ''}
+                  disabled={form.formState.isSubmitting}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FileUploader name="image" disabled={form.formState.isSubmitting}>
+          <Button variant="outline" size="icon" type="button">
+            <FolderOpenIcon className="h-5 w-5" />
+          </Button>
+        </FileUploader>
+      </div>
     </>
   );
 };

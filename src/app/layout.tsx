@@ -32,12 +32,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div
-            data-vaul-drawer-wrapper="true"
-            className="bg-background transition-[transform,border-radius] duration-300"
-          >
-            {children}
-          </div>
+          {children}
         </ThemeProvider>
       </body>
     </html>

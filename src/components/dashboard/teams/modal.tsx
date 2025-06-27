@@ -15,6 +15,10 @@ import { toast } from 'sonner';
 import { useDeleteTeam } from '@/hooks/useTeams';
 import { ConfirmDialog } from '@/components/confirm-dialog';
 import { Form as FormProvider } from '@/components/ui/form';
+import { deleteFiles, getFilePath } from '@/lib/api/files';
+
+// TODO: env
+const BUCKET = 'avatars';
 
 export default function TeamsModal() {
   const { isOpen, mode, team, closeModal } = useTeamsStore();
@@ -25,6 +29,7 @@ export default function TeamsModal() {
     defaultValues: {
       name: '',
       teammates: [],
+      image: null,
     },
     resolver: zodResolver(TeamsFormSchema),
   });
@@ -35,6 +40,7 @@ export default function TeamsModal() {
         form.reset({
           name: team.name,
           teammates: team.teammates as string[],
+          image: team.image ?? null,
         });
       }
 
@@ -42,6 +48,7 @@ export default function TeamsModal() {
         form.reset({
           name: '',
           teammates: [],
+          image: null,
         });
       }
     } else {
@@ -54,6 +61,11 @@ export default function TeamsModal() {
     if (team) {
       try {
         await deleteTeam(team.UUID);
+
+        // Delete image if it exists, sync method
+        if (team.image) {
+          deleteFiles({ bucket: BUCKET, paths: [getFilePath(team.image)] });
+        }
 
         // Close modal
         closeModal();
@@ -70,6 +82,7 @@ export default function TeamsModal() {
     <ResponsiveDialog
       open={isOpen}
       onOpenChange={(open) => !form.formState.isSubmitting && !open && closeModal()}
+      disabled={form.formState.isSubmitting}
       title={mode === 'update' ? 'Edit Team' : 'Create Team'}
       description={
         mode === 'update'
@@ -89,7 +102,7 @@ export default function TeamsModal() {
         </FormProvider>
       }
       trigger={undefined}
-      extraActions={
+      left={
         mode === 'update' ? (
           <Button
             type="button"
@@ -102,7 +115,7 @@ export default function TeamsModal() {
           </Button>
         ) : undefined
       }
-      actions={
+      right={
         <Button type="submit" form="team-form" disabled={form.formState.isSubmitting}>
           {form.formState.isSubmitting && <Loader2 className="mr-2 animate-spin" />}
           {form.formState.isSubmitting ? 'Please wait' : mode === 'update' ? 'Update' : 'Create'}

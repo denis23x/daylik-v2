@@ -23,6 +23,7 @@ export default function TeammateUpdateForm() {
           await updateTeam({
             UUID: team.UUID,
             name: formData.name,
+            image: formData.image || null,
           });
         }
 

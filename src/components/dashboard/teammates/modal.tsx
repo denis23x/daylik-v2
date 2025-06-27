@@ -59,7 +59,7 @@ export default function TeammatesModal() {
           name: '',
           role: '',
           teams: [],
-          avatar: '',
+          avatar: null,
           color: generateRandomHex(),
         });
       }
@@ -74,9 +74,8 @@ export default function TeammatesModal() {
       try {
         await deleteTeammate(teammate.UUID);
 
-        // Delete avatar if it exists
+        // Delete avatar if it exists, sync method
         if (teammate.avatar) {
-          // Sync method
           deleteFiles({ bucket: BUCKET, paths: [getFilePath(teammate.avatar)] });
         }
 
@@ -100,13 +99,13 @@ export default function TeammatesModal() {
     <ResponsiveDialog
       open={isOpen}
       onOpenChange={(open) => !form.formState.isSubmitting && !open && closeModal()}
+      disabled={form.formState.isSubmitting}
       title={mode === 'update' ? 'Update Teammate' : 'Add Teammate'}
       description={
         mode === 'update'
           ? 'Update teammate info and manage their teams.'
           : 'Add a new teammate to start collaborating with your team.'
       }
-      disabledCloseButton={form.formState.isSubmitting}
       content={
         <FormProvider {...form}>
           {mode === 'update' ? <TeammateUpdateForm /> : <TeammateInsertForm />}
@@ -120,7 +119,7 @@ export default function TeammatesModal() {
         </FormProvider>
       }
       trigger={undefined}
-      extraActions={
+      left={
         mode === 'update' ? (
           <Button
             type="button"
@@ -133,7 +132,7 @@ export default function TeammatesModal() {
           </Button>
         ) : undefined
       }
-      actions={
+      right={
         <Button type="submit" form="teammate-form" disabled={form.formState.isSubmitting}>
           {form.formState.isSubmitting && <Loader2 className="mr-2 animate-spin" />}
           {form.formState.isSubmitting ? 'Please wait' : mode === 'update' ? 'Update' : 'Add'}

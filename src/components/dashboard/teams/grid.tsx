@@ -19,6 +19,7 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { v4 as uuidv4 } from 'uuid';
 import { BorderBeam } from '@/components/magicui/border-beam';
 import AvatarInitials from '@/components/avatar-initials';
+import Image from 'next/image';
 
 const TeamsGrid = () => {
   const { data, error, isLoading } = useTeams({
@@ -128,7 +129,17 @@ const TeamsGrid = () => {
                     </Button>
                   </CardHeader>
                   <CardContent className="p-0">
-                    {team.teammates?.length ? (
+                    {team.image ? (
+                      <div className="my-2">
+                        <Image
+                          className="aspect-square size-full rounded-lg border object-cover"
+                          src={team.image}
+                          alt={team.name}
+                          width={256}
+                          height={256}
+                        />
+                      </div>
+                    ) : team.teammates?.length ? (
                       <div className="my-2 grid aspect-square grid-cols-2 grid-rows-2 gap-2">
                         {(getDisplayTeammates(team) as Teammate[]).map(
                           (teammate: Teammate, index, array) =>
