@@ -1,4 +1,5 @@
 import { supabase } from '@/utils/supabase/client';
+import { BUCKET_IMAGES } from '../constants';
 
 type UploadFileParams = {
   bucket: string;
@@ -17,7 +18,7 @@ type GetPublicUrlParams = {
 };
 
 export function getFilePath(url: string): string {
-  const parts = url.split('/');
+  const parts = url.split(`/${BUCKET_IMAGES}/`);
   return parts[parts.length - 1];
 }
 

@@ -79,7 +79,7 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
                   <li key={analytic.UUID}>
                     <Link
                       href={`/analytics/${analytic.UUID}`}
-                      className="bg-muted after:bg-primary/70 relative flex items-center justify-between gap-4 rounded-md py-2 pr-4 pl-6 text-sm after:absolute after:inset-y-2 after:left-2 after:w-1 after:rounded-full"
+                      className="group bg-muted after:bg-primary/70 relative flex items-center justify-between gap-4 rounded-md py-2 pr-4 pl-6 text-sm after:absolute after:inset-y-2 after:left-2 after:w-1 after:rounded-full"
                     >
                       <div className="flex flex-col">
                         <span className="font-medium">{analytic.team?.name}</span>
@@ -88,7 +88,10 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
                           {format(analytic.finishedAt, 'HH:mm')}
                         </div>
                       </div>
-                      <ArrowRight size={16} />
+                      <ArrowRight
+                        className="transition-transform group-hover:translate-x-1"
+                        size={16}
+                      />
                     </Link>
                   </li>
                 ))}

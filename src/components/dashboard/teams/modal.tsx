@@ -15,14 +15,14 @@ import { toast } from 'sonner';
 import { useDeleteTeam } from '@/hooks/useTeams';
 import { ConfirmDialog } from '@/components/confirm-dialog';
 import { Form as FormProvider } from '@/components/ui/form';
-import { deleteFiles, getFilePath } from '@/lib/api/files';
-
-// TODO: env
-const BUCKET = 'avatars';
+import { getFilePath } from '@/lib/api/files';
+import { BUCKET_IMAGES } from '@/lib/constants';
+import { useDeleteFiles } from '@/hooks/useFiles';
 
 export default function TeamsModal() {
   const { isOpen, mode, team, closeModal } = useTeamsStore();
   const { mutateAsync: deleteTeam } = useDeleteTeam();
+  const { mutate: deleteFiles } = useDeleteFiles();
   const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   const form = useForm<z.infer<typeof TeamsFormSchema>>({
@@ -64,7 +64,7 @@ export default function TeamsModal() {
 
         // Delete image if it exists, sync method
         if (team.image) {
-          deleteFiles({ bucket: BUCKET, paths: [getFilePath(team.image)] });
+          deleteFiles({ bucket: BUCKET_IMAGES, paths: [getFilePath(team.image)] });
         }
 
         // Close modal

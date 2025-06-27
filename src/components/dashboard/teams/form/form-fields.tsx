@@ -70,7 +70,7 @@ const TeamsFormFields = () => {
             </FormItem>
           )}
         />
-        <FileUploader name="image" disabled={form.formState.isSubmitting}>
+        <FileUploader name="image" path="teams" disabled={form.formState.isSubmitting}>
           <Button variant="outline" size="icon" type="button">
             <FolderOpenIcon className="h-5 w-5" />
           </Button>

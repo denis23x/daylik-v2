@@ -11,17 +11,16 @@ import { toast } from 'sonner';
 import { useUploadFile } from '@/hooks/useFiles';
 import { getPublicUrl } from '@/lib/api/files';
 import { v4 as uuidv4 } from 'uuid';
-
-// TODO: env
-const BUCKET = 'avatars';
-const MAX_FILE_SIZE = 1 * 1024 * 1024;
+import { BUCKET_MAX_FILE_SIZE, BUCKET_IMAGES } from '@/lib/constants';
 
 const FileUploader = ({
   name,
+  path,
   disabled = false,
   children,
 }: {
   name: string;
+  path: string;
   disabled?: boolean;
   children: React.ReactNode;
 }) => {
@@ -43,8 +42,9 @@ const FileUploader = ({
       return;
     }
 
-    if (file.size > MAX_FILE_SIZE) {
-      toast.error('File is too large (max 1MB)');
+    if (file.size > BUCKET_MAX_FILE_SIZE) {
+      const maxSize = (BUCKET_MAX_FILE_SIZE / 1024 / 1024).toFixed();
+      toast.error(`File is too large (max ${maxSize} MB)`);
       return;
     }
 
@@ -55,9 +55,9 @@ const FileUploader = ({
 
     try {
       // Upload file to storage
-      const fileName = uuidv4();
-      const fileUpload = await uploadFile({ bucket: BUCKET, fileName, file });
-      const fileUrl = getPublicUrl({ bucket: BUCKET, path: fileUpload.path });
+      const fileName = `${path}/${uuidv4()}`;
+      const fileUpload = await uploadFile({ bucket: BUCKET_IMAGES, fileName, file });
+      const fileUrl = getPublicUrl({ bucket: BUCKET_IMAGES, path: fileUpload.path });
 
       // Update form with the file URL
       form.setValue(name, fileUrl.publicUrl, { shouldDirty: true });

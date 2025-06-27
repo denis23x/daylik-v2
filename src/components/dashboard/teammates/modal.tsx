@@ -19,9 +19,7 @@ import { ConfirmDialog } from '@/components/confirm-dialog';
 import { useDeleteFiles } from '@/hooks/useFiles';
 import { getFilePath } from '@/lib/api/files';
 import { Form as FormProvider } from '@/components/ui/form';
-
-// TODO: env
-const BUCKET = 'avatars';
+import { BUCKET_IMAGES } from '@/lib/constants';
 
 export default function TeammatesModal() {
   const { isOpen, mode, teammate, closeModal } = useTeammatesStore();
@@ -76,7 +74,7 @@ export default function TeammatesModal() {
 
         // Delete avatar if it exists, sync method
         if (teammate.avatar) {
-          deleteFiles({ bucket: BUCKET, paths: [getFilePath(teammate.avatar)] });
+          deleteFiles({ bucket: BUCKET_IMAGES, paths: [getFilePath(teammate.avatar)] });
         }
 
         // Invalidate teams queries if the teammate is assigned to any teams

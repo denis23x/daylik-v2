@@ -8,6 +8,9 @@ import { z } from 'zod';
 import { useTeamsStore } from '@/store/useTeamsStore';
 import { useUpdateTeam } from '@/hooks/useTeams';
 import { useAddTeammatesToTeam, useRemoveTeammatesFromTeam } from '@/hooks/useTeamsTeammates';
+import { useDeleteFiles } from '@/hooks/useFiles';
+import { getFilePath } from '@/lib/api/files';
+import { BUCKET_IMAGES } from '@/lib/constants';
 
 export default function TeammateUpdateForm() {
   const form = useFormContext<z.infer<typeof TeamsFormSchema>>();
@@ -15,6 +18,7 @@ export default function TeammateUpdateForm() {
   const { mutateAsync: addTeammatesToTeam } = useAddTeammatesToTeam();
   const { mutateAsync: removeTeammatesFromTeam } = useRemoveTeammatesFromTeam();
   const { team, closeModal } = useTeamsStore();
+  const { mutate: deleteFiles } = useDeleteFiles();
 
   const handleSubmit = async (formData: z.infer<typeof TeamsFormSchema>) => {
     if (team) {
@@ -48,11 +52,20 @@ export default function TeammateUpdateForm() {
           });
         }
 
+        // Delete image if it exists, sync method
+        if (team.image && team.image !== formData.image) {
+          deleteFiles({ bucket: BUCKET_IMAGES, paths: [getFilePath(team.image)] });
+        }
+
         // Close modal
         closeModal();
 
         // Success message
-        toast.success(`${team.name} has been patched!`);
+        if (team.name !== formData.name) {
+          toast.success(`${formData.name} (ex. ${team.name}) has been patched!`);
+        } else {
+          toast.success(`${team.name} has been patched!`);
+        }
       } catch (error) {
         toast.error(error instanceof Error ? error.message : 'An error occurred');
       }

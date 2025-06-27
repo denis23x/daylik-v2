@@ -9,6 +9,9 @@ import { TeammatesFormSchema } from './form-schema';
 import { z } from 'zod';
 import { useAddTeamsToTeammate, useRemoveTeamsFromTeammate } from '@/hooks/useTeamsTeammates';
 import { useQueryClient } from '@tanstack/react-query';
+import { getFilePath } from '@/lib/api/files';
+import { BUCKET_IMAGES } from '@/lib/constants';
+import { useDeleteFiles } from '@/hooks/useFiles';
 
 export default function TeammateUpdateForm() {
   const form = useFormContext<z.infer<typeof TeammatesFormSchema>>();
@@ -16,6 +19,7 @@ export default function TeammateUpdateForm() {
   const { mutateAsync: addTeamsToTeammate } = useAddTeamsToTeammate();
   const { mutateAsync: removeTeamsFromTeammate } = useRemoveTeamsFromTeammate();
   const { teammate, closeModal } = useTeammatesStore();
+  const { mutate: deleteFiles } = useDeleteFiles();
   const queryClient = useQueryClient();
 
   const handleSubmit = async (formData: z.infer<typeof TeammatesFormSchema>) => {
@@ -55,11 +59,20 @@ export default function TeammateUpdateForm() {
           });
         }
 
+        // Delete avatar if it exists, sync method
+        if (teammate.avatar && teammate.avatar !== formData.avatar) {
+          deleteFiles({ bucket: BUCKET_IMAGES, paths: [getFilePath(teammate.avatar)] });
+        }
+
         // Close modal
         closeModal();
 
         // Success message
-        toast.success(`${teammate.name} has been patched!`);
+        if (teammate.name !== formData.name) {
+          toast.success(`${formData.name} (ex. ${teammate.name}) has been patched!`);
+        } else {
+          toast.success(`${teammate.name} has been patched!`);
+        }
       } catch (error) {
         toast.error(error instanceof Error ? error.message : 'An error occurred');
       }
