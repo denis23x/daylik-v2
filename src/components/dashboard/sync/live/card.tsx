@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import confetti from 'canvas-confetti';
 import { useTimer } from '@/hooks/ui/useTimer';
 import { useStopwatch } from '@/hooks/ui/useStopwatch';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import type { SyncTeam } from '@/types/syncTeam.type';
 import type { SyncTeammate } from '@/types/syncTeammate.type';
 import { AnimatePresence, motion } from 'motion/react';
@@ -24,6 +24,7 @@ export const SyncLiveCard = ({
   const { setActive, setDone } = useSyncLiveStore();
   const timer = useTimer(team.timer);
   const stopwatch = useStopwatch(team.timer);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (teammate.sync.status === 'active') {
@@ -64,17 +65,17 @@ export const SyncLiveCard = ({
       '❌',
       '‼️',
       '⛔️',
-      '⚠️',
       '🚫',
       '🚨',
-      '🙅‍♂️',
-      '🔔',
-      '👮‍♂️',
       '🔴',
       '💔',
-      '💀',
+      '🐞',
       '🥊',
       '☎️',
+      '🤬',
+      '😡',
+      '🆘',
+      '🦞',
     ];
 
     const shapes = emojis.map((emoji) => confetti.shapeFromText({ text: emoji, scalar }));
@@ -93,10 +94,16 @@ export const SyncLiveCard = ({
       scalar,
       origin: { x, y },
     });
+
+    // SkewX animation
+    if (cardRef.current) {
+      cardRef.current.classList.remove('animate-skew-x');
+      setTimeout(() => cardRef.current?.classList.add('animate-skew-x'));
+    }
   };
 
   return (
-    <div className={`flip-card aspect-[3/3.75] ${teammate.sync?.status}`}>
+    <div ref={cardRef} className={`flip-card aspect-[3/3.75] ${teammate.sync?.status}`}>
       <div className="flip-card-inner p-0">
         <Card className="flip-card-front gap-2 p-2">
           <CardContent className="flex size-full items-center justify-center">

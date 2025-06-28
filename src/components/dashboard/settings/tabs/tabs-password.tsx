@@ -40,15 +40,15 @@ const TabsPassword = () => {
   };
 
   return (
-    <Card>
-      <CardHeader>
+    <Card className="p-4">
+      <CardHeader className="p-0">
         <CardTitle>Update Password</CardTitle>
         <CardDescription className="border-b pb-6">
           Set a new password to keep your account secure. Choose something strong and unique — your
           changes will take effect immediately after saving.
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-0">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
             <TabsPasswordInput name="password" />

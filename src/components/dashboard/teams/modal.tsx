@@ -23,7 +23,7 @@ export default function TeamsModal() {
   const { isOpen, mode, team, closeModal } = useTeamsStore();
   const { mutateAsync: deleteTeam } = useDeleteTeam();
   const { mutate: deleteFiles } = useDeleteFiles();
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   const form = useForm<z.infer<typeof TeamsFormSchema>>({
     defaultValues: {
@@ -95,8 +95,8 @@ export default function TeamsModal() {
           <ConfirmDialog
             title="Are you absolutely sure?"
             description="This action cannot be undone."
-            open={isAlertOpen}
-            onOpenChange={setIsAlertOpen}
+            open={isConfirmOpen}
+            onOpenChange={setIsConfirmOpen}
             onConfirmAction={form.handleSubmit(handleDelete)}
           />
         </FormProvider>
@@ -108,7 +108,7 @@ export default function TeamsModal() {
             type="button"
             variant="destructive"
             disabled={form.formState.isSubmitting}
-            onClick={() => setIsAlertOpen(true)}
+            onClick={() => setIsConfirmOpen(true)}
           >
             <Trash2 className="hidden sm:block" />
             Delete

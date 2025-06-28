@@ -31,7 +31,7 @@ import NavbarCalendar from './navbar-calendar';
 const NavigationSheet = () => {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const { mutateAsync: signOut } = useSignOut();
 
   // Close sheet when route changes
@@ -67,8 +67,8 @@ const NavigationSheet = () => {
         <ConfirmDialog
           title="Are you absolutely sure?"
           description="You’ll need to sign in again to access your account."
-          open={isAlertOpen}
-          onOpenChange={setIsAlertOpen}
+          open={isConfirmOpen}
+          onOpenChange={setIsConfirmOpen}
           onConfirmAction={handleLogout}
         />
         <NavigationMenu>
@@ -103,7 +103,7 @@ const NavigationSheet = () => {
         </NavigationMenu>
         <SheetFooter className="gap-3">
           <ThemeToggle text variant="outline" size="default" />
-          <Button onClick={() => setIsAlertOpen(true)}>Logout</Button>
+          <Button onClick={() => setIsConfirmOpen(true)}>Logout</Button>
         </SheetFooter>
       </SheetContent>
     </Sheet>

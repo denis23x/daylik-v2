@@ -26,8 +26,8 @@ export default function TeammatesModal() {
   const { generateRandomHex } = useRandomHexColor();
   const { mutateAsync: deleteTeammate } = useDeleteTeammate();
   const { mutate: deleteFiles } = useDeleteFiles();
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const queryClient = useQueryClient();
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   const form = useForm<z.infer<typeof TeammatesFormSchema>>({
     defaultValues: {
@@ -110,8 +110,8 @@ export default function TeammatesModal() {
           <ConfirmDialog
             title="Are you absolutely sure?"
             description="This action cannot be undone."
-            open={isAlertOpen}
-            onOpenChange={setIsAlertOpen}
+            open={isConfirmOpen}
+            onOpenChange={setIsConfirmOpen}
             onConfirmAction={form.handleSubmit(handleDelete)}
           />
         </FormProvider>
@@ -123,7 +123,7 @@ export default function TeammatesModal() {
             type="button"
             variant="destructive"
             disabled={form.formState.isSubmitting}
-            onClick={() => setIsAlertOpen(true)}
+            onClick={() => setIsConfirmOpen(true)}
           >
             <Trash2 className="hidden sm:block" />
             Delete

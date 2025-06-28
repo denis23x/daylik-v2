@@ -2,6 +2,7 @@
 
 import TabsEmail from './tabs/tabs-email';
 import TabsPassword from './tabs/tabs-password';
+import TabsSubscription from './tabs/tabs-subscription';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getQueryParams } from '@/utils/getQueryParams';
 import { Settings } from 'lucide-react';
@@ -38,7 +39,8 @@ const SettingsTabs = () => {
         </div>
         <div className="flex w-full flex-col items-center gap-4">
           <Tabs value={tab} onValueChange={handleTabsChange} className="w-full sm:max-w-md">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="subscription">Subscription</TabsTrigger>
               <TabsTrigger value="email">Email</TabsTrigger>
               <TabsTrigger value="password">Password</TabsTrigger>
             </TabsList>
@@ -47,6 +49,9 @@ const SettingsTabs = () => {
             </TabsContent>
             <TabsContent value="password">
               <TabsPassword />
+            </TabsContent>
+            <TabsContent value="subscription">
+              <TabsSubscription />
             </TabsContent>
           </Tabs>
         </div>

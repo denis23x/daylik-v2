@@ -13,7 +13,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Trash2 } from 'lucide-react';
 import { useGetUser, useUpdateEmail } from '@/hooks/useAuth';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -56,15 +56,15 @@ const TabsEmail = () => {
   };
 
   return (
-    <Card>
-      <CardHeader>
+    <Card className="p-4">
+      <CardHeader className="p-0">
         <CardTitle>Update Email Address</CardTitle>
         <CardDescription className="border-b pb-6">
           Change the email address linked to your account. A confirmation link will be sent to
           verify the new address before the update is applied.
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-0">
         {form.formState.isSubmitSuccessful && (
           <Alert className="mb-6" variant="destructive">
             <AlertDescription className="inline">
@@ -124,6 +124,15 @@ const TabsEmail = () => {
             <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
               {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
               {form.formState.isSubmitting ? 'Please wait' : 'Send link'}
+            </Button>
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={form.formState.isSubmitting}
+              variant="destructive"
+            >
+              {form.formState.isSubmitting ? <Loader2 className="animate-spin" /> : <Trash2 />}
+              {form.formState.isSubmitting ? 'Please wait' : 'Delete'}
             </Button>
           </form>
         </Form>
