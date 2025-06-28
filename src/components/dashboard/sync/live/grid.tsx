@@ -57,30 +57,27 @@ const SyncLiveGrid = () => {
 
   useEffect(() => {
     if (!isDone) return;
-    const handleFinish = async () => {
-      try {
-        toast.success('Saving your data — analytics coming right up');
+    const handleFinish = async (): Promise<void> => {
+      const analytics = await createAnalytics({
+        teamUUID: team?.UUID as string,
+        timer: team?.timer as number,
+        startedAt: isStarted as string,
+        finishedAt: new Date().toISOString(),
+      });
 
-        // Create analytics
-        const analytics = await createAnalytics({
-          teamUUID: team?.UUID as string,
-          timer: team?.timer as number,
-          startedAt: isStarted as string,
-          finishedAt: new Date().toISOString(),
-        });
+      await addTeammatesToAnalytic({
+        analyticUUID: analytics.UUID,
+        teammates,
+      });
 
-        await addTeammatesToAnalytic({
-          analyticUUID: analytics.UUID,
-          teammates,
-        });
-
-        router.replace(`/analytics/${analytics.UUID}`);
-      } catch (error) {
-        toast.error(error instanceof Error ? error.message : 'An error occurred');
-      }
+      router.replace(`/analytics/${analytics.UUID}`);
     };
 
-    handleFinish();
+    toast.promise(handleFinish(), {
+      loading: 'Saving..',
+      success: 'Numbers gathered. Behold your analytics!',
+      error: (e: unknown) => (e instanceof Error ? e.message : 'An error occurred'),
+    });
   }, [isDone, isStarted, team, teammates, router, createAnalytics, addTeammatesToAnalytic]);
 
   useEffect(() => {
