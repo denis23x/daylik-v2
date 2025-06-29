@@ -6,6 +6,7 @@ import {
   getUser,
   updateEmail,
   signOut,
+  deleteUser,
 } from '@/lib/api/auth';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
@@ -50,5 +51,11 @@ export function useUpdatePassword() {
 export function useUpdateEmail() {
   return useMutation({
     mutationFn: updateEmail,
+  });
+}
+
+export function useDeleteUser() {
+  return useMutation({
+    mutationFn: deleteUser,
   });
 }

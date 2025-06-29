@@ -1,4 +1,5 @@
 import { supabase } from '@/utils/supabase/client';
+import { getSession } from '../session';
 
 type SignInParams = {
   email: string;
@@ -79,6 +80,18 @@ export async function updateEmail({ email }: UpdateEmailParams) {
       emailRedirectTo: `${process.env.NEXT_PUBLIC_URL}/settings?tabs=email`,
     }
   );
+  if (error) throw error;
+  return data;
+}
+
+export async function deleteUser() {
+  const session = await getSession();
+  const { data, error } = await supabase.functions.invoke('delete-user-account', {
+    method: 'DELETE',
+    body: {
+      UUID: session?.user.id,
+    },
+  });
   if (error) throw error;
   return data;
 }

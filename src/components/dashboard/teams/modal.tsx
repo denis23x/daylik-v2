@@ -79,48 +79,50 @@ export default function TeamsModal() {
   };
 
   return (
-    <ResponsiveDialog
-      open={isOpen}
-      onOpenChange={(open) => !form.formState.isSubmitting && !open && closeModal()}
-      disabled={form.formState.isSubmitting}
-      title={mode === 'update' ? 'Edit Team' : 'Create Team'}
-      description={
-        mode === 'update'
-          ? 'Edit team info and manage their members.'
-          : 'Create a new team to start collaborating with your members.'
-      }
-      content={
-        <FormProvider {...form}>
-          {mode === 'update' ? <TeamUpdateForm /> : <TeamInsertForm />}
-          <ConfirmDialog
-            title="Are you absolutely sure?"
-            description="This action cannot be undone."
-            open={isConfirmOpen}
-            onOpenChange={setIsConfirmOpen}
-            onConfirmAction={form.handleSubmit(handleDelete)}
-          />
-        </FormProvider>
-      }
-      trigger={undefined}
-      left={
-        mode === 'update' ? (
-          <Button
-            type="button"
-            variant="destructive"
-            disabled={form.formState.isSubmitting}
-            onClick={() => setIsConfirmOpen(true)}
-          >
-            <Trash2 className="hidden sm:block" />
-            Delete
+    <>
+      <ResponsiveDialog
+        open={isOpen}
+        onOpenChange={(open) => !form.formState.isSubmitting && !open && closeModal()}
+        disabled={form.formState.isSubmitting}
+        title={mode === 'update' ? 'Edit Team' : 'Create Team'}
+        description={
+          mode === 'update'
+            ? 'Edit team info and manage their members.'
+            : 'Create a new team to start collaborating with your members.'
+        }
+        content={
+          <FormProvider {...form}>
+            {mode === 'update' ? <TeamUpdateForm /> : <TeamInsertForm />}
+          </FormProvider>
+        }
+        trigger={undefined}
+        left={
+          mode === 'update' ? (
+            <Button
+              type="button"
+              variant="destructive"
+              disabled={form.formState.isSubmitting}
+              onClick={() => setIsConfirmOpen(true)}
+            >
+              <Trash2 className="hidden sm:block" />
+              Delete
+            </Button>
+          ) : undefined
+        }
+        right={
+          <Button type="submit" form="team-form" disabled={form.formState.isSubmitting}>
+            {form.formState.isSubmitting && <Loader2 className="mr-2 animate-spin" />}
+            {form.formState.isSubmitting ? 'Please wait' : mode === 'update' ? 'Update' : 'Create'}
           </Button>
-        ) : undefined
-      }
-      right={
-        <Button type="submit" form="team-form" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting && <Loader2 className="mr-2 animate-spin" />}
-          {form.formState.isSubmitting ? 'Please wait' : mode === 'update' ? 'Update' : 'Create'}
-        </Button>
-      }
-    />
+        }
+      />
+      <ConfirmDialog
+        title="Are you absolutely sure?"
+        description="This action cannot be undone."
+        open={isConfirmOpen}
+        onOpenChange={setIsConfirmOpen}
+        onConfirmAction={form.handleSubmit(handleDelete)}
+      />
+    </>
   );
 }

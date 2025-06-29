@@ -12,7 +12,7 @@ const TabsSubscription = () => {
           billing history, and manage your payment methods.
         </CardDescription>
       </CardHeader>
-      <CardContent className="p-0">content</CardContent>
+      <CardContent className="p-0">No content yet</CardContent>
     </Card>
   );
 };
