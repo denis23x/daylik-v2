@@ -54,64 +54,62 @@ const NavigationSheet = () => {
   };
 
   return (
-    <>
-      <Sheet open={open} onOpenChange={setOpen}>
-        <SheetTrigger asChild>
-          <Button variant="outline" size="icon">
-            <Menu />
-          </Button>
-        </SheetTrigger>
-        <SheetContent>
-          <SheetHeader>
-            <SheetTitle>Navigation</SheetTitle>
-            <SheetDescription>
-              Access your resources and settings from this sidebar menu.
-            </SheetDescription>
-          </SheetHeader>
-          <NavigationMenu>
-            <NavigationMenuList className="grid gap-4 space-x-0 p-4 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start">
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link className="flex items-center gap-2" href="/teams">
-                    <Grid2x2 size={16} />
-                    Teams
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <Separator />
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link className="flex items-center gap-2" href="/teammates">
-                    <UsersRound size={16} />
-                    Teammates
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <Separator />
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link className="flex items-center gap-2" href="/settings">
-                    <Settings size={16} />
-                    Settings
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-          <SheetFooter className="gap-3">
-            <ThemeToggle text variant="outline" size="default" />
-            <Button onClick={() => setIsConfirmOpen(true)}>Logout</Button>
-          </SheetFooter>
-        </SheetContent>
-      </Sheet>
-      <ConfirmDialog
-        title="Are you absolutely sure?"
-        description="You’ll need to sign in again to access your account."
-        open={isConfirmOpen}
-        onOpenChange={setIsConfirmOpen}
-        onConfirmAction={handleLogout}
-      />
-    </>
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
+        <Button variant="outline" size="icon">
+          <Menu />
+        </Button>
+      </SheetTrigger>
+      <SheetContent>
+        <SheetHeader>
+          <SheetTitle>Navigation</SheetTitle>
+          <SheetDescription>
+            Access your resources and settings from this sidebar menu.
+          </SheetDescription>
+        </SheetHeader>
+        <NavigationMenu>
+          <NavigationMenuList className="grid gap-4 space-x-0 p-4 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start">
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link className="flex items-center gap-2" href="/teams">
+                  <Grid2x2 size={16} />
+                  Teams
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <Separator />
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link className="flex items-center gap-2" href="/teammates">
+                  <UsersRound size={16} />
+                  Teammates
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <Separator />
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link className="flex items-center gap-2" href="/settings">
+                  <Settings size={16} />
+                  Settings
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+        <SheetFooter className="gap-3">
+          <ThemeToggle text variant="outline" size="default" />
+          <Button onClick={() => setIsConfirmOpen(true)}>Logout</Button>
+        </SheetFooter>
+        <ConfirmDialog
+          title="Are you absolutely sure?"
+          description="You’ll need to sign in again to access your account."
+          open={isConfirmOpen}
+          onOpenChange={setIsConfirmOpen}
+          onConfirmAction={handleLogout}
+        />
+      </SheetContent>
+    </Sheet>
   );
 };
 
