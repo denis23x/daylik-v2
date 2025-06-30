@@ -8,7 +8,8 @@ import {
   AccordionContent,
   AccordionItem,
 } from '@/components/ui/accordion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { getCookie, setCookie } from '@/hooks/useCookie';
 
 const DashboardHero = ({
   title,
@@ -21,7 +22,16 @@ const DashboardHero = ({
   icon: React.ReactNode;
   children?: React.ReactNode;
 }) => {
-  const [isOpen, setIsOpen] = useState('');
+  const [name] = useState('hero');
+  const [value, setValue] = useState('');
+
+  useEffect(() => {
+    const cookie = getCookie(`hero-${window.location.pathname}`);
+
+    if (cookie === undefined || Number(cookie)) {
+      setValue(name);
+    }
+  }, []);
 
   const handleScroll = () => {
     const element = document.querySelector('.min-h-screen-grid');
@@ -57,17 +67,25 @@ const DashboardHero = ({
     }
   };
 
+  const handleValueChange = (value: string) => {
+    setValue(value);
+
+    // Save the value to cookie
+    setCookie(`hero-${window.location.pathname}`, String(value ? 1 : 0));
+  };
+
   return (
     <Accordion
       type="single"
       collapsible
       className="relative container mx-auto"
-      onValueChange={setIsOpen}
+      value={value}
+      onValueChange={handleValueChange}
     >
-      <AccordionItem value="item-1">
+      <AccordionItem value={name}>
         <AccordionTrigger asChild>
           <Button className="absolute top-4 right-4 z-10" variant="ghost" size="icon">
-            {isOpen ? <X /> : <Text />}
+            {value ? <X /> : <Text />}
           </Button>
         </AccordionTrigger>
         <AccordionContent className="min-h-screen-hero mx-auto flex max-w-2xl flex-col items-center justify-center gap-6 p-4 text-center">
