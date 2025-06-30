@@ -58,10 +58,10 @@ function AccordionContent({
   return (
     <AccordionPrimitive.Content
       data-slot="accordion-content"
-      className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
+      className={cn('overflow-hidden text-sm', className)}
       {...props}
     >
-      <div className={cn(className)}>{children}</div>
+      {children}
     </AccordionPrimitive.Content>
   );
 }

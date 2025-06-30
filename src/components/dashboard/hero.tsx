@@ -23,6 +23,7 @@ const DashboardHero = ({
   children?: React.ReactNode;
 }) => {
   const [name] = useState('hero');
+  const [animateable, setAnimateable] = useState(false);
   const [value, setValue] = useState('');
 
   useEffect(() => {
@@ -30,8 +31,9 @@ const DashboardHero = ({
 
     if (cookie === undefined || Number(cookie)) {
       setValue(name);
+      setAnimateable(false);
     }
-  }, []);
+  }, [name]);
 
   const handleScroll = () => {
     const element = document.querySelector('.min-h-screen-grid');
@@ -69,6 +71,7 @@ const DashboardHero = ({
 
   const handleValueChange = (value: string) => {
     setValue(value);
+    setAnimateable(true);
 
     // Save the value to cookie
     setCookie(`hero-${window.location.pathname}`, String(value ? 1 : 0));
@@ -88,12 +91,20 @@ const DashboardHero = ({
             {value ? <X /> : <Text />}
           </Button>
         </AccordionTrigger>
-        <AccordionContent className="min-h-screen-hero mx-auto flex max-w-2xl flex-col items-center justify-center gap-6 p-4 text-center">
-          {icon}
-          <span className="text-2xl font-bold sm:text-3xl md:text-4xl">{title}</span>
-          <p className="text-base md:text-lg">{description}</p>
-          {children}
-          <ArrowDown className="mt-4 animate-bounce cursor-pointer" onClick={handleScroll} />
+        <AccordionContent
+          className={
+            animateable
+              ? 'data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down'
+              : 'data-[state=closed]:animate-none data-[state=open]:animate-none'
+          }
+        >
+          <div className="min-h-screen-hero mx-auto flex max-w-2xl flex-col items-center justify-center gap-6 p-4 text-center">
+            {icon}
+            <span className="text-2xl font-bold sm:text-3xl md:text-4xl">{title}</span>
+            <p className="text-base md:text-lg">{description}</p>
+            {children}
+            <ArrowDown className="mt-4 animate-bounce cursor-pointer" onClick={handleScroll} />
+          </div>
         </AccordionContent>
       </AccordionItem>
     </Accordion>
