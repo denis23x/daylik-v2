@@ -20,6 +20,7 @@ import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useEffect, useState } from 'react';
 import { ConfirmDialog } from '@/components/confirm-dialog';
+import { deleteAllCookies } from '@/hooks/useCookie';
 
 const formSchema = z.object({
   newEmail: z.string().email(),
@@ -61,6 +62,9 @@ const TabsEmail = () => {
   const handleDeleteUser = async () => {
     const p = async (): Promise<void> => {
       await deleteUser();
+
+      // Clear all cookies
+      deleteAllCookies();
 
       // Redirect to home page with reload
       window.location.href = '/';

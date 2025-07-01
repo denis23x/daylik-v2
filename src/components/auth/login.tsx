@@ -108,7 +108,7 @@ const AuthLogin = () => {
                   {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
                   {form.formState.isSubmitting ? 'Please wait' : 'Continue with Email'}
                 </Button>
-                <Button type="button" className="w-full" variant="secondary">
+                <Button type="button" className="w-full" variant="secondary" disabled={true}>
                   Continue with Google
                 </Button>
               </form>

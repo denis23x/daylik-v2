@@ -18,3 +18,9 @@ export function getCookie(name: string): string | undefined {
 export function deleteCookie(name: string) {
   Cookies.remove(name, { path: '/' });
 }
+
+export function deleteAllCookies() {
+  Object.keys(Cookies.get()).forEach((name) => {
+    Cookies.remove(name, { path: '/' });
+  });
+}

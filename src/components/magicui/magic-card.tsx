@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useMotionTemplate, useMotionValue } from 'motion/react';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { cn } from '@/lib/utils';
 import { useTheme } from 'next-themes';
@@ -23,11 +23,17 @@ export function MagicCard({
   gradientFrom = '#9E7AFF',
   gradientTo = '#FE8BBB',
 }: MagicCardProps) {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   const cardRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(-gradientSize);
   const mouseY = useMotionValue(-gradientSize);
+
+  // Track mounted state to prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
@@ -76,6 +82,9 @@ export function MagicCard({
     mouseY.set(-gradientSize);
   }, [gradientSize, mouseX, mouseY]);
 
+  // Use a default color until mounted to prevent hydration mismatch
+  const gradientColor = mounted && resolvedTheme === 'dark' ? '#262626' : '#D9D9D955';
+
   return (
     <div ref={cardRef} className={cn('group relative rounded-[inherit]', className)}>
       <motion.div
@@ -95,7 +104,7 @@ export function MagicCard({
         className="pointer-events-none absolute inset-px rounded-[inherit] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{
           background: useMotionTemplate`
-            radial-gradient(${gradientSize}px circle at ${mouseX}px ${mouseY}px, ${theme === 'dark' ? '#262626' : '#D9D9D955'}, transparent 100%)
+            radial-gradient(${gradientSize}px circle at ${mouseX}px ${mouseY}px, ${gradientColor}, transparent 100%)
           `,
           opacity: gradientOpacity,
         }}
