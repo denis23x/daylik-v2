@@ -2,7 +2,7 @@
 
 import { SyncLiveCard } from '@/components/dashboard/sync/live/card';
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
-import { ClockFading, Dices, Shuffle } from 'lucide-react';
+import { ArrowRight, Bug, CircleOff, ClockFading, Dices, Shuffle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
@@ -14,12 +14,11 @@ import type { Teammate } from '@/types/teammate.type';
 import { useSync } from '@/hooks/useSync';
 import { useParams, useRouter } from 'next/navigation';
 import { Skeleton } from '@/components/ui/skeleton';
-import NotFound from '@/components/not-found';
-import ErrorOccurred from '@/components/error-occurred';
 import { getIsLastActive } from '@/utils/getIsLastActive';
 import { toast } from 'sonner';
 import { useCreateAnalytics } from '@/hooks/useAnalytics';
 import { useAddTeammatesToAnalytic } from '@/hooks/useAnalyticsTeammates';
+import Link from 'next/link';
 
 const SyncLiveGrid = () => {
   const params = useParams();
@@ -41,11 +40,15 @@ const SyncLiveGrid = () => {
     if (isStarted) return;
     const handleStart = async () => {
       if (!team || !teammates.length) {
-        const { data } = await refetch();
-        const { teammates, ...team } = data as Team;
+        const sync = await refetch();
 
-        setTeam(team as Team);
-        setTeammates(teammates as Teammate[]);
+        if (sync.data) {
+          const { data } = sync;
+          const { teammates, ...team } = data as Team;
+
+          setTeam(team as Team);
+          setTeammates(teammates as Teammate[]);
+        }
       }
 
       // Set the startedAt time
@@ -105,8 +108,8 @@ const SyncLiveGrid = () => {
       <div className="flex w-full flex-col gap-4">
         <div className="flex min-h-9 items-center gap-4">
           <ClockFading />
-          {(isLoading || !isStarted) && <Skeleton className="h-7 w-24" />}
-          {error && <span className="text-xl font-bold">Error</span>}
+          {(isLoading || !isStarted) && !error && <Skeleton className="h-7 w-24" />}
+          {error && <span className="text-xl font-bold">Sync</span>}
           {!isLoading && isStarted && !error && (
             <span className="text-xl font-bold">{team?.name}</span>
           )}
@@ -141,7 +144,7 @@ const SyncLiveGrid = () => {
           </div>
         )}
         <div className="flex w-full flex-col items-center gap-4">
-          {(isLoading || !isStarted) && (
+          {(isLoading || !isStarted) && !error && (
             <ul className="relative grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
               {[1, 2, 3, 4].map((_, index) => (
                 <li key={index}>
@@ -150,9 +153,24 @@ const SyncLiveGrid = () => {
               ))}
             </ul>
           )}
-          {error && <ErrorOccurred className="min-h-[224px]" />}
+          {error && (
+            <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
+              <Bug />
+              <div className="text-center text-xl font-semibold">An error occurred</div>
+              <Button variant="destructive">Report</Button>
+            </div>
+          )}
           {!isLoading && isStarted && !error && teammates?.length === 0 && (
-            <NotFound className="min-h-[224px]" />
+            <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
+              <CircleOff />
+              <div className="text-center text-xl font-semibold">No teammates found</div>
+              <Button className="group" variant="secondary" asChild>
+                <Link href="/teams">
+                  Teams
+                  <ArrowRight className="transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
+            </div>
           )}
           {!isLoading && isStarted && !error && teammates?.length !== 0 && (
             <HoverEffect>

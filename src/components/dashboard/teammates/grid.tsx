@@ -3,13 +3,11 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import type { Teammate } from '@/types/teammate.type';
 import { useTeammates } from '@/hooks/useTeammates';
-import NotFound from '@/components/not-found';
-import ErrorOccurred from '@/components/error-occurred';
 import { useTeammatesStore } from '@/store/useTeammatesStore';
 import { supabase } from '@/utils/supabase/client';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
-import { Pencil, UserRoundPlus, UsersRound } from 'lucide-react';
+import { Bug, CircleOff, Pencil, Plus, UserRoundPlus, UsersRound } from 'lucide-react';
 import HoverEffect from '@/components/hover-effect';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
@@ -60,9 +58,21 @@ const TeammatesGrid = () => {
               ))}
             </ul>
           )}
-          {error && <ErrorOccurred className="min-h-[224px]" />}
+          {error && (
+            <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
+              <Bug />
+              <div className="text-center text-xl font-semibold">An error occurred</div>
+              <Button variant="destructive">Report</Button>
+            </div>
+          )}
           {!isLoading && !error && teammates?.length === 0 && (
-            <NotFound className="min-h-[224px]" />
+            <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
+              <CircleOff />
+              <div className="text-center text-xl font-semibold">No teammates found</div>
+              <Button variant="secondary" onClick={handleInsert}>
+                <Plus /> Add Teammate
+              </Button>
+            </div>
           )}
           {!isLoading && !error && teammates?.length !== 0 && (
             <HoverEffect>

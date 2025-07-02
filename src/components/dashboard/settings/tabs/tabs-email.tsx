@@ -144,7 +144,7 @@ const TabsEmail = () => {
             />
             <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
               {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
-              {form.formState.isSubmitting ? 'Please wait' : 'Send link'}
+              {form.formState.isSubmitting ? 'Please wait' : 'Send Link'}
             </Button>
             <Button
               type="button"

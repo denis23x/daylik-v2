@@ -1,6 +1,6 @@
 'use client';
 
-import { ChartLine } from 'lucide-react';
+import { ArrowRight, Bug, ChartLine, CircleOff } from 'lucide-react';
 import { useAnalytics } from '@/hooks/useAnalytics';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
@@ -9,9 +9,9 @@ import AnalyticsHighlights from './highlights';
 import AnalyticsTable from './table';
 import AnalyticsChartLinear from './chart-linear';
 import { Skeleton } from '@/components/ui/skeleton';
-import ErrorOccurred from '@/components/error-occurred';
-import NotFound from '@/components/not-found';
 import { useAnalyticsStore } from '@/store/useAnalyticsStore';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 const AnalyticsGrid = () => {
   const params = useParams();
@@ -65,9 +65,24 @@ const AnalyticsGrid = () => {
               ))}
             </ul>
           )}
-          {isError && <ErrorOccurred className="min-h-[224px]" />}
+          {isError && (
+            <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
+              <Bug />
+              <div className="text-center text-xl font-semibold">An error occurred</div>
+              <Button variant="destructive">Report</Button>
+            </div>
+          )}
           {!isLoading && !isError && analytics && analyticsTeammates?.length === 0 && (
-            <NotFound className="min-h-[224px]" />
+            <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
+              <CircleOff />
+              <div className="text-center text-xl font-semibold">No teammates found</div>
+              <Button className="group" variant="secondary" asChild>
+                <Link href="/teams">
+                  Teams
+                  <ArrowRight className="transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
+            </div>
           )}
           {!isLoading && !isError && analytics && analyticsTeammates?.length !== 0 && (
             <div className="flex w-full flex-col gap-4">

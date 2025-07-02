@@ -18,7 +18,6 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
-import NotFound from '@/components/not-found';
 import { columns } from './table/columns';
 import type { AnalyticsTeammate } from '@/types/analyticsTeammate.type';
 import { Input } from '@/components/ui/input';
@@ -102,7 +101,10 @@ const AnalyticsTable = () => {
             ) : (
               <TableRow>
                 <TableCell colSpan={6}>
-                  <NotFound className="mx-auto py-8" />
+                  <p className="mx-auto flex max-w-md flex-col items-center justify-center py-8">
+                    <span className="text-lg font-semibold">{filter}</span>
+                    <span className="text-muted-foreground text-sm">No teammates found</span>
+                  </p>
                 </TableCell>
               </TableRow>
             )}

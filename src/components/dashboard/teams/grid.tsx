@@ -1,7 +1,5 @@
 'use client';
 
-import ErrorOccurred from '@/components/error-occurred';
-import NotFound from '@/components/not-found';
 import HoverEffect from '@/components/hover-effect';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -10,7 +8,7 @@ import { useTeamsStore } from '@/store/useTeamsStore';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
 import { supabase } from '@/utils/supabase/client';
-import { Grid2x2, Grid2x2Plus, Pencil, UserRoundPlus } from 'lucide-react';
+import { Bug, CircleOff, Grid2x2, Grid2x2Plus, Pencil, Plus, UserRoundPlus } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -89,8 +87,22 @@ const TeamsGrid = () => {
               ))}
             </ul>
           )}
-          {error && <ErrorOccurred className="min-h-[224px]" />}
-          {!isLoading && !error && teams?.length === 0 && <NotFound className="min-h-[224px]" />}
+          {error && (
+            <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
+              <Bug />
+              <div className="text-center text-xl font-semibold">An error occurred</div>
+              <Button variant="destructive">Report</Button>
+            </div>
+          )}
+          {!isLoading && !error && teams?.length === 0 && (
+            <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
+              <CircleOff />
+              <div className="text-center text-xl font-semibold">No teams found</div>
+              <Button variant="secondary" onClick={handleInsert}>
+                <Plus /> Create Team
+              </Button>
+            </div>
+          )}
           {!isLoading && !error && teams?.length !== 0 && (
             <HoverEffect>
               <Card className="relative size-full gap-0 p-2">
@@ -198,7 +210,7 @@ const TeamsGrid = () => {
                       </Button>
                     ) : (
                       <Button variant="ghost" onClick={() => handleUpdate(team)}>
-                        No teammates
+                        No Teammates
                       </Button>
                     )}
                   </CardFooter>

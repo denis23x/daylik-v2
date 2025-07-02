@@ -7,10 +7,8 @@ import { useEffect, useReducer, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
-import { CalendarCog, Clock, Undo2, X } from 'lucide-react';
+import { ArrowRight, Bug, CalendarCog, CircleOff, Clock, Undo2, X } from 'lucide-react';
 import { useSync } from '@/hooks/useSync';
-import ErrorOccurred from '@/components/error-occurred';
-import NotFound from '@/components/not-found';
 import { Skeleton } from '@/components/ui/skeleton';
 import HoverEffect from '@/components/hover-effect';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
@@ -22,6 +20,7 @@ import { formatDuration } from '@/utils/formatDuration';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { useEstimatedSyncTime } from '@/hooks/ui/useEstimatedSyncTime';
 import AvatarInitials from '@/components/avatar-initials';
+import Link from 'next/link';
 
 // teammatesAbsent reducer
 function reducer(state: string[], action: { type: 'add' | 'remove'; UUID: string }): string[] {
@@ -89,10 +88,10 @@ const SyncSettingsGrid = () => {
         <div className="flex min-h-9 items-center gap-4">
           <CalendarCog />
           {isLoading && <Skeleton className="h-7 w-24" />}
-          {error && <span className="text-xl font-bold">Error</span>}
+          {error && <span className="text-xl font-bold">Sync</span>}
           {!isLoading && !error && (
             <p className="flex items-center gap-2">
-              <span className="text-xl font-bold">Sync</span>
+              <span className="text-xl font-bold">{team?.name}</span>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <span className="text-muted-foreground mt-1 text-sm">
@@ -134,9 +133,24 @@ const SyncSettingsGrid = () => {
               ))}
             </ul>
           )}
-          {error && <ErrorOccurred className="min-h-[224px]" />}
+          {error && (
+            <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
+              <Bug />
+              <div className="text-center text-xl font-semibold">An error occurred</div>
+              <Button variant="destructive">Report</Button>
+            </div>
+          )}
           {!isLoading && !error && teammates?.length === 0 && (
-            <NotFound className="min-h-[224px]" />
+            <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
+              <CircleOff />
+              <div className="text-center text-xl font-semibold">No teammates found</div>
+              <Button className="group" variant="secondary" asChild>
+                <Link href="/teams">
+                  Teams
+                  <ArrowRight className="transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
+            </div>
           )}
           {!isLoading && !error && teammates?.length !== 0 && (
             <HoverEffect>
