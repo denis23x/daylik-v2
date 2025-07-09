@@ -108,17 +108,28 @@ export const SyncLiveCard = ({
         <Card className="flip-card-front gap-2 p-2">
           <CardContent className="flex size-full items-center justify-center">
             <div className="flex translate-y-4 flex-col items-center gap-2">
-              <UserRound />
-              <AnimatePresence initial={false}>
+              <AnimatePresence mode="wait">
                 {showRoles ? (
                   <motion.div
+                    key="role"
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0 }}
+                    transition={{ duration: 0.1 }}
                   >
                     <span className="font-semibold">{teammate.role}</span>
                   </motion.div>
-                ) : null}
+                ) : (
+                  <motion.div
+                    key="icon"
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0 }}
+                    transition={{ duration: 0.1 }}
+                  >
+                    <UserRound />
+                  </motion.div>
+                )}
               </AnimatePresence>
             </div>
           </CardContent>

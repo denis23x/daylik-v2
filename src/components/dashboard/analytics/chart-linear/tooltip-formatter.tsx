@@ -12,7 +12,7 @@ type TooltipFormatterProps = {
 
 export const TooltipFormatter = ({ value, name, item, config }: TooltipFormatterProps) => {
   return (
-    <div className="flex flex-1 items-center gap-2">
+    <div className="flex min-w-32 flex-1 items-center gap-2">
       <div
         className={cn('h-2 w-2 rounded-full border-(--color-border) bg-(--color-bg)')}
         style={
@@ -27,12 +27,12 @@ export const TooltipFormatter = ({ value, name, item, config }: TooltipFormatter
           {config[name as keyof ChartConfig].label}
         </span>
         {name === 'total' && (
-          <span className="text-muted-foreground text-xs">
+          <span className="text-muted-foreground text-xs whitespace-nowrap">
             {formatDuration(getMiliseconds(value))}
           </span>
         )}
         {name === 'paused' && (
-          <span className="text-muted-foreground text-xs">
+          <span className="text-muted-foreground text-xs whitespace-nowrap">
             {value > 0 ? formatDuration(getMiliseconds(value)) : '-'}
           </span>
         )}

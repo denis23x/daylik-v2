@@ -8,7 +8,7 @@ import {
   AccordionContent,
   AccordionItem,
 } from '@/components/ui/accordion';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getCookie, setCookie } from '@/hooks/useCookie';
 import { COOKIE_CONSENT, COOKIE_HERO } from '@/lib/constants';
 
@@ -23,18 +23,25 @@ const DashboardHero = ({
   icon: React.ReactNode;
   children?: React.ReactNode;
 }) => {
-  const [name] = useState(COOKIE_HERO);
+  const name = useRef(COOKIE_HERO);
   const [animateable, setAnimateable] = useState(false);
   const [value, setValue] = useState('');
 
   useEffect(() => {
-    const cookie = getCookie(`${COOKIE_HERO}-${window.location.pathname}`);
+    const cookie = getCookie(getCookieName());
 
     if (cookie === undefined || Number(cookie)) {
-      setValue(name);
+      setValue(name.current);
       setAnimateable(false);
     }
   }, [name]);
+
+  const getCookieName = () => {
+    const regex = /\/[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/i;
+    const pathname = window.location.pathname.replace(regex, '').split('/').filter(Boolean);
+
+    return [name.current, ...pathname].join('-');
+  };
 
   const handleScroll = () => {
     const element = document.querySelector('.min-h-screen-grid');
@@ -76,7 +83,7 @@ const DashboardHero = ({
 
     // Save the value to cookie
     if (Number(getCookie(COOKIE_CONSENT))) {
-      setCookie(`${COOKIE_HERO}-${window.location.pathname}`, String(value ? 1 : 0));
+      setCookie(getCookieName(), String(value ? 1 : 0));
     }
   };
 
@@ -88,7 +95,7 @@ const DashboardHero = ({
       value={value}
       onValueChange={handleValueChange}
     >
-      <AccordionItem value={name}>
+      <AccordionItem value={name.current}>
         <AccordionTrigger asChild>
           <Button className="absolute top-4 right-4 z-10" variant="ghost" size="icon">
             {value ? <X /> : <Text />}
