@@ -11,9 +11,12 @@ import { Form as FormProvider } from '@/components/ui/form';
 import { FeedbackSchema } from './form/form-schema';
 import { FeedbackFormFields } from './form/form-fields';
 import { useFeedbackStore } from '@/store/useFeedbackStore';
+import { useSendFeedback } from '@/hooks/useFeedback';
+import { toast } from 'sonner';
 
 export default function FeedbackModal() {
   const { isOpen, closeModal } = useFeedbackStore();
+  const { mutateAsync: sendFeedback } = useSendFeedback();
 
   const form = useForm<z.infer<typeof FeedbackSchema>>({
     defaultValues: {
@@ -33,10 +36,17 @@ export default function FeedbackModal() {
   }, [form, isOpen]);
 
   const handleSubmit = async (formData: z.infer<typeof FeedbackSchema>) => {
-    console.log(formData);
+    try {
+      await sendFeedback({ ...formData });
 
-    // Mock async request with 5 second timeout
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+      // Close modal
+      closeModal();
+
+      // Show message
+      toast.success('Your feedback helps us get better every day!');
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'An error occurred');
+    }
   };
 
   return (
