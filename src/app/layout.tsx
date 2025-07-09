@@ -34,8 +34,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Sonner />
           {children}
+          <Sonner />
           <Cookie />
         </ThemeProvider>
       </body>

@@ -13,7 +13,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { CalendarSearch, Grid2x2, Menu, Settings, UsersRound } from 'lucide-react';
+import {
+  CalendarSearch,
+  Grid2x2,
+  Menu,
+  MessageCircleMore,
+  Settings,
+  UsersRound,
+} from 'lucide-react';
 import { toast } from 'sonner';
 import { usePathname } from 'next/navigation';
 import {
@@ -27,12 +34,14 @@ import { Separator } from '@/components/ui/separator';
 import { ConfirmDialog } from '../confirm-dialog';
 import { useSignOut } from '@/hooks/useAuth';
 import NavbarCalendar from './navbar-calendar';
+import { useFeedbackStore } from '@/store/useFeedbackStore';
 
 const NavigationSheet = () => {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const { mutateAsync: signOut } = useSignOut();
+  const { openModal: openFeedbackModal } = useFeedbackStore();
 
   // Close sheet when route changes
   useEffect(() => {
@@ -94,6 +103,13 @@ const NavigationSheet = () => {
                   Settings
                 </Link>
               </NavigationMenuLink>
+            </NavigationMenuItem>
+            <Separator />
+            <NavigationMenuItem>
+              <div className="flex items-center gap-2" onClick={openFeedbackModal}>
+                <MessageCircleMore size={16} />
+                Feedback
+              </div>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
