@@ -10,7 +10,7 @@ import { useStopwatch } from '@/hooks/ui/useStopwatch';
 type SyncLiveStore = {
   team: SyncTeam | null;
   teammates: SyncTeammate[];
-  activeUUID: string | null;
+  active: string | null;
   setTeam: (team: Team) => void;
   setTeammates: (teammates: Teammate[]) => void;
   setActive: (uuid: string) => void;
@@ -26,7 +26,7 @@ type SyncLiveStore = {
 export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
   team: null,
   teammates: [],
-  activeUUID: null,
+  active: null,
   setTeam: (team) => set({ team }),
   setTeammates: (teammates) => {
     const syncTeammates = teammates.map((teammate: Teammate) => {
@@ -49,7 +49,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
     const order = state.teammates.filter((teammate) => teammate.sync.order);
 
     set((state) => ({
-      activeUUID: uuid,
+      active: uuid,
       teammates: state.teammates.map((teammate) => {
         switch (true) {
           case teammate.sync.status === 'active':
@@ -77,7 +77,7 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
   },
   setDone: (uuid, timer, stopwatch) => {
     set((state) => ({
-      activeUUID: null,
+      active: null,
       teammates: state.teammates.map((teammate) => {
         switch (true) {
           case teammate.UUID === uuid:
@@ -112,6 +112,6 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
     set({
       team: null,
       teammates: [],
-      activeUUID: null,
+      active: null,
     }),
 }));

@@ -78,9 +78,14 @@ const TeammatesGrid = () => {
             <HoverEffect>
               <Card className="relative size-full gap-0 p-2">
                 <CardContent className="translate-y-2 p-4 sm:p-3">
-                  <Avatar className="aspect-square size-full border border-dashed">
+                  <Avatar className="aspect-square size-full border border-dashed p-1">
                     <AvatarFallback asChild>
-                      <Button variant="secondary" size="icon" onClick={handleInsert}>
+                      <Button
+                        className="shadow-none"
+                        variant="secondary"
+                        size="icon"
+                        onClick={handleInsert}
+                      >
                         <UserRoundPlus />
                       </Button>
                     </AvatarFallback>
@@ -95,7 +100,7 @@ const TeammatesGrid = () => {
                 <BorderBeam duration={8} size={100} />
               </Card>
               {teammates?.map((teammate: Teammate) => (
-                <Card className="size-full gap-0 p-2" key={teammate.UUID}>
+                <Card className="size-full gap-0 p-2" id={teammate.UUID} key={teammate.UUID}>
                   <CardHeader className="relative gap-0">
                     <Button
                       className="absolute top-0 right-0 z-10 rounded-full"

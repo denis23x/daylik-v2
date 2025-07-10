@@ -111,9 +111,14 @@ const TeamsGrid = () => {
                 </CardHeader>
                 <CardContent className="p-0">
                   <div className="my-2 p-4 sm:p-3">
-                    <Avatar className="aspect-square size-full border border-dashed">
+                    <Avatar className="aspect-square size-full border border-dashed p-1">
                       <AvatarFallback asChild>
-                        <Button variant="secondary" onClick={handleInsert}>
+                        <Button
+                          className="shadow-none"
+                          variant="secondary"
+                          size="icon"
+                          onClick={handleInsert}
+                        >
                           <Grid2x2Plus />
                         </Button>
                       </AvatarFallback>
@@ -128,7 +133,7 @@ const TeamsGrid = () => {
                 <BorderBeam duration={8} size={100} />
               </Card>
               {teams?.map((team: Team) => (
-                <Card className="size-full gap-0 p-2" key={team.UUID}>
+                <Card className="size-full gap-0 p-2" id={team.UUID} key={team.UUID}>
                   <CardHeader className="relative mb-auto flex min-h-9 items-center justify-between gap-x-1.5 gap-y-0 p-0">
                     <span className="truncate text-base font-semibold">{team.name}</span>
                     <Button

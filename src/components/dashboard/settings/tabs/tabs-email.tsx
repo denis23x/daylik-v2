@@ -153,7 +153,11 @@ const TabsEmail = () => {
               disabled={form.formState.isSubmitting}
               variant="destructive"
             >
-              {form.formState.isSubmitting ? <Loader2 className="animate-spin" /> : <Trash2 />}
+              {form.formState.isSubmitting ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                <Trash2 className="hidden sm:block" />
+              )}
               {form.formState.isSubmitting ? 'Please wait' : 'Delete My Account'}
             </Button>
           </form>

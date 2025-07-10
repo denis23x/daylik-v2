@@ -29,7 +29,7 @@ const SyncLiveGrid = () => {
   const [isStarted, setIsStarted] = useState<string | null>(null);
   const { mutateAsync: createAnalytics } = useCreateAnalytics();
   const { mutateAsync: addTeammatesToAnalytic } = useAddTeammatesToAnalytic();
-  const { team, teammates, setTeam, setTeammates, setActive, shuffle } = useSyncLiveStore();
+  const { team, teammates, active, setTeam, setTeammates, setActive, shuffle } = useSyncLiveStore();
   const { isLoading, error, refetch } = useSync({
     query: `*, teams_teammates (teammates (UUID, name, role, color, avatar))`,
     UUID: params.UUID as string,
@@ -92,6 +92,20 @@ const SyncLiveGrid = () => {
       setIsPristine(isPristine);
     }
   }, [teammates, setIsDone, setIsPristine]);
+
+  useEffect(() => {
+    if (active) {
+      const card = document.getElementById(active);
+
+      // Scroll to the active card
+      if (card) {
+        card.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+        });
+      }
+    }
+  }, [active]);
 
   const handleRandom = () => {
     const idle = teammates

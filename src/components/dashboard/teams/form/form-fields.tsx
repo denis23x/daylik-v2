@@ -9,8 +9,9 @@ import { MultiSelect } from '@/components/multi-select';
 import { useTeammates } from '@/hooks/useTeammates';
 import type { Teammate } from '@/types/teammate.type';
 import { Button } from '@/components/ui/button';
-import { FolderOpenIcon } from 'lucide-react';
+import { FolderOpenIcon, X } from 'lucide-react';
 import FileUploader from '@/components/file-uploader';
+import { cn } from '@/lib/utils';
 
 const TeamsFormFields = () => {
   const form = useFormContext<z.infer<typeof TeamsFormSchema>>();
@@ -59,12 +60,21 @@ const TeamsFormFields = () => {
             <FormItem className="flex-1">
               <FormLabel>Image</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="Got a cool picture? Paste the link"
-                  {...field}
-                  value={field.value || ''}
-                  disabled={form.formState.isSubmitting}
-                />
+                <div className="relative">
+                  <Input
+                    className={cn(field.value && 'pr-8')}
+                    placeholder="Got a cool picture? Paste the link"
+                    {...field}
+                    value={field.value || ''}
+                    disabled={form.formState.isSubmitting}
+                  />
+                  {field.value && (
+                    <X
+                      className="absolute top-1/2 right-2 size-5 -translate-y-1/2 cursor-pointer"
+                      onClick={() => field.onChange('')}
+                    />
+                  )}
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
