@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils';
 
 const TeamsFormFields = () => {
   const form = useFormContext<z.infer<typeof TeamsFormSchema>>();
-  const { data: teammates } = useTeammates({ query: '*' });
+  const { data: teammates } = useTeammates({ query: 'UUID, name, role' });
 
   return (
     <>

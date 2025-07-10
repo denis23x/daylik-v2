@@ -1,5 +1,5 @@
 import { fetchSync } from '@/lib/api/sync';
-import { normalizeTeammates } from '@/utils/normalizeTeammates';
+import { normalizeTeammate } from '@/utils/normalizeTeammate';
 import { useQuery } from '@tanstack/react-query';
 
 export function useSync({
@@ -16,6 +16,6 @@ export function useSync({
     queryFn: () => fetchSync({ query, UUID }),
     staleTime: 0,
     enabled,
-    select: (data) => normalizeTeammates(data),
+    select: (data) => normalizeTeammate(data),
   });
 }

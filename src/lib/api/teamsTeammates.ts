@@ -1,5 +1,11 @@
 import { supabase } from '@/utils/supabase/client';
 import type { TeamTeammate } from '@/types/teamTeammate.type';
+import { SupabaseQueryResult } from '@/types/utils/supabaseQueryResult.type';
+
+type FetchTeammatesToTeamParams = {
+  query: string;
+  UUID: string;
+};
 
 type AddTeammatesToTeamParams = {
   teamUUID: string;
@@ -10,6 +16,11 @@ type RemoveTeammatesFromTeamParams = AddTeammatesToTeamParams & {
   teammatesDisableInvalidateQueries?: boolean;
 };
 
+type FetchTeamsToTeammateParams = {
+  query: string;
+  UUID: string;
+};
+
 type AddTeamsToTeammateParams = {
   teammateUUID: string;
   teams: string[];
@@ -18,6 +29,18 @@ type AddTeamsToTeammateParams = {
 type RemoveTeamsFromTeammateParams = AddTeamsToTeammateParams & {
   teamsDisableInvalidateQueries?: boolean;
 };
+
+export async function fetchTeammatesFromTeam({
+  query,
+  UUID,
+}: FetchTeammatesToTeamParams): Promise<TeamTeammate[]> {
+  const { data, error } = (await supabase
+    .from('teams_teammates')
+    .select(query)
+    .eq('teamUUID', UUID)) as SupabaseQueryResult<TeamTeammate[]>;
+  if (error) throw error;
+  return data || [];
+}
 
 export async function addTeammatesToTeam({
   teamUUID,
@@ -47,6 +70,18 @@ export async function removeTeammatesFromTeam({
     .select();
   if (error) throw error;
   return data;
+}
+
+export async function fetchTeamsToTeammate({
+  query,
+  UUID,
+}: FetchTeamsToTeammateParams): Promise<TeamTeammate[]> {
+  const { data, error } = (await supabase
+    .from('teams_teammates')
+    .select(query)
+    .eq('teammateUUID', UUID)) as SupabaseQueryResult<TeamTeammate[]>;
+  if (error) throw error;
+  return data || [];
 }
 
 export async function addTeamsToTeammate({

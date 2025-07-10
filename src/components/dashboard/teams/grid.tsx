@@ -7,67 +7,72 @@ import { useTeams } from '@/hooks/useTeams';
 import { useTeamsStore } from '@/store/useTeamsStore';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
-import { supabase } from '@/utils/supabase/client';
 import { Bug, CircleOff, Grid2x2, Grid2x2Plus, Pencil, Plus, UserRoundPlus } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { v4 as uuidv4 } from 'uuid';
 import { BorderBeam } from '@/components/magicui/border-beam';
 import AvatarInitials from '@/components/avatar-initials';
 import Image from 'next/image';
+import { useTeammatesFromTeam } from '@/hooks/useTeamsTeammates';
+import { useQueryClient } from '@tanstack/react-query';
+import { getDisplayTeammates } from '@/utils/getDisplayTeammates';
+import type { TeamTeammate } from '@/types/teamTeammate.type';
 
 const TeamsGrid = () => {
-  const { data, error, isLoading } = useTeams({
-    query: `*, teams_teammates (teammates (UUID, name, role, color, avatar))`,
+  const queryClient = useQueryClient();
+  const [team, setTeam] = useState<Team>();
+  const {
+    data: teams,
+    error,
+    isLoading,
+  } = useTeams({
+    query: `*, teams_teammates (teammates (UUID, name, color, avatar))`,
+  });
+  const { refetch } = useTeammatesFromTeam({
+    query: 'teammateUUID',
+    UUID: team?.UUID || '',
   });
   const { openModal } = useTeamsStore();
-  const [teams, setTeams] = useState<Team[]>();
 
   useEffect(() => {
-    if (data) {
-      const teams = data as Team[];
+    if (team) {
+      const fetchData = async () => {
+        try {
+          const cache = queryClient.getQueryData(['teams_teammates', team.UUID]);
+          let teammates: Pick<TeamTeammate, 'teammateUUID'>[] = (cache as TeamTeammate[]) || [];
 
-      // Pass to render
-      setTeams(teams);
+          if (!cache) {
+            const { data } = await refetch();
+
+            // Update teammates if cache is not available
+            teammates = data || [];
+          }
+
+          // Open modal with teammates
+          openModal('update', {
+            ...team,
+            teammates: teammates.map(({ teammateUUID }) => teammateUUID),
+          });
+        } catch (error) {
+          toast.error(error instanceof Error ? error.message : 'An error occurred');
+        } finally {
+          setTeam(undefined);
+        }
+      };
+
+      fetchData();
     }
-  }, [data]);
-
-  const getDisplayTeammates = (team: Team, count = 4) => {
-    if (team.teammates && team.teammates.length < count) {
-      const mockTeammates = Array.from({ length: count }, () => ({
-        UUID: uuidv4(),
-      }));
-
-      return [...(team.teammates || []), ...mockTeammates].slice(0, count);
-    }
-
-    return team.teammates || [];
-  };
+  }, [team, refetch, openModal, queryClient]);
 
   const handleInsert = () => {
     openModal('insert');
   };
 
   const handleUpdate = async (team: Team) => {
-    const { data, error } = await supabase
-      .from('teams_teammates')
-      .select('teammateUUID')
-      .eq('teamUUID', team.UUID);
-
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-
-    if (data) {
-      openModal('update', {
-        ...team,
-        teammates: data.map(({ teammateUUID }) => teammateUUID),
-      });
-    }
+    setTeam(team);
   };
 
   return (

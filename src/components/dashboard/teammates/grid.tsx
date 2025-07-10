@@ -4,7 +4,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import type { Teammate } from '@/types/teammate.type';
 import { useTeammates } from '@/hooks/useTeammates';
 import { useTeammatesStore } from '@/store/useTeammatesStore';
-import { supabase } from '@/utils/supabase/client';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Bug, CircleOff, Pencil, Plus, UserRoundPlus, UsersRound } from 'lucide-react';
@@ -13,32 +12,57 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { BorderBeam } from '@/components/magicui/border-beam';
 import AvatarInitials from '@/components/avatar-initials';
+import { useQueryClient } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
+import { useTeamsToTeammate } from '@/hooks/useTeamsTeammates';
+import type { TeamTeammate } from '@/types/teamTeammate.type';
 
 const TeammatesGrid = () => {
+  const queryClient = useQueryClient();
+  const [teammate, setTeammate] = useState<Teammate>();
   const { data: teammates, error, isLoading } = useTeammates({ query: '*' });
+  const { refetch } = useTeamsToTeammate({
+    query: 'teamUUID',
+    UUID: teammate?.UUID || '',
+  });
   const { openModal } = useTeammatesStore();
+
+  useEffect(() => {
+    if (teammate) {
+      const fetchData = async () => {
+        try {
+          const cache = queryClient.getQueryData(['teams_teammates', teammate.UUID]);
+          let teams: Pick<TeamTeammate, 'teamUUID'>[] = (cache as TeamTeammate[]) || [];
+
+          if (!cache) {
+            const { data } = await refetch();
+
+            // Update teams if cache is not available
+            teams = data || [];
+          }
+
+          // Open modal with teams
+          openModal('update', {
+            ...teammate,
+            teams: teams.map(({ teamUUID }) => teamUUID),
+          });
+        } catch (error) {
+          toast.error(error instanceof Error ? error.message : 'An error occurred');
+        } finally {
+          setTeammate(undefined);
+        }
+      };
+
+      fetchData();
+    }
+  }, [teammate, refetch, openModal, queryClient]);
 
   const handleInsert = () => {
     openModal('insert');
   };
 
   const handleUpdate = async (teammate: Teammate) => {
-    const { data, error } = await supabase
-      .from('teams_teammates')
-      .select('teamUUID')
-      .eq('teammateUUID', teammate.UUID);
-
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-
-    if (data) {
-      openModal('update', {
-        ...teammate,
-        teams: data.map(({ teamUUID }) => teamUUID),
-      });
-    }
+    setTeammate(teammate);
   };
 
   return (
