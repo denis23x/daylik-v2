@@ -19,10 +19,12 @@ import { toast } from 'sonner';
 import { useCreateAnalytics } from '@/hooks/useAnalytics';
 import { useAddTeammatesToAnalytic } from '@/hooks/useAnalyticsTeammates';
 import Link from 'next/link';
+import { useFeedbackStore } from '@/store/useFeedbackStore';
 
 const SyncLiveGrid = () => {
   const params = useParams();
   const router = useRouter();
+  const { openModal: openFeedbackModal } = useFeedbackStore();
   const [showRoles, setShowRoles] = useState(false);
   const [isDone, setIsDone] = useState(false);
   const [isPristine, setIsPristine] = useState(false);
@@ -171,7 +173,9 @@ const SyncLiveGrid = () => {
             <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
               <Bug />
               <div className="text-center text-xl font-semibold">An error occurred</div>
-              <Button variant="destructive">Report</Button>
+              <Button variant="destructive" onClick={openFeedbackModal}>
+                Report
+              </Button>
             </div>
           )}
           {!isLoading && isStarted && !error && teammates?.length === 0 && (

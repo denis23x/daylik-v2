@@ -20,9 +20,11 @@ import { useTeammatesFromTeam } from '@/hooks/useTeamsTeammates';
 import { useQueryClient } from '@tanstack/react-query';
 import { getDisplayTeammates } from '@/utils/getDisplayTeammates';
 import type { TeamTeammate } from '@/types/teamTeammate.type';
+import { useFeedbackStore } from '@/store/useFeedbackStore';
 
 const TeamsGrid = () => {
   const queryClient = useQueryClient();
+  const { openModal: openFeedbackModal } = useFeedbackStore();
   const [team, setTeam] = useState<Team>();
   const {
     data: teams,
@@ -96,7 +98,9 @@ const TeamsGrid = () => {
             <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
               <Bug />
               <div className="text-center text-xl font-semibold">An error occurred</div>
-              <Button variant="destructive">Report</Button>
+              <Button variant="destructive" onClick={openFeedbackModal}>
+                Report
+              </Button>
             </div>
           )}
           {!isLoading && !error && teams?.length === 0 && (

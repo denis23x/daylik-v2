@@ -21,6 +21,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { useEstimatedSyncTime } from '@/hooks/ui/useEstimatedSyncTime';
 import AvatarInitials from '@/components/avatar-initials';
 import Link from 'next/link';
+import { useFeedbackStore } from '@/store/useFeedbackStore';
 
 // teammatesAbsent reducer
 function reducer(state: string[], action: { type: 'add' | 'remove'; UUID: string }): string[] {
@@ -37,6 +38,7 @@ function reducer(state: string[], action: { type: 'add' | 'remove'; UUID: string
 const SyncSettingsGrid = () => {
   const params = useParams();
   const router = useRouter();
+  const { openModal: openFeedbackModal } = useFeedbackStore();
   const [teammatesAbsent, dispatch] = useReducer(reducer, []);
   const [estimatedSyncTime, setEstimatedSyncTime] = useState(0);
   const { getEstimatedSyncTime } = useEstimatedSyncTime();
@@ -137,7 +139,9 @@ const SyncSettingsGrid = () => {
             <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
               <Bug />
               <div className="text-center text-xl font-semibold">An error occurred</div>
-              <Button variant="destructive">Report</Button>
+              <Button variant="destructive" onClick={openFeedbackModal}>
+                Report
+              </Button>
             </div>
           )}
           {!isLoading && !error && teammates?.length === 0 && (

@@ -12,11 +12,13 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useAnalyticsStore } from '@/store/useAnalyticsStore';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useFeedbackStore } from '@/store/useFeedbackStore';
 
 const AnalyticsGrid = () => {
   const params = useParams();
   const { analytics, analyticsTeammates, setAnalytics, setAnalyticsTeammates } =
     useAnalyticsStore();
+  const { openModal: openFeedbackModal } = useFeedbackStore();
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState<Error | null>(null);
   const {
@@ -69,7 +71,9 @@ const AnalyticsGrid = () => {
             <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
               <Bug />
               <div className="text-center text-xl font-semibold">An error occurred</div>
-              <Button variant="destructive">Report</Button>
+              <Button variant="destructive" onClick={openFeedbackModal}>
+                Report
+              </Button>
             </div>
           )}
           {!isLoading && !isError && analytics && analyticsTeammates?.length === 0 && (
