@@ -12,16 +12,8 @@ import type { SyncTeam } from '@/types/syncTeam.type';
 import type { SyncTeammate } from '@/types/syncTeammate.type';
 import { AnimatePresence, motion } from 'motion/react';
 
-export const SyncLiveCard = ({
-  team,
-  teammate,
-  showRoles,
-}: {
-  team: SyncTeam;
-  teammate: SyncTeammate;
-  showRoles: boolean;
-}) => {
-  const { setActive, setDone } = useSyncLiveStore();
+export const SyncLiveCard = ({ team, teammate }: { team: SyncTeam; teammate: SyncTeammate }) => {
+  const { setActive, setDone, showRoles, showNames } = useSyncLiveStore();
   const timer = useTimer(team.timer);
   const stopwatch = useStopwatch(team.timer);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -118,6 +110,16 @@ export const SyncLiveCard = ({
                     transition={{ duration: 0.1 }}
                   >
                     <span className="font-semibold">{teammate.role}</span>
+                  </motion.div>
+                ) : showNames ? (
+                  <motion.div
+                    key="name"
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0 }}
+                    transition={{ duration: 0.1 }}
+                  >
+                    <span className="font-semibold">{teammate.name}</span>
                   </motion.div>
                 ) : (
                   <motion.div

@@ -100,12 +100,12 @@ const TeammatesFormFields = () => {
         />
         <FileUploader name="avatar" path="avatars" disabled={form.formState.isSubmitting}>
           <Button variant="outline" size="icon" type="button">
-            <FolderOpenIcon className="h-5 w-5" />
+            <FolderOpenIcon />
           </Button>
         </FileUploader>
         <ColorPicker name="color" disabled={form.formState.isSubmitting}>
           <Button variant="outline" size="icon" type="button">
-            <Palette className="h-5 w-5" />
+            <Palette />
           </Button>
         </ColorPicker>
       </div>

@@ -2,10 +2,8 @@
 
 import { SyncLiveCard } from '@/components/dashboard/sync/live/card';
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
-import { ArrowRight, Bug, CircleOff, ClockFading, Dices, Shuffle } from 'lucide-react';
+import { ArrowRight, Bug, CircleOff, ClockFading, Dices, Eye, Shuffle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
 import { useEffect, useState } from 'react';
 import type { SyncTeammate } from '@/types/syncTeammate.type';
 import HoverEffect from '@/components/hover-effect';
@@ -20,12 +18,12 @@ import { useCreateAnalytics } from '@/hooks/useAnalytics';
 import { useAddTeammatesToAnalytic } from '@/hooks/useAnalyticsTeammates';
 import Link from 'next/link';
 import { useFeedbackStore } from '@/store/useFeedbackStore';
+import CardView from './card-view';
 
 const SyncLiveGrid = () => {
   const params = useParams();
   const router = useRouter();
   const { openModal: openFeedbackModal } = useFeedbackStore();
-  const [showRoles, setShowRoles] = useState(false);
   const [isDone, setIsDone] = useState(false);
   const [isPristine, setIsPristine] = useState(false);
   const [isStarted, setIsStarted] = useState<string | null>(null);
@@ -148,15 +146,11 @@ const SyncLiveGrid = () => {
             >
               <Dices />
             </Button>
-            <div className="flex items-center space-x-2">
-              <Switch
-                id="show-roles"
-                disabled={isDone || getIsLastActive(teammates)}
-                checked={showRoles}
-                onCheckedChange={(value) => setShowRoles(value)}
-              />
-              <Label htmlFor="show-roles">Show roles</Label>
-            </div>
+            <CardView disabled={isDone || getIsLastActive(teammates)}>
+              <Button variant="outline" size="icon" type="button">
+                <Eye />
+              </Button>
+            </CardView>
           </div>
         )}
         <div className="flex w-full flex-col items-center gap-4">
@@ -194,12 +188,7 @@ const SyncLiveGrid = () => {
             <HoverEffect>
               {team &&
                 teammates?.map((teammate: SyncTeammate) => (
-                  <SyncLiveCard
-                    team={team}
-                    teammate={teammate}
-                    showRoles={showRoles}
-                    key={teammate.UUID}
-                  />
+                  <SyncLiveCard team={team} teammate={teammate} key={teammate.UUID} />
                 ))}
             </HoverEffect>
           )}

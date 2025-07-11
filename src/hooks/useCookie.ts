@@ -3,7 +3,8 @@ import Cookies from 'js-cookie';
 const defaultOptions: Cookies.CookieAttributes = {
   expires: 365,
   path: '/',
-  secure: true,
+  // Safari does not allow secure cookies without https
+  secure: process.env.NODE_ENV === 'production',
   sameSite: 'strict',
 };
 

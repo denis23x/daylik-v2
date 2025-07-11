@@ -11,9 +11,13 @@ type SyncLiveStore = {
   team: SyncTeam | null;
   teammates: SyncTeammate[];
   active: string | null;
+  showRoles: boolean;
+  showNames: boolean;
   setTeam: (team: Team) => void;
   setTeammates: (teammates: Teammate[]) => void;
   setActive: (uuid: string) => void;
+  setShowRoles: (value: boolean) => void;
+  setShowNames: (value: boolean) => void;
   setDone: (
     uuid: string,
     timer: ReturnType<typeof useTimer>,
@@ -27,6 +31,8 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
   team: null,
   teammates: [],
   active: null,
+  showRoles: false,
+  showNames: false,
   setTeam: (team) => set({ team }),
   setTeammates: (teammates) => {
     const syncTeammates = teammates.map((teammate: Teammate) => {
@@ -75,6 +81,8 @@ export const useSyncLiveStore = create<SyncLiveStore>((set, get) => ({
       }),
     }));
   },
+  setShowRoles: (value) => set({ showRoles: value }),
+  setShowNames: (value) => set({ showNames: value }),
   setDone: (uuid, timer, stopwatch) => {
     set((state) => ({
       active: null,

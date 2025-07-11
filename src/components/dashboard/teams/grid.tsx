@@ -118,21 +118,19 @@ const TeamsGrid = () => {
                 <CardHeader className="relative mb-auto flex min-h-9 items-center justify-between gap-x-1.5 gap-y-0 p-0">
                   <span className="truncate text-base font-semibold">New</span>
                 </CardHeader>
-                <CardContent className="p-0">
-                  <div className="my-2 p-4 sm:p-3">
-                    <Avatar className="aspect-square size-full border border-dashed p-1">
-                      <AvatarFallback asChild>
-                        <Button
-                          className="shadow-none"
-                          variant="secondary"
-                          size="icon"
-                          onClick={handleInsert}
-                        >
-                          <Grid2x2Plus />
-                        </Button>
-                      </AvatarFallback>
-                    </Avatar>
-                  </div>
+                <CardContent className="my-2 p-4 sm:p-3">
+                  <Avatar className="aspect-square size-full border border-dashed p-1">
+                    <AvatarFallback asChild>
+                      <Button
+                        className="shadow-none"
+                        variant="secondary"
+                        size="icon"
+                        onClick={handleInsert}
+                      >
+                        <Grid2x2Plus />
+                      </Button>
+                    </AvatarFallback>
+                  </Avatar>
                 </CardContent>
                 <CardFooter className="flex flex-col items-stretch p-0 text-center">
                   <Button variant="secondary" onClick={handleInsert}>
