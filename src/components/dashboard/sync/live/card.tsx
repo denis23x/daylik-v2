@@ -1,8 +1,8 @@
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
 import { Button } from '@/components/ui/button';
-import { Check, Pause, Play, Siren, UserRound } from 'lucide-react';
+import { Check, Pause, Play, RefreshCcw, Siren } from 'lucide-react';
 import { CircularProgress } from '@/components/ui/circular-progress';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import confetti from 'canvas-confetti';
 import { useTimer } from '@/hooks/ui/useTimer';
@@ -97,9 +97,13 @@ export const SyncLiveCard = ({ team, teammate }: { team: SyncTeam; teammate: Syn
   return (
     <div className={`flip-card aspect-[3/3.75] ${teammate.sync?.status}`} ref={cardRef}>
       <div className="flip-card-inner p-0">
-        <Card className="flip-card-front gap-2 p-2" id={teammate.UUID}>
+        <Card
+          className="flip-card-front cursor-pointer gap-2 p-2"
+          id={teammate.UUID}
+          onClick={handleActive}
+        >
           <CardContent className="flex size-full items-center justify-center">
-            <div className="flex translate-y-4 flex-col items-center gap-2">
+            <div className="flex flex-col items-center gap-2">
               <AnimatePresence mode="wait">
                 {showRoles ? (
                   <motion.div
@@ -129,17 +133,12 @@ export const SyncLiveCard = ({ team, teammate }: { team: SyncTeam; teammate: Syn
                     exit={{ opacity: 0, scale: 0 }}
                     transition={{ duration: 0.1 }}
                   >
-                    <UserRound />
+                    <RefreshCcw />
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
           </CardContent>
-          <CardFooter className="flex flex-col items-stretch p-0">
-            <Button variant="outline" onClick={handleActive}>
-              Reveal
-            </Button>
-          </CardFooter>
         </Card>
         <Card className="flip-card-back relative flex flex-col items-center justify-center rounded-xl border">
           <CardContent>

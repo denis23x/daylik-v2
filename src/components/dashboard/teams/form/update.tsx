@@ -11,6 +11,8 @@ import { useAddTeammatesToTeam, useRemoveTeammatesFromTeam } from '@/hooks/useTe
 import { useDeleteFiles } from '@/hooks/useFiles';
 import { getFilePath } from '@/lib/api/files';
 import { BUCKET_IMAGES } from '@/lib/constants';
+import { useAutoScroll } from '@/hooks/ui/useAutoScroll';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function TeammateUpdateForm() {
   const form = useFormContext<z.infer<typeof TeamsFormSchema>>();
@@ -19,16 +21,25 @@ export default function TeammateUpdateForm() {
   const { mutateAsync: removeTeammatesFromTeam } = useRemoveTeammatesFromTeam();
   const { team, closeModal } = useTeamsStore();
   const { mutate: deleteFiles } = useDeleteFiles();
+  const { scrollTo } = useAutoScroll();
+  const queryClient = useQueryClient();
 
   const handleSubmit = async (formData: z.infer<typeof TeamsFormSchema>) => {
     if (team) {
       try {
         if (Object.keys(form.formState.dirtyFields).length) {
-          await updateTeam({
+          const updatedTeam = await updateTeam({
             UUID: team.UUID,
             name: formData.name,
             image: formData.image || null,
           });
+
+          // Scroll to new teammate
+          scrollTo(updatedTeam.UUID);
+
+          // Invalidate queries
+          queryClient.invalidateQueries({ queryKey: ['teammates'] });
+          queryClient.invalidateQueries({ queryKey: ['analytics'] });
         }
 
         // Update teams relations

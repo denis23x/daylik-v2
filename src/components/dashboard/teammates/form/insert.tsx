@@ -8,12 +8,14 @@ import { TeammatesFormFields } from './form-fields';
 import { TeammatesFormSchema } from './form-schema';
 import { z } from 'zod';
 import { useAddTeamsToTeammate } from '@/hooks/useTeamsTeammates';
+import { useAutoScroll } from '@/hooks/ui/useAutoScroll';
 
 export default function TeammateInsertForm() {
   const form = useFormContext<z.infer<typeof TeammatesFormSchema>>();
   const { mutateAsync: createTeammate } = useCreateTeammate();
   const { mutateAsync: addTeamsToTeammate } = useAddTeamsToTeammate();
   const { closeModal } = useTeammatesStore();
+  const { scrollTo } = useAutoScroll();
 
   const handleSubmit = async (formData: z.infer<typeof TeammatesFormSchema>) => {
     try {
@@ -23,6 +25,9 @@ export default function TeammateInsertForm() {
         avatar: formData.avatar || null,
         color: formData.color,
       });
+
+      // Scroll to new teammate
+      scrollTo(teammate.UUID);
 
       await addTeamsToTeammate({
         teammateUUID: teammate.UUID,

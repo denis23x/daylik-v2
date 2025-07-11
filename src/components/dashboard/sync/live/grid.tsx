@@ -19,6 +19,7 @@ import { useAddTeammatesToAnalytic } from '@/hooks/useAnalyticsTeammates';
 import Link from 'next/link';
 import { useFeedbackStore } from '@/store/useFeedbackStore';
 import CardView from './card-view';
+import { useAutoScroll } from '@/hooks/ui/useAutoScroll';
 
 const SyncLiveGrid = () => {
   const params = useParams();
@@ -30,6 +31,7 @@ const SyncLiveGrid = () => {
   const { mutateAsync: createAnalytics } = useCreateAnalytics();
   const { mutateAsync: addTeammatesToAnalytic } = useAddTeammatesToAnalytic();
   const { team, teammates, active, setTeam, setTeammates, setActive, shuffle } = useSyncLiveStore();
+  const { scrollTo } = useAutoScroll();
   const { isLoading, error, refetch } = useSync({
     query: `*, teams_teammates (teammates (UUID, name, role, color, avatar))`,
     UUID: params.UUID as string,
@@ -95,15 +97,8 @@ const SyncLiveGrid = () => {
 
   useEffect(() => {
     if (active) {
-      const card = document.getElementById(active);
-
       // Scroll to the active card
-      if (card) {
-        card.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest',
-        });
-      }
+      scrollTo(active);
     }
   }, [active]);
 
