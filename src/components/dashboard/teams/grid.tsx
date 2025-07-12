@@ -21,6 +21,7 @@ import { getDisplayTeammates } from '@/utils/getDisplayTeammates';
 import { useFeedbackStore } from '@/store/useFeedbackStore';
 
 const TeamsGrid = () => {
+  const { openModal } = useTeamsStore();
   const { openModal: openFeedbackModal } = useFeedbackStore();
   const [team, setTeam] = useState<Team>();
   const {
@@ -34,7 +35,6 @@ const TeamsGrid = () => {
     query: 'teammateUUID',
     UUID: team?.UUID || '',
   });
-  const { openModal } = useTeamsStore();
 
   useEffect(() => {
     if (team) {

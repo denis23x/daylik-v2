@@ -1,28 +1,30 @@
 import {
   Combobox,
   ComboboxContent,
-  ComboboxEmpty,
   ComboboxGroup,
   ComboboxInput,
   ComboboxItem,
 } from '@/components/ui/combobox';
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
-import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
+
+export type AutocompleteItem = {
+  key: string;
+  value: string;
+};
 
 const FormAutocomplete = ({
   name,
   label,
   placeholder,
-  emptyMessage,
+  items,
 }: {
   name: string;
   label: string;
   placeholder: string;
-  emptyMessage: string;
+  items: AutocompleteItem[];
 }) => {
   const form = useFormContext();
-  const [roles] = useState(['asd', 'asd2', 'asd3']);
 
   return (
     <FormField
@@ -32,15 +34,22 @@ const FormAutocomplete = ({
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Combobox type="single" inputValue={field.value} onInputValueChange={field.onChange}>
+            <Combobox
+              type="single"
+              value={field.value}
+              onValueChange={field.onChange}
+              inputValue={field.value}
+              onInputValueChange={field.onChange}
+            >
               <ComboboxInput placeholder={placeholder} />
-              {roles.length > 0 && (
+              {items.find((item) => {
+                return item.value.toLowerCase().includes(field.value.toLowerCase());
+              }) && (
                 <ComboboxContent>
-                  <ComboboxEmpty>{emptyMessage}</ComboboxEmpty>
                   <ComboboxGroup>
-                    {roles.map((role) => (
-                      <ComboboxItem key={role} value={role}>
-                        {role}
+                    {items.map((item) => (
+                      <ComboboxItem key={item.key} value={item.value}>
+                        {item.value}
                       </ComboboxItem>
                     ))}
                   </ComboboxGroup>

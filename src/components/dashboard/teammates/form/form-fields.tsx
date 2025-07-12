@@ -14,10 +14,21 @@ import { z } from 'zod';
 import { useTeams } from '@/hooks/useTeams';
 import type { Team } from '@/types/team.type';
 import { cn } from '@/lib/utils';
+import { getCookie } from '@/hooks/useCookie';
+import { COOKIE_ROLES } from '@/lib/constants';
+import { useEffect, useState } from 'react';
 
 const TeammatesFormFields = () => {
   const form = useFormContext<z.infer<typeof TeammatesFormSchema>>();
   const { data: teams } = useTeams({ query: 'UUID, name' });
+  const [roles, setRoles] = useState([]);
+
+  useEffect(() => {
+    const roles = JSON.parse(getCookie(COOKIE_ROLES) || '[]');
+
+    // Set roles to autocomplete
+    setRoles(roles || []);
+  }, []);
 
   return (
     <>
@@ -44,7 +55,10 @@ const TeammatesFormFields = () => {
         name="role"
         label="Role"
         placeholder="What's their role in the team?"
-        emptyMessage="No roles found"
+        items={(roles as string[])?.map((role, index) => ({
+          key: String(index),
+          value: role,
+        }))}
       />
       <FormMultiSelect
         name="teams"

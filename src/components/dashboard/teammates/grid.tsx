@@ -15,8 +15,11 @@ import AvatarInitials from '@/components/avatar-initials';
 import { useState, useEffect } from 'react';
 import { useTeamsToTeammate } from '@/hooks/useTeamsTeammates';
 import { useFeedbackStore } from '@/store/useFeedbackStore';
+import { getCookie, setCookie } from '@/hooks/useCookie';
+import { COOKIE_CONSENT, COOKIE_ROLES } from '@/lib/constants';
 
 const TeammatesGrid = () => {
+  const { openModal } = useTeammatesStore();
   const { openModal: openFeedbackModal } = useFeedbackStore();
   const [teammate, setTeammate] = useState<Teammate>();
   const { data: teammates, error, isLoading } = useTeammates({ query: '*' });
@@ -24,7 +27,17 @@ const TeammatesGrid = () => {
     query: 'teamUUID',
     UUID: teammate?.UUID || '',
   });
-  const { openModal } = useTeammatesStore();
+
+  useEffect(() => {
+    if (teammates) {
+      const roles = Array.from(new Set(teammates?.map((teammate) => teammate.role)));
+
+      // Save roles to cookie for autocomplete
+      if (Number(getCookie(COOKIE_CONSENT))) {
+        setCookie(COOKIE_ROLES, JSON.stringify(roles));
+      }
+    }
+  }, [teammates]);
 
   useEffect(() => {
     if (teammate) {

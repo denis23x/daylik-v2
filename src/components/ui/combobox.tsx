@@ -2,7 +2,7 @@
 
 import { Slottable } from '@radix-ui/react-slot';
 import { cva } from 'class-variance-authority';
-import { CheckIcon, ChevronsUpDownIcon, LoaderIcon, XIcon } from 'lucide-react';
+import { CheckIcon, LoaderIcon, XIcon } from 'lucide-react';
 import * as React from 'react';
 
 import { badgeVariants } from '@/components/ui/badge';
@@ -10,7 +10,6 @@ import { cn } from '@/lib/utils';
 import * as ComboboxPrimitive from '@/components/ui/combobox-primitive';
 import {
   InputBase,
-  InputBaseAdornmentButton,
   InputBaseControl,
   InputBaseFlexWrapper,
   InputBaseInput,
@@ -23,16 +22,6 @@ function ComboboxInputBase({ children, ...props }: React.ComponentProps<typeof I
     <ComboboxPrimitive.Anchor asChild>
       <InputBase data-slot="combobox-input-base" {...props}>
         {children}
-        <ComboboxPrimitive.Clear asChild>
-          <InputBaseAdornmentButton>
-            <XIcon />
-          </InputBaseAdornmentButton>
-        </ComboboxPrimitive.Clear>
-        <ComboboxPrimitive.Trigger asChild>
-          <InputBaseAdornmentButton>
-            <ChevronsUpDownIcon />
-          </InputBaseAdornmentButton>
-        </ComboboxPrimitive.Trigger>
       </InputBase>
     </ComboboxPrimitive.Anchor>
   );
