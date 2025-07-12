@@ -5,13 +5,13 @@ import { Input } from '@/components/ui/input';
 import { useFormContext } from 'react-hook-form';
 import { TeamsFormSchema } from './form-schema';
 import { z } from 'zod';
-import { MultiSelect } from '@/components/multi-select';
 import { useTeammates } from '@/hooks/useTeammates';
 import type { Teammate } from '@/types/teammate.type';
 import { Button } from '@/components/ui/button';
 import { FolderOpenIcon, X } from 'lucide-react';
 import FileUploader from '@/components/file-uploader';
 import { cn } from '@/lib/utils';
+import { ComboboxForm } from '@/components/multi-select2';
 
 const TeamsFormFields = () => {
   const form = useFormContext<z.infer<typeof TeamsFormSchema>>();
@@ -39,11 +39,23 @@ const TeamsFormFields = () => {
           </FormItem>
         )}
       />
-      <MultiSelect
+      {/* <MultiSelect
         name="teammates"
         label="Teammates"
         placeholder="Select teammates (optional)"
         searchPlaceholder="Search"
+        emptyMessage="No teammates found"
+        items={(teammates as Teammate[])?.map((teammate) => ({
+          key: teammate.UUID,
+          value: teammate.UUID,
+          label: teammate.name,
+          description: teammate.role,
+        }))}
+      /> */}
+      <ComboboxForm
+        name="teammates"
+        label="Teammates"
+        placeholder="Select teammates (optional)"
         emptyMessage="No teammates found"
         items={(teammates as Teammate[])?.map((teammate) => ({
           key: teammate.UUID,
