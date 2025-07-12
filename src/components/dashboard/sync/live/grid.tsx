@@ -100,7 +100,7 @@ const SyncLiveGrid = () => {
       // Scroll to the active card
       scrollTo(active);
     }
-  }, [active]);
+  }, [active, scrollTo]);
 
   const handleRandom = () => {
     const idle = teammates

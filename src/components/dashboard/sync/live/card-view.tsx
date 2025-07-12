@@ -19,7 +19,7 @@ const CardView = ({ disabled = false, children }: { disabled?: boolean; children
   useEffect(() => {
     setShowRoles(!!Number(getCookie(keyRoles.current)));
     setShowNames(!!Number(getCookie(keyNames.current)));
-  }, []);
+  }, [setShowRoles, setShowNames]);
 
   const handleRoles = (value: boolean) => {
     setShowRoles(value);

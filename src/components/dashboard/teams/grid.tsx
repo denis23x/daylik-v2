@@ -17,13 +17,10 @@ import { BorderBeam } from '@/components/magicui/border-beam';
 import AvatarInitials from '@/components/avatar-initials';
 import Image from 'next/image';
 import { useTeammatesFromTeam } from '@/hooks/useTeamsTeammates';
-import { useQueryClient } from '@tanstack/react-query';
 import { getDisplayTeammates } from '@/utils/getDisplayTeammates';
-import type { TeamTeammate } from '@/types/teamTeammate.type';
 import { useFeedbackStore } from '@/store/useFeedbackStore';
 
 const TeamsGrid = () => {
-  const queryClient = useQueryClient();
   const { openModal: openFeedbackModal } = useFeedbackStore();
   const [team, setTeam] = useState<Team>();
   const {
@@ -43,15 +40,8 @@ const TeamsGrid = () => {
     if (team) {
       const fetchData = async () => {
         try {
-          const cache = queryClient.getQueryData(['teams_teammates', team.UUID]);
-          let teammates: Pick<TeamTeammate, 'teammateUUID'>[] = (cache as TeamTeammate[]) || [];
-
-          if (!cache) {
-            const { data } = await refetch();
-
-            // Update teammates if cache is not available
-            teammates = data || [];
-          }
+          const teammatesFromTeam = await refetch();
+          const teammates = teammatesFromTeam.data || [];
 
           // Open modal with teammates
           openModal('update', {
@@ -67,7 +57,7 @@ const TeamsGrid = () => {
 
       fetchData();
     }
-  }, [team, refetch, openModal, queryClient]);
+  }, [team, refetch, openModal]);
 
   const handleInsert = () => {
     openModal('insert');
