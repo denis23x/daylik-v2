@@ -13,7 +13,7 @@ import { getPublicUrl } from '@/lib/api/files';
 import { v4 as uuidv4 } from 'uuid';
 import { BUCKET_MAX_FILE_SIZE, BUCKET_IMAGES } from '@/lib/constants';
 
-const FileUploader = ({
+const FormFileUploader = ({
   name,
   path,
   disabled = false,
@@ -110,4 +110,4 @@ const FileUploader = ({
   );
 };
 
-export default FileUploader;
+export default FormFileUploader;

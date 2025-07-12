@@ -22,7 +22,7 @@ export type MultiSelectItem = {
   description?: string;
 };
 
-export function MultiSelect({
+const FormMultiSelect = ({
   name,
   label,
   placeholder = 'Select items',
@@ -36,7 +36,7 @@ export function MultiSelect({
   searchPlaceholder?: string;
   emptyMessage?: string;
   items: MultiSelectItem[];
-}) {
+}) => {
   const form = useFormContext();
 
   const handleSelect = (field: ControllerRenderProps, item: MultiSelectItem) => {
@@ -141,4 +141,6 @@ export function MultiSelect({
       )}
     />
   );
-}
+};
+
+export default FormMultiSelect;

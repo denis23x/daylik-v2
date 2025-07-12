@@ -1,15 +1,15 @@
 'use client';
 
 import { cloneElement, ReactNode, ReactElement, useState } from 'react';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useFormContext } from 'react-hook-form';
 import { Pipette } from 'lucide-react';
 import type { Attributes } from 'react';
 
-const ColorPicker = ({
+const FormColorPicker = ({
   name,
   disabled = false,
   children,
@@ -19,7 +19,6 @@ const ColorPicker = ({
   children: ReactNode;
 }) => {
   const form = useFormContext();
-
   const [open, setOpen] = useState(false);
 
   return (
@@ -70,4 +69,4 @@ const ColorPicker = ({
   );
 };
 
-export default ColorPicker;
+export default FormColorPicker;

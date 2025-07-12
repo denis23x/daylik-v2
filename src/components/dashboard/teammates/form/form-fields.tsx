@@ -4,9 +4,10 @@ import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/comp
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { FolderOpenIcon, Palette, X } from 'lucide-react';
-import { MultiSelect } from '@/components/multi-select';
-import FileUploader from '@/components/file-uploader';
-import ColorPicker from '@/components/color-picker';
+import FormMultiSelect from '@/components/form-multi-select';
+import FormFileUploader from '@/components/form-file-uploader';
+import FormColorPicker from '@/components/form-color-picker';
+import FormAutocomplete from '@/components/form-autocomplete';
 import { useFormContext } from 'react-hook-form';
 import { TeammatesFormSchema } from './form-schema';
 import { z } from 'zod';
@@ -39,26 +40,13 @@ const TeammatesFormFields = () => {
           </FormItem>
         )}
       />
-      <FormField
-        control={form.control}
+      <FormAutocomplete
         name="role"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>
-              Role <span className="text-destructive">*</span>
-            </FormLabel>
-            <FormControl>
-              <Input
-                placeholder="What's their role in the team?"
-                {...field}
-                disabled={form.formState.isSubmitting}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
+        label="Role"
+        placeholder="What's their role in the team?"
+        emptyMessage="No roles found"
       />
-      <MultiSelect
+      <FormMultiSelect
         name="teams"
         label="Teams"
         placeholder="Select teams (optional)"
@@ -98,16 +86,16 @@ const TeammatesFormFields = () => {
             </FormItem>
           )}
         />
-        <FileUploader name="avatar" path="avatars" disabled={form.formState.isSubmitting}>
+        <FormFileUploader name="avatar" path="avatars" disabled={form.formState.isSubmitting}>
           <Button variant="outline" size="icon" type="button">
             <FolderOpenIcon />
           </Button>
-        </FileUploader>
-        <ColorPicker name="color" disabled={form.formState.isSubmitting}>
+        </FormFileUploader>
+        <FormColorPicker name="color" disabled={form.formState.isSubmitting}>
           <Button variant="outline" size="icon" type="button">
             <Palette />
           </Button>
-        </ColorPicker>
+        </FormColorPicker>
       </div>
     </>
   );

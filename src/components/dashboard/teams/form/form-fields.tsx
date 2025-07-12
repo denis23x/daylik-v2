@@ -5,12 +5,12 @@ import { Input } from '@/components/ui/input';
 import { useFormContext } from 'react-hook-form';
 import { TeamsFormSchema } from './form-schema';
 import { z } from 'zod';
-import { MultiSelect } from '@/components/multi-select';
+import FormMultiSelect from '@/components/form-multi-select';
 import { useTeammates } from '@/hooks/useTeammates';
 import type { Teammate } from '@/types/teammate.type';
 import { Button } from '@/components/ui/button';
 import { FolderOpenIcon, X } from 'lucide-react';
-import FileUploader from '@/components/file-uploader';
+import FormFileUploader from '@/components/form-file-uploader';
 import { cn } from '@/lib/utils';
 
 const TeamsFormFields = () => {
@@ -39,7 +39,7 @@ const TeamsFormFields = () => {
           </FormItem>
         )}
       />
-      <MultiSelect
+      <FormMultiSelect
         name="teammates"
         label="Teammates"
         placeholder="Select teammates (optional)"
@@ -80,11 +80,11 @@ const TeamsFormFields = () => {
             </FormItem>
           )}
         />
-        <FileUploader name="image" path="teams" disabled={form.formState.isSubmitting}>
+        <FormFileUploader name="image" path="teams" disabled={form.formState.isSubmitting}>
           <Button variant="outline" size="icon" type="button">
             <FolderOpenIcon className="h-5 w-5" />
           </Button>
-        </FileUploader>
+        </FormFileUploader>
       </div>
     </>
   );
