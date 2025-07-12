@@ -7,7 +7,7 @@ import { useEffect, useReducer, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
-import { ArrowRight, Bug, CalendarCog, CircleOff, Clock, Undo2, X } from 'lucide-react';
+import { ArrowRight, Bug, CalendarCog, CircleOff, Clock, Move, Undo2, X } from 'lucide-react';
 import { useSync } from '@/hooks/useSync';
 import { Skeleton } from '@/components/ui/skeleton';
 import HoverEffect from '@/components/hover-effect';
@@ -161,6 +161,13 @@ const SyncSettingsGrid = () => {
               {teammates?.map((teammate: Teammate) => (
                 <Card className="size-full gap-0 p-2" key={teammate.UUID}>
                   <CardHeader className="relative gap-0">
+                    <Button
+                      className="absolute top-0 left-0 z-10 rounded-full"
+                      variant="secondary"
+                      size="icon"
+                    >
+                      <Move />
+                    </Button>
                     {teammatesAbsent.includes(teammate.UUID) ? (
                       <Button
                         className="absolute top-0 right-0 z-10 rounded-full"

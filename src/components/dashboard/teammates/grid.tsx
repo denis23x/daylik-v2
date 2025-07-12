@@ -117,7 +117,7 @@ const TeammatesGrid = () => {
                         size="icon"
                         onClick={handleInsert}
                       >
-                        <UserRoundPlus />
+                        <UserRoundPlus className="size-5" />
                       </Button>
                     </AvatarFallback>
                   </Avatar>

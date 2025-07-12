@@ -117,7 +117,7 @@ const TeamsGrid = () => {
                         size="icon"
                         onClick={handleInsert}
                       >
-                        <Grid2x2Plus />
+                        <Grid2x2Plus className="size-5" />
                       </Button>
                     </AvatarFallback>
                   </Avatar>
@@ -134,7 +134,7 @@ const TeamsGrid = () => {
                   <CardHeader className="relative mb-auto flex min-h-9 items-center justify-between gap-x-1.5 gap-y-0 p-0">
                     <span className="truncate text-base font-semibold">{team.name}</span>
                     <Button
-                      className="self-start rounded-full"
+                      className="self-end rounded-full"
                       variant="secondary"
                       size="icon"
                       onClick={() => handleUpdate(team)}
@@ -142,24 +142,24 @@ const TeamsGrid = () => {
                       <Pencil />
                     </Button>
                   </CardHeader>
-                  <CardContent className="p-0">
+                  <CardContent
+                    className={`my-2 ${team.teammates?.length || team.image ? 'p-0' : 'p-4 sm:p-3'}`}
+                  >
                     {team.image ? (
-                      <div className="my-2">
-                        <Image
-                          className="aspect-square size-full rounded-lg border object-cover"
-                          src={team.image}
-                          alt={team.name}
-                          width={256}
-                          height={256}
-                        />
-                      </div>
+                      <Image
+                        className="aspect-square size-full rounded-lg border object-cover"
+                        src={team.image}
+                        alt={team.name}
+                        width={256}
+                        height={256}
+                      />
                     ) : team.teammates?.length ? (
-                      <div className="my-2 grid aspect-square grid-cols-2 grid-rows-2 gap-2">
+                      <div className="grid aspect-square grid-cols-2 grid-rows-2 gap-2 overflow-hidden rounded-lg">
                         {(getDisplayTeammates(team) as Teammate[]).map(
                           (teammate: Teammate, index, array) =>
                             index < 4 && (
                               <Avatar
-                                className="aspect-square size-full border"
+                                className="aspect-square size-full rounded-lg border"
                                 key={teammate.UUID}
                               >
                                 {index < 3 && (
@@ -169,23 +169,24 @@ const TeamsGrid = () => {
                                   />
                                 )}
                                 {index !== 3 && teammate.color && teammate.name ? (
-                                  <AvatarFallback style={{ backgroundColor: teammate.color }}>
+                                  <AvatarFallback
+                                    className="rounded-lg"
+                                    style={{ backgroundColor: teammate.color }}
+                                  >
                                     <AvatarInitials className="lg:text-lg" teammate={teammate} />
                                   </AvatarFallback>
                                 ) : teammate.color && teammate.name ? (
-                                  <AvatarFallback>
-                                    <span className="text-lg font-semibold">
-                                      +{array.length - 3}
-                                    </span>
+                                  <AvatarFallback className="rounded-lg">
+                                    <span className="text-lg">+{array.length - 3}</span>
                                   </AvatarFallback>
                                 ) : (
-                                  <AvatarFallback asChild>
+                                  <AvatarFallback className="rounded-lg" asChild>
                                     <Button
                                       variant="secondary"
                                       size="icon"
                                       onClick={() => handleUpdate(team)}
                                     >
-                                      <UserRoundPlus />
+                                      <UserRoundPlus className="size-4.5" />
                                     </Button>
                                   </AvatarFallback>
                                 )}
@@ -194,25 +195,23 @@ const TeamsGrid = () => {
                         )}
                       </div>
                     ) : (
-                      <div className="my-2 p-4 sm:p-3">
-                        <Avatar className="aspect-square size-full border border-dashed">
-                          <AvatarFallback asChild>
-                            <Button variant="secondary" onClick={() => handleUpdate(team)}>
-                              <UserRoundPlus />
-                            </Button>
-                          </AvatarFallback>
-                        </Avatar>
-                      </div>
+                      <Avatar className="aspect-square size-full border border-dashed p-1">
+                        <AvatarFallback asChild>
+                          <Button variant="secondary" onClick={() => handleUpdate(team)}>
+                            <UserRoundPlus className="size-5" />
+                          </Button>
+                        </AvatarFallback>
+                      </Avatar>
                     )}
                   </CardContent>
                   <CardFooter className="flex flex-col items-stretch p-0 text-center">
                     {team.teammates?.length ? (
                       <Button asChild>
-                        <Link href={`/sync/${team.UUID}/settings`}>Sync Team</Link>
+                        <Link href={`/sync/${team.UUID}/settings`}>Sync</Link>
                       </Button>
                     ) : (
-                      <Button variant="ghost" onClick={() => handleUpdate(team)}>
-                        No Teammates
+                      <Button variant="secondary" onClick={() => handleUpdate(team)}>
+                        Add Teammates
                       </Button>
                     )}
                   </CardFooter>
