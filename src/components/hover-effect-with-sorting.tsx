@@ -55,13 +55,13 @@ function SortableItem({
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
-        borderRadius: '14px',
+        borderRadius: 'var(--radius-lg)',
         zIndex: isDragging ? 10 : 1,
         opacity: isDragging ? 0.5 : 1,
-        boxShadow: isDragging ? '0 8px 16px rgba(0, 0, 0, 0.15)' : undefined,
+        boxShadow: isDragging ? 'var(--shadow-2xl)' : undefined,
       }}
       transition={spring}
-      className={`relative ${isDragging ? 'touch-none select-none' : ''}`}
+      className={`relative ${isDragging ? 'select-none' : ''}`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >

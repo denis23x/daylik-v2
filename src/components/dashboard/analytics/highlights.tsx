@@ -24,54 +24,78 @@ const AnalyticsHighlights = () => {
     if (analytics && analyticsTeammates) {
       const clone = [...analyticsTeammates];
 
-      const mvp = clone
-        .filter((t) => t.paused === 0)
-        .sort((a, b) => Math.abs(a.total - analytics?.timer) - Math.abs(b.total - analytics?.timer))
-        .at(0);
-
-      const frozen = clone.sort((a, b) => b.paused - a.paused).at(0);
-      const talker = clone.sort((a, b) => b.total - a.total).at(0);
-      const ghost = clone.sort((a, b) => a.total - b.total).at(0);
-
-      const lord = clone
-        .filter((t) => t.overtime !== 0)
-        .sort((a, b) => Math.abs(a.overtime - 1.0) - Math.abs(b.overtime - 1.0))
-        .at(0);
-
-      const formatted = [
+      const highlightUsed = new Set<string>();
+      const highlightRules = [
         {
-          icon: <Crown className="fill-current text-amber-400" />,
-          label: 'Limit Master',
           key: 'limit-master',
-          ...mvp,
+          label: 'Limit Master',
+          icon: <Crown className="fill-current text-amber-400" />,
+          predicate: (t: AnalyticsTeammate) => t.paused === 0,
+          sort: (a: AnalyticsTeammate, b: AnalyticsTeammate) => {
+            return Math.abs(a.total - analytics.timer) - Math.abs(b.total - analytics.timer);
+          },
         },
         {
-          icon: <Snowflake className="text-blue-400" />,
-          label: 'Frozen Hero',
-          key: 'frozen-hero',
-          ...frozen,
-        },
-        {
-          icon: <RadioTower className="text-red-400" />,
-          label: 'Radio Tower',
-          key: 'radio-tower',
-          ...talker,
-        },
-        {
-          icon: <Ghost className="text-foreground" />,
-          label: 'Mystery Ghost',
-          key: 'mystery-ghost',
-          ...ghost,
-        },
-        {
-          icon: <CircleCheckBig className="text-emerald-400" />,
-          label: 'Edgerunner',
           key: 'edgerunner',
-          ...lord,
+          label: 'Edgerunner',
+          icon: <CircleCheckBig className="text-emerald-400" />,
+          predicate: (t: AnalyticsTeammate) => t.overtime !== 0,
+          sort: (a: AnalyticsTeammate, b: AnalyticsTeammate) => {
+            return Math.abs(a.overtime - 1.0) - Math.abs(b.overtime - 1.0);
+          },
+        },
+        {
+          key: 'radio-tower',
+          label: 'Radio Tower',
+          icon: <RadioTower className="text-red-400" />,
+          predicate: () => true,
+          sort: (a: AnalyticsTeammate, b: AnalyticsTeammate) => {
+            return b.total - a.total;
+          },
+        },
+        {
+          key: 'frozen-hero',
+          label: 'Frozen Hero',
+          icon: <Snowflake className="text-blue-400" />,
+          predicate: (t: AnalyticsTeammate) => t.paused !== 0,
+          sort: (a: AnalyticsTeammate, b: AnalyticsTeammate) => {
+            return b.paused - a.paused;
+          },
+        },
+        {
+          key: 'mystery-ghost',
+          label: 'Mystery Ghost',
+          icon: <Ghost className="text-foreground" />,
+          predicate: () => true,
+          sort: (a: AnalyticsTeammate, b: AnalyticsTeammate) => {
+            return a.total - b.total;
+          },
         },
       ];
 
-      setHighlights(formatted as Highlight[]);
+      const highlights = highlightRules
+        .map((rule) => {
+          const { predicate, sort, ...highlight } = rule;
+          const candidate = clone
+            .filter(predicate)
+            .filter((t) => !highlightUsed.has(t.UUID))
+            .sort(sort)
+            .at(0);
+
+          if (candidate) {
+            highlightUsed.add(candidate.UUID);
+
+            return {
+              ...highlight,
+              ...candidate,
+            };
+          }
+
+          return null;
+        })
+        .filter(Boolean);
+
+      setHighlights(highlights as Highlight[]);
     }
   }, [analytics, analyticsTeammates]);
 
