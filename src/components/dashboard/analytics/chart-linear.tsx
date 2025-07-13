@@ -54,7 +54,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 const AnalyticsChartLinear = () => {
-  const [type, setType] = useState<ChartType>('natural');
+  const [type, setType] = useState<ChartType>('linear');
   const [chartData, setChartData] = useState<ChartData[]>([]);
   const { analyticsTeammates } = useAnalyticsStore();
 

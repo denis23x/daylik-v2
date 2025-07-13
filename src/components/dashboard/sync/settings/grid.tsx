@@ -10,7 +10,7 @@ import type { Teammate } from '@/types/teammate.type';
 import { ArrowRight, Bug, CalendarCog, CircleOff, Clock, Move, Undo2, X } from 'lucide-react';
 import { useSync } from '@/hooks/useSync';
 import { Skeleton } from '@/components/ui/skeleton';
-import HoverEffect from '@/components/hover-effect';
+import HoverEffectWithSorting from '@/components/hover-effect-with-sorting';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import TimerPicker from '@/components/dashboard/sync/settings/timer-picker';
@@ -157,14 +157,17 @@ const SyncSettingsGrid = () => {
             </div>
           )}
           {!isLoading && !error && teammates?.length !== 0 && (
-            <HoverEffect>
-              {teammates?.map((teammate: Teammate) => (
+            <HoverEffectWithSorting items={teammates} setItems={setTeammates}>
+              {(teammate, dragHandle) => (
                 <Card className="size-full gap-0 p-2" key={teammate.UUID}>
                   <CardHeader className="relative gap-0">
                     <Button
                       className="absolute top-0 left-0 z-10 rounded-full"
                       variant="secondary"
                       size="icon"
+                      disabled={teammatesAbsent.includes(teammate.UUID)}
+                      {...dragHandle.attributes}
+                      {...dragHandle.listeners}
                     >
                       <Move />
                     </Button>
@@ -216,8 +219,8 @@ const SyncSettingsGrid = () => {
                     </p>
                   </CardFooter>
                 </Card>
-              ))}
-            </HoverEffect>
+              )}
+            </HoverEffectWithSorting>
           )}
         </div>
       </div>
