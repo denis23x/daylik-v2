@@ -32,7 +32,9 @@ const FormAutocomplete = ({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel>
+            {label} <span className="text-destructive">*</span>
+          </FormLabel>
           <FormControl>
             <Combobox
               type="single"

@@ -2,6 +2,11 @@ import { supabase } from '@/utils/supabase/client';
 import type { TeamTeammate } from '@/types/teamTeammate.type';
 import { SupabaseQueryResult } from '@/types/utils/supabaseQueryResult.type';
 
+type UpdateTeammatesInTeamParams = {
+  teamUUID: string;
+  teammates: { teammateUUID: string; order: number }[];
+};
+
 type FetchTeammatesToTeamParams = {
   query: string;
   UUID: string;
@@ -29,6 +34,18 @@ type AddTeamsToTeammateParams = {
 type RemoveTeamsFromTeammateParams = AddTeamsToTeammateParams & {
   teamsDisableInvalidateQueries?: boolean;
 };
+
+export async function updateTeammatesOrderInTeam({
+  teamUUID,
+  teammates,
+}: UpdateTeammatesInTeamParams) {
+  const { data, error } = await supabase.rpc('update_teammates_order', {
+    p_team_uuid: teamUUID,
+    p_items: teammates,
+  });
+  if (error) throw error;
+  return data;
+}
 
 export async function fetchTeammatesFromTeam({
   query,

@@ -29,7 +29,7 @@ const TeamsGrid = () => {
     error,
     isLoading,
   } = useTeams({
-    query: `*, teams_teammates (teammates (UUID, name, color, avatar))`,
+    query: `*, teams_teammates (order, teammates (UUID, name, color, avatar))`,
   });
   const { refetch } = useTeammatesFromTeam({
     query: 'teammateUUID',

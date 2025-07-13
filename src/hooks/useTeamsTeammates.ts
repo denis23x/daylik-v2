@@ -1,4 +1,5 @@
 import {
+  updateTeammatesOrderInTeam,
   fetchTeammatesFromTeam,
   addTeammatesToTeam,
   removeTeammatesFromTeam,
@@ -8,6 +9,16 @@ import {
 } from '@/lib/api/teamsTeammates';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
+
+export function useUpdateTeammatesInTeam() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: updateTeammatesOrderInTeam,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['teams'] });
+    },
+  });
+}
 
 export function useTeammatesFromTeam({ query, UUID }: { query: string; UUID: string }) {
   return useQuery({
@@ -24,7 +35,6 @@ export function useAddTeammatesToTeam() {
     mutationFn: addTeammatesToTeam,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['teams'] });
-      queryClient.invalidateQueries({ queryKey: ['teams_teammates'] });
     },
   });
 }
@@ -36,7 +46,6 @@ export function useRemoveTeammatesFromTeam() {
     onSuccess: (_, variables) => {
       if (!variables.teammatesDisableInvalidateQueries) {
         queryClient.invalidateQueries({ queryKey: ['teams'] });
-        queryClient.invalidateQueries({ queryKey: ['teams_teammates'] });
       }
     },
   });
@@ -57,7 +66,6 @@ export function useAddTeamsToTeammate() {
     mutationFn: addTeamsToTeammate,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['teams'] });
-      queryClient.invalidateQueries({ queryKey: ['teams_teammates'] });
     },
   });
 }
@@ -69,7 +77,6 @@ export function useRemoveTeamsFromTeammate() {
     onSuccess: (_, variables) => {
       if (!variables.teamsDisableInvalidateQueries) {
         queryClient.invalidateQueries({ queryKey: ['teams'] });
-        queryClient.invalidateQueries({ queryKey: ['teams_teammates'] });
       }
     },
   });

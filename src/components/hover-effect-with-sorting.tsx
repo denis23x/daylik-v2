@@ -45,7 +45,9 @@ function SortableItem({
   onMouseEnter: (e: React.MouseEvent<HTMLLIElement>) => void;
   onMouseLeave: () => void;
 }) {
-  const { setNodeRef, transform, transition, attributes, listeners } = useSortable({ id });
+  const { setNodeRef, transform, transition, attributes, listeners, isDragging } = useSortable({
+    id,
+  });
 
   return (
     <motion.li
@@ -53,10 +55,13 @@ function SortableItem({
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
-        zIndex: 1,
+        borderRadius: '14px',
+        zIndex: isDragging ? 10 : 1,
+        opacity: isDragging ? 0.5 : 1,
+        boxShadow: isDragging ? '0 8px 16px rgba(0, 0, 0, 0.15)' : undefined,
       }}
       transition={spring}
-      className="relative"
+      className={`relative ${isDragging ? 'touch-none select-none' : ''}`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >

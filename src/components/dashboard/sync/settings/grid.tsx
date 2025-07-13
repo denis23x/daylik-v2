@@ -22,6 +22,8 @@ import { useEstimatedSyncTime } from '@/hooks/ui/useEstimatedSyncTime';
 import AvatarInitials from '@/components/avatar-initials';
 import Link from 'next/link';
 import { useFeedbackStore } from '@/store/useFeedbackStore';
+import { useChangedIndexes } from '@/hooks/ui/useChangedIndexes';
+import { useUpdateTeammatesInTeam } from '@/hooks/useTeamsTeammates';
 
 // teammatesAbsent reducer
 function reducer(state: string[], action: { type: 'add' | 'remove'; UUID: string }): string[] {
@@ -45,8 +47,10 @@ const SyncSettingsGrid = () => {
   const { team, teammates, timer, setTeam, setTeammates, setTimer } = useSyncSettingsStore();
   const { setTeam: setLiveTeam, setTeammates: setLiveTeammates } = useSyncLiveStore();
   const { mutate: updateTeam } = useUpdateTeam();
+  const { mutate: updateTeammatesOrder } = useUpdateTeammatesInTeam();
+  const { indexes: teammatesIndexes } = useChangedIndexes(teammates);
   const { data, isLoading, error } = useSync({
-    query: `*, teams_teammates (teammates (UUID, name, role, color, avatar))`,
+    query: `*, teams_teammates (order, teammates (UUID, name, role, color, avatar))`,
     UUID: params.UUID as string,
     enabled: true,
   });
@@ -67,6 +71,21 @@ const SyncSettingsGrid = () => {
 
     setEstimatedSyncTime(estimatedSyncTime);
   }, [timer, teammates, teammatesAbsent, getEstimatedSyncTime]);
+
+  useEffect(() => {
+    if (team) {
+      const teammates = teammatesIndexes.map(({ UUID, newIndex }) => ({
+        teammateUUID: UUID,
+        order: newIndex,
+      }));
+
+      // Update teammates order
+      updateTeammatesOrder({
+        teamUUID: team?.UUID as string,
+        teammates,
+      });
+    }
+  }, [team, teammatesIndexes]);
 
   const handleStart = () => {
     // Update timer if it has changed
