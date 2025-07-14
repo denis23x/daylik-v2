@@ -2,8 +2,15 @@
 
 import React, { useState, useRef } from 'react';
 import { motion, spring } from 'motion/react';
+import { cn } from '@/lib/utils';
 
-const HoverEffect = ({ children }: { children: React.ReactNode }) => {
+const HoverEffect = ({
+  className,
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) => {
   const [highlightStyle, setHighlightStyle] = useState({
     top: 0,
     left: 0,
@@ -58,7 +65,10 @@ const HoverEffect = ({ children }: { children: React.ReactNode }) => {
     <ul
       ref={containerRef}
       onMouseLeave={handleMouseLeaveGrid}
-      className="relative grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7"
+      className={cn(
+        'relative grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7',
+        className
+      )}
     >
       {hasInitialized && (
         <motion.div

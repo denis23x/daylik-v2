@@ -104,7 +104,7 @@ const AnalyticsHighlights = () => {
       {highlights
         .filter((highlight) => highlight.teammate)
         .map((highlight) => (
-          <Card key={highlight.label} className="group relative size-full gap-0 p-2">
+          <Card key={highlight.key} className="relative size-full gap-0 p-2">
             <CardHeader className="relative gap-0 p-0 transition-all">
               <div className="bg-muted flex items-center gap-2 overflow-hidden rounded-lg border p-2">
                 <span className="flex aspect-square size-8 items-center justify-center">

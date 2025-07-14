@@ -10,32 +10,26 @@ const AnalyticsSummary = () => {
 
   return (
     analytics && (
-      <div className="flex w-full flex-col gap-2 text-sm">
-        <div className="flex items-end justify-between gap-4">
+      <div className="flex w-full flex-col gap-6 sm:gap-0">
+        <div className="self-center">
+          <time className="text-muted-foreground text-sm">
+            {format(new Date(analytics.createdAt), 'MMMM dd')}
+          </time>
+          <span className="text-foreground px-4 text-xl font-bold">{analytics.team?.name}</span>
+          <time className="text-muted-foreground text-sm">
+            {formatDuration(new Date(analytics.startedAt), new Date(analytics.finishedAt))}
+          </time>
+        </div>
+        <div className="flex items-center justify-between gap-4">
           <div className="flex h-6 items-center gap-2">
             <MapPin />
-            <Badge variant="outline" className="text-md">
-              {format(new Date(analytics.startedAt), 'HH:mm')}
-            </Badge>
+            <Badge variant="outline">{format(new Date(analytics.startedAt), 'HH:mm')}</Badge>
           </div>
-          <div className="flex flex-1 flex-col gap-2">
-            <div className="self-center">
-              <span className="text-muted-foreground text-sm">
-                {format(new Date(analytics.createdAt), 'MMMM dd')}
-              </span>
-              <span className="text-foreground px-4 text-xl font-bold">{analytics.team?.name}</span>
-              <span className="text-muted-foreground text-sm">
-                {formatDuration(new Date(analytics.startedAt), new Date(analytics.finishedAt))}
-              </span>
-            </div>
-            <span className="flex h-6 items-center">
-              <Separator />
-            </span>
-          </div>
+          <span className="flex h-6 w-full items-center">
+            <Separator />
+          </span>
           <div className="flex h-6 items-center gap-2">
-            <Badge variant="outline" className="text-md">
-              {format(new Date(analytics.finishedAt), 'HH:mm')}
-            </Badge>
+            <Badge variant="outline">{format(new Date(analytics.finishedAt), 'HH:mm')}</Badge>
             <Flag />
           </div>
         </div>
