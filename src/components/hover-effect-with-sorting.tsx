@@ -61,7 +61,7 @@ function SortableItem({
         boxShadow: isDragging ? 'var(--shadow-2xl)' : undefined,
       }}
       transition={spring}
-      className={`relative ${isDragging ? 'select-none' : ''}`}
+      className={`relative ${isDragging ? 'touch-none' : ''}`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >

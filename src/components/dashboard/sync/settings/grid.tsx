@@ -85,7 +85,7 @@ const SyncSettingsGrid = () => {
         teammates,
       });
     }
-  }, [team, teammatesIndexes]);
+  }, [team, teammatesIndexes, updateTeammatesOrder]);
 
   const handleStart = () => {
     // Update timer if it has changed

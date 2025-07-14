@@ -1,4 +1,5 @@
 import { createAnalytics, fetchAnalytics } from '@/lib/api/analytics';
+import { normalizeTeam } from '@/utils/normalizeTeam';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 export function useAnalytics({ query, UUID }: { query: string; UUID: string }) {
@@ -6,6 +7,7 @@ export function useAnalytics({ query, UUID }: { query: string; UUID: string }) {
     queryKey: ['analytics', query, UUID],
     queryFn: () => fetchAnalytics({ query, UUID }),
     staleTime: 1000 * 60 * 5,
+    select: (data) => normalizeTeam(data),
   });
 }
 

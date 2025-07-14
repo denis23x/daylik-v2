@@ -5,9 +5,10 @@ import { useAnalytics } from '@/hooks/useAnalytics';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useTeammatesFromAnalytic } from '@/hooks/useAnalyticsTeammates';
+import AnalyticsSummary from './summary';
 import AnalyticsHighlights from './highlights';
-import AnalyticsTable from './table';
 import AnalyticsChartLinear from './chart-linear';
+import AnalyticsTable from './table';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useAnalyticsStore } from '@/store/useAnalyticsStore';
 import { Button } from '@/components/ui/button';
@@ -25,7 +26,7 @@ const AnalyticsGrid = () => {
     data: analyticsData,
     isLoading: analyticsIsLoading,
     error: analyticsError,
-  } = useAnalytics({ query: '*', UUID: params.UUID as string });
+  } = useAnalytics({ query: '*, teams (name)', UUID: params.UUID as string });
   const {
     data: analyticsTeammatesData,
     error: analyticsTeammatesError,
@@ -90,6 +91,7 @@ const AnalyticsGrid = () => {
           )}
           {!isLoading && !isError && analytics && analyticsTeammates?.length !== 0 && (
             <div className="flex w-full flex-col gap-4">
+              <AnalyticsSummary></AnalyticsSummary>
               <AnalyticsHighlights></AnalyticsHighlights>
               <AnalyticsChartLinear></AnalyticsChartLinear>
               <AnalyticsTable></AnalyticsTable>
