@@ -13,6 +13,7 @@ import {
 import { SortableContext, rectSortingStrategy, arrayMove, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import type { Teammate } from '@/types/teammate.type';
+import { cn } from '@/lib/utils';
 
 type HoverEffectWithSortingProps = {
   items: Teammate[];
@@ -24,6 +25,7 @@ type HoverEffectWithSortingProps = {
       listeners?: React.DOMAttributes<HTMLElement>;
     }
   ) => React.ReactNode;
+  className?: string;
 };
 
 function SortableItem({
@@ -61,7 +63,7 @@ function SortableItem({
         boxShadow: isDragging ? 'var(--shadow-2xl)' : undefined,
       }}
       transition={spring}
-      className={`relative ${isDragging ? 'select-none' : ''}`}
+      className="relative"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -70,7 +72,12 @@ function SortableItem({
   );
 }
 
-const HoverEffectWithSorting = ({ items, setItems, children }: HoverEffectWithSortingProps) => {
+const HoverEffectWithSorting = ({
+  items,
+  setItems,
+  children,
+  className,
+}: HoverEffectWithSortingProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const [highlightStyle, setHighlightStyle] = useState({
     top: 0,
@@ -155,7 +162,10 @@ const HoverEffectWithSorting = ({ items, setItems, children }: HoverEffectWithSo
         <ul
           ref={containerRef}
           onMouseLeave={handleMouseLeaveGrid}
-          className="relative grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7"
+          className={cn(
+            'relative grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7',
+            className
+          )}
         >
           {hasInitialized && !isDragging && (
             <motion.div

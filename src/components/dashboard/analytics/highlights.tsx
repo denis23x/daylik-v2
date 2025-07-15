@@ -1,9 +1,9 @@
 'use client';
 
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { CircleCheckBig, Crown, Ghost, RadioTower, Snowflake } from 'lucide-react';
-import HoverEffect from '@/components/hover-effect';
+import HoverEffectHighlights from '@/components/hover-effect-highlights';
 import { useEffect, useState } from 'react';
 import { useAnalyticsStore } from '@/store/useAnalyticsStore';
 import AvatarInitials from '@/components/avatar-initials';
@@ -25,6 +25,7 @@ const AnalyticsHighlights = () => {
       const clone = [...analyticsTeammates];
 
       const highlightUsed = new Set<string>();
+
       const highlightRules = [
         {
           key: 'limit-master',
@@ -95,18 +96,48 @@ const AnalyticsHighlights = () => {
         })
         .filter(Boolean);
 
-      setHighlights(highlights as Highlight[]);
+      const highlightOrder = [
+        'edgerunner',
+        'mystery-ghost',
+        'limit-master',
+        'radio-tower',
+        'frozen-hero',
+      ];
+
+      const highlightsSorted = (highlights as Highlight[]).sort((a, b) => {
+        return highlightOrder.indexOf(a.key) - highlightOrder.indexOf(b.key);
+      });
+
+      setHighlights(highlightsSorted);
     }
   }, [analytics, analyticsTeammates]);
 
   return (
-    <HoverEffect>
+    <HoverEffectHighlights>
       {highlights
         .filter((highlight) => highlight.teammate)
         .map((highlight) => (
-          <Card key={highlight.key} className="relative size-full gap-0 p-2">
-            <CardHeader className="relative gap-0 p-0 transition-all">
-              <div className="bg-muted flex items-center gap-2 overflow-hidden rounded-lg border p-2">
+          <div key={highlight.key} className="flex flex-col gap-2">
+            <Card className="relative size-full gap-0 p-2">
+              <CardContent className="p-4 sm:p-3">
+                <Avatar className="animate-shine aspect-square size-full translate-y-1 border">
+                  <AvatarImage
+                    className="bg-secondary object-cover"
+                    src={highlight.teammate?.avatar || undefined}
+                  />
+                  <AvatarFallback style={{ backgroundColor: highlight.teammate?.color }}>
+                    <AvatarInitials className="text-2xl" teammate={highlight.teammate!} />
+                  </AvatarFallback>
+                </Avatar>
+              </CardContent>
+              <CardFooter className="flex flex-col items-stretch p-0 text-center">
+                <span className="truncate text-lg font-semibold sm:text-2xl">
+                  {highlight.teammate?.name}
+                </span>
+              </CardFooter>
+            </Card>
+            <div className="relative gap-0 p-0 transition-all">
+              <div className="bg-card flex flex-col items-center gap-2 overflow-hidden rounded-lg border p-2 sm:flex-row">
                 <span className="flex aspect-square size-8 items-center justify-center">
                   {highlight.icon}
                 </span>
@@ -124,26 +155,10 @@ const AnalyticsHighlights = () => {
                   </span>
                 </div>
               </div>
-            </CardHeader>
-            <CardContent className="p-4 sm:p-3">
-              <Avatar className="animate-shine aspect-square size-full translate-y-1 border">
-                <AvatarImage
-                  className="bg-secondary object-cover"
-                  src={highlight.teammate?.avatar || undefined}
-                />
-                <AvatarFallback style={{ backgroundColor: highlight.teammate?.color }}>
-                  <AvatarInitials className="text-2xl" teammate={highlight.teammate!} />
-                </AvatarFallback>
-              </Avatar>
-            </CardContent>
-            <CardFooter className="flex flex-col items-stretch p-0 text-center">
-              <span className="truncate text-lg font-semibold sm:text-2xl">
-                {highlight.teammate?.name}
-              </span>
-            </CardFooter>
-          </Card>
+            </div>
+          </div>
         ))}
-    </HoverEffect>
+    </HoverEffectHighlights>
   );
 };
 
