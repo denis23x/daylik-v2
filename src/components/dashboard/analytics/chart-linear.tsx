@@ -74,8 +74,8 @@ const AnalyticsChartLinear = () => {
   return (
     <Card className="p-4">
       <CardHeader className="p-0">
-        <CardTitle>Daily Sync Timeline</CardTitle>
-        <CardDescription>A complete breakdown of today&apos;s standup</CardDescription>
+        <CardTitle>Sync Timeline</CardTitle>
+        <CardDescription>A complete breakdown of today&apos;s sync</CardDescription>
         <CardAction>
           <Select value={type} onValueChange={(value) => setType(value as typeof type)}>
             <SelectTrigger className="w-30">

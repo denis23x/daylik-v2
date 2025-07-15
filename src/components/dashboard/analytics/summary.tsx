@@ -10,7 +10,7 @@ const AnalyticsSummary = () => {
 
   return (
     analytics && (
-      <div className="flex w-full flex-col gap-6 sm:gap-0">
+      <div className="flex w-full flex-col gap-4 sm:gap-2">
         <div className="self-center">
           <time className="text-muted-foreground text-sm">
             {format(new Date(analytics.createdAt), 'MMMM dd')}
