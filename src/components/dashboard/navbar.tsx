@@ -106,7 +106,7 @@ const NavigationSheet = () => {
             </NavigationMenuItem>
             <Separator />
             <NavigationMenuItem>
-              <div className="flex items-center gap-2" onClick={openFeedbackModal}>
+              <div className="flex cursor-pointer items-center gap-2" onClick={openFeedbackModal}>
                 <MessageCircleMore size={16} />
                 Feedback
               </div>

@@ -18,7 +18,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
-import { columns } from './table/columns';
+import { columns } from './columns';
 import type { AnalyticsTeammate } from '@/types/analyticsTeammate.type';
 import { Input } from '@/components/ui/input';
 import { useAnalyticsStore } from '@/store/useAnalyticsStore';

@@ -25,7 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { TooltipFormatter } from './chart-linear/tooltip-formatter';
+import { TooltipFormatter } from './tooltip-formatter';
 import { getSeconds } from '@/utils/getSeconds';
 import { useAnalyticsStore } from '@/store/useAnalyticsStore';
 

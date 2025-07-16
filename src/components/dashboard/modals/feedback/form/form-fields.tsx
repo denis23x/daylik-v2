@@ -28,15 +28,15 @@ const FeedbackFormFields = () => {
                 disabled={formState.isSubmitting}
                 className="w-full"
               >
-                <ToggleGroupItem value="low">
+                <ToggleGroupItem className="cursor-pointer" value="low">
                   <Laugh />
                   Low
                 </ToggleGroupItem>
-                <ToggleGroupItem value="medium">
+                <ToggleGroupItem className="cursor-pointer" value="medium">
                   <Annoyed />
                   Medium
                 </ToggleGroupItem>
-                <ToggleGroupItem value="high">
+                <ToggleGroupItem className="cursor-pointer" value="high">
                   <Angry />
                   High
                 </ToggleGroupItem>

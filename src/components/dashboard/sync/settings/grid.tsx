@@ -7,23 +7,21 @@ import { useEffect, useReducer, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
-import { ArrowRight, Bug, CalendarCog, CircleOff, Clock, Move, Undo2, X } from 'lucide-react';
+import { ArrowRight, Bug, CalendarCog, CircleOff, Clock } from 'lucide-react';
 import { useSync } from '@/hooks/useSync';
 import { Skeleton } from '@/components/ui/skeleton';
 import HoverEffectWithSorting from '@/components/hover-effect-with-sorting';
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import TimerPicker from '@/components/dashboard/sync/settings/timer-picker';
 import { RainbowButton } from '@/components/magicui/rainbow-button';
 import { useUpdateTeam } from '@/hooks/useTeams';
 import { formatDuration } from '@/utils/formatDuration';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { useEstimatedSyncTime } from '@/hooks/ui/useEstimatedSyncTime';
-import AvatarInitials from '@/components/avatar-initials';
 import Link from 'next/link';
 import { useFeedbackStore } from '@/store/useFeedbackStore';
 import { useChangedIndexes } from '@/hooks/ui/useChangedIndexes';
 import { useUpdateTeammatesInTeam } from '@/hooks/useTeamsTeammates';
+import SyncSettingsCard from './card';
 
 // teammatesAbsent reducer
 function reducer(state: string[], action: { type: 'add' | 'remove'; UUID: string }): string[] {
@@ -178,66 +176,13 @@ const SyncSettingsGrid = () => {
           {!isLoading && !error && teammates?.length !== 0 && (
             <HoverEffectWithSorting items={teammates} setItems={setTeammates}>
               {(teammate, dragHandle) => (
-                <Card className="size-full gap-0 p-2" key={teammate.UUID}>
-                  <CardHeader className="relative gap-0">
-                    <Button
-                      className="absolute top-0 left-0 z-10 rounded-full"
-                      variant="secondary"
-                      size="icon"
-                      disabled={teammatesAbsent.includes(teammate.UUID)}
-                      {...dragHandle.attributes}
-                      {...dragHandle.listeners}
-                    >
-                      <Move />
-                    </Button>
-                    {teammatesAbsent.includes(teammate.UUID) ? (
-                      <Button
-                        className="absolute top-0 right-0 z-10 rounded-full"
-                        variant="secondary"
-                        size="icon"
-                        onClick={() => dispatch({ type: 'remove', UUID: teammate.UUID })}
-                      >
-                        <Undo2 />
-                      </Button>
-                    ) : (
-                      <Button
-                        className="absolute top-0 right-0 z-10 rounded-full"
-                        variant="destructive"
-                        size="icon"
-                        onClick={() => dispatch({ type: 'add', UUID: teammate.UUID })}
-                      >
-                        <X />
-                      </Button>
-                    )}
-                  </CardHeader>
-                  <CardContent
-                    className={`translate-y-2 p-4 transition-[opacity,filter] duration-200 sm:p-3 ${
-                      teammatesAbsent.includes(teammate.UUID) ? 'opacity-25 grayscale' : ''
-                    }`}
-                  >
-                    <Avatar className="aspect-square size-full border">
-                      <AvatarImage
-                        className="bg-secondary object-cover"
-                        src={teammate.avatar || undefined}
-                      />
-                      <AvatarFallback style={{ backgroundColor: teammate.color }}>
-                        <AvatarInitials className="text-2xl" teammate={teammate} />
-                      </AvatarFallback>
-                    </Avatar>
-                  </CardContent>
-                  <CardFooter
-                    className={`flex flex-col items-stretch p-0 text-center transition-[opacity,filter] duration-200 ${
-                      teammatesAbsent.includes(teammate.UUID) ? 'opacity-25 grayscale' : ''
-                    }`}
-                  >
-                    <span className="truncate text-lg font-semibold sm:text-2xl">
-                      {teammate.name}
-                    </span>
-                    <p className="text-muted-foreground truncate text-xs sm:text-sm">
-                      {teammate.role}
-                    </p>
-                  </CardFooter>
-                </Card>
+                <SyncSettingsCard
+                  key={teammate.UUID}
+                  teammate={teammate}
+                  teammatesAbsent={teammatesAbsent}
+                  dispatch={dispatch}
+                  dragHandle={dragHandle}
+                />
               )}
             </HoverEffectWithSorting>
           )}

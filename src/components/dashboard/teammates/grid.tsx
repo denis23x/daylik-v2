@@ -1,32 +1,25 @@
 'use client';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import type { Teammate } from '@/types/teammate.type';
 import { useTeammates } from '@/hooks/useTeammates';
 import { useTeammatesStore } from '@/store/useTeammatesStore';
-import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
-import { Bug, CircleOff, Pencil, Plus, UserRoundPlus, UsersRound } from 'lucide-react';
+import { Bug, CircleOff, Plus, UserRoundPlus, UsersRound } from 'lucide-react';
 import HoverEffect from '@/components/hover-effect';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { BorderBeam } from '@/components/magicui/border-beam';
-import AvatarInitials from '@/components/avatar-initials';
-import { useState, useEffect } from 'react';
-import { useTeamsToTeammate } from '@/hooks/useTeamsTeammates';
+import { useEffect } from 'react';
 import { useFeedbackStore } from '@/store/useFeedbackStore';
 import { getCookie, setCookie } from '@/hooks/useCookie';
 import { COOKIE_CONSENT, COOKIE_ROLES } from '@/lib/constants';
+import TeammatesCard from './card';
 
 const TeammatesGrid = () => {
   const { openModal } = useTeammatesStore();
   const { openModal: openFeedbackModal } = useFeedbackStore();
-  const [teammate, setTeammate] = useState<Teammate>();
   const { data: teammates, error, isLoading } = useTeammates({ query: '*' });
-  const { refetch } = useTeamsToTeammate({
-    query: 'teamUUID',
-    UUID: teammate?.UUID || '',
-  });
 
   useEffect(() => {
     if (teammates) {
@@ -39,35 +32,8 @@ const TeammatesGrid = () => {
     }
   }, [teammates]);
 
-  useEffect(() => {
-    if (teammate) {
-      const fetchData = async () => {
-        try {
-          const teamsFromTeammate = await refetch();
-          const teams = teamsFromTeammate.data || [];
-
-          // Open modal with teams
-          openModal('update', {
-            ...teammate,
-            teams: teams.map(({ teamUUID }) => teamUUID),
-          });
-        } catch (error) {
-          toast.error(error instanceof Error ? error.message : 'An error occurred');
-        } finally {
-          setTeammate(undefined);
-        }
-      };
-
-      fetchData();
-    }
-  }, [teammate, refetch, openModal]);
-
   const handleInsert = () => {
     openModal('insert');
-  };
-
-  const handleUpdate = async (teammate: Teammate) => {
-    setTeammate(teammate);
   };
 
   return (
@@ -131,40 +97,7 @@ const TeammatesGrid = () => {
                 <BorderBeam duration={8} size={100} />
               </Card>
               {teammates?.map((teammate: Teammate) => (
-                <Card className="size-full gap-0 p-2" id={teammate.UUID} key={teammate.UUID}>
-                  <CardHeader className="relative gap-0">
-                    <Button
-                      className="absolute top-0 right-0 z-10 rounded-full"
-                      variant="secondary"
-                      size="icon"
-                      onClick={() => handleUpdate(teammate)}
-                    >
-                      <Pencil />
-                    </Button>
-                  </CardHeader>
-                  <CardContent className="translate-y-2 p-4 sm:p-3">
-                    <Avatar
-                      className="aspect-square size-full border"
-                      onClick={() => handleUpdate(teammate)}
-                    >
-                      <AvatarImage
-                        className="bg-secondary object-cover"
-                        src={teammate.avatar || undefined}
-                      />
-                      <AvatarFallback style={{ backgroundColor: teammate.color }}>
-                        <AvatarInitials className="text-2xl" teammate={teammate} />
-                      </AvatarFallback>
-                    </Avatar>
-                  </CardContent>
-                  <CardFooter className="flex flex-col items-stretch p-0 text-center">
-                    <span className="truncate text-lg font-semibold sm:text-2xl">
-                      {teammate.name}
-                    </span>
-                    <p className="text-muted-foreground truncate text-xs sm:text-sm">
-                      {teammate.role}
-                    </p>
-                  </CardFooter>
-                </Card>
+                <TeammatesCard key={teammate.UUID} teammate={teammate} />
               ))}
             </HoverEffect>
           )}
