@@ -5,7 +5,14 @@ import {
   ComboboxInput,
   ComboboxItem,
 } from '@/components/ui/combobox';
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+  useFormField,
+} from '@/components/ui/form';
 import { useFormContext } from 'react-hook-form';
 
 export type AutocompleteItem = {
@@ -30,38 +37,43 @@ const FormAutocomplete = ({
     <FormField
       control={form.control}
       name={name}
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>
-            {label} <span className="text-destructive">*</span>
-          </FormLabel>
-          <FormControl>
-            <Combobox
-              type="single"
-              value={field.value}
-              onValueChange={field.onChange}
-              inputValue={field.value}
-              onInputValueChange={field.onChange}
-            >
-              <ComboboxInput placeholder={placeholder} />
-              {items.find((item) => {
-                return item.value.toLowerCase().includes(field.value.toLowerCase());
-              }) && (
-                <ComboboxContent>
-                  <ComboboxGroup>
-                    {items.map((item) => (
-                      <ComboboxItem key={item.key} value={item.value}>
-                        {item.value}
-                      </ComboboxItem>
-                    ))}
-                  </ComboboxGroup>
-                </ComboboxContent>
-              )}
-            </Combobox>
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
+      render={({ field }) => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const { error } = useFormField();
+
+        return (
+          <FormItem>
+            <FormLabel>
+              {label} <span className="text-destructive">*</span>
+            </FormLabel>
+            <FormControl>
+              <Combobox
+                type="single"
+                value={field.value}
+                onValueChange={field.onChange}
+                inputValue={field.value}
+                onInputValueChange={field.onChange}
+              >
+                <ComboboxInput placeholder={placeholder} error={!!error} />
+                {items.find((item) => {
+                  return item.value.toLowerCase().includes(field.value.toLowerCase());
+                }) && (
+                  <ComboboxContent>
+                    <ComboboxGroup>
+                      {items.map((item) => (
+                        <ComboboxItem key={item.key} value={item.value}>
+                          {item.value}
+                        </ComboboxItem>
+                      ))}
+                    </ComboboxGroup>
+                  </ComboboxContent>
+                )}
+              </Combobox>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        );
+      }}
     />
   );
 };

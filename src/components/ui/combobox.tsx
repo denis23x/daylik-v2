@@ -27,9 +27,12 @@ function ComboboxInputBase({ children, ...props }: React.ComponentProps<typeof I
   );
 }
 
-function ComboboxInput(props: React.ComponentProps<typeof ComboboxPrimitive.Input>) {
+function ComboboxInput({
+  error,
+  ...props
+}: React.ComponentProps<typeof ComboboxPrimitive.Input> & { error?: boolean }) {
   return (
-    <ComboboxInputBase>
+    <ComboboxInputBase error={error}>
       <InputBaseControl>
         <ComboboxPrimitive.Input asChild>
           <InputBaseInput data-slot="combobox-input" {...props} />
