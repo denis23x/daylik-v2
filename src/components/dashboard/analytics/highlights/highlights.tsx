@@ -1,7 +1,7 @@
 'use client';
 
 import { CircleCheckBig, Crown, Ghost, RadioTower, Snowflake } from 'lucide-react';
-import HoverEffectHighlights from '@/components/hover-effect-highlights';
+import HoverEffectHighlights from '@/components/dx/hover-effect/hover-effect-highlights';
 import { useEffect, useState } from 'react';
 import { useAnalyticsStore } from '@/store/useAnalyticsStore';
 import type { AnalyticsTeammate } from '@/types/analyticsTeammate.type';

@@ -10,7 +10,7 @@ import type { Teammate } from '@/types/teammate.type';
 import { ArrowRight, Bug, CalendarCog, CircleOff, Clock } from 'lucide-react';
 import { useSync } from '@/hooks/useSync';
 import { Skeleton } from '@/components/ui/skeleton';
-import HoverEffectWithSorting from '@/components/hover-effect-with-sorting';
+import HoverEffectWithSorting from '@/components/dx/hover-effect/hover-effect-with-sorting';
 import TimerPicker from '@/components/dashboard/sync/settings/timer-picker';
 import { RainbowButton } from '@/components/magicui/rainbow-button';
 import { useUpdateTeam } from '@/hooks/useTeams';

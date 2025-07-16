@@ -4,10 +4,10 @@ import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/comp
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { FolderOpenIcon, Palette, X } from 'lucide-react';
-import FormMultiSelect from '@/components/form-multi-select';
-import FormFileUploader from '@/components/form-file-uploader';
-import FormColorPicker from '@/components/form-color-picker';
-import FormAutocomplete from '@/components/form-autocomplete';
+import FormMultiSelect from '@/components/dx/form/form-multi-select';
+import FormFileUploader from '@/components/dx/form/form-file-uploader';
+import FormColorPicker from '@/components/dx/form/form-color-picker';
+import FormAutocomplete from '@/components/dx/form/form-autocomplete';
 import { useFormContext } from 'react-hook-form';
 import { TeammatesFormSchema } from './form-schema';
 import { z } from 'zod';

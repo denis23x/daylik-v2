@@ -49,7 +49,7 @@ const ResponsiveDialog = ({
   onOpenChange: controlledOnOpenChange,
 }: ResponsiveDialogProps) => {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
-  const isDesktop = useMediaQuery('(min-width: 640px)');
+  const sm = useMediaQuery('(min-width: 640px)');
 
   // Use controlled props if provided, otherwise use internal state
   const isControlled = controlledOpen !== undefined && controlledOnOpenChange !== undefined;
@@ -57,7 +57,7 @@ const ResponsiveDialog = ({
   const open = isControlled ? controlledOpen : uncontrolledOpen;
   const onOpenChange = isControlled ? controlledOnOpenChange : setUncontrolledOpen;
 
-  if (isDesktop) {
+  if (sm) {
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogTrigger suppressHydrationWarning asChild>

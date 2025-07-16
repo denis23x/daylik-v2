@@ -6,7 +6,7 @@ import { ArrowRight, Bug, CircleOff, ClockFading, Dices, Eye, Shuffle } from 'lu
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
 import type { SyncTeammate } from '@/types/syncTeammate.type';
-import HoverEffect from '@/components/hover-effect';
+import HoverEffect from '@/components/dx/hover-effect/hover-effect';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
 import { useSync } from '@/hooks/useSync';

@@ -162,10 +162,7 @@ const HoverEffectWithSorting = ({
         <ul
           ref={containerRef}
           onMouseLeave={handleMouseLeaveGrid}
-          className={cn(
-            'relative grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7',
-            className
-          )}
+          className={cn('hover-effect-grid', className)}
         >
           {hasInitialized && !isDragging && (
             <motion.div

@@ -5,12 +5,12 @@ import { Input } from '@/components/ui/input';
 import { useFormContext } from 'react-hook-form';
 import { TeamsFormSchema } from './form-schema';
 import { z } from 'zod';
-import FormMultiSelect from '@/components/form-multi-select';
+import FormMultiSelect from '@/components/dx/form/form-multi-select';
 import { useTeammates } from '@/hooks/useTeammates';
 import type { Teammate } from '@/types/teammate.type';
 import { Button } from '@/components/ui/button';
 import { FolderOpenIcon, X } from 'lucide-react';
-import FormFileUploader from '@/components/form-file-uploader';
+import FormFileUploader from '@/components/dx/form/form-file-uploader';
 import { cn } from '@/lib/utils';
 
 const TeamsFormFields = () => {

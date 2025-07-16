@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
-import { Button } from './ui/button';
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
-import { Input } from './ui/input';
+import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover';
+import { Button } from '../../ui/button';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../ui/form';
+import { Input } from '../../ui/input';
 import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useUploadFile } from '@/hooks/useFiles';

@@ -58,7 +58,7 @@ const HoverEffectHighlights = ({
 
     hideTimeout.current = setTimeout(() => {
       setHasInitialized(false);
-    }, 300); // Эта длительность должна совпадать с transition.opacity.duration
+    }, 300); // same as transition.opacity.duration
   };
 
   return (
