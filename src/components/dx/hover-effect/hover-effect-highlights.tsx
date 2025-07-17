@@ -65,10 +65,7 @@ const HoverEffectHighlights = ({
     <ul
       ref={containerRef}
       onMouseLeave={handleMouseLeaveGrid}
-      className={cn(
-        'relative mx-auto flex w-full max-w-5xl items-end justify-center gap-2',
-        className
-      )}
+      className={cn('hover-effect-grid-highlights', className)}
     >
       {hasInitialized && (
         <motion.div

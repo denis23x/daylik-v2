@@ -117,11 +117,11 @@ const SyncLiveGrid = () => {
     }
   };
 
-  const SkeletonCards = () => {
-    return <HoverEffectSkeletons columns={4} className="aspect-[3/3.75] min-h-[224px]" />;
-  };
+  const SkeletonCards = (
+    <HoverEffectSkeletons columns={4} className="aspect-[3/3.75] min-h-[224px]" />
+  );
 
-  const DesktopCards = () => (
+  const DesktopCards = (
     <HoverEffect>
       {team &&
         teammates?.map((teammate: SyncTeammate) => (
@@ -130,7 +130,7 @@ const SyncLiveGrid = () => {
     </HoverEffect>
   );
 
-  const MobileCards = () => (
+  const MobileCards = (
     <div className="hover-effect-grid">
       {team &&
         teammates?.map((teammate: SyncTeammate) => (
@@ -176,7 +176,7 @@ const SyncLiveGrid = () => {
           </div>
         )}
         <div className="flex w-full flex-col items-center gap-4">
-          {(isLoading || !isStarted) && !error && <SkeletonCards />}
+          {(isLoading || !isStarted) && !error && SkeletonCards}
           {error && <HoverEffectError />}
           {!isLoading && isStarted && !error && teammates?.length === 0 && (
             <HoverEffectNotFound title="No teammates found">
@@ -189,9 +189,7 @@ const SyncLiveGrid = () => {
             </HoverEffectNotFound>
           )}
           {!isLoading && isStarted && !error && teammates?.length !== 0 && (
-            <Suspense fallback={<SkeletonCards />}>
-              {sm ? <DesktopCards /> : <MobileCards />}
-            </Suspense>
+            <Suspense fallback={SkeletonCards}>{sm ? DesktopCards : MobileCards}</Suspense>
           )}
         </div>
       </div>

@@ -106,40 +106,37 @@ const SyncSettingsGrid = () => {
     router.push(`/sync/${params.UUID}/live`);
   };
 
-  const SkeletonCards = () => {
-    return <HoverEffectSkeletons columns={4} className="aspect-[3/3.75] min-h-[224px]" />;
-  };
+  const SkeletonCards = (
+    <HoverEffectSkeletons columns={4} className="aspect-[3/3.75] min-h-[224px]" />
+  );
 
-  const DesktopCards = () => {
-    return (
-      <HoverEffectWithSorting items={teammates} setItems={setTeammates}>
-        {(teammate, dragHandle) => (
-          <SyncSettingsCard
-            key={teammate.UUID}
-            teammate={teammate}
-            teammatesAbsent={teammatesAbsent}
-            dispatch={dispatch}
-            dragHandle={dragHandle}
-          />
-        )}
-      </HoverEffectWithSorting>
-    );
-  };
+  const DesktopCards = (
+    <HoverEffectWithSorting items={teammates} setItems={setTeammates}>
+      {(teammate, dragHandle) => (
+        <SyncSettingsCard
+          key={teammate.UUID}
+          teammate={teammate}
+          teammatesAbsent={teammatesAbsent}
+          dispatch={dispatch}
+          dragHandle={dragHandle}
+        />
+      )}
+    </HoverEffectWithSorting>
+  );
 
-  const MobileCards = () => {
-    return (
-      <div className="hover-effect-grid">
-        {teammates?.map((teammate: Teammate) => (
-          <SyncSettingsCard
-            key={teammate.UUID}
-            teammate={teammate}
-            teammatesAbsent={teammatesAbsent}
-            dispatch={dispatch}
-          />
-        ))}
-      </div>
-    );
-  };
+  const MobileCards = (
+    <div className="hover-effect-grid">
+      {teammates?.map((teammate: Teammate) => (
+        <SyncSettingsCard
+          key={teammate.UUID}
+          teammate={teammate}
+          teammatesAbsent={teammatesAbsent}
+          dispatch={dispatch}
+        />
+      ))}
+    </div>
+  );
+
   return (
     <div className="min-h-screen-grid container mx-auto p-4">
       <div className="flex w-full flex-col gap-4">
@@ -182,7 +179,7 @@ const SyncSettingsGrid = () => {
           </div>
         )}
         <div className="flex w-full flex-col items-center gap-4">
-          {isLoading && <SkeletonCards />}
+          {isLoading && SkeletonCards}
           {error && <HoverEffectError />}
           {!isLoading && !error && teammates?.length === 0 && (
             <HoverEffectNotFound title="No teammates found">
@@ -195,9 +192,7 @@ const SyncSettingsGrid = () => {
             </HoverEffectNotFound>
           )}
           {!isLoading && !error && teammates?.length !== 0 && (
-            <Suspense fallback={<SkeletonCards />}>
-              {sm ? <DesktopCards /> : <MobileCards />}
-            </Suspense>
+            <Suspense fallback={SkeletonCards}>{sm ? DesktopCards : MobileCards}</Suspense>
           )}
         </div>
       </div>

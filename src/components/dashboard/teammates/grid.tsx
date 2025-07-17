@@ -38,11 +38,11 @@ const TeammatesGrid = () => {
     openModal('insert');
   };
 
-  const SkeletonCards = () => {
-    return <HoverEffectSkeletons columns={4} className="aspect-[3/3.75] min-h-[224px]" />;
-  };
+  const SkeletonCards = (
+    <HoverEffectSkeletons columns={4} className="aspect-[3/3.75] min-h-[224px]" />
+  );
 
-  const DesktopCards = () => (
+  const DesktopCards = (
     <HoverEffect>
       <TeammatesCardNew />
       {teammates?.map((teammate: Teammate) => (
@@ -51,7 +51,7 @@ const TeammatesGrid = () => {
     </HoverEffect>
   );
 
-  const MobileCards = () => (
+  const MobileCards = (
     <div className="hover-effect-grid">
       <TeammatesCardNew />
       {teammates?.map((teammate: Teammate) => (
@@ -68,7 +68,7 @@ const TeammatesGrid = () => {
           <span className="text-xl font-bold">Teammates</span>
         </div>
         <div className="flex w-full flex-col items-center gap-4">
-          {isLoading && <SkeletonCards />}
+          {isLoading && SkeletonCards}
           {error && <HoverEffectError />}
           {!isLoading && !error && teammates?.length === 0 && (
             <HoverEffectNotFound title="No teammates found">
@@ -78,9 +78,7 @@ const TeammatesGrid = () => {
             </HoverEffectNotFound>
           )}
           {!isLoading && !error && teammates?.length !== 0 && (
-            <Suspense fallback={<SkeletonCards />}>
-              {sm ? <DesktopCards /> : <MobileCards />}
-            </Suspense>
+            <Suspense fallback={SkeletonCards}>{sm ? DesktopCards : MobileCards}</Suspense>
           )}
         </div>
       </div>
