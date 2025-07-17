@@ -1,12 +1,10 @@
 'use client';
 
-import { SyncLiveCard } from '@/components/dashboard/sync/live/card';
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
-import { ArrowRight, Bug, CircleOff, ClockFading, Dices, Eye, Shuffle } from 'lucide-react';
+import { ArrowRight, ClockFading, Dices, Eye, Shuffle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import type { SyncTeammate } from '@/types/syncTeammate.type';
-import HoverEffect from '@/components/dx/hover-effect/hover-effect';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
 import { useSync } from '@/hooks/useSync';
@@ -17,14 +15,21 @@ import { toast } from 'sonner';
 import { useCreateAnalytics } from '@/hooks/useAnalytics';
 import { useAddTeammatesToAnalytic } from '@/hooks/useAnalyticsTeammates';
 import Link from 'next/link';
-import { useFeedbackStore } from '@/store/useFeedbackStore';
 import CardView from './card-view';
 import { useAutoScroll } from '@/hooks/ui/useAutoScroll';
+import { useMediaQuery } from '@/hooks/ui/useMediaQuery';
+import HoverEffectSkeletons from '@/components/dx/hover-effect/hover-effect-skeletons';
+import HoverEffectError from '@/components/dx/hover-effect/hover-effect-error';
+import HoverEffectNotFound from '@/components/dx/hover-effect/hover-effect-not-found';
+
+// Mobile optimization
+const HoverEffect = lazy(() => import('@/components/dx/hover-effect/hover-effect'));
+const SyncLiveCard = lazy(() => import('./card'));
 
 const SyncLiveGrid = () => {
+  const sm = useMediaQuery('(min-width: 640px)');
   const params = useParams();
   const router = useRouter();
-  const { openModal: openFeedbackModal } = useFeedbackStore();
   const [isDone, setIsDone] = useState(false);
   const [isPristine, setIsPristine] = useState(false);
   const [isStarted, setIsStarted] = useState<string | null>(null);
@@ -112,6 +117,28 @@ const SyncLiveGrid = () => {
     }
   };
 
+  const SkeletonCards = () => {
+    return <HoverEffectSkeletons columns={4} className="aspect-[3/3.75] min-h-[224px]" />;
+  };
+
+  const DesktopCards = () => (
+    <HoverEffect>
+      {team &&
+        teammates?.map((teammate: SyncTeammate) => (
+          <SyncLiveCard team={team} teammate={teammate} key={teammate.UUID} />
+        ))}
+    </HoverEffect>
+  );
+
+  const MobileCards = () => (
+    <div className="hover-effect-grid">
+      {team &&
+        teammates?.map((teammate: SyncTeammate) => (
+          <SyncLiveCard team={team} teammate={teammate} key={teammate.UUID} />
+        ))}
+    </div>
+  );
+
   return (
     <div className="min-h-screen-grid container mx-auto p-4">
       <div className="flex w-full flex-col gap-4">
@@ -149,43 +176,22 @@ const SyncLiveGrid = () => {
           </div>
         )}
         <div className="flex w-full flex-col items-center gap-4">
-          {(isLoading || !isStarted) && !error && (
-            <ul className="relative grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
-              {[1, 2, 3, 4].map((_, index) => (
-                <li key={index}>
-                  <Skeleton className="aspect-[3/3.75] min-h-[224px] max-w-full rounded-xl" />
-                </li>
-              ))}
-            </ul>
-          )}
-          {error && (
-            <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
-              <Bug />
-              <div className="text-center text-xl font-semibold">An error occurred</div>
-              <Button variant="destructive" onClick={openFeedbackModal}>
-                Report
-              </Button>
-            </div>
-          )}
+          {(isLoading || !isStarted) && !error && <SkeletonCards />}
+          {error && <HoverEffectError />}
           {!isLoading && isStarted && !error && teammates?.length === 0 && (
-            <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
-              <CircleOff />
-              <div className="text-center text-xl font-semibold">No teammates found</div>
+            <HoverEffectNotFound title="No teammates found">
               <Button className="group" variant="secondary" asChild>
                 <Link href="/teams">
                   Teams
                   <ArrowRight className="transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
-            </div>
+            </HoverEffectNotFound>
           )}
           {!isLoading && isStarted && !error && teammates?.length !== 0 && (
-            <HoverEffect>
-              {team &&
-                teammates?.map((teammate: SyncTeammate) => (
-                  <SyncLiveCard team={team} teammate={teammate} key={teammate.UUID} />
-                ))}
-            </HoverEffect>
+            <Suspense fallback={<SkeletonCards />}>
+              {sm ? <DesktopCards /> : <MobileCards />}
+            </Suspense>
           )}
         </div>
       </div>

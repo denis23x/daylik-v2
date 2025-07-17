@@ -3,14 +3,13 @@
 import { Button } from '@/components/ui/button';
 import { useSyncSettingsStore } from '@/store/useSyncSettingsStore';
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
-import { useEffect, useReducer, useState } from 'react';
+import { lazy, Suspense, useEffect, useReducer, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import type { Team } from '@/types/team.type';
 import type { Teammate } from '@/types/teammate.type';
-import { ArrowRight, Bug, CalendarCog, CircleOff, Clock } from 'lucide-react';
+import { ArrowRight, CalendarCog, Clock } from 'lucide-react';
 import { useSync } from '@/hooks/useSync';
 import { Skeleton } from '@/components/ui/skeleton';
-import HoverEffectWithSorting from '@/components/dx/hover-effect/hover-effect-with-sorting';
 import TimerPicker from '@/components/dashboard/sync/settings/timer-picker';
 import { RainbowButton } from '@/components/magicui/rainbow-button';
 import { useUpdateTeam } from '@/hooks/useTeams';
@@ -18,10 +17,16 @@ import { formatDuration } from '@/utils/formatDuration';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { useEstimatedSyncTime } from '@/hooks/ui/useEstimatedSyncTime';
 import Link from 'next/link';
-import { useFeedbackStore } from '@/store/useFeedbackStore';
 import { useChangedIndexes } from '@/hooks/ui/useChangedIndexes';
 import { useUpdateTeammatesInTeam } from '@/hooks/useTeamsTeammates';
-import SyncSettingsCard from './card';
+import { useMediaQuery } from '@/hooks/ui/useMediaQuery';
+import HoverEffectSkeletons from '@/components/dx/hover-effect/hover-effect-skeletons';
+import HoverEffectError from '@/components/dx/hover-effect/hover-effect-error';
+import HoverEffectNotFound from '@/components/dx/hover-effect/hover-effect-not-found';
+
+// prettier-ignore
+const HoverEffectWithSorting = lazy(() => import('@/components/dx/hover-effect/hover-effect-with-sorting'));
+const SyncSettingsCard = lazy(() => import('./card'));
 
 // teammatesAbsent reducer
 function reducer(state: string[], action: { type: 'add' | 'remove'; UUID: string }): string[] {
@@ -36,9 +41,9 @@ function reducer(state: string[], action: { type: 'add' | 'remove'; UUID: string
 }
 
 const SyncSettingsGrid = () => {
+  const sm = useMediaQuery('(min-width: 640px)');
   const params = useParams();
   const router = useRouter();
-  const { openModal: openFeedbackModal } = useFeedbackStore();
   const [teammatesAbsent, dispatch] = useReducer(reducer, []);
   const [estimatedSyncTime, setEstimatedSyncTime] = useState(0);
   const { getEstimatedSyncTime } = useEstimatedSyncTime();
@@ -101,6 +106,40 @@ const SyncSettingsGrid = () => {
     router.push(`/sync/${params.UUID}/live`);
   };
 
+  const SkeletonCards = () => {
+    return <HoverEffectSkeletons columns={4} className="aspect-[3/3.75] min-h-[224px]" />;
+  };
+
+  const DesktopCards = () => {
+    return (
+      <HoverEffectWithSorting items={teammates} setItems={setTeammates}>
+        {(teammate, dragHandle) => (
+          <SyncSettingsCard
+            key={teammate.UUID}
+            teammate={teammate}
+            teammatesAbsent={teammatesAbsent}
+            dispatch={dispatch}
+            dragHandle={dragHandle}
+          />
+        )}
+      </HoverEffectWithSorting>
+    );
+  };
+
+  const MobileCards = () => {
+    return (
+      <div className="hover-effect-grid">
+        {teammates?.map((teammate: Teammate) => (
+          <SyncSettingsCard
+            key={teammate.UUID}
+            teammate={teammate}
+            teammatesAbsent={teammatesAbsent}
+            dispatch={dispatch}
+          />
+        ))}
+      </div>
+    );
+  };
   return (
     <div className="min-h-screen-grid container mx-auto p-4">
       <div className="flex w-full flex-col gap-4">
@@ -143,48 +182,22 @@ const SyncSettingsGrid = () => {
           </div>
         )}
         <div className="flex w-full flex-col items-center gap-4">
-          {isLoading && (
-            <ul className="relative grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
-              {[1, 2, 3, 4].map((_, index) => (
-                <li key={index}>
-                  <Skeleton className="aspect-[3/3.75] min-h-[224px] max-w-full rounded-xl" />
-                </li>
-              ))}
-            </ul>
-          )}
-          {error && (
-            <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
-              <Bug />
-              <div className="text-center text-xl font-semibold">An error occurred</div>
-              <Button variant="destructive" onClick={openFeedbackModal}>
-                Report
-              </Button>
-            </div>
-          )}
+          {isLoading && <SkeletonCards />}
+          {error && <HoverEffectError />}
           {!isLoading && !error && teammates?.length === 0 && (
-            <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
-              <CircleOff />
-              <div className="text-center text-xl font-semibold">No teammates found</div>
+            <HoverEffectNotFound title="No teammates found">
               <Button className="group" variant="secondary" asChild>
                 <Link href="/teams">
                   Teams
                   <ArrowRight className="transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
-            </div>
+            </HoverEffectNotFound>
           )}
           {!isLoading && !error && teammates?.length !== 0 && (
-            <HoverEffectWithSorting items={teammates} setItems={setTeammates}>
-              {(teammate, dragHandle) => (
-                <SyncSettingsCard
-                  key={teammate.UUID}
-                  teammate={teammate}
-                  teammatesAbsent={teammatesAbsent}
-                  dispatch={dispatch}
-                  dragHandle={dragHandle}
-                />
-              )}
-            </HoverEffectWithSorting>
+            <Suspense fallback={<SkeletonCards />}>
+              {sm ? <DesktopCards /> : <MobileCards />}
+            </Suspense>
           )}
         </div>
       </div>

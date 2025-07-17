@@ -12,7 +12,7 @@ import type { SyncTeam } from '@/types/syncTeam.type';
 import type { SyncTeammate } from '@/types/syncTeammate.type';
 import { AnimatePresence, motion } from 'motion/react';
 
-export const SyncLiveCard = ({ team, teammate }: { team: SyncTeam; teammate: SyncTeammate }) => {
+const SyncLiveCard = ({ team, teammate }: { team: SyncTeam; teammate: SyncTeammate }) => {
   const { setActive, setDone, showRoles, showNames } = useSyncLiveStore();
   const timer = useTimer(team.timer);
   const stopwatch = useStopwatch(team.timer);
@@ -209,3 +209,5 @@ export const SyncLiveCard = ({ team, teammate }: { team: SyncTeam; teammate: Syn
     </div>
   );
 };
+
+export default SyncLiveCard;

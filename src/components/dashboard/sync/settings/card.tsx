@@ -10,7 +10,7 @@ interface SyncSettingsCardProps {
   teammate: Teammate;
   teammatesAbsent: string[];
   dispatch: React.Dispatch<{ type: 'add' | 'remove'; UUID: string }>;
-  dragHandle: {
+  dragHandle?: {
     attributes: React.HTMLAttributes<HTMLElement>;
     listeners?: React.DOMAttributes<HTMLElement>;
   };
@@ -29,16 +29,18 @@ const SyncSettingsCard = ({
   return (
     <Card className="size-full gap-0 p-2">
       <CardHeader className="relative gap-0">
-        <Button
-          className="absolute top-0 left-0 z-10 cursor-move rounded-full"
-          variant="secondary"
-          size="icon"
-          disabled={isAbsent}
-          {...dragHandle.attributes}
-          {...dragHandle.listeners}
-        >
-          <Move />
-        </Button>
+        {dragHandle && (
+          <Button
+            className="absolute top-0 left-0 z-10 cursor-move rounded-full"
+            variant="secondary"
+            size="icon"
+            disabled={isAbsent}
+            {...dragHandle.attributes}
+            {...dragHandle.listeners}
+          >
+            <Move />
+          </Button>
+        )}
         {isAbsent ? (
           <Button
             className="absolute top-0 right-0 z-10 rounded-full"

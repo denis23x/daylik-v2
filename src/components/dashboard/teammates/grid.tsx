@@ -3,7 +3,7 @@
 import type { Teammate } from '@/types/teammate.type';
 import { useTeammates } from '@/hooks/useTeammates';
 import { useTeammatesStore } from '@/store/useTeammatesStore';
-import { UsersRound } from 'lucide-react';
+import { Plus, UsersRound } from 'lucide-react';
 import { lazy, Suspense, useEffect } from 'react';
 import { getCookie, setCookie } from '@/hooks/useCookie';
 import { COOKIE_CONSENT, COOKIE_ROLES } from '@/lib/constants';
@@ -11,6 +11,7 @@ import { useMediaQuery } from '@/hooks/ui/useMediaQuery';
 import HoverEffectSkeletons from '@/components/dx/hover-effect/hover-effect-skeletons';
 import HoverEffectError from '@/components/dx/hover-effect/hover-effect-error';
 import HoverEffectNotFound from '@/components/dx/hover-effect/hover-effect-not-found';
+import { Button } from '@/components/ui/button';
 
 // Mobile optimization
 const HoverEffect = lazy(() => import('@/components/dx/hover-effect/hover-effect'));
@@ -70,11 +71,11 @@ const TeammatesGrid = () => {
           {isLoading && <SkeletonCards />}
           {error && <HoverEffectError />}
           {!isLoading && !error && teammates?.length === 0 && (
-            <HoverEffectNotFound
-              title="No teammates found"
-              buttonText="Add Teammate"
-              handleClick={handleInsert}
-            />
+            <HoverEffectNotFound title="No teammates found">
+              <Button variant="secondary" onClick={handleInsert}>
+                <Plus /> Add Teammate
+              </Button>
+            </HoverEffectNotFound>
           )}
           {!isLoading && !error && teammates?.length !== 0 && (
             <Suspense fallback={<SkeletonCards />}>
