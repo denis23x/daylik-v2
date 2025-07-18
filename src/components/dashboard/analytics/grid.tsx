@@ -5,17 +5,21 @@ import { useAnalytics } from '@/hooks/useAnalytics';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useTeammatesFromAnalytic } from '@/hooks/useAnalyticsTeammates';
-import AnalyticsSummary from './summary';
+import AnalyticsTimeline from './timeline/timeline';
 import AnalyticsHighlights from './highlights/highlights';
 import AnalyticsChartLinear from './chart-linear/chart-linear';
 import AnalyticsTable from './table/table';
-import { Skeleton } from '@/components/ui/skeleton';
 import { useAnalyticsStore } from '@/store/useAnalyticsStore';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useFeedbackStore } from '@/store/useFeedbackStore';
+import { useMediaQuery } from '@/hooks/ui/useMediaQuery';
+import HighlightsSkeletons from './highlights/highlights-skeletons';
+import { Skeleton } from '@/components/ui/skeleton';
+import { format } from 'date-fns';
 
 const AnalyticsGrid = () => {
+  const sm = useMediaQuery('(min-width: 640px)');
   const params = useParams();
   const { analytics, analyticsTeammates, setAnalytics, setAnalyticsTeammates } =
     useAnalyticsStore();
@@ -56,18 +60,19 @@ const AnalyticsGrid = () => {
       <div className="flex w-full flex-col gap-4">
         <div className="flex min-h-9 items-center gap-4">
           <ChartLine />
-          <span className="text-xl font-bold">Analytics</span>
+          {isLoading && <Skeleton className="h-7 w-24" />}
+          {isError && <span className="text-xl font-bold">Sync</span>}
+          {!isLoading && !isError && (
+            <p className="flex items-center gap-2">
+              <span className="text-xl font-bold">{analyticsData?.team?.name}</span>
+              <span className="text-muted-foreground mt-1 text-sm">
+                {format(new Date(analyticsData?.createdAt as string), 'EEEE, MMMM dd')}
+              </span>
+            </p>
+          )}
         </div>
         <div className="flex w-full flex-col items-center gap-4">
-          {isLoading && (
-            <ul className="relative grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
-              {[1, 2, 3, 4].map((_, index) => (
-                <li key={index}>
-                  <Skeleton className="aspect-[3/3.75] min-h-[224px] max-w-full rounded-xl" />
-                </li>
-              ))}
-            </ul>
-          )}
+          {isLoading && <HighlightsSkeletons columns={5} className="aspect-[5/8] min-h-[224px]" />}
           {isError && (
             <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
               <Bug />
@@ -91,9 +96,9 @@ const AnalyticsGrid = () => {
           )}
           {!isLoading && !isError && analytics && analyticsTeammates?.length !== 0 && (
             <div className="flex w-full flex-col gap-4">
-              <AnalyticsSummary></AnalyticsSummary>
               <AnalyticsHighlights></AnalyticsHighlights>
-              <AnalyticsChartLinear></AnalyticsChartLinear>
+              <AnalyticsTimeline></AnalyticsTimeline>
+              {sm && <AnalyticsChartLinear></AnalyticsChartLinear>}
               <AnalyticsTable></AnalyticsTable>
             </div>
           )}

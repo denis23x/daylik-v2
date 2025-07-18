@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { motion, spring } from 'motion/react';
 import { cn } from '@/lib/utils';
+import { getHighlightsSizes } from '@/utils/getHighlightsSizes';
 
 const HoverEffectHighlights = ({
   className,
@@ -96,14 +97,8 @@ const HoverEffectHighlights = ({
       {React.Children.map(children, (child, i) => {
         if (!child || typeof child !== 'object' || !('type' in child)) return null;
 
-        const count = React.Children.count(children);
-        const first = i === 0;
-        const last = i === count - 1;
-
-        const scale80 = first || last ? 'scale-80 hidden sm:block' : '';
-        const scale90 = i === 1 || i === count - 2 ? 'scale-90 origin-bottom' : '';
-        const right = first ? 'origin-bottom-right' : '';
-        const left = last ? 'origin-bottom-left' : '';
+        const c = React.Children.count(children);
+        const { scale80, scale90, right, left } = getHighlightsSizes(c, i);
 
         return (
           <motion.li

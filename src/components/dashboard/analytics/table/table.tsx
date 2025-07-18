@@ -49,14 +49,13 @@ const AnalyticsTable = () => {
   return (
     <div className="flex flex-col gap-4">
       <Input
-        placeholder="Who's on your mind?"
+        placeholder="Look up teammate.."
         value={filter}
         onChange={(event) => setFilter(event.target.value)}
         autoComplete="off"
         inputMode="text"
         spellCheck="false"
         autoCapitalize="none"
-        className="max-w-xs"
       />
       <div className="overflow-hidden rounded-md border">
         <Table>

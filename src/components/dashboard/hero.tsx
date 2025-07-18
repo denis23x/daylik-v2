@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/accordion';
 import { useEffect, useRef, useState } from 'react';
 import { getCookie, setCookie } from '@/hooks/useCookie';
-import { COOKIE_CONSENT, COOKIE_HERO } from '@/lib/constants';
+import { COOKIE_CONSENT } from '@/lib/constants';
 
 const DashboardHero = ({
   title,
@@ -23,7 +23,7 @@ const DashboardHero = ({
   icon: React.ReactNode;
   children?: React.ReactNode;
 }) => {
-  const name = useRef(COOKIE_HERO);
+  const name = useRef('hero');
   const [animateable, setAnimateable] = useState(false);
   const [value, setValue] = useState('');
 

@@ -16,7 +16,7 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import type { AnalyticsTeammate } from '@/types/analyticsTeammate.type';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   Select,
   SelectItem,
@@ -28,6 +28,8 @@ import {
 import { TooltipFormatter } from './tooltip-formatter';
 import { getSeconds } from '@/utils/getSeconds';
 import { useAnalyticsStore } from '@/store/useAnalyticsStore';
+import { COOKIE_CONSENT } from '@/lib/constants';
+import { getCookie, setCookie } from '@/hooks/useCookie';
 
 type ChartType = 'step' | 'linear' | 'natural';
 
@@ -54,7 +56,8 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 const AnalyticsChartLinear = () => {
-  const [type, setType] = useState<ChartType>('linear');
+  const keyTypes = useRef('analytics-chart-type');
+  const [type, setType] = useState<string>('');
   const [chartData, setChartData] = useState<ChartData[]>([]);
   const { analyticsTeammates } = useAnalyticsStore();
 
@@ -71,13 +74,27 @@ const AnalyticsChartLinear = () => {
     }
   }, [analyticsTeammates]);
 
+  useEffect(() => {
+    // Get type from cookie
+    setType((getCookie(keyTypes.current) as ChartType) || 'linear');
+  }, []);
+
+  const handleTypeChange = (value: string) => {
+    setType(value as ChartType);
+
+    // Save type to cookie
+    if (Number(getCookie(COOKIE_CONSENT))) {
+      setCookie(keyTypes.current, value);
+    }
+  };
+
   return (
     <Card className="p-4">
       <CardHeader className="p-0">
         <CardTitle>Sync Timeline</CardTitle>
         <CardDescription>A complete breakdown of today&apos;s sync</CardDescription>
         <CardAction>
-          <Select value={type} onValueChange={(value) => setType(value as typeof type)}>
+          <Select value={type} onValueChange={handleTypeChange}>
             <SelectTrigger className="w-30">
               <SelectValue placeholder="Select a type" />
             </SelectTrigger>
@@ -135,7 +152,7 @@ const AnalyticsChartLinear = () => {
             </defs>
             <Area
               dataKey="total"
-              type={type}
+              type={type as ChartType}
               fill="url(#fillTotal)"
               fillOpacity={0.4}
               stroke="var(--color-total)"
@@ -143,7 +160,7 @@ const AnalyticsChartLinear = () => {
             />
             <Area
               dataKey="paused"
-              type={type}
+              type={type as ChartType}
               fill="url(#fillPaused)"
               fillOpacity={0.4}
               stroke="var(--color-paused)"
@@ -151,7 +168,7 @@ const AnalyticsChartLinear = () => {
             />
             <Area
               dataKey="overtime"
-              type={type}
+              type={type as ChartType}
               fill="url(#fillOvertime)"
               fillOpacity={0.4}
               stroke="var(--color-overtime)"

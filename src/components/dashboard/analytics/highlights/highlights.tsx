@@ -1,11 +1,12 @@
 'use client';
 
 import { CircleCheckBig, Crown, Ghost, RadioTower, Snowflake } from 'lucide-react';
-import HoverEffectHighlights from '@/components/dx/hover-effect/hover-effect-highlights';
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { useAnalyticsStore } from '@/store/useAnalyticsStore';
 import type { AnalyticsTeammate } from '@/types/analyticsTeammate.type';
-import HighlightsCard from './highlights-card';
+import { useMediaQuery } from '@/hooks/ui/useMediaQuery';
+import HighlightsSkeletons from './highlights-skeletons';
+import { getHighlightsSizes } from '@/utils/getHighlightsSizes';
 
 type Highlight = AnalyticsTeammate & {
   icon: React.ReactNode;
@@ -13,7 +14,12 @@ type Highlight = AnalyticsTeammate & {
   key: string;
 };
 
+// prettier-ignore
+const HoverEffectHighlights = lazy(() => import('@/components/dx/hover-effect/hover-effect-highlights'));
+const HighlightsCard = lazy(() => import('./highlights-card'));
+
 const AnalyticsHighlights = () => {
+  const sm = useMediaQuery('(min-width: 640px)');
   const { analytics, analyticsTeammates } = useAnalyticsStore();
   const [highlights, setHighlights] = useState<Highlight[]>([]);
 
@@ -109,14 +115,35 @@ const AnalyticsHighlights = () => {
     }
   }, [analytics, analyticsTeammates]);
 
-  return (
+  const DesktopHighlights = (
     <HoverEffectHighlights>
-      {highlights
-        .filter((highlight) => highlight.teammate)
-        .map((highlight) => (
-          <HighlightsCard key={highlight.key} highlight={highlight} />
-        ))}
+      {highlights.map((highlight) => (
+        <HighlightsCard key={highlight.key} highlight={highlight} />
+      ))}
     </HoverEffectHighlights>
+  );
+
+  const MobileHighlights = (
+    <ul className="hover-effect-grid-highlights">
+      {highlights.map((highlight, i, arr) => {
+        const { scale80, scale90, right, left } = getHighlightsSizes(arr.length, i);
+
+        return (
+          <li
+            className={`relative w-1/3 sm:w-1/5 ${scale80} ${scale90} ${right} ${left}`}
+            key={highlight.key}
+          >
+            <HighlightsCard highlight={highlight} />
+          </li>
+        );
+      })}
+    </ul>
+  );
+
+  return (
+    <Suspense fallback={<HighlightsSkeletons columns={5} className="aspect-[5/8] min-h-[224px]" />}>
+      {sm ? DesktopHighlights : MobileHighlights}
+    </Suspense>
   );
 };
 
