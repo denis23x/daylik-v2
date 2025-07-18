@@ -7,12 +7,8 @@ import type { AnalyticsTeammate } from '@/types/analyticsTeammate.type';
 import { useMediaQuery } from '@/hooks/ui/useMediaQuery';
 import HighlightsSkeletons from './highlights-skeletons';
 import { getHighlightsSizes } from '@/utils/getHighlightsSizes';
-
-type Highlight = AnalyticsTeammate & {
-  icon: React.ReactNode;
-  label: string;
-  key: string;
-};
+import { getHighlightsPlaceholder } from '@/utils/getHighlightsPlaceholder';
+import type { AnalyticsHighlight } from '@/types/analyticsHighlight.type';
 
 // prettier-ignore
 const HoverEffectHighlights = lazy(() => import('@/components/dx/hover-effect/hover-effect-highlights'));
@@ -21,7 +17,7 @@ const HighlightsCard = lazy(() => import('./highlights-card'));
 const AnalyticsHighlights = () => {
   const sm = useMediaQuery('(min-width: 640px)');
   const { analytics, analyticsTeammates } = useAnalyticsStore();
-  const [highlights, setHighlights] = useState<Highlight[]>([]);
+  const [highlights, setHighlights] = useState<AnalyticsHighlight[]>([]);
 
   useEffect(() => {
     if (analytics && analyticsTeammates) {
@@ -86,16 +82,20 @@ const AnalyticsHighlights = () => {
             .sort(sort)
             .at(0);
 
-          if (candidate) {
-            highlightUsed.add(candidate.UUID);
+          const highlightCandidate = candidate
+            ? candidate
+            : {
+                placeholder: true,
+                ...getHighlightsPlaceholder(highlight.key),
+              };
 
-            return {
-              ...highlight,
-              ...candidate,
-            };
-          }
+          // Add the highlight to the set of used
+          highlightUsed.add(highlightCandidate.UUID);
 
-          return null;
+          return {
+            ...highlight,
+            ...highlightCandidate,
+          };
         })
         .filter(Boolean);
 
@@ -107,7 +107,7 @@ const AnalyticsHighlights = () => {
         'frozen-hero',
       ];
 
-      const highlightsSorted = (highlights as Highlight[]).sort((a, b) => {
+      const highlightsSorted = (highlights as AnalyticsHighlight[]).sort((a, b) => {
         return highlightOrder.indexOf(a.key) - highlightOrder.indexOf(b.key);
       });
 

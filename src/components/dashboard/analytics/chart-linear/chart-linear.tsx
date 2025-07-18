@@ -89,7 +89,7 @@ const AnalyticsChartLinear = () => {
   };
 
   return (
-    <Card className="p-4">
+    <Card className="bg-transparent p-4">
       <CardHeader className="p-0">
         <CardTitle>Sync Timeline</CardTitle>
         <CardDescription>A complete breakdown of today&apos;s sync</CardDescription>

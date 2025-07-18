@@ -98,8 +98,8 @@ const AnalyticsGrid = () => {
             <div className="flex w-full flex-col gap-4">
               <AnalyticsHighlights></AnalyticsHighlights>
               <AnalyticsTimeline></AnalyticsTimeline>
-              {sm && <AnalyticsChartLinear></AnalyticsChartLinear>}
               <AnalyticsTable></AnalyticsTable>
+              {sm && <AnalyticsChartLinear></AnalyticsChartLinear>}
             </div>
           )}
         </div>
