@@ -125,16 +125,17 @@ const SyncSettingsGrid = () => {
   );
 
   const MobileCards = (
-    <div className="hover-effect-grid">
+    <ul className="hover-effect-grid">
       {teammates?.map((teammate: Teammate) => (
-        <SyncSettingsCard
-          key={teammate.UUID}
-          teammate={teammate}
-          teammatesAbsent={teammatesAbsent}
-          dispatch={dispatch}
-        />
+        <li className="flex" key={teammate.UUID}>
+          <SyncSettingsCard
+            teammate={teammate}
+            teammatesAbsent={teammatesAbsent}
+            dispatch={dispatch}
+          />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 
   return (

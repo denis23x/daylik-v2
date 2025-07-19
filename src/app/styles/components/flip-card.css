@@ -10,8 +10,20 @@
   transform-style: preserve-3d;
 }
 
-.flip-card.done .flip-card-back * {
-  opacity: 0.75;
+.flip-card-back {
+  [data-slot='card-header'],
+  [data-slot='card-content'],
+  [data-slot='card-footer'] {
+    @apply transition-[opacity,filter] duration-200;
+  }
+}
+
+.flip-card.done .flip-card-back {
+  [data-slot='card-header'],
+  [data-slot='card-content'],
+  [data-slot='card-footer'] {
+    @apply opacity-25 grayscale;
+  }
 }
 
 .flip-card.active .flip-card-inner,

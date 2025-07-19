@@ -21,6 +21,7 @@ import { useMediaQuery } from '@/hooks/ui/useMediaQuery';
 import HoverEffectSkeletons from '@/components/dx/hover-effect/hover-effect-skeletons';
 import HoverEffectError from '@/components/dx/hover-effect/hover-effect-error';
 import HoverEffectNotFound from '@/components/dx/hover-effect/hover-effect-not-found';
+import { motion, spring } from 'motion/react';
 
 // Mobile optimization
 const HoverEffect = lazy(() => import('@/components/dx/hover-effect/hover-effect'));
@@ -131,12 +132,14 @@ const SyncLiveGrid = () => {
   );
 
   const MobileCards = (
-    <div className="hover-effect-grid">
+    <ul className="hover-effect-grid">
       {team &&
         teammates?.map((teammate: SyncTeammate) => (
-          <SyncLiveCard team={team} teammate={teammate} key={teammate.UUID} />
+          <motion.li layout transition={spring} className="relative" key={teammate.UUID}>
+            <SyncLiveCard team={team} teammate={teammate} />
+          </motion.li>
         ))}
-    </div>
+    </ul>
   );
 
   return (

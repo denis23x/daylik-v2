@@ -52,12 +52,16 @@ const TeammatesGrid = () => {
   );
 
   const MobileCards = (
-    <div className="hover-effect-grid">
-      <TeammatesCardNew />
+    <ul className="hover-effect-grid">
+      <li className="flex">
+        <TeammatesCardNew />
+      </li>
       {teammates?.map((teammate: Teammate) => (
-        <TeammatesCard key={teammate.UUID} teammate={teammate} />
+        <li className="flex" key={teammate.UUID}>
+          <TeammatesCard teammate={teammate} />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 
   return (

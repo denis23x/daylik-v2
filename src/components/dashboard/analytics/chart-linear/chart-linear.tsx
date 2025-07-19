@@ -1,6 +1,6 @@
 'use client';
 
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { Area, AreaChart, CartesianGrid, Dot, Label, ReferenceLine, XAxis, YAxis } from 'recharts';
 import {
   Card,
   CardAction,
@@ -30,6 +30,8 @@ import { getSeconds } from '@/utils/getSeconds';
 import { useAnalyticsStore } from '@/store/useAnalyticsStore';
 import { COOKIE_CONSENT } from '@/lib/constants';
 import { getCookie, setCookie } from '@/hooks/useCookie';
+import { formatDuration } from '@/utils/formatDuration';
+import { getMiliseconds } from '@/utils/getMiliseconds';
 
 type ChartType = 'step' | 'linear' | 'natural';
 
@@ -59,7 +61,7 @@ const AnalyticsChartLinear = () => {
   const keyTypes = useRef('analytics-chart-type');
   const [type, setType] = useState<string>('');
   const [chartData, setChartData] = useState<ChartData[]>([]);
-  const { analyticsTeammates } = useAnalyticsStore();
+  const { analytics, analyticsTeammates } = useAnalyticsStore();
 
   useEffect(() => {
     if (analyticsTeammates.length) {
@@ -110,10 +112,29 @@ const AnalyticsChartLinear = () => {
       </CardHeader>
       <CardContent className="p-0">
         <ChartContainer config={chartConfig} className="aspect-auto h-64 w-full">
-          <AreaChart accessibilityLayer data={chartData} margin={{ left: -32, top: 16, right: 16 }}>
-            <CartesianGrid vertical={false} />
+          <AreaChart accessibilityLayer data={chartData} margin={{ top: 16, right: 16 }}>
+            <CartesianGrid />
             <XAxis tickLine={false} axisLine={true} tickMargin={8} dataKey="name" />
-            <YAxis tickLine={false} axisLine={true} tickMargin={8} dataKey="total" />
+            <YAxis
+              tickLine={false}
+              axisLine={true}
+              tickMargin={8}
+              tickFormatter={(value) => (value ? `${formatDuration(getMiliseconds(value))}` : '')}
+            />
+            <ReferenceLine
+              y={getSeconds(analytics?.timer as number)}
+              stroke="var(--color-muted-foreground)"
+              strokeDasharray="3 3"
+              isFront={true}
+            >
+              <Label
+                value={`Timer ${formatDuration(analytics?.timer as number)}`}
+                position="insideTopLeft"
+                fill="var(--color-muted-foreground)"
+                fontSize={12}
+                offset={10}
+              />
+            </ReferenceLine>
             <ChartTooltip
               cursor={false}
               content={
@@ -157,6 +178,16 @@ const AnalyticsChartLinear = () => {
               fillOpacity={0.4}
               stroke="var(--color-total)"
               stackId="a"
+              dot={({ payload, ...props }) => (
+                <Dot
+                  key={payload.name}
+                  r={3}
+                  cx={props.cx}
+                  cy={props.cy}
+                  fill="var(--color-total)"
+                  stroke="var(--color-total)"
+                />
+              )}
             />
             <Area
               dataKey="paused"
