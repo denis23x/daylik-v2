@@ -13,7 +13,7 @@
 .animate-shine {
   position: relative;
   overflow: hidden;
-  background-image: (linear-gradient(270deg, #8e9ac2, #42579a));
+  background-image: linear-gradient(270deg, #8e9ac2, #42579a);
   background-size: 400% 400%;
   animation: shine 10s ease infinite;
   transition: 0.6s;
@@ -43,7 +43,7 @@
   }
 
   &:hover {
-    background-image: (linear-gradient(to left, #2d8fe5, #d155b8));
+    background-image: linear-gradient(to left, #2d8fe5, #d155b8);
 
     &::before,
     &::after {

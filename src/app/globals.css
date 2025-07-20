@@ -16,7 +16,7 @@
 
 @import './styles/vendor/shiki.css';
 
-@plugin "@tailwindcss/typography";
+@plugin '@tailwindcss/typography';
 
 @custom-variant dark (&:is(.dark *));
 

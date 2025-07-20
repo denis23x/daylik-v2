@@ -24,7 +24,7 @@
     @apply text-foreground border-l-2 pl-6 italic;
 
     p {
-      @apply before:contain-none after:contain-none;
+      @apply before:content-none after:content-none;
     }
   }
 
@@ -33,7 +33,7 @@
   }
 
   code:not(:has(*)) {
-    @apply bg-muted text-foreground rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold before:contain-none after:contain-none;
+    @apply bg-muted text-foreground rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold before:content-none after:content-none;
   }
 
   ul {

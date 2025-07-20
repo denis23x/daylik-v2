@@ -1,30 +1,30 @@
 @media (prefers-color-scheme: light) {
-  code[data-theme*=' '],
-  code[data-theme*=' '] span {
+  code[data-theme],
+  code[data-theme] span {
     color: var(--shiki-light);
     background-color: var(--shiki-light-bg);
   }
 }
 
 @media (prefers-color-scheme: dark) {
-  code[data-theme*=' '],
-  code[data-theme*=' '] span {
+  code[data-theme],
+  code[data-theme] span {
     color: var(--shiki-dark);
     background-color: var(--shiki-dark-bg);
   }
 }
 
 .light {
-  code[data-theme*=' '],
-  code[data-theme*=' '] span {
+  code[data-theme],
+  code[data-theme] span {
     color: var(--shiki-light);
     background-color: var(--shiki-light-bg);
   }
 }
 
 .dark {
-  code[data-theme*=' '],
-  code[data-theme*=' '] span {
+  code[data-theme],
+  code[data-theme] span {
     color: var(--shiki-dark);
     background-color: var(--shiki-dark-bg);
   }
@@ -32,42 +32,4 @@
 
 pre:has(code) {
   position: relative;
-}
-
-pre button.copy {
-  position: absolute;
-  right: 16px;
-  top: 16px;
-  height: 28px;
-  width: 28px;
-  padding: 0;
-  display: flex;
-
-  & span {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-color: red;
-  }
-
-  /* & .ready {
-    //background-image: url(/icons/copy.svg);
-  }
-
-  & .success {
-    display: none;
-    //background-image: url(/icons/copy-success.svg);
-  } */
-
-  &.copied {
-    & .success {
-      display: block;
-    }
-
-    & .ready {
-      display: none;
-    }
-  }
 }
