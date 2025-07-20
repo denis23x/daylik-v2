@@ -9,8 +9,14 @@
 @import './styles/base/animations/shine.css';
 @import './styles/base/animations/skew.css';
 
+@import './styles/layout/prose.css';
+
 @import './styles/components/flip-card.css';
 @import './styles/components/hover-effect.css';
+
+@import './styles/vendor/shiki.css';
+
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 

@@ -1,0 +1,108 @@
+.prose {
+  *:last-child {
+    @apply mb-0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-foreground font-bold;
+  }
+
+  strong {
+    @apply text-foreground font-bold;
+  }
+
+  p {
+    @apply text-foreground leading-7;
+  }
+
+  blockquote {
+    @apply text-foreground border-l-2 pl-6 italic;
+
+    p {
+      @apply before:contain-none after:contain-none;
+    }
+  }
+
+  a {
+    @apply text-blue-600 underline dark:text-blue-400;
+  }
+
+  code:not(:has(*)) {
+    @apply bg-muted text-foreground rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold before:contain-none after:contain-none;
+  }
+
+  ul {
+    @apply text-foreground;
+
+    ul {
+      @apply m-0;
+    }
+  }
+
+  ol {
+    @apply text-foreground;
+
+    ol {
+      @apply m-0;
+    }
+  }
+
+  table {
+    @apply text-foreground;
+
+    th {
+      @apply text-foreground;
+    }
+  }
+
+  [data-rehype-pretty-code-figure] {
+    @apply bg-background relative;
+
+    pre {
+      color: unset;
+      background: unset;
+      margin: 0;
+      padding: 0;
+
+      code {
+        @apply w-full overflow-auto p-3;
+      }
+
+      code {
+        span[data-highlighted-line] {
+          @apply bg-input;
+        }
+      }
+
+      code[data-line-numbers] {
+        counter-reset: line;
+
+        & > [data-line]::before {
+          counter-increment: line;
+          content: counter(line);
+
+          display: inline-block;
+          width: 2ch;
+          margin-right: 1rem;
+          text-align: right;
+          color: hsl(var(--muted-foreground));
+          border-right: 1px solid hsl(var(--border));
+          padding-right: 8px;
+        }
+
+        &[data-line-numbers-max-digits='2'] > [data-line]::before {
+          width: 3ch;
+        }
+
+        &[data-line-numbers-max-digits='3'] > [data-line]::before {
+          width: 4ch;
+        }
+      }
+    }
+  }
+}
