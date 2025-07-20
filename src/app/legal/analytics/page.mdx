@@ -1,0 +1,88 @@
+import MdxLayout from '@/components/mdx/mdx-layout';
+
+# Analytics
+
+_Last updated: July 20, 2025_
+
+This page outlines the analytics tools and methodologies we use to collect, measure, and analyze traffic and user behavior on our website. Our goal is to better understand how users interact with our platform in order to improve functionality, design, and overall experience.
+
+---
+
+## Purpose of Analytics
+
+We use analytics to:
+
+- Monitor website performance
+- Identify user behavior patterns
+- Detect errors and bottlenecks
+- Measure the effectiveness of marketing campaigns
+- Improve UX/UI based on actual usage data
+
+All data collected is either anonymized or pseudonymized and processed in accordance with applicable data protection regulations (e.g., GDPR, CCPA).
+
+---
+
+## Current Analytics Tools
+
+Below is a list of analytics platforms currently integrated into our website:
+
+### **1. Google Analytics 4 (GA4)**
+
+Tracks user interactions such as page views, scrolls, outbound clicks, and session duration.  
+[Google Privacy Policy](https://policies.google.com/privacy)
+
+### **2. Hotjar**
+
+Provides heatmaps, session replays, and surveys to understand user interaction.  
+[Hotjar Privacy Policy](https://www.hotjar.com/legal/policies/privacy/)
+
+### **3. Meta Pixel (Facebook Analytics)**
+
+Tracks user activity for retargeting and campaign analysis.  
+[Meta Privacy Policy](https://www.facebook.com/policy.php)
+
+### **4. Sentry (Performance Monitoring)**
+
+Captures frontend and backend performance data, errors, and crashes.  
+[Sentry Privacy Policy](https://sentry.io/privacy/)
+
+---
+
+## Planned or Experimental Tools
+
+_(List here tools you’re testing or considering for future use)_
+
+- **PostHog** — self-hosted analytics with session replay
+- **Plausible** — lightweight, privacy-first analytics
+- **LogRocket** — advanced session replay and error tracking
+
+---
+
+## Data Privacy & User Consent
+
+We respect user privacy and comply with all relevant legal frameworks. Wherever necessary, we:
+
+- Ask for explicit consent via cookie banners
+- Anonymize IP addresses and sensitive data
+- Offer opt-out mechanisms via browser settings or consent preferences
+
+---
+
+## Contact
+
+If you have any questions regarding the analytics services we use or wish to request data removal, please contact:
+
+**Email**: [your@email.com]  
+**Data Protection Officer**: [if applicable]
+
+export const metadata = {
+  title: 'title',
+  description: 'description',
+  alternates: {
+    canonical: 'https://daylik.net/legal/anonymous-analytics',
+  },
+};
+
+export default function MDXPage({ children }) {
+  return <MdxLayout>{children}</MdxLayout>;
+}

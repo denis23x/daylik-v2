@@ -1,3 +1,13 @@
+import { ReactQueryProvider } from '@/context/ReactQueryProvider';
+import Footer from '@/components/footer';
+import Navbar from '@/components/navbar';
+
 export default async function LegalLayout({ children }: { children: React.ReactNode }) {
-  return <div className="min-h-screen-grid container mx-auto p-4">{children}</div>;
+  return (
+    <ReactQueryProvider>
+      <Navbar />
+      {children}
+      <Footer />
+    </ReactQueryProvider>
+  );
 }

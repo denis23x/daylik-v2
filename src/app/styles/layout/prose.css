@@ -60,6 +60,10 @@
     }
   }
 
+  hr {
+    @apply my-4;
+  }
+
   [data-rehype-pretty-code-figure] {
     @apply bg-background relative;
 

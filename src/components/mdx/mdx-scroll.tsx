@@ -13,7 +13,7 @@ export default function MdxScroll() {
   });
 
   return (
-    <div className="pointer-events-none fixed start-0 end-0 top-0 z-30 h-1">
+    <div className="pointer-events-none fixed start-0 end-0 bottom-0 z-50 h-1">
       <span
         className="bg-foreground block h-full w-full"
         style={{
