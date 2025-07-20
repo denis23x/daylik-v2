@@ -35,6 +35,7 @@ import { ConfirmDialog } from '../confirm-dialog';
 import { useSignOut } from '@/hooks/useAuth';
 import NavbarCalendar from './navbar-calendar';
 import { useFeedbackStore } from '@/store/useFeedbackStore';
+import Feedback from './modals/feedback/modal';
 
 const NavigationSheet = () => {
   const pathname = usePathname();
@@ -124,6 +125,7 @@ const NavigationSheet = () => {
           onOpenChange={setIsConfirmOpen}
           onConfirmAction={handleLogout}
         />
+        <Feedback />
       </SheetContent>
     </Sheet>
   );

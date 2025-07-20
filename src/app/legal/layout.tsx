@@ -1,13 +1,13 @@
 import { ReactQueryProvider } from '@/context/ReactQueryProvider';
-import Footer from '@/components/footer';
-import Navbar from '@/components/navbar';
+import LegalFooter from '@/components/footer';
+import LegalNavbar from '@/components/navbar-adaptive';
 
 export default async function LegalLayout({ children }: { children: React.ReactNode }) {
   return (
     <ReactQueryProvider>
-      <Navbar />
+      <LegalNavbar />
       {children}
-      <Footer />
+      <LegalFooter />
     </ReactQueryProvider>
   );
 }

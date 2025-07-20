@@ -38,13 +38,16 @@ export const updateSession = async (request: NextRequest) => {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const publicRoutes = ['/login', '/signup', '/verify-email', '/reset-password'].includes(
+  const authRoutes = ['/login', '/signup', '/verify-email', '/reset-password'].includes(
     request.nextUrl.pathname
   );
+
+  const legalRoutes = request.nextUrl.pathname.startsWith('/legal/');
+
   const indexRoute = request.nextUrl.pathname === '/';
 
   // no user, potentially respond by redirecting the user to the login page
-  if (!user && !publicRoutes && !indexRoute) {
+  if (!user && !authRoutes && !legalRoutes && !indexRoute) {
     const url = request.nextUrl.clone();
 
     url.pathname = '/login';
@@ -52,7 +55,7 @@ export const updateSession = async (request: NextRequest) => {
     return NextResponse.redirect(url);
   }
 
-  if (user && (publicRoutes || indexRoute)) {
+  if (user && (authRoutes || indexRoute)) {
     const url = request.nextUrl.clone();
 
     url.pathname = '/teams';
