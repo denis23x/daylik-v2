@@ -96,11 +96,30 @@ Records sessions and provides product analytics.
 
 We carefully evaluate the data practices of third-party providers before integrating them and only use services that comply with relevant privacy and data protection regulations such as GDPR or CCPA.
 
+export const pagedata = {
+  title: 'Third-Party Services',
+  description:
+    'Complete list of trusted third-party services we use for analytics, advertising, hosting, and other website functionality, along with their privacy policies.',
+  keywords:
+    'third-party services, integrations, privacy policies, google analytics, cloudflare, vercel, mailchimp, sentry, data protection, external services',
+};
+
 export const metadata = {
-  title: 'title',
-  description: 'description',
-  alternates: {
-    canonical: 'https://daylik.net/legal/email-third-parties',
+  title: pagedata.title,
+  description: pagedata.description,
+  keywords: pagedata.keywords,
+  openGraph: {
+    title: pagedata.title,
+    description: pagedata.description,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: pagedata.title,
+    description: pagedata.description,
+  },
+  robots: {
+    index: false,
+    follow: true,
   },
 };
 

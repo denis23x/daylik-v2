@@ -17,8 +17,8 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { useEffect, useState } from 'react';
-import { columns } from './columns';
+import { useDeferredValue, useEffect, useMemo, useState } from 'react';
+import { columns as baseColumns } from './columns';
 import type { AnalyticsTeammate } from '@/types/analyticsTeammate.type';
 import { Input } from '@/components/ui/input';
 import { useAnalyticsStore } from '@/store/useAnalyticsStore';
@@ -26,11 +26,13 @@ import { useAnalyticsStore } from '@/store/useAnalyticsStore';
 const AnalyticsTable = () => {
   const [sorting, setSorting] = useState<SortingState>([{ id: 'order', desc: false }]);
   const [filter, setFilter] = useState('');
+  const deferredFilter = useDeferredValue(filter);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const { analyticsTeammates } = useAnalyticsStore();
+  const columns = useMemo(() => baseColumns({ sorting }), [sorting]);
   const table = useReactTable<AnalyticsTeammate>({
     data: analyticsTeammates,
-    columns: columns({ sorting }),
+    columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
@@ -43,8 +45,8 @@ const AnalyticsTable = () => {
   });
 
   useEffect(() => {
-    table.getColumn('name')?.setFilterValue(filter.trim());
-  }, [filter, table]);
+    table.getColumn('name')?.setFilterValue(deferredFilter.trim());
+  }, [deferredFilter, table]);
 
   return (
     <div className="flex flex-col gap-4">

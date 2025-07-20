@@ -1,4 +1,5 @@
 import MdxLayout from '@/components/mdx/mdx-layout';
+import CalendarDays from 'lucide-react';
 
 # Analytics
 
@@ -70,16 +71,32 @@ We respect user privacy and comply with all relevant legal frameworks. Wherever 
 
 ## Contact
 
-If you have any questions regarding the analytics services we use or wish to request data removal, please contact:
+If you have any questions regarding the analytics services we use or wish to request data removal, please contact.
 
-**Email**: [your@email.com]  
-**Data Protection Officer**: [if applicable]
+export const pagedata = {
+  title: 'Analytics Policy',
+  description:
+    'Learn about the analytics tools and methodologies we use to collect and analyze website traffic and user behavior while respecting your privacy.',
+  keywords:
+    'analytics, privacy, data collection, google analytics, hotjar, meta pixel, sentry, gdpr, user behavior, website tracking',
+};
 
 export const metadata = {
-  title: 'title',
-  description: 'description',
-  alternates: {
-    canonical: 'https://daylik.net/legal/anonymous-analytics',
+  title: pagedata.title,
+  description: pagedata.description,
+  keywords: pagedata.keywords,
+  openGraph: {
+    title: pagedata.title,
+    description: pagedata.description,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: pagedata.title,
+    description: pagedata.description,
+  },
+  robots: {
+    index: false,
+    follow: true,
   },
 };
 

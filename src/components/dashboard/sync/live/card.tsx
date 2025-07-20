@@ -194,13 +194,13 @@ const SyncLiveCard = ({ team, teammate }: { team: SyncTeam; teammate: SyncTeamma
                 <div className="absolute -bottom-1 left-1/2 -translate-x-1/2">
                   {timer.progress === 0 ? (
                     <Badge
-                      className="scale-90 pb-2 sm:scale-100"
+                      className="scale-90 pb-2 opacity-100 sm:scale-100"
                       variant={stopwatch.overtime >= 1 ? 'destructive' : 'secondary'}
                     >
                       Overtime
                     </Badge>
                   ) : (
-                    <Badge className="scale-90 pb-2 sm:scale-100" variant="secondary">
+                    <Badge className="scale-90 pb-2 opacity-100 sm:scale-100" variant="secondary">
                       <span className="first-letter:uppercase">
                         {teammate.sync?.status === 'active'
                           ? timer.status === 'running'
