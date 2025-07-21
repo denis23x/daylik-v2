@@ -1,7 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import React, { ComponentProps } from 'react';
 
 const testimonials = [
   {
@@ -48,26 +47,23 @@ const testimonials = [
       'The best tool we’ve added to our workflow. Lightweight, powerful, and incredibly easy to use.',
     avatar: '/images/testimonials/avatar-5.jpeg',
   },
-  {
-    id: 6,
-    name: 'Jane Smith',
-    designation: 'Product Manager',
-    company: 'InnovateX',
-    testimonial:
-      'Finally, a sync tool that doesn’t feel like a chore. Everyone’s actually using it — and loving it.',
-    avatar: '/images/testimonials/avatar-6.jpeg',
-  },
 ];
 
 const HomeTestimonial = () => (
-  <div className="flex min-h-screen items-center justify-center px-6 py-12">
-    <div>
-      <span className="mb-14 text-center text-5xl font-bold tracking-tight md:text-6xl">
-        Testimonials
-      </span>
-      <div className="mx-auto max-w-screen-xl columns-1 gap-8 md:columns-2 lg:columns-3">
-        {testimonials.map((testimonial) => (
-          <div key={testimonial.id} className="bg-accent mb-8 break-inside-avoid rounded-xl p-6">
+  <div
+    id="testimonials"
+    className="min-h-screen-home relative container mx-auto flex flex-col items-center justify-center gap-14 px-4 py-14"
+  >
+    <span className="text-center text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+      Testimonials
+    </span>
+    <ul className="flex max-w-md flex-wrap justify-center gap-4 sm:max-w-screen-md sm:gap-6 lg:max-w-screen-lg">
+      {testimonials.map((testimonial) => (
+        <li
+          key={testimonial.id}
+          className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]"
+        >
+          <div className="bg-accent size-full rounded-xl p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <Avatar className="aspect-square size-12">
@@ -86,26 +82,16 @@ const HomeTestimonial = () => (
               </div>
               <Button variant="ghost" size="icon" asChild>
                 <Link href="#" target="_blank">
-                  <TwitterLogo className="h-4 w-4" />
+                  X
                 </Link>
               </Button>
             </div>
             <p className="mt-5 text-[17px]">{testimonial.testimonial}</p>
           </div>
-        ))}
-      </div>
-    </div>
+        </li>
+      ))}
+    </ul>
   </div>
-);
-
-const TwitterLogo = (props: ComponentProps<'svg'>) => (
-  <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <title>X</title>
-    <path
-      fill="currentColor"
-      d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"
-    />
-  </svg>
 );
 
 export default HomeTestimonial;

@@ -1,27 +1,39 @@
-import React from 'react';
-
 const HomeStats = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="mx-auto max-w-screen-xl py-12 text-center">
-        <span className="text-4xl font-semibold md:text-5xl">Why Daylik?</span>
-        <p className="mt-6 text-lg">After switching to Daylik...</p>
-
-        <div className="mt-16 grid justify-center gap-x-12 gap-y-16 sm:mt-24 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="max-w-[20ch]">
+    <div
+      id="why"
+      className="min-h-screen-home relative container mx-auto flex flex-col items-center justify-center gap-2 px-4 py-14"
+    >
+      <span className="text-center text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+        Why Daylik?
+      </span>
+      <p className="text-muted-foreground text-lg">After switching to Daylik..</p>
+      <ul className="mt-12 grid justify-center gap-x-12 gap-y-16 sm:mt-14 sm:grid-cols-4 lg:grid-cols-6">
+        <li className="flex justify-center sm:col-span-2 lg:col-span-2">
+          <div className="max-w-[20ch] text-center">
             <span className="text-5xl font-semibold">89%</span>
-            <p className="mt-6 text-lg">of teams communicate more effectively</p>
+            <p className="text-muted-foreground mt-4 text-lg">
+              of teams communicate more effectively
+            </p>
           </div>
-          <div className="max-w-[20ch]">
+        </li>
+        <li className="flex justify-center sm:col-span-2 lg:col-span-2">
+          <div className="max-w-[20ch] text-center">
             <span className="text-5xl font-semibold">94%</span>
-            <p className="mt-6 text-lg">report increased focus and accountability</p>
+            <p className="text-muted-foreground mt-4 text-lg">
+              report increased focus and accountability
+            </p>
           </div>
-          <div className="max-w-[20ch]">
+        </li>
+        <li className="flex justify-center sm:col-span-4 lg:col-span-2">
+          <div className="max-w-[20ch] text-center">
             <span className="text-5xl font-semibold">91%</span>
-            <p className="mt-6 text-lg">say they spend less time in meetings</p>
+            <p className="text-muted-foreground mt-4 text-lg">
+              say they spend less time in meetings
+            </p>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   );
 };

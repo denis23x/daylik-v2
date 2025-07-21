@@ -2,7 +2,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
-import { CircleCheck } from 'lucide-react';
+import { CircleCheck, PartyPopper } from 'lucide-react';
 import Link from 'next/link';
 
 const plans = [
@@ -37,10 +37,10 @@ const plans = [
   {
     name: 'Pro',
     price: 0,
-    description: 'For growing teams who need more power, automation, and analytics.',
+    description: 'For growing teams who need more power and analytics.',
     features: [
       'Up to 5 teams',
-      'Up to 10 teammates per team',
+      'Up to 50 teammates',
       'Unlimited syncs',
       'Advanced analytics',
       '90-day sync history',
@@ -51,44 +51,64 @@ const plans = [
 
 const HomePricing = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center px-6 py-12">
-      <span className="text-center text-5xl font-bold tracking-tight">Pricing</span>
-      <div className="mx-auto mt-12 grid max-w-screen-lg grid-cols-1 items-center gap-8 lg:grid-cols-3">
-        {plans.map((plan) => (
-          <div
+    <div
+      id="pricing"
+      className="min-h-screen-home relative container mx-auto flex flex-col items-center justify-center px-4 py-14"
+    >
+      <span className="text-center text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+        Pricing
+      </span>
+      <ul className="mx-auto mt-16 grid max-w-screen-lg items-center gap-8 sm:grid-cols-4 lg:grid-cols-6">
+        {plans.map((plan, index) => (
+          <li
             key={plan.name}
-            className={cn('relative rounded-lg border p-6', {
-              'border-primary border-[2px] py-10': plan.isPopular,
+            className={cn('justify-center transition-opacity duration-200 lg:col-span-2', {
+              'order-2 hidden sm:col-span-2 sm:flex lg:order-1': index === 0,
+              'order-1 flex sm:col-span-4 lg:order-2': index === 1,
+              'order-3 hidden sm:col-span-2 sm:flex lg:order-3': index === 2,
+              'opacity-25 hover:opacity-100': !plan.isPopular,
             })}
           >
-            {plan.isPopular && (
-              <Badge className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2">
-                Active
-              </Badge>
-            )}
-            <span className="text-lg font-medium">{plan.name}</span>
-            {plan.price > 0 && <p className="mt-2 text-4xl font-bold">${plan.price}</p>}
-            <p className="text-muted-foreground mt-4 font-medium">{plan.description}</p>
-            <Separator className="my-4" />
-            <ul className="space-y-2">
-              {plan.features.map((feature) => (
-                <li key={feature} className="flex items-start gap-2">
-                  <CircleCheck className="mt-1 h-4 w-4 text-green-600" />
-                  {feature}
-                </li>
-              ))}
-            </ul>
-            <Button
-              variant={plan.isPopular ? 'default' : 'secondary'}
-              size="lg"
-              className="mt-6 w-full"
-              asChild
+            <div
+              className={cn(
+                'bg-card relative max-w-md rounded-lg border p-6 sm:max-w-[288px] sm:gap-6 md:max-w-[352px]',
+                {
+                  'border-primary border-[2px] py-10': plan.isPopular,
+                }
+              )}
             >
-              <Link href="/signup">{plan.buttonText}</Link>
-            </Button>
-          </div>
+              {plan.isPopular && (
+                <Badge className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2">
+                  Active
+                </Badge>
+              )}
+              <span className="text-lg font-medium">{plan.name}</span>
+              {plan.price > 0 && <p className="mt-2 text-4xl font-bold">${plan.price}</p>}
+              <p className="text-muted-foreground mt-4 font-medium">{plan.description}</p>
+              <Separator className="my-4" />
+              <ul className="space-y-2">
+                {plan.features.map((feature) => (
+                  <li key={feature} className="flex items-start gap-2">
+                    <CircleCheck className="mt-1 h-4 w-4 text-green-600" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <Button
+                variant={plan.isPopular ? 'default' : 'secondary'}
+                size="lg"
+                className="mt-6 w-full"
+                asChild
+              >
+                <Link href="/signup">
+                  {plan.name === 'Beta' && <PartyPopper />}
+                  {plan.buttonText}
+                </Link>
+              </Button>
+            </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 };

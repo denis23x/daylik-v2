@@ -7,7 +7,10 @@ import HeroVideoDialog from '../magicui/hero-video-dialog';
 
 const HomeHero = () => {
   return (
-    <div className="min-h-screen-hero relative container mx-auto flex items-center justify-center px-4">
+    <div
+      id="home"
+      className="min-h-screen-hero relative container mx-auto flex items-center justify-center px-4"
+    >
       <AnimatedGridPattern
         numSquares={30}
         maxOpacity={0.1}
