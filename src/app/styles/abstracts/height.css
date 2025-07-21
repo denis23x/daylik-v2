@@ -1,3 +1,4 @@
+.min-h-screen-home,
 .min-h-screen-hero,
 .min-h-screen-grid {
   min-height: calc(100dvh - var(--navbar-height));

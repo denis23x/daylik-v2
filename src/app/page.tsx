@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 import Navbar from '@/components/navbar';
-import Hero from '@/components/hero';
-import Features from '@/components/features';
-import Testimonial from '@/components/testimonial';
-import Pricing from '@/components/pricing';
+import HomeHero from '@/components/home/hero';
+import HomeFeatures from '@/components/home/features';
+import HomeTestimonial from '@/components/home/testimonial';
+import HomeStats from '@/components/home/stats';
+import Pricing from '@/components/home/pricing';
 import Footer from '@/components/footer';
-import Stats from '@/components/stats';
 
 const pagedata = {
   title: 'Team Management and Analytics Platform',
@@ -37,10 +37,10 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <Hero />
-      <Features />
-      <Testimonial />
-      <Stats />
+      <HomeHero />
+      <HomeFeatures />
+      <HomeTestimonial />
+      <HomeStats />
       <Pricing />
       <Footer />
     </>

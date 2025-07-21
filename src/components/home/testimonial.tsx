@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import React, { ComponentProps } from 'react';
@@ -7,11 +7,11 @@ const testimonials = [
   {
     id: 1,
     name: 'John Doe',
-    designation: 'Software Engineer',
+    designation: 'Engineering Lead',
     company: 'TechCorp',
     testimonial:
-      'This product has completely transformed the way we work. The efficiency and ease of use are unmatched!',
-    avatar: 'https://randomuser.me/api/portraits/men/1.jpg',
+      'Daylik completely transformed how our team handles daily updates. No more chaos — just clarity.',
+    avatar: '/images/testimonials/avatar-1.jpeg',
   },
   {
     id: 2,
@@ -19,8 +19,8 @@ const testimonials = [
     designation: 'Data Analyst',
     company: 'InsightTech',
     testimonial:
-      'This tool has saved me hours of work! The analytics and reporting features are incredibly powerful.',
-    avatar: 'https://randomuser.me/api/portraits/women/6.jpg',
+      'The analytics give me exactly what I need — clear trends and insights without the noise.',
+    avatar: '/images/testimonials/avatar-2.jpeg',
   },
   {
     id: 3,
@@ -28,18 +28,16 @@ const testimonials = [
     designation: 'UX Designer',
     company: 'DesignPro',
     testimonial:
-      'An amazing tool that simplifies complex tasks. Highly recommended for professionals in the industry. ' +
-      'The intuitive interface makes it easy to onboard new team members, and the automation features save us countless hours every week. ',
-    avatar: 'https://randomuser.me/api/portraits/men/3.jpg',
+      'The easiest onboarding experience we’ve had. Our daily check-ins are now automated and transparent.',
+    avatar: '/images/testimonials/avatar-3.jpeg',
   },
   {
     id: 4,
     name: 'Emily Davis',
     designation: 'Marketing Specialist',
     company: 'BrandBoost',
-    testimonial:
-      "I've seen a significant improvement in our team's productivity since we started using this service.",
-    avatar: 'https://randomuser.me/api/portraits/women/4.jpg',
+    testimonial: 'We’ve seen a huge boost in accountability and focus thanks to Daylik.',
+    avatar: '/images/testimonials/avatar-4.jpeg',
   },
   {
     id: 5,
@@ -47,8 +45,8 @@ const testimonials = [
     designation: 'Full-Stack Developer',
     company: 'CodeCrafters',
     testimonial:
-      "The best investment we've made! The support team is also super responsive and helpful.",
-    avatar: 'https://randomuser.me/api/portraits/men/5.jpg',
+      'The best tool we’ve added to our workflow. Lightweight, powerful, and incredibly easy to use.',
+    avatar: '/images/testimonials/avatar-5.jpeg',
   },
   {
     id: 6,
@@ -56,12 +54,12 @@ const testimonials = [
     designation: 'Product Manager',
     company: 'InnovateX',
     testimonial:
-      'The user experience is top-notch! The interface is clean, intuitive, and easy to navigate.',
-    avatar: 'https://randomuser.me/api/portraits/women/2.jpg',
+      'Finally, a sync tool that doesn’t feel like a chore. Everyone’s actually using it — and loving it.',
+    avatar: '/images/testimonials/avatar-6.jpeg',
   },
 ];
 
-const Testimonial01 = () => (
+const HomeTestimonial = () => (
   <div className="flex min-h-screen items-center justify-center px-6 py-12">
     <div>
       <span className="mb-14 text-center text-5xl font-bold tracking-tight md:text-6xl">
@@ -72,7 +70,11 @@ const Testimonial01 = () => (
           <div key={testimonial.id} className="bg-accent mb-8 break-inside-avoid rounded-xl p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <Avatar>
+                <Avatar className="aspect-square size-12">
+                  <AvatarImage
+                    className="bg-secondary object-cover"
+                    src={testimonial.avatar || undefined}
+                  />
                   <AvatarFallback className="bg-primary text-primary-foreground text-xl font-medium">
                     {testimonial.name.charAt(0)}
                   </AvatarFallback>
@@ -106,4 +108,4 @@ const TwitterLogo = (props: ComponentProps<'svg'>) => (
   </svg>
 );
 
-export default Testimonial01;
+export default HomeTestimonial;

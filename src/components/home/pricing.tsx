@@ -3,52 +3,53 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { CircleCheck } from 'lucide-react';
+import Link from 'next/link';
 
 const plans = [
   {
-    name: 'Starter',
-    price: 19,
-    description: 'Get 20 AI-generated portraits with 2 unique styles and filters.',
+    name: 'Free',
+    price: 0,
+    description: 'Basic access for individuals and small teams. Limited features.',
     features: [
-      '5 hours turnaround time',
-      '20 AI portraits',
-      'Choice of 2 styles',
-      'Choice of 2 filters',
-      '2 retouch credits',
+      '1 team',
+      'Up to 3 teammates',
+      '5 syncs per week',
+      'Basic analytics',
+      '7-day sync history',
     ],
-    buttonText: 'Get 20 portraits in 5 hours',
+    buttonText: 'Coming Soon',
   },
   {
-    name: 'Advanced',
-    price: 29,
-    isRecommended: true,
-    description: 'Get 50 AI-generated portraits with 5 unique styles and filters.',
+    name: 'Beta',
+    price: 0,
+    description: 'Full access during the beta period. All features unlocked for free.',
     features: [
-      '3 hours turnaround time',
-      '50 AI portraits',
-      'Choice of 5 styles',
-      'Choice of 5 filters',
-      '5 retouch credits',
+      'Unlimited teams',
+      'Unlimited teammates',
+      'Unlimited syncs',
+      'Advanced analytics',
+      'Unlimited sync history',
+      'Priority support',
     ],
-    buttonText: 'Get 50 portraits in 3 hours',
+    buttonText: 'You’re in Beta',
     isPopular: true,
   },
   {
-    name: 'Premium',
-    price: 49,
-    description: 'Get 100 AI-generated portraits with 10 unique styles and filters.',
+    name: 'Pro',
+    price: 0,
+    description: 'For growing teams who need more power, automation, and analytics.',
     features: [
-      '1-hour turnaround time',
-      '100 AI portraits',
-      'Choice of 10 styles',
-      'Choice of 10 filters',
-      '10 retouch credits',
+      'Up to 5 teams',
+      'Up to 10 teammates per team',
+      'Unlimited syncs',
+      'Advanced analytics',
+      '90-day sync history',
     ],
-    buttonText: 'Get 100 portraits in 1 hour',
+    buttonText: 'Coming Soon',
   },
 ];
 
-const Pricing02 = () => {
+const HomePricing = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center px-6 py-12">
       <span className="text-center text-5xl font-bold tracking-tight">Pricing</span>
@@ -62,11 +63,11 @@ const Pricing02 = () => {
           >
             {plan.isPopular && (
               <Badge className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2">
-                Most Popular
+                Active
               </Badge>
             )}
             <span className="text-lg font-medium">{plan.name}</span>
-            <p className="mt-2 text-4xl font-bold">${plan.price}</p>
+            {plan.price > 0 && <p className="mt-2 text-4xl font-bold">${plan.price}</p>}
             <p className="text-muted-foreground mt-4 font-medium">{plan.description}</p>
             <Separator className="my-4" />
             <ul className="space-y-2">
@@ -78,11 +79,12 @@ const Pricing02 = () => {
               ))}
             </ul>
             <Button
-              variant={plan.isPopular ? 'default' : 'outline'}
+              variant={plan.isPopular ? 'default' : 'secondary'}
               size="lg"
               className="mt-6 w-full"
+              asChild
             >
-              {plan.buttonText}
+              <Link href="/signup">{plan.buttonText}</Link>
             </Button>
           </div>
         ))}
@@ -91,4 +93,4 @@ const Pricing02 = () => {
   );
 };
 
-export default Pricing02;
+export default HomePricing;
