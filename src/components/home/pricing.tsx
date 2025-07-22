@@ -20,7 +20,7 @@ const plans = [
     buttonText: 'Coming Soon',
   },
   {
-    name: 'Beta',
+    name: 'Open Beta',
     price: 0,
     description: 'Full access during the beta period. All features unlocked for free.',
     features: [
@@ -31,7 +31,7 @@ const plans = [
       'Unlimited sync history',
       'Priority support',
     ],
-    buttonText: 'You’re in Beta',
+    buttonText: 'You’re One of the First',
     isPopular: true,
   },
   {
@@ -73,7 +73,7 @@ const HomePricing = () => {
               className={cn(
                 'bg-card relative max-w-md rounded-lg border p-6 sm:max-w-[288px] sm:gap-6 md:max-w-[352px]',
                 {
-                  'border-primary border-[2px] py-10': plan.isPopular,
+                  'border-primary dark:border-primary/15 border-[2px] py-10': plan.isPopular,
                 }
               )}
             >
@@ -101,7 +101,7 @@ const HomePricing = () => {
                 asChild
               >
                 <Link href="/signup">
-                  {plan.name === 'Beta' && <PartyPopper />}
+                  {plan.name === 'Open Beta' && <PartyPopper />}
                   {plan.buttonText}
                 </Link>
               </Button>

@@ -15,7 +15,7 @@ const features: Record<string, string>[] = [
   {
     title: 'Understand Engagement',
     description: 'Visualize who’s active, who’s blocked, and what needs attention.',
-    image: '/images/features/pixeltrue-study-from-books.svg',
+    image: '/images/features/pixeltrue-support.svg',
   },
 ];
 
@@ -28,7 +28,7 @@ const HomeFeatures = () => {
       <h2 className="text-center text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
         Drive Team Success
       </h2>
-      <ul className="mx-auto grid w-full max-w-md gap-x-6 gap-y-12 sm:max-w-screen-md sm:grid-cols-4 lg:max-w-screen-lg lg:grid-cols-6">
+      <ul className="mx-auto grid w-full max-w-md gap-x-6 gap-y-6 sm:max-w-screen-md sm:grid-cols-4 sm:gap-y-12 lg:max-w-screen-lg lg:grid-cols-6">
         {features.map((feature, index) => (
           <li
             key={feature.title}
@@ -44,7 +44,7 @@ const HomeFeatures = () => {
                   alt={feature.title}
                   width={500}
                   height={500}
-                  className={`aspect-[4/5] w-full rounded-xl border grayscale transition-all duration-200 hover:grayscale-0 ${
+                  className={`bg-card aspect-[4/5] w-full rounded-xl border grayscale transition-all duration-200 hover:grayscale-0 ${
                     index === features.length - 1 && '-scale-x-100'
                   }`}
                 />

@@ -50,7 +50,7 @@ const AuthLogin = () => {
   };
 
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-center gap-4 px-4">
+    <div className="flex min-h-lvh flex-col items-center justify-center gap-4 px-4">
       <LogIn />
       <p className="text-xl font-bold tracking-tight">Log in to Daylik</p>
       <Card className="w-full max-w-xs border-none p-0 shadow-none">

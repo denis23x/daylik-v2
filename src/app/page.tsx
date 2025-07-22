@@ -4,7 +4,7 @@ import HomeHero from '@/components/home/hero';
 import HomeFeatures from '@/components/home/features';
 import HomeTestimonial from '@/components/home/testimonial';
 import HomeStats from '@/components/home/stats';
-import Pricing from '@/components/home/pricing';
+import HomePricing from '@/components/home/pricing';
 import Footer from '@/components/footer';
 
 const pagedata = {
@@ -39,9 +39,9 @@ export default function Home() {
       <Navbar />
       <HomeHero />
       <HomeFeatures />
-      <HomeTestimonial />
       <HomeStats />
-      <Pricing />
+      <HomeTestimonial />
+      <HomePricing />
       <Footer />
     </>
   );

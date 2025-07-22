@@ -74,7 +74,7 @@ const AnalyticsGrid = () => {
         <div className="flex w-full flex-col items-center gap-4">
           {isLoading && <HighlightsSkeletons columns={5} className="aspect-[5/8] min-h-[224px]" />}
           {isError && (
-            <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
+            <div className="flex min-h-[75lvh] max-w-md flex-col items-center justify-center gap-4">
               <Bug />
               <div className="text-center text-xl font-semibold">An error occurred</div>
               <Button variant="destructive" onClick={openFeedbackModal}>
@@ -83,7 +83,7 @@ const AnalyticsGrid = () => {
             </div>
           )}
           {!isLoading && !isError && analytics && analyticsTeammates?.length === 0 && (
-            <div className="flex min-h-[75dvh] max-w-md flex-col items-center justify-center gap-4">
+            <div className="flex min-h-[75lvh] max-w-md flex-col items-center justify-center gap-4">
               <CircleOff />
               <div className="text-center text-xl font-semibold">No teammates found</div>
               <Button className="group" variant="secondary" asChild>

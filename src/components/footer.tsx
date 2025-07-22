@@ -49,7 +49,7 @@ const footerSections = [
 
 const Footer = () => {
   return (
-    <footer className="border-accent bg-background/80 w-full border-t">
+    <footer className="bg-background/80 w-full border-t">
       <div className="container mx-auto flex flex-col items-start justify-between gap-4 p-4 md:flex-row">
         <div className="flex max-w-xs flex-col gap-4">
           <Logo />
