@@ -99,7 +99,7 @@ const SyncSettingsGrid = () => {
       });
     }
 
-    setLiveTeam(team as Team);
+    setLiveTeam({ ...team, timer } as Team);
     setLiveTeammates(teammates.filter(({ UUID }) => !teammatesAbsent.includes(UUID)));
 
     // Redirect

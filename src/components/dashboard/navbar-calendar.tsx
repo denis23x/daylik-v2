@@ -52,14 +52,14 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
                   <CalendarDayButton day={day} modifiers={modifiers} {...props}>
                     {children}
                     {analytics && (
-                      <ul className="absolute right-0 bottom-0 left-0 flex scale-75 justify-center gap-1 px-2 py-1">
+                      <ul className="absolute right-0 bottom-0 left-0 flex justify-center gap-1 px-2 py-1">
                         {analytics
                           .filter((a) => isSameDay(new Date(a.createdAt), day.date))
                           .slice(0, 3)
                           .map((item) => {
                             return (
                               <li
-                                className={`aspect-square h-1 w-1 rounded-full transition-colors ${modifiers.selected ? 'bg-background' : 'bg-foreground'}`}
+                                className={`aspect-square size-0.75 rounded-full transition-colors ${modifiers.selected ? 'bg-background' : 'bg-foreground'}`}
                                 key={item.UUID}
                               ></li>
                             );

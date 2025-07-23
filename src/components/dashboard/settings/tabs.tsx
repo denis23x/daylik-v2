@@ -12,7 +12,7 @@ const SettingsTabs = () => {
   const [tab, setTab] = useState('email');
 
   useEffect(() => {
-    const onPopState = () => setTab(getQueryParams('tabs') || 'email');
+    const onPopState = () => setTab(getQueryParams('tabs') || 'subscription');
 
     onPopState();
 

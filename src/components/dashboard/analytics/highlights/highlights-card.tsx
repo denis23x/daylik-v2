@@ -48,7 +48,7 @@ const HighlightsCard = ({ highlight }: { highlight: AnalyticsHighlight }) => {
         <div className="bg-card flex flex-col items-center gap-2 rounded-lg border p-2 lg:flex-row">
           <div className="flex flex-1 flex-col overflow-hidden text-center">
             <span className="truncate text-sm font-semibold md:text-base">{highlight.label}</span>
-            <span className="text-muted-foreground scale-90 truncate text-xs sm:scale-100">
+            <span className="text-muted-foreground truncate text-[11px] sm:text-xs">
               {highlight.key === 'edgerunner' && `Overtime x${highlight.overtime}`}
               {highlight.key === 'radio-tower' && `On Air ${formatDuration(highlight.total)}`}
               {highlight.key === 'frozen-hero' && `Paused time ${formatDuration(highlight.paused)}`}

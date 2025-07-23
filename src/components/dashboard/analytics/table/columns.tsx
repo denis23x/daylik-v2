@@ -14,7 +14,7 @@ const NameCell = memo(({ teammate }: { teammate: Teammate }) => (
     <Avatar className="aspect-square size-8 border">
       <AvatarImage className="bg-secondary object-cover" src={teammate.avatar || undefined} />
       <AvatarFallback style={{ backgroundColor: teammate.color }}>
-        <AvatarInitials className="scale-75 text-xs" teammate={teammate} />
+        <AvatarInitials className="text-[10px]" teammate={teammate} />
       </AvatarFallback>
     </Avatar>
     <span className="text-sm">{teammate.name}</span>

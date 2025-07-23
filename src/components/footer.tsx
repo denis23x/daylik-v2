@@ -3,28 +3,19 @@ import { Logo } from './logo';
 
 const footerSections = [
   {
-    title: 'Product',
+    title: 'Guides',
     links: [
       {
-        title: 'Overview',
-        href: '#',
+        title: 'Ask for Help',
+        href: '/guides/how-to-ask-for-help-without-feeling-dumb',
       },
       {
-        title: 'Features',
-        href: '#',
-      },
-    ],
-  },
-  {
-    title: 'Resources',
-    links: [
-      {
-        title: 'Blog',
-        href: '#',
+        title: 'Great Standup',
+        href: '/guides/how-to-run-a-great-daily-standup',
       },
       {
-        title: 'Newsletter',
-        href: '#',
+        title: 'Handle Blockers',
+        href: '/guides/how-to-flag-and-handle-blockers',
       },
     ],
   },
@@ -36,12 +27,12 @@ const footerSections = [
         href: '/legal/analytics',
       },
       {
-        title: 'Cookie Policy',
-        href: '/legal/cookie-policy',
-      },
-      {
         title: 'Third Parties',
         href: '/legal/third-parties',
+      },
+      {
+        title: 'Cookie Policy',
+        href: '/legal/cookie-policy',
       },
     ],
   },

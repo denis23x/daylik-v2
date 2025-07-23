@@ -42,14 +42,14 @@ export const updateSession = async (request: NextRequest) => {
     request.nextUrl.pathname
   );
 
-  const legalRoutes = request.nextUrl.pathname.startsWith('/legal/');
+  const publicRoutes = ['/guides/', '/legal/'].includes(request.nextUrl.pathname);
 
   const seoRoutes = ['/sitemap.xml', '/robots.txt'].includes(request.nextUrl.pathname);
 
   const indexRoute = request.nextUrl.pathname === '/';
 
   // no user, potentially respond by redirecting the user to the login page
-  if (!user && !authRoutes && !legalRoutes && !indexRoute && !seoRoutes) {
+  if (!user && !authRoutes && !publicRoutes && !indexRoute && !seoRoutes) {
     const url = request.nextUrl.clone();
 
     url.pathname = '/login';
