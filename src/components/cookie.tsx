@@ -46,15 +46,15 @@ export default function Cookie() {
           <CardContent className="flex flex-col items-end justify-between gap-4 p-0 md:flex-row md:items-center">
             <p className="text-muted-foreground text-left text-xs">
               We use cookies to ensure you get the best experience on our website. For more
-              information on how we use cookies, please see our cookie policy. By clicking{' '}
-              <strong>Accept</strong>, you agree to our use of cookies.{' '}
+              information on how we use cookies, please see our{' '}
               <Link
                 className="underline"
                 href="/legal/cookie-policy"
                 aria-label="Learn more about our cookie policy"
               >
-                Learn more
+                cookie policy
               </Link>
+              . By clicking <strong>Accept</strong>, you agree to our use of cookies.{' '}
             </p>
             <div className="flex items-center gap-4 p-0">
               <Button onClick={handleDecline} variant="secondary">

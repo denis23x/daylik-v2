@@ -27,6 +27,7 @@ const ThemeToggle = ({
         variant={variant}
         size={size}
         onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+        aria-label={`Toggle ${resolvedTheme === 'dark' ? 'light' : 'dark'} mode`}
       >
         {resolvedTheme === 'dark' ? <SunIcon /> : <MoonIcon />}
         {text && (resolvedTheme === 'dark' ? 'Light' : 'Dark')}

@@ -27,7 +27,7 @@ const plans = [
       'Unlimited teams',
       'Unlimited teammates',
       'Unlimited syncs',
-      'Advanced analytics',
+      'Basic analytics',
       'Unlimited sync history',
       'Priority support',
     ],
