@@ -44,10 +44,12 @@ export const updateSession = async (request: NextRequest) => {
 
   const legalRoutes = request.nextUrl.pathname.startsWith('/legal/');
 
+  const seoRoutes = ['/sitemap.xml', '/robots.txt'].includes(request.nextUrl.pathname);
+
   const indexRoute = request.nextUrl.pathname === '/';
 
   // no user, potentially respond by redirecting the user to the login page
-  if (!user && !authRoutes && !legalRoutes && !indexRoute) {
+  if (!user && !authRoutes && !legalRoutes && !indexRoute && !seoRoutes) {
     const url = request.nextUrl.clone();
 
     url.pathname = '/login';

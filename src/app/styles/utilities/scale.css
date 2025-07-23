@@ -1,0 +1,7 @@
+.scale-90-3d {
+  transform: scale3d(0.9, 0.9, 1);
+}
+
+.scale-80-3d {
+  transform: scale3d(0.8, 0.8, 1);
+}

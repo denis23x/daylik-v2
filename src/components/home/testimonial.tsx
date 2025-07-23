@@ -1,7 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 const testimonials = [
@@ -70,6 +69,7 @@ const HomeTestimonial = () => (
                   <AvatarImage
                     className="bg-secondary object-cover"
                     src={testimonial.avatar || undefined}
+                    alt={`Profile photo of ${testimonial.name}, ${testimonial.designation}`}
                   />
                   <AvatarFallback className="bg-primary text-primary-foreground text-xl font-medium">
                     {testimonial.name.charAt(0)}
@@ -81,8 +81,20 @@ const HomeTestimonial = () => (
                 </div>
               </div>
               <Button variant="ghost" size="icon" asChild>
-                <Link href="#" target="_blank">
-                  <Image src="/icons/x.svg" alt="X" width={20} height={20} />
+                <Link
+                  href="#"
+                  target="_blank"
+                  aria-label={`View ${testimonial.name}'s profile on X (formerly Twitter)`}
+                >
+                  <svg
+                    role="img"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="fill-foreground size-5"
+                  >
+                    <title>X</title>
+                    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+                  </svg>
                 </Link>
               </Button>
             </div>

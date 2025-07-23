@@ -22,7 +22,7 @@ export function getHighlightsPlaceholder(key: string) {
       UUID: uuidv4(),
       name: 'N/A',
       role: role(),
-      color: 'transparent',
+      color: 'color-mix(in oklab, var(--secondary) 80%, transparent)',
       avatar: null,
       userUUID: uuidv4(),
       createdAt: new Date().toISOString(),

@@ -39,7 +39,7 @@ const HomeStats = () => {
         </li>
       </ul>
       <RainbowButton className="rounded-full" asChild>
-        <Link href="/signup">
+        <Link href="/signup" aria-label="Start your sync with Daylik - Sign up now">
           Start your Sync
           <Flame />
         </Link>

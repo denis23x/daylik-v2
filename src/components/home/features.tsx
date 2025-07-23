@@ -55,6 +55,7 @@ const HomeFeatures = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="underline"
+                    aria-label="Visit Pixeltrue's profile on Icons8 (opens in new tab)"
                   >
                     Pixeltrue Ouch!
                   </a>

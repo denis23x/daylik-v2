@@ -35,7 +35,7 @@ const HomeHero = () => {
         </p>
         <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Button className="rounded-full" asChild>
-            <Link href="/signup">
+            <Link href="/signup" aria-label="Get started with Daylik - Sign up for free">
               Get Started <Sparkles />
             </Link>
           </Button>
@@ -43,7 +43,11 @@ const HomeHero = () => {
             animationStyle="from-center"
             videoSrc="https://www.youtube.com/embed/dQw4w9WgXcQ?si=H7TCoQe5aNcuOh2Y"
           >
-            <Button variant="outline" className="rounded-full shadow-none">
+            <Button
+              variant="outline"
+              className="rounded-full shadow-none"
+              aria-label="Watch Daylik demo video"
+            >
               <CirclePlay /> Watch Demo
             </Button>
           </HeroVideoDialog>

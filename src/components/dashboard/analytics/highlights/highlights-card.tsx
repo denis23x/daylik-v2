@@ -3,7 +3,7 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import AvatarInitials from '@/components/avatar-initials';
 import { formatDuration } from '@/utils/formatDuration';
 import type { AnalyticsHighlight } from '@/types/analyticsHighlight.type';
-import { UserRoundPlus } from 'lucide-react';
+import { UserRound } from 'lucide-react';
 
 const HighlightsCard = ({ highlight }: { highlight: AnalyticsHighlight }) => {
   return (
@@ -20,7 +20,7 @@ const HighlightsCard = ({ highlight }: { highlight: AnalyticsHighlight }) => {
         </CardHeader>
         <CardContent className="p-2 sm:p-2.5 md:p-3">
           <Avatar
-            className={`aspect-square size-full translate-y-0.5 border ${!highlight.placeholder ? 'animate-shine' : 'border-dashed'}`}
+            className={`aspect-square size-full translate-y-0.5 border ${!highlight.placeholder ? 'animate-shine' : 'border-dashed p-1'}`}
           >
             <AvatarImage
               className="bg-secondary object-cover"
@@ -28,7 +28,7 @@ const HighlightsCard = ({ highlight }: { highlight: AnalyticsHighlight }) => {
             />
             <AvatarFallback style={{ backgroundColor: highlight.teammate?.color }}>
               {highlight.placeholder ? (
-                <UserRoundPlus className="size-4 sm:size-5" />
+                <UserRound className="size-4 sm:size-5" />
               ) : (
                 <AvatarInitials className="text-2xl" teammate={highlight.teammate!} />
               )}

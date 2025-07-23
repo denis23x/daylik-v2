@@ -18,6 +18,7 @@ export default function robots(): MetadataRoute.Robots {
           '/analytics/*',
           '/settings',
           '/sync/*',
+          '/legal/*',
           '/api/*',
           '/_next/*',
           '/static/*',

@@ -14,6 +14,8 @@
 @import './styles/components/flip-card.css';
 @import './styles/components/hover-effect.css';
 
+@import './styles/utilities/scale.css';
+
 @import './styles/vendor/shiki.css';
 
 @plugin '@tailwindcss/typography';

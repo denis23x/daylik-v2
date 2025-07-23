@@ -100,7 +100,10 @@ const HomePricing = () => {
                 className="mt-6 w-full"
                 asChild
               >
-                <Link href="/signup">
+                <Link
+                  href="/signup"
+                  aria-label={`Sign up for ${plan.name} plan - ${plan.buttonText}`}
+                >
                   {plan.name === 'Open Beta' && <PartyPopper />}
                   {plan.buttonText}
                 </Link>
