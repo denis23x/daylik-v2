@@ -1,5 +1,6 @@
 import { supabase } from '@/utils/supabase/client';
 import { BUCKET_IMAGES } from '../constants';
+import { getSession } from '../session';
 
 type UploadFileParams = {
   bucket: string;
@@ -29,7 +30,10 @@ export async function deleteFiles({ bucket, paths }: DeleteFileParams) {
 }
 
 export async function uploadFile({ bucket, fileName, file }: UploadFileParams) {
-  const { data, error } = await supabase.storage.from(bucket).upload(fileName, file);
+  const session = await getSession();
+  const { data, error } = await supabase.storage
+    .from(bucket)
+    .upload([session?.user.id, fileName].join('/'), file);
   if (error) throw error;
   return data;
 }

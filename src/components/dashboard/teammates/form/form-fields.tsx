@@ -100,7 +100,7 @@ const TeammatesFormFields = () => {
             </FormItem>
           )}
         />
-        <FormFileUploader name="avatar" path="avatars" disabled={form.formState.isSubmitting}>
+        <FormFileUploader name="avatar" path="teammates" disabled={form.formState.isSubmitting}>
           <Button variant="outline" size="icon" type="button">
             <FolderOpenIcon />
           </Button>
