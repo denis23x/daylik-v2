@@ -5,8 +5,11 @@ import { CirclePlay, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import HeroVideoDialog from '../magicui/hero-video-dialog';
 import { Badge } from '../ui/badge';
+import { useTranslations } from 'next-intl';
 
 const HomeHero = () => {
+  const t = useTranslations('HomePage');
+
   return (
     <div
       id="home"
@@ -27,7 +30,7 @@ const HomeHero = () => {
           Open Beta
         </Badge>
         <h1 className="mt-6 text-3xl !leading-[1.2] font-bold tracking-tight sm:text-4xl md:text-5xl">
-          Daily Check-ins, Zero Hassle
+          Daily Check-ins, Zero Hassle {t('getStarted')}
         </h1>
         <p className="mt-6 text-[17px] md:text-lg">
           Daylik helps teams run structured daily standups, stay aligned, and gain instant insights

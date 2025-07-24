@@ -5,6 +5,7 @@ import { Logo } from './logo';
 import ThemeToggle from './theme-toggle';
 import Link from 'next/link';
 import { useAutoScroll } from '@/hooks/ui/useAutoScroll';
+import LanguageSwitcher from './language-switcher';
 
 const Navbar = () => {
   const { scrollTo } = useAutoScroll();
@@ -47,6 +48,7 @@ const Navbar = () => {
         </ul>
         <div className="flex items-center gap-3">
           <ThemeToggle variant="ghost" size="icon" />
+          <LanguageSwitcher />
           <Button className="inline-flex" asChild>
             <Link href="/login">Sign In</Link>
           </Button>
