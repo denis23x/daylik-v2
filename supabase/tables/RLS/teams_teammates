@@ -1,0 +1,19 @@
+ALTER POLICY "Self"
+ON "public"."teams_teammates"
+TO authenticated
+USING (
+  EXISTS (
+    SELECT 1
+    FROM teams
+    WHERE teams."UUID" = teams_teammates."teamUUID"
+      AND teams."userUUID" = auth.uid()
+  )
+)
+WITH CHECK (
+  EXISTS (
+    SELECT 1
+    FROM teams
+    WHERE teams."UUID" = teams_teammates."teamUUID"
+      AND teams."userUUID" = auth.uid()
+  )
+);

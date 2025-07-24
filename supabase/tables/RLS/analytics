@@ -1,0 +1,9 @@
+ALTER POLICY "Self"
+ON "public"."analytics"
+TO authenticated
+USING (
+  "userUUID" = auth.uid()
+)
+WITH CHECK (
+  "userUUID" = auth.uid()
+);

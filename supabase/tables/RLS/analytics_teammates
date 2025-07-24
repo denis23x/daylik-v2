@@ -1,0 +1,19 @@
+ALTER POLICY "Self"
+ON "public"."analytics_teammates"
+TO authenticated
+USING (
+  EXISTS (
+    SELECT 1
+    FROM analytics
+    WHERE analytics."UUID" = analytics_teammates."analyticUUID"
+      AND analytics."userUUID" = auth.uid()
+  )
+)
+WITH CHECK (
+  EXISTS (
+    SELECT 1
+    FROM analytics
+    WHERE analytics."UUID" = analytics_teammates."analyticUUID"
+      AND analytics."userUUID" = auth.uid()
+  )
+);
