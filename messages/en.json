@@ -1,0 +1,62 @@
+{
+  "HomePage": {
+    "title": "Welcome to Daylik",
+    "description": "Your daily productivity companion",
+    "getStarted": "Get Started",
+    "heroTitle": "Daily Check-ins, Zero Hassle",
+    "heroDescription": "Daylik helps teams run structured daily standups, stay aligned, and gain instant insights — all in one place.",
+    "watchDemo": "Watch Demo"
+  },
+  "Navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "analytics": "Analytics",
+    "teams": "Teams",
+    "teammates": "Teammates",
+    "settings": "Settings",
+    "guides": "Guides",
+    "legal": "Legal",
+    "login": "Sign In",
+    "testimonials": "Testimonials",
+    "why": "Why Daylik?",
+    "pricing": "Pricing"
+  },
+  "Auth": {
+    "login": "Log In",
+    "signup": "Sign Up",
+    "logout": "Log Out",
+    "resetPassword": "Reset Password",
+    "verifyEmail": "Verify Email",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "alreadyHaveAccount": "Already have an account?",
+    "noAccount": "Don't have an account?"
+  },
+  "Dashboard": {
+    "welcome": "Welcome back",
+    "overview": "Overview",
+    "recentActivity": "Recent Activity",
+    "quickActions": "Quick Actions"
+  },
+  "Common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "create": "Create",
+    "update": "Update",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "open": "Open"
+  }
+}

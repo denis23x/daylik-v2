@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next';
 import createMDX from '@next/mdx';
+import createNextIntlPlugin from 'next-intl/plugin';
 import remarkGfm from 'remark-gfm';
 import remarkToc from 'remark-toc';
 import rehypeSlug from 'rehype-slug';
@@ -40,5 +41,7 @@ const withMDX = createMDX({
   },
 });
 
-// Merge MDX config with Next.js config
-export default withMDX(nextConfig);
+const withNextIntl = createNextIntlPlugin();
+
+// Merge MDX config with Next.js config, then apply next-intl
+export default withNextIntl(withMDX(nextConfig));

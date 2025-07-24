@@ -1,0 +1,62 @@
+{
+  "HomePage": {
+    "title": "Willkommen bei Daylik",
+    "description": "Ihr täglicher Produktivitätsbegleiter",
+    "getStarted": "Loslegen",
+    "heroTitle": "Tägliche Check-ins, null Aufwand",
+    "heroDescription": "Daylik hilft Teams dabei, strukturierte tägliche Standups durchzuführen, im Einklang zu bleiben und sofortige Einblicke zu gewinnen — alles an einem Ort.",
+    "watchDemo": "Demo ansehen"
+  },
+  "Navigation": {
+    "home": "Startseite",
+    "dashboard": "Dashboard",
+    "analytics": "Analytics",
+    "teams": "Teams",
+    "teammates": "Teammitglieder",
+    "settings": "Einstellungen",
+    "guides": "Anleitungen",
+    "legal": "Rechtliches",
+    "login": "Anmelden",
+    "testimonials": "Erfahrungsberichte",
+    "why": "Warum Daylik?",
+    "pricing": "Preise"
+  },
+  "Auth": {
+    "login": "Anmelden",
+    "signup": "Registrieren",
+    "logout": "Abmelden",
+    "resetPassword": "Passwort zurücksetzen",
+    "verifyEmail": "E-Mail verifizieren",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "confirmPassword": "Passwort bestätigen",
+    "rememberMe": "Angemeldet bleiben",
+    "forgotPassword": "Passwort vergessen?",
+    "alreadyHaveAccount": "Bereits ein Konto?",
+    "noAccount": "Noch kein Konto?"
+  },
+  "Dashboard": {
+    "welcome": "Willkommen zurück",
+    "overview": "Übersicht",
+    "recentActivity": "Letzte Aktivitäten",
+    "quickActions": "Schnellaktionen"
+  },
+  "Common": {
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "add": "Hinzufügen",
+    "create": "Erstellen",
+    "update": "Aktualisieren",
+    "loading": "Laden...",
+    "error": "Ein Fehler ist aufgetreten",
+    "success": "Erfolgreich",
+    "confirm": "Bestätigen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Vorherige",
+    "close": "Schließen",
+    "open": "Öffnen"
+  }
+}
