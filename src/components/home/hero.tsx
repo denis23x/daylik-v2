@@ -8,7 +8,7 @@ import { Badge } from '../ui/badge';
 import { useTranslations } from 'next-intl';
 
 const HomeHero = () => {
-  const t = useTranslations('HomePage');
+  const t = useTranslations('components.home.hero');
 
   return (
     <div
@@ -26,20 +26,13 @@ const HomeHero = () => {
         )}
       />
       <div className="relative z-10 max-w-2xl text-center">
-        <Badge variant="destructive" className="ml-auto">
-          Open Beta
-        </Badge>
-        <h1 className="mt-6 text-3xl !leading-[1.2] font-bold tracking-tight sm:text-4xl md:text-5xl">
-          Daily Check-ins, Zero Hassle {t('getStarted')}
-        </h1>
-        <p className="mt-6 text-[17px] md:text-lg">
-          Daylik helps teams run structured daily standups, stay aligned, and gain instant insights
-          — all in one place.
-        </p>
+        <Badge variant="destructive">{t('badge')}</Badge>
+        <h1 className="mt-6 text-3xl font-bold sm:text-4xl md:text-5xl">{t('title')}</h1>
+        <p className="mt-6 text-[17px] md:text-lg">{t('description')}</p>
         <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Button className="rounded-full" asChild>
             <Link href="/signup" aria-label="Get started with Daylik - Sign up for free">
-              Get Started <Sparkles />
+              {t('getStarted')} <Sparkles />
             </Link>
           </Button>
           <HeroVideoDialog
@@ -51,7 +44,7 @@ const HomeHero = () => {
               className="rounded-full shadow-none"
               aria-label="Watch Daylik demo video"
             >
-              <CirclePlay /> Watch Demo
+              <CirclePlay /> {t('watchDemo')}
             </Button>
           </HeroVideoDialog>
         </div>
