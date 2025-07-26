@@ -1,46 +1,54 @@
 import { Flame } from 'lucide-react';
 import { RainbowButton } from '../magicui/rainbow-button';
 import { Link } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 
 const HomeStats = () => {
+  const t = useTranslations('components.home.stats');
+
   return (
     <div
       id="why"
       className="min-h-screen-home relative container mx-auto flex flex-col items-center justify-center gap-2 px-4 py-14"
     >
       <span className="text-center text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-        Why Daylik?
+        {t('title')}
       </span>
-      <p className="text-muted-foreground text-lg">After switching to Daylik..</p>
+      <p className="text-muted-foreground text-lg">{t('subtitle')}</p>
       <ul className="my-12 grid justify-center gap-x-12 gap-y-16 sm:my-14 sm:grid-cols-4 lg:grid-cols-6">
+        {/* Communication */}
         <li className="flex justify-center sm:col-span-2 lg:col-span-2">
           <div className="max-w-[20ch] text-center">
-            <span className="text-5xl font-semibold">89%</span>
+            <span className="text-5xl font-semibold">{t('items.communication.percentage')}</span>
             <p className="text-muted-foreground mt-4 text-lg">
-              of teams communicate more effectively
+              {t('items.communication.description')}
             </p>
           </div>
         </li>
+
+        {/* Accountability */}
         <li className="flex justify-center sm:col-span-2 lg:col-span-2">
           <div className="max-w-[20ch] text-center">
-            <span className="text-5xl font-semibold">94%</span>
+            <span className="text-5xl font-semibold">{t('items.accountability.percentage')}</span>
             <p className="text-muted-foreground mt-4 text-lg">
-              report increased focus and accountability
+              {t('items.accountability.description')}
             </p>
           </div>
         </li>
-        <li className="flex justify-center sm:col-span-4 lg:col-span-2">
+
+        {/* Efficiency */}
+        <li className="flex justify-center sm:col-span-2 lg:col-span-2">
           <div className="max-w-[20ch] text-center">
-            <span className="text-5xl font-semibold">91%</span>
+            <span className="text-5xl font-semibold">{t('items.efficiency.percentage')}</span>
             <p className="text-muted-foreground mt-4 text-lg">
-              say they spend less time in meetings
+              {t('items.efficiency.description')}
             </p>
           </div>
         </li>
       </ul>
       <RainbowButton className="rounded-full" asChild>
         <Link href="/signup" aria-label="Start your sync with Daylik - Sign up now">
-          Start your Sync
+          {t('buttonText')}
           <Flame />
         </Link>
       </RainbowButton>

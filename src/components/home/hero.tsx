@@ -26,7 +26,9 @@ const HomeHero = () => {
         )}
       />
       <div className="relative z-10 max-w-2xl text-center">
-        <Badge variant="destructive">{t('badge')}</Badge>
+        <Badge className="dark:opacity-100" variant="destructive">
+          {t('badge')}
+        </Badge>
         <h1 className="mt-6 text-3xl font-bold sm:text-4xl md:text-5xl">{t('title')}</h1>
         <p className="mt-6 text-[17px] md:text-lg">{t('description')}</p>
         <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">

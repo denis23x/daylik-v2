@@ -1,12 +1,128 @@
 {
   "components": {
     "home": {
+      "features": {
+        "title": "Drive Team Success",
+        "items": {
+          "communication": {
+            "image": "pixeltrue-data-analysis.svg",
+            "title": "Level Up Communication",
+            "description": "Bring clarity and accountability into your team's daily workflow."
+          },
+          "sync": {
+            "image": "pixeltrue-business-meeting.svg",
+            "title": "Stay in Sync",
+            "description": "Keep everyone aligned with fast and structured daily check-ins."
+          },
+          "engagement": {
+            "image": "pixeltrue-support.svg",
+            "title": "Understand Engagement",
+            "description": "Visualize who's active, who's blocked, and what needs attention."
+          }
+        }
+      },
       "hero": {
         "badge": "Open Beta",
         "title": "Daily Check-ins, Zero Hassle",
         "description": "Daylik helps teams run structured daily standups, stay aligned, and gain instant insights — all in one place.",
         "getStarted": "Get Started",
         "watchDemo": "Watch Demo"
+      },
+      "pricing": {
+        "title": "Pricing",
+        "free": {
+          "price": "0",
+          "name": "Free",
+          "description": "Basic access for individuals and small teams. Limited features.",
+          "buttonText": "Coming Soon",
+          "features": {
+            "teams": "1 team",
+            "teammates": "Up to 3 teammates",
+            "syncs": "5 syncs per week",
+            "analytics": "Basic analytics",
+            "history": "7-day sync history"
+          }
+        },
+        "beta": {
+          "price": "0",
+          "name": "Open Beta",
+          "description": "Full access during the beta period. All features unlocked for free.",
+          "buttonText": "You're One of the First",
+          "badge": "Active",
+          "features": {
+            "teams": "Unlimited teams",
+            "teammates": "Unlimited teammates",
+            "syncs": "Unlimited syncs",
+            "analytics": "Basic analytics",
+            "history": "Unlimited sync history",
+            "support": "Priority support"
+          }
+        },
+        "pro": {
+          "price": "0",
+          "name": "Pro",
+          "description": "For growing teams who need more power and analytics.",
+          "buttonText": "Coming Soon",
+          "features": {
+            "teams": "Up to 5 teams",
+            "teammates": "Up to 50 teammates",
+            "syncs": "Unlimited syncs",
+            "analytics": "Advanced analytics",
+            "history": "90-day sync history"
+          }
+        }
+      },
+      "stats": {
+        "title": "Why Daylik?",
+        "subtitle": "After switching to Daylik..",
+        "buttonText": "Start your Sync",
+        "items": {
+          "communication": {
+            "percentage": "89%",
+            "description": "of teams communicate more effectively"
+          },
+          "accountability": {
+            "percentage": "94%",
+            "description": "report increased focus and accountability"
+          },
+          "efficiency": {
+            "percentage": "91%",
+            "description": "say they spend less time in meetings"
+          }
+        }
+      },
+      "testimonials": {
+        "title": "Testimonials",
+        "sophia-lee": {
+          "avatar": "sophia-lee.jpeg",
+          "name": "Sophia Lee",
+          "designation": "Engineering Lead",
+          "testimonial": "Daylik completely transformed how our team handles daily updates. No more chaos — just clarity."
+        },
+        "john-doe": {
+          "avatar": "john-doe.jpeg",
+          "name": "John Doe",
+          "designation": "Data Analyst",
+          "testimonial": "The analytics give me exactly what I need — clear trends and insights without the noise."
+        },
+        "emily-davis": {
+          "avatar": "emily-davis.jpeg",
+          "name": "Emily Davis",
+          "designation": "Scrum Master",
+          "testimonial": "The easiest onboarding experience we've had. Our daily check-ins are now automated and transparent."
+        },
+        "michael-johnson": {
+          "avatar": "michael-johnson.jpeg",
+          "name": "Michael Johnson",
+          "designation": "Product Manager",
+          "testimonial": "We've seen a huge boost in accountability and focus thanks to Daylik."
+        },
+        "daniel-martinez": {
+          "avatar": "daniel-martinez.jpeg",
+          "name": "Daniel Martinez",
+          "designation": "Software Engineer",
+          "testimonial": "The best tool we've added to our workflow. Lightweight, powerful, and incredibly easy to use."
+        }
       }
     }
   }

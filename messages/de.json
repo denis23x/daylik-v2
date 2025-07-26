@@ -1,12 +1,128 @@
 {
   "components": {
     "home": {
+      "features": {
+        "title": "Teamerfolgfördern",
+        "items": {
+          "communication": {
+            "image": "pixeltrue-data-analysis.svg",
+            "title": "Kommunikation verbessern",
+            "description": "Bringen Sie Klarheit und Verantwortlichkeit in den täglichen Arbeitsablauf Ihres Teams."
+          },
+          "sync": {
+            "image": "pixeltrue-business-meeting.svg",
+            "title": "Synchron bleiben",
+            "description": "Halten Sie alle mit schnellen und strukturierten täglichen Check-ins auf dem Laufenden."
+          },
+          "engagement": {
+            "image": "pixeltrue-support.svg",
+            "title": "Engagement verstehen",
+            "description": "Visualisieren Sie, wer aktiv ist, wer blockiert ist und was Aufmerksamkeit benötigt."
+          }
+        }
+      },
       "hero": {
         "badge": "Offene Beta",
         "title": "Tägliche Check-ins, Null Aufwand",
         "description": "Daylik hilft Teams dabei, strukturierte tägliche Standups durchzuführen, im Einklang zu bleiben und sofortige Einblicke zu gewinnen — alles an einem Ort.",
         "getStarted": "Loslegen",
         "watchDemo": "Demo ansehen"
+      },
+      "pricing": {
+        "title": "Preise",
+        "free": {
+          "price": "0",
+          "name": "Kostenlos",
+          "description": "Grundzugang für Einzelpersonen und kleine Teams. Begrenzte Funktionen.",
+          "buttonText": "Demnächst",
+          "features": {
+            "teams": "1 Team",
+            "teammates": "Bis zu 3 Teammitglieder",
+            "syncs": "5 Syncs pro Woche",
+            "analytics": "Grundlegende Analytik",
+            "history": "7-Tage Sync-Historie"
+          }
+        },
+        "beta": {
+          "price": "0",
+          "name": "Offene Beta",
+          "description": "Vollzugang während der Beta-Phase. Alle Funktionen kostenlos freigeschaltet.",
+          "buttonText": "Sie sind einer der Ersten",
+          "badge": "Aktiv",
+          "features": {
+            "teams": "Unbegrenzte Teams",
+            "teammates": "Unbegrenzte Teammitglieder",
+            "syncs": "Unbegrenzte Syncs",
+            "analytics": "Grundlegende Analytik",
+            "history": "Unbegrenzte Sync-Historie",
+            "support": "Prioritätssupport"
+          }
+        },
+        "pro": {
+          "price": "0",
+          "name": "Pro",
+          "description": "Für wachsende Teams, die mehr Leistung und Analytik benötigen.",
+          "buttonText": "Demnächst",
+          "features": {
+            "teams": "Bis zu 5 Teams",
+            "teammates": "Bis zu 50 Teammitglieder",
+            "syncs": "Unbegrenzte Syncs",
+            "analytics": "Erweiterte Analytik",
+            "history": "90-Tage Sync-Historie"
+          }
+        }
+      },
+      "stats": {
+        "title": "Warum Daylik?",
+        "subtitle": "Nach dem Wechsel zu Daylik..",
+        "buttonText": "Starte deine Synchronisation",
+        "items": {
+          "communication": {
+            "percentage": "89%",
+            "description": "der Teams kommunizieren effektiver"
+          },
+          "accountability": {
+            "percentage": "94%",
+            "description": "berichten von erhöhtem Fokus und Verantwortlichkeit"
+          },
+          "efficiency": {
+            "percentage": "91%",
+            "description": "sagen, sie verbringen weniger Zeit in Meetings"
+          }
+        }
+      },
+      "testimonials": {
+        "title": "Testimonials",
+        "sophia-lee": {
+          "avatar": "sophia-lee.jpeg",
+          "name": "Sophia Lee",
+          "designation": "Engineering Lead",
+          "testimonial": "Daylik hat vollständig verändert, wie unser Team tägliche Updates handhabt. Kein Chaos mehr — nur Klarheit."
+        },
+        "john-doe": {
+          "avatar": "john-doe.jpeg",
+          "name": "John Doe",
+          "designation": "Datenanalyst",
+          "testimonial": "Die Analytik gibt mir genau das, was ich brauche — klare Trends und Einblicke ohne Rauschen."
+        },
+        "emily-davis": {
+          "avatar": "emily-davis.jpeg",
+          "name": "Emily Davis",
+          "designation": "Scrum Master",
+          "testimonial": "Die einfachste Onboarding-Erfahrung, die wir hatten. Unsere täglichen Check-ins sind jetzt automatisiert und transparent."
+        },
+        "michael-johnson": {
+          "avatar": "michael-johnson.jpeg",
+          "name": "Michael Johnson",
+          "designation": "Product Manager",
+          "testimonial": "Wir haben einen enormen Anstieg in Verantwortlichkeit und Fokus dank Daylik gesehen."
+        },
+        "daniel-martinez": {
+          "avatar": "daniel-martinez.jpeg",
+          "name": "Daniel Martinez",
+          "designation": "Software Engineer",
+          "testimonial": "Das beste Tool, das wir zu unserem Workflow hinzugefügt haben. Leichtgewichtig, mächtig und unglaublich einfach zu verwenden."
+        }
       }
     }
   }
