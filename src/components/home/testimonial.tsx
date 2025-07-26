@@ -37,7 +37,7 @@ const HomeTestimonial = () => {
                   <p className="text-sm">{t('sophia-lee.designation')}</p>
                 </div>
               </div>
-              <Button variant="ghost" size="icon" asChild>
+              <Button variant="ghost" size="icon" as="span">
                 <Link
                   href={`https://x.com/${t('sophia-lee.profileUrl')}`}
                   target="_blank"
@@ -81,7 +81,7 @@ const HomeTestimonial = () => {
                   <p className="text-sm">{t('john-doe.designation')}</p>
                 </div>
               </div>
-              <Button variant="ghost" size="icon" asChild>
+              <Button variant="ghost" size="icon" as="span">
                 <Link
                   href={`https://x.com/${t('john-doe.profileUrl')}`}
                   target="_blank"
@@ -125,7 +125,7 @@ const HomeTestimonial = () => {
                   <p className="text-sm">{t('emily-davis.designation')}</p>
                 </div>
               </div>
-              <Button variant="ghost" size="icon" asChild>
+              <Button variant="ghost" size="icon" as="span">
                 <Link
                   href={`https://x.com/${t('emily-davis.profileUrl')}`}
                   target="_blank"
@@ -169,7 +169,7 @@ const HomeTestimonial = () => {
                   <p className="text-sm">{t('michael-johnson.designation')}</p>
                 </div>
               </div>
-              <Button variant="ghost" size="icon" asChild>
+              <Button variant="ghost" size="icon" as="span">
                 <Link
                   href={`https://x.com/${t('michael-johnson.profileUrl')}`}
                   target="_blank"
@@ -213,7 +213,7 @@ const HomeTestimonial = () => {
                   <p className="text-sm">{t('daniel-martinez.designation')}</p>
                 </div>
               </div>
-              <Button variant="ghost" size="icon" asChild>
+              <Button variant="ghost" size="icon" as="span">
                 <Link
                   href={`https://x.com/${t('daniel-martinez.profileUrl')}`}
                   target="_blank"
