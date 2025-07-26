@@ -47,8 +47,8 @@ const Navbar = () => {
           </li>
         </ul>
         <div className="flex items-center gap-3">
-          <ThemeToggle variant="ghost" size="icon" />
-          <LanguageSwitcher />
+          <ThemeToggle variant="navbar" />
+          <LanguageSwitcher variant="navbar" />
           <Button className="inline-flex" asChild>
             <Link href="/login">Sign In</Link>
           </Button>

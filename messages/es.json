@@ -1,0 +1,13 @@
+{
+  "components": {
+    "home": {
+      "hero": {
+        "badge": "Beta abierta",
+        "title": "Check-ins diarios, sin complicaciones",
+        "description": "Daylik ayuda a los equipos a ejecutar check-ins diarios estructurados, mantenerse alineados y obtener insights instantáneos — todo en un solo lugar.",
+        "getStarted": "Comenzar",
+        "watchDemo": "Ver demo"
+      }
+    }
+  }
+}

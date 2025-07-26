@@ -36,6 +36,7 @@ import { useSignOut } from '@/hooks/useAuth';
 import NavbarCalendar from './navbar-calendar';
 import { useFeedbackStore } from '@/store/useFeedbackStore';
 import Feedback from './modals/feedback/modal';
+import LanguageSwitcher from '../language-switcher';
 
 const NavigationSheet = () => {
   const pathname = usePathname();
@@ -115,7 +116,10 @@ const NavigationSheet = () => {
           </NavigationMenuList>
         </NavigationMenu>
         <SheetFooter className="gap-3">
-          <ThemeToggle text variant="outline" size="default" />
+          <div className="flex items-center gap-3">
+            <ThemeToggle className="flex-1" variant="sheet" />
+            <LanguageSwitcher className="flex-1" variant="sheet" />
+          </div>
           <Button onClick={() => setIsConfirmOpen(true)}>Logout</Button>
         </SheetFooter>
         <ConfirmDialog

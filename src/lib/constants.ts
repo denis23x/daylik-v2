@@ -3,3 +3,5 @@ export const BUCKET_IMAGES = 'images';
 
 export const COOKIE_CONSENT = 'cookie';
 export const COOKIE_ROLES = 'roles';
+
+export const LOCALES = ['en', 'es', 'de', 'ru'];

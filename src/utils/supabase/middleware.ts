@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr';
 import { type NextRequest, NextResponse } from 'next/server';
+import { LOCALES } from '@/lib/constants';
 
 export const updateSession = async (request: NextRequest, response: NextResponse) => {
   const supabase = createServerClient(
@@ -29,8 +30,45 @@ export const updateSession = async (request: NextRequest, response: NextResponse
     data: { user },
   } = await supabase.auth.getUser();
 
-  // TODO: Add auth check
-  console.log('user', user?.id);
+  const path =
+    request.nextUrl.pathname
+      .split('/')
+      .filter((segment) => !!segment)
+      .filter((segment) => !LOCALES.includes(segment))
+      .shift() || '/';
+
+  const isAuth = ['login', 'signup', 'verify-email', 'reset-password'].some((segment) => {
+    return path.startsWith(segment);
+  });
+
+  const isPrivate = ['analytics', 'settings', 'sync', 'teammates', 'teams'].some((segment) => {
+    return path.startsWith(segment);
+  });
+
+  const isIndex = path === '/';
+
+  // The following section handles redirect logic
+  // for authenticated and unauthenticated users.
+
+  // If a user is not authenticated and tries to access a private route,
+  // they should be redirected to the login page.
+  if (!user && isPrivate) {
+    const url = request.nextUrl.clone();
+
+    url.pathname = `/login`;
+
+    return NextResponse.redirect(url);
+  }
+
+  // If a user is already authenticated and tries to access an authentication route or the index route,
+  // they should be redirected to the teams page.
+  if (user && (isAuth || isIndex)) {
+    const url = request.nextUrl.clone();
+
+    url.pathname = `/teams`;
+
+    return NextResponse.redirect(url);
+  }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is.
   // If you're creating a new response object with NextResponse.next() make sure to:
