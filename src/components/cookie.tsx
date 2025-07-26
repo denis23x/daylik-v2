@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Card, CardContent, CardHeader } from './ui/card';
 import { getCookie, setCookie, deleteAllCookies } from '@/hooks/useCookie';
 import { COOKIE_CONSENT } from '@/lib/constants';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 
 export default function Cookie() {
   const name = useRef(COOKIE_CONSENT);

@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Logo } from '../logo';
 import ThemeToggle from '../theme-toggle';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import {
   Sheet,
   SheetContent,
@@ -22,7 +22,7 @@ import {
   UsersRound,
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { usePathname } from 'next/navigation';
+import { usePathname } from '@/i18n/navigation';
 import {
   NavigationMenuItem,
   NavigationMenuLink,

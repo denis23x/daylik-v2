@@ -2,7 +2,7 @@ import { AnimatedGridPattern } from '@/components/magicui/animated-grid-pattern'
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { CirclePlay, Sparkles } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import HeroVideoDialog from '../magicui/hero-video-dialog';
 import { Badge } from '../ui/badge';
 import { useTranslations } from 'next-intl';

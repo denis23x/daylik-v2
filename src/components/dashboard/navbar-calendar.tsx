@@ -7,8 +7,7 @@ import { Popover } from '@radix-ui/react-popover';
 import { Separator } from '../ui/separator';
 import { isSameDay, format } from 'date-fns';
 import { useTeamsFromAnalytic } from '@/hooks/useAnalyticsTeams';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, usePathname } from '@/i18n/navigation';
 import type { Analytics } from '@/types/analytics.type';
 import { ArrowRight } from 'lucide-react';
 

@@ -1,16 +1,10 @@
 'use client';
 
-import { Languages } from 'lucide-react';
+import { Check, Languages } from 'lucide-react';
 import { Button } from './ui/button';
 import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from '@/i18n/navigation';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { routing } from '@/i18n/routing';
 import { Skeleton } from './ui/skeleton';
 import { useLocale } from 'next-intl';
@@ -37,8 +31,8 @@ const LanguageSwitcher = ({
   }, []);
 
   return mounted ? (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+    <Popover modal={true}>
+      <PopoverTrigger asChild>
         <Button
           variant={isNavbar ? 'ghost' : 'outline'}
           size={isNavbar ? 'icon' : 'default'}
@@ -48,17 +42,24 @@ const LanguageSwitcher = ({
           <Languages />
           {!isNavbar && locale.toUpperCase()}
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="min-w-0">
-        <DropdownMenuRadioGroup value={locale} onValueChange={(locale) => handleChange(locale)}>
-          {routing.locales.map((locale) => (
-            <DropdownMenuRadioItem key={locale} value={locale}>
-              {locale.toUpperCase()}
-            </DropdownMenuRadioItem>
+      </PopoverTrigger>
+      <PopoverContent align="center" className="w-auto min-w-0 p-1">
+        <ul className="flex flex-col gap-1">
+          {routing.locales.map((l) => (
+            <li
+              key={l}
+              className="hover:bg-muted flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm transition-colors"
+              onClick={() => handleChange(l)}
+              aria-selected={locale === l}
+              role="option"
+            >
+              <Check className={`size-4 ${locale === l ? 'visible' : 'invisible'}`} />
+              <span className="uppercase">{l}</span>
+            </li>
           ))}
-        </DropdownMenuRadioGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        </ul>
+      </PopoverContent>
+    </Popover>
   ) : (
     <Skeleton className={`h-9 ${isNavbar ? 'w-9' : 'w-full'}`} />
   );

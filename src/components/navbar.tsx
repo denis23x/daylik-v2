@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Logo } from './logo';
 import ThemeToggle from './theme-toggle';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { useAutoScroll } from '@/hooks/ui/useAutoScroll';
 import LanguageSwitcher from './language-switcher';
 

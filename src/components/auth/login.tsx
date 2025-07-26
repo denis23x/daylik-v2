@@ -11,10 +11,9 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Link from 'next/link';
+import { Link, useRouter } from '@/i18n/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Loader2, LogIn } from 'lucide-react';
 import { useSignIn } from '@/hooks/useAuth';

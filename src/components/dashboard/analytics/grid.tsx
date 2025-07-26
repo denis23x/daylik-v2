@@ -11,7 +11,7 @@ import AnalyticsChartLinear from './chart-linear/chart-linear';
 import AnalyticsTable from './table/table';
 import { useAnalyticsStore } from '@/store/useAnalyticsStore';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { useFeedbackStore } from '@/store/useFeedbackStore';
 import { useMediaQuery } from '@/hooks/ui/useMediaQuery';
 import HighlightsSkeletons from './highlights/highlights-skeletons';

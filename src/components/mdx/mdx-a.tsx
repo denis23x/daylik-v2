@@ -2,7 +2,7 @@
 
 import { ArrowUpRight } from 'lucide-react';
 import { DetailedHTMLProps, HTMLAttributes, RefObject, useRef } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 
 export default function MdxA({
   children,

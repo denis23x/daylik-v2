@@ -1,6 +1,6 @@
 import { Flame } from 'lucide-react';
 import { RainbowButton } from '../magicui/rainbow-button';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 
 const HomeStats = () => {
   return (

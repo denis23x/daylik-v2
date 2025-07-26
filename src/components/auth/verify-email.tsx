@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { Mail } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { CardContent } from '../ui/card';
