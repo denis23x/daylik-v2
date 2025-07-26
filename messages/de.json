@@ -1,4 +1,11 @@
 {
+  "app": {
+    "home": {
+      "title": "Team-Management und Analytics-Plattform",
+      "description": "Effiziente Team-Management-Plattform mit Synchronisation und Leistungsanalyse. Verfolgen Sie den Fortschritt, verwalten Sie Teammitglieder und analysieren Sie Ergebnisse.",
+      "keywords": "Team-Management, Analytics, Synchronisation, Leistung, Produktivität"
+    }
+  },
   "components": {
     "home": {
       "features": {
@@ -52,7 +59,7 @@
           "price": "0",
           "name": "Offene Beta",
           "description": "Vollzugang während der Beta-Phase. Alle Funktionen kostenlos freigeschaltet.",
-          "buttonText": "Sie sind einer der Ersten",
+          "buttonText": "Jetzt teilnehmen",
           "buttonAriaLabel": "Für Beta registrieren",
           "badge": "Aktiv",
           "features": {

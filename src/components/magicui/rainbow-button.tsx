@@ -34,30 +34,26 @@ const rainbowButtonVariants = cva(
   }
 );
 
-type RainbowButtonProps<T extends React.ElementType = 'button'> = {
-  as?: T;
-  className?: string;
-  variant?: VariantProps<typeof rainbowButtonVariants>['variant'];
-  size?: VariantProps<typeof rainbowButtonVariants>['size'];
-  asChild?: boolean;
-} & Omit<React.ComponentPropsWithoutRef<T>, 'as' | 'className' | 'variant' | 'size' | 'asChild'>;
+type RainbowButtonProps = React.ComponentProps<'button'> &
+  VariantProps<typeof rainbowButtonVariants> & {
+    asChild?: boolean;
+    as?: React.ElementType;
+  };
 
-function RainbowButton<T extends React.ElementType = 'button'>({
-  className,
-  variant,
-  size,
-  asChild = false,
-  as,
-  ...props
-}: RainbowButtonProps<T>) {
-  const Comp = asChild ? Slot : as || 'button';
-  return (
-    <Comp
-      data-slot="button"
-      className={cn(rainbowButtonVariants({ variant, size, className }))}
-      {...props}
-    />
-  );
-}
+const RainbowButton = React.forwardRef<HTMLButtonElement, RainbowButtonProps>(
+  ({ className, variant, size, asChild = false, as, ...props }, ref) => {
+    const Comp = asChild ? Slot : as || 'button';
+    return (
+      <Comp
+        data-slot="button"
+        className={cn(rainbowButtonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+
+RainbowButton.displayName = 'RainbowButton';
 
 export { RainbowButton, rainbowButtonVariants, type RainbowButtonProps };

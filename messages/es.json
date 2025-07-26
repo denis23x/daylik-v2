@@ -1,4 +1,11 @@
 {
+  "app": {
+    "home": {
+      "title": "Plataforma de Gestión de Equipos y Analíticas",
+      "description": "Plataforma eficiente de gestión de equipos con sincronización y analíticas de rendimiento. Rastrea el progreso, gestiona compañeros de equipo y analiza resultados.",
+      "keywords": "gestión de equipos, analíticas, sincronización, rendimiento, productividad"
+    }
+  },
   "components": {
     "home": {
       "features": {
@@ -52,7 +59,7 @@
           "price": "0",
           "name": "Beta abierta",
           "description": "Acceso completo durante el período beta. Todas las funciones desbloqueadas gratis.",
-          "buttonText": "Eres uno de los primeros",
+          "buttonText": "Participar ahora",
           "buttonAriaLabel": "Registrarse para beta",
           "badge": "Activo",
           "features": {

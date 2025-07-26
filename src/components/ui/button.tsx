@@ -33,32 +33,28 @@ const buttonVariants = cva(
   }
 );
 
-type ButtonProps<T extends React.ElementType = 'button'> = {
-  as?: T;
-  className?: string;
-  variant?: VariantProps<typeof buttonVariants>['variant'];
-  size?: VariantProps<typeof buttonVariants>['size'];
-  asChild?: boolean;
-} & Omit<React.ComponentPropsWithoutRef<T>, 'as' | 'className' | 'variant' | 'size' | 'asChild'>;
+type ButtonProps = React.ComponentProps<'button'> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean;
+    as?: React.ElementType;
+  };
 
-function Button<T extends React.ElementType = 'button'>({
-  className,
-  variant,
-  size,
-  asChild = false,
-  as,
-  ...props
-}: ButtonProps<T>) {
-  const Comp = asChild ? Slot : as || 'button';
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, as, ...props }, ref) => {
+    const Comp = asChild ? Slot : as || 'button';
 
-  return (
-    <Comp
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    />
-  );
-}
+    return (
+      <Comp
+        data-slot="button"
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+
+Button.displayName = 'Button';
 
 export { Button, buttonVariants };
 export type { ButtonProps };

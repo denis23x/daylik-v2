@@ -1,4 +1,11 @@
 {
+  "app": {
+    "home": {
+      "title": "Team Management and Analytics Platform",
+      "description": "Efficient team management platform with synchronization and performance analytics. Track progress, manage teammates, and analyze results.",
+      "keywords": "team management, analytics, synchronization, performance, productivity"
+    }
+  },
   "components": {
     "home": {
       "features": {
@@ -52,7 +59,7 @@
           "price": "0",
           "name": "Open Beta",
           "description": "Full access during the beta period. All features unlocked for free.",
-          "buttonText": "You're One of the First",
+          "buttonText": "Join now",
           "buttonAriaLabel": "Sign up for beta",
           "badge": "Active",
           "features": {
