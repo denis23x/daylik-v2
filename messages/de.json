@@ -3,6 +3,8 @@
     "home": {
       "features": {
         "title": "Teamerfolgfördern",
+        "illustrationBy": "Illustration von",
+        "illustrationAriaLabel": "Besuchen Sie Pixeltrues Profil auf Icons8 (öffnet sich in neuem Tab)",
         "items": {
           "communication": {
             "image": "pixeltrue-data-analysis.svg",
@@ -26,7 +28,9 @@
         "title": "Tägliche Check-ins, Null Aufwand",
         "description": "Daylik hilft Teams dabei, strukturierte tägliche Standups durchzuführen, im Einklang zu bleiben und sofortige Einblicke zu gewinnen — alles an einem Ort.",
         "getStarted": "Loslegen",
-        "watchDemo": "Demo ansehen"
+        "getStartedAriaLabel": "Mit Daylik beginnen - Kostenlos registrieren",
+        "watchDemo": "Demo ansehen",
+        "watchDemoAriaLabel": "Daylik Demo-Video ansehen"
       },
       "pricing": {
         "title": "Preise",
@@ -35,6 +39,7 @@
           "name": "Kostenlos",
           "description": "Grundzugang für Einzelpersonen und kleine Teams. Begrenzte Funktionen.",
           "buttonText": "Demnächst",
+          "buttonAriaLabel": "Kostenlos registrieren",
           "features": {
             "teams": "1 Team",
             "teammates": "Bis zu 3 Teammitglieder",
@@ -48,6 +53,7 @@
           "name": "Offene Beta",
           "description": "Vollzugang während der Beta-Phase. Alle Funktionen kostenlos freigeschaltet.",
           "buttonText": "Sie sind einer der Ersten",
+          "buttonAriaLabel": "Für Beta registrieren",
           "badge": "Aktiv",
           "features": {
             "teams": "Unbegrenzte Teams",
@@ -63,6 +69,7 @@
           "name": "Pro",
           "description": "Für wachsende Teams, die mehr Leistung und Analytik benötigen.",
           "buttonText": "Demnächst",
+          "buttonAriaLabel": "Für Pro registrieren",
           "features": {
             "teams": "Bis zu 5 Teams",
             "teammates": "Bis zu 50 Teammitglieder",
@@ -76,6 +83,7 @@
         "title": "Warum Daylik?",
         "subtitle": "Nach dem Wechsel zu Daylik..",
         "buttonText": "Starte deine Synchronisation",
+        "buttonAriaLabel": "Starten Sie Ihre Synchronisation mit Daylik - Jetzt registrieren",
         "items": {
           "communication": {
             "percentage": "89%",
@@ -94,32 +102,47 @@
       "testimonials": {
         "title": "Testimonials",
         "sophia-lee": {
+          "avatarAlt": "Profilfoto von Sophia Lee, Engineering Lead",
           "avatar": "sophia-lee.jpeg",
           "name": "Sophia Lee",
+          "profileUrl": "#",
+          "profileAriaLabel": "Profil von Sophia Lee auf X (ehemals Twitter) ansehen",
           "designation": "Engineering Lead",
           "testimonial": "Daylik hat vollständig verändert, wie unser Team tägliche Updates handhabt. Kein Chaos mehr — nur Klarheit."
         },
         "john-doe": {
+          "avatarAlt": "Profilfoto von John Doe, Data Analyst",
           "avatar": "john-doe.jpeg",
           "name": "John Doe",
+          "profileUrl": "#",
+          "profileAriaLabel": "Profil von John Doe auf X (ehemals Twitter) ansehen",
           "designation": "Datenanalyst",
           "testimonial": "Die Analytik gibt mir genau das, was ich brauche — klare Trends und Einblicke ohne Rauschen."
         },
         "emily-davis": {
+          "avatarAlt": "Profilfoto von Emily Davis, Scrum Master",
           "avatar": "emily-davis.jpeg",
           "name": "Emily Davis",
+          "profileUrl": "#",
+          "profileAriaLabel": "Profil von Emily Davis auf X (ehemals Twitter) ansehen",
           "designation": "Scrum Master",
           "testimonial": "Die einfachste Onboarding-Erfahrung, die wir hatten. Unsere täglichen Check-ins sind jetzt automatisiert und transparent."
         },
         "michael-johnson": {
+          "avatarAlt": "Profilfoto von Michael Johnson, Product Manager",
           "avatar": "michael-johnson.jpeg",
           "name": "Michael Johnson",
+          "profileUrl": "#",
+          "profileAriaLabel": "Profil von Michael Johnson auf X (ehemals Twitter) ansehen",
           "designation": "Product Manager",
           "testimonial": "Wir haben einen enormen Anstieg in Verantwortlichkeit und Fokus dank Daylik gesehen."
         },
         "daniel-martinez": {
+          "avatarAlt": "Profilfoto von Daniel Martinez, Software Engineer",
           "avatar": "daniel-martinez.jpeg",
           "name": "Daniel Martinez",
+          "profileUrl": "#",
+          "profileAriaLabel": "Profil von Daniel Martinez auf X (ehemals Twitter) ansehen",
           "designation": "Software Engineer",
           "testimonial": "Das beste Tool, das wir zu unserem Workflow hinzugefügt haben. Leichtgewichtig, mächtig und unglaublich einfach zu verwenden."
         }

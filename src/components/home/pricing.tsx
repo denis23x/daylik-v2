@@ -46,10 +46,7 @@ const HomePricing = () => {
               </li>
             </ul>
             <Button variant="secondary" size="lg" className="mt-6 w-full" asChild>
-              <Link
-                href="/signup"
-                aria-label={`Sign up for ${t('free.name')} plan - ${t('free.buttonText')}`}
-              >
+              <Link href="/signup" aria-label={t('free.buttonAriaLabel')}>
                 {t('free.buttonText')}
               </Link>
             </Button>
@@ -92,10 +89,7 @@ const HomePricing = () => {
               </li>
             </ul>
             <Button variant="default" size="lg" className="mt-6 w-full" asChild>
-              <Link
-                href="/signup"
-                aria-label={`Sign up for ${t('beta.name')} plan - ${t('beta.buttonText')}`}
-              >
+              <Link href="/signup" aria-label={t('beta.buttonAriaLabel')}>
                 <PartyPopper />
                 {t('beta.buttonText')}
               </Link>
@@ -132,10 +126,7 @@ const HomePricing = () => {
               </li>
             </ul>
             <Button variant="secondary" size="lg" className="mt-6 w-full" asChild>
-              <Link
-                href="/signup"
-                aria-label={`Sign up for ${t('pro.name')} plan - ${t('pro.buttonText')}`}
-              >
+              <Link href="/signup" aria-label={t('pro.buttonAriaLabel')}>
                 {t('pro.buttonText')}
               </Link>
             </Button>

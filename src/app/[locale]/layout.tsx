@@ -7,7 +7,6 @@ import { getMessages, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { ThemeProvider } from 'next-themes';
 import Cookie from '@/components/cookie';
-import Sonner from '@/components/sonner';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -75,7 +74,6 @@ export default async function LocaleLayout({
         >
           <NextIntlClientProvider messages={messages}>
             {children}
-            <Sonner />
             <Cookie />
           </NextIntlClientProvider>
         </ThemeProvider>

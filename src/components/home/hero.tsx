@@ -1,6 +1,5 @@
 import { AnimatedGridPattern } from '@/components/magicui/animated-grid-pattern';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 import { CirclePlay, Sparkles } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import HeroVideoDialog from '../magicui/hero-video-dialog';
@@ -20,10 +19,7 @@ const HomeHero = () => {
         maxOpacity={0.1}
         duration={3}
         repeatDelay={1}
-        className={cn(
-          '[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]',
-          'inset-x-0 h-full skew-y-12'
-        )}
+        className="inset-x-0 h-full skew-y-12 [mask-image:radial-gradient(500px_circle_at_center,white,transparent)]"
       />
       <div className="relative z-10 max-w-2xl text-center">
         <Badge className="dark:opacity-100" variant="destructive">
@@ -33,7 +29,7 @@ const HomeHero = () => {
         <p className="mt-6 text-[17px] md:text-lg">{t('description')}</p>
         <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Button className="rounded-full" asChild>
-            <Link href="/signup" aria-label="Get started with Daylik - Sign up for free">
+            <Link href="/signup" aria-label={t('getStartedAriaLabel')}>
               {t('getStarted')} <Sparkles />
             </Link>
           </Button>
@@ -44,7 +40,7 @@ const HomeHero = () => {
             <Button
               variant="outline"
               className="rounded-full shadow-none"
-              aria-label="Watch Daylik demo video"
+              aria-label={t('watchDemoAriaLabel')}
             >
               <CirclePlay /> {t('watchDemo')}
             </Button>

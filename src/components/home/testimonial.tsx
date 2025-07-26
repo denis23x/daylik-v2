@@ -24,7 +24,9 @@ const HomeTestimonial = () => {
                   <AvatarImage
                     className="bg-secondary object-cover"
                     src={`/images/testimonials/${t('sophia-lee.avatar')}`}
-                    alt={`Profile photo of ${t('sophia-lee.name')}, ${t('sophia-lee.designation')}`}
+                    alt={t('sophia-lee.avatarAlt')}
+                    width={96}
+                    height={96}
                   />
                   <AvatarFallback className="bg-primary text-primary-foreground text-xl font-medium">
                     {t('sophia-lee.name').charAt(0)}
@@ -37,9 +39,9 @@ const HomeTestimonial = () => {
               </div>
               <Button variant="ghost" size="icon" asChild>
                 <Link
-                  href="#"
+                  href={`https://x.com/${t('sophia-lee.profileUrl')}`}
                   target="_blank"
-                  aria-label={`View ${t('sophia-lee.name')}'s profile on X (formerly Twitter)`}
+                  aria-label={t('sophia-lee.profileAriaLabel')}
                 >
                   <svg
                     role="img"
@@ -66,7 +68,9 @@ const HomeTestimonial = () => {
                   <AvatarImage
                     className="bg-secondary object-cover"
                     src={`/images/testimonials/${t('john-doe.avatar')}`}
-                    alt={`Profile photo of ${t('john-doe.name')}, ${t('john-doe.designation')}`}
+                    alt={t('john-doe.avatarAlt')}
+                    width={96}
+                    height={96}
                   />
                   <AvatarFallback className="bg-primary text-primary-foreground text-xl font-medium">
                     {t('john-doe.name').charAt(0)}
@@ -79,9 +83,9 @@ const HomeTestimonial = () => {
               </div>
               <Button variant="ghost" size="icon" asChild>
                 <Link
-                  href="#"
+                  href={`https://x.com/${t('john-doe.profileUrl')}`}
                   target="_blank"
-                  aria-label={`View ${t('john-doe.name')}'s profile on X (formerly Twitter)`}
+                  aria-label={t('john-doe.profileAriaLabel')}
                 >
                   <svg
                     role="img"
@@ -108,7 +112,9 @@ const HomeTestimonial = () => {
                   <AvatarImage
                     className="bg-secondary object-cover"
                     src={`/images/testimonials/${t('emily-davis.avatar')}`}
-                    alt={`Profile photo of ${t('emily-davis.name')}, ${t('emily-davis.designation')}`}
+                    alt={t('emily-davis.avatarAlt')}
+                    width={96}
+                    height={96}
                   />
                   <AvatarFallback className="bg-primary text-primary-foreground text-xl font-medium">
                     {t('emily-davis.name').charAt(0)}
@@ -121,9 +127,9 @@ const HomeTestimonial = () => {
               </div>
               <Button variant="ghost" size="icon" asChild>
                 <Link
-                  href="#"
+                  href={`https://x.com/${t('emily-davis.profileUrl')}`}
                   target="_blank"
-                  aria-label={`View ${t('emily-davis.name')}'s profile on X (formerly Twitter)`}
+                  aria-label={t('emily-davis.profileAriaLabel')}
                 >
                   <svg
                     role="img"
@@ -150,7 +156,9 @@ const HomeTestimonial = () => {
                   <AvatarImage
                     className="bg-secondary object-cover"
                     src={`/images/testimonials/${t('michael-johnson.avatar')}`}
-                    alt={`Profile photo of ${t('michael-johnson.name')}, ${t('michael-johnson.designation')}`}
+                    alt={t('michael-johnson.avatarAlt')}
+                    width={96}
+                    height={96}
                   />
                   <AvatarFallback className="bg-primary text-primary-foreground text-xl font-medium">
                     {t('michael-johnson.name').charAt(0)}
@@ -163,9 +171,9 @@ const HomeTestimonial = () => {
               </div>
               <Button variant="ghost" size="icon" asChild>
                 <Link
-                  href="#"
+                  href={`https://x.com/${t('michael-johnson.profileUrl')}`}
                   target="_blank"
-                  aria-label={`View ${t('michael-johnson.name')}'s profile on X (formerly Twitter)`}
+                  aria-label={t('michael-johnson.profileAriaLabel')}
                 >
                   <svg
                     role="img"
@@ -192,7 +200,9 @@ const HomeTestimonial = () => {
                   <AvatarImage
                     className="bg-secondary object-cover"
                     src={`/images/testimonials/${t('daniel-martinez.avatar')}`}
-                    alt={`Profile photo of ${t('daniel-martinez.name')}, ${t('daniel-martinez.designation')}`}
+                    alt={t('daniel-martinez.avatarAlt')}
+                    width={96}
+                    height={96}
                   />
                   <AvatarFallback className="bg-primary text-primary-foreground text-xl font-medium">
                     {t('daniel-martinez.name').charAt(0)}
@@ -205,9 +215,9 @@ const HomeTestimonial = () => {
               </div>
               <Button variant="ghost" size="icon" asChild>
                 <Link
-                  href="#"
+                  href={`https://x.com/${t('daniel-martinez.profileUrl')}`}
                   target="_blank"
-                  aria-label={`View ${t('daniel-martinez.name')}'s profile on X (formerly Twitter)`}
+                  aria-label={t('daniel-martinez.profileAriaLabel')}
                 >
                   <svg
                     role="img"

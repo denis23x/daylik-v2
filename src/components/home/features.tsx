@@ -20,18 +20,18 @@ const HomeFeatures = () => {
               <Image
                 src={`/images/features/${t('items.communication.image')}`}
                 alt={t('items.communication.title')}
-                width={500}
-                height={500}
+                width={256}
+                height={256}
                 className="bg-card aspect-[4/5] w-full rounded-xl border grayscale transition-all duration-200 hover:grayscale-0"
               />
               <div className="text-muted-foreground/25 hover:text-muted-foreground absolute bottom-0 left-1/2 -translate-x-1/2 p-2 text-xs whitespace-nowrap transition-colors">
-                Illustration by{' '}
+                {t('illustrationBy')}{' '}
                 <a
                   href="https://icons8.com/illustrations/author/ARh4OKrFtdfC"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="underline"
-                  aria-label="Visit Pixeltrue's profile on Icons8 (opens in new tab)"
+                  aria-label={t('illustrationAriaLabel')}
                 >
                   Pixeltrue Ouch!
                 </a>
@@ -55,18 +55,18 @@ const HomeFeatures = () => {
               <Image
                 src={`/images/features/${t('items.sync.image')}`}
                 alt={t('items.sync.title')}
-                width={500}
-                height={500}
+                width={256}
+                height={256}
                 className="bg-card aspect-[4/5] w-full rounded-xl border grayscale transition-all duration-200 hover:grayscale-0"
               />
               <div className="text-muted-foreground/25 hover:text-muted-foreground absolute bottom-0 left-1/2 -translate-x-1/2 p-2 text-xs whitespace-nowrap transition-colors">
-                Illustration by{' '}
+                {t('illustrationBy')}{' '}
                 <a
                   href="https://icons8.com/illustrations/author/ARh4OKrFtdfC"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="underline"
-                  aria-label="Visit Pixeltrue's profile on Icons8 (opens in new tab)"
+                  aria-label={t('illustrationAriaLabel')}
                 >
                   Pixeltrue Ouch!
                 </a>
@@ -88,18 +88,18 @@ const HomeFeatures = () => {
               <Image
                 src={`/images/features/${t('items.engagement.image')}`}
                 alt={t('items.engagement.title')}
-                width={500}
-                height={500}
+                width={256}
+                height={256}
                 className="bg-card aspect-[4/5] w-full -scale-x-100 rounded-xl border grayscale transition-all duration-200 hover:grayscale-0"
               />
               <div className="text-muted-foreground/25 hover:text-muted-foreground absolute bottom-0 left-1/2 -translate-x-1/2 p-2 text-xs whitespace-nowrap transition-colors">
-                Illustration by{' '}
+                {t('illustrationBy')}{' '}
                 <a
                   href="https://icons8.com/illustrations/author/ARh4OKrFtdfC"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="underline"
-                  aria-label="Visit Pixeltrue's profile on Icons8 (opens in new tab)"
+                  aria-label={t('illustrationAriaLabel')}
                 >
                   Pixeltrue Ouch!
                 </a>

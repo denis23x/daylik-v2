@@ -37,7 +37,7 @@ const HomeStats = () => {
         </li>
 
         {/* Efficiency */}
-        <li className="flex justify-center sm:col-span-2 lg:col-span-2">
+        <li className="flex justify-center sm:col-span-4 lg:col-span-2">
           <div className="max-w-[20ch] text-center">
             <span className="text-5xl font-semibold">{t('items.efficiency.percentage')}</span>
             <p className="text-muted-foreground mt-4 text-lg">
@@ -47,7 +47,7 @@ const HomeStats = () => {
         </li>
       </ul>
       <RainbowButton className="rounded-full" asChild>
-        <Link href="/signup" aria-label="Start your sync with Daylik - Sign up now">
+        <Link href="/signup" aria-label={t('buttonAriaLabel')}>
           {t('buttonText')}
           <Flame />
         </Link>
