@@ -327,6 +327,25 @@
           }
         }
       },
+      "navbar": {
+        "sheet": {
+          "title": "Navigation",
+          "description": "Access your resources and settings from this sidebar menu.",
+          "links": {
+            "teams": "Teams",
+            "teammates": "Teammates",
+            "settings": "Settings",
+            "feedback": "Feedback"
+          },
+          "buttons": {
+            "logout": "Logout"
+          },
+          "confirm": {
+            "title": "Are you absolutely sure?",
+            "description": "You'll need to sign in again to access your account."
+          }
+        }
+      },
       "sync": {
         "live": {
           "hero": {
@@ -412,7 +431,7 @@
           "insertButton": "Create",
           "updateButton": "Update",
           "loading": "Please wait",
-          "confirmDialog": {
+          "confirm": {
             "title": "Are you absolutely sure?",
             "description": "This action cannot be undone."
           },
@@ -440,7 +459,7 @@
           "messages": {
             "created": "{teamName} is online!",
             "updated": "{teamName} has been patched!",
-            "updatedWithNameChange": "{newName} (ex. {oldName}) has been patched!",
+            "nameChange": "{newName} (ex. {oldName}) has been patched!",
             "error": "An error occurred"
           }
         }
@@ -473,7 +492,7 @@
           "addButton": "Add",
           "updateButton": "Update",
           "loading": "Please wait",
-          "confirmDialog": {
+          "confirm": {
             "title": "Are you absolutely sure?",
             "description": "This action cannot be undone."
           },
@@ -509,7 +528,7 @@
           "messages": {
             "created": "{teammateName} joined the mission!",
             "updated": "{teammateName} has been patched!",
-            "updatedWithNameChange": "{newName} (ex. {oldName}) has been patched!",
+            "nameChange": "{newName} (ex. {oldName}) has been patched!",
             "error": "An error occurred"
           }
         }

@@ -37,8 +37,10 @@ import NavbarCalendar from './navbar-calendar';
 import { useFeedbackStore } from '@/store/useFeedbackStore';
 import Feedback from './modals/feedback/modal';
 import LanguageSwitcher from '../language-switcher';
+import { useTranslations } from 'next-intl';
 
 const NavigationSheet = () => {
+  const t = useTranslations('components.dashboard.navbar.sheet');
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
@@ -73,10 +75,8 @@ const NavigationSheet = () => {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Navigation</SheetTitle>
-          <SheetDescription>
-            Access your resources and settings from this sidebar menu.
-          </SheetDescription>
+          <SheetTitle>{t('title')}</SheetTitle>
+          <SheetDescription>{t('description')}</SheetDescription>
         </SheetHeader>
         <NavigationMenu>
           <NavigationMenuList className="grid gap-4 space-x-0 p-4 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start">
@@ -84,7 +84,7 @@ const NavigationSheet = () => {
               <NavigationMenuLink asChild>
                 <Link className="flex items-center gap-2" href="/teams">
                   <Grid2x2 size={16} />
-                  Teams
+                  {t('links.teams')}
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
@@ -93,7 +93,7 @@ const NavigationSheet = () => {
               <NavigationMenuLink asChild>
                 <Link className="flex items-center gap-2" href="/teammates">
                   <UsersRound size={16} />
-                  Teammates
+                  {t('links.teammates')}
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
@@ -102,7 +102,7 @@ const NavigationSheet = () => {
               <NavigationMenuLink asChild>
                 <Link className="flex items-center gap-2" href="/settings">
                   <Settings size={16} />
-                  Settings
+                  {t('links.settings')}
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
@@ -110,7 +110,7 @@ const NavigationSheet = () => {
             <NavigationMenuItem>
               <div className="flex cursor-pointer items-center gap-2" onClick={openFeedbackModal}>
                 <MessageCircleMore size={16} />
-                Feedback
+                {t('links.feedback')}
               </div>
             </NavigationMenuItem>
           </NavigationMenuList>
@@ -120,11 +120,11 @@ const NavigationSheet = () => {
             <ThemeToggle className="flex-1" variant="sheet" />
             <LanguageSwitcher className="flex-1" variant="sheet" />
           </div>
-          <Button onClick={() => setIsConfirmOpen(true)}>Logout</Button>
+          <Button onClick={() => setIsConfirmOpen(true)}>{t('buttons.logout')}</Button>
         </SheetFooter>
         <ConfirmDialog
-          title="Are you absolutely sure?"
-          description="You’ll need to sign in again to access your account."
+          title={t('confirm.title')}
+          description={t('confirm.description')}
           open={isConfirmOpen}
           onOpenChange={setIsConfirmOpen}
           onConfirmAction={handleLogout}

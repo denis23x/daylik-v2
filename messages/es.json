@@ -327,6 +327,25 @@
           }
         }
       },
+      "navbar": {
+        "sheet": {
+          "title": "Navegación",
+          "description": "Accede a tus recursos y configuración desde este menú lateral.",
+          "links": {
+            "teams": "Equipos",
+            "teammates": "Compañeros de Equipo",
+            "settings": "Configuración",
+            "feedback": "Feedback"
+          },
+          "buttons": {
+            "logout": "Cerrar Sesión"
+          },
+          "confirm": {
+            "title": "¿Estás absolutamente seguro?",
+            "description": "Necesitarás iniciar sesión nuevamente para acceder a tu cuenta."
+          }
+        }
+      },
       "sync": {
         "live": {
           "hero": {
@@ -412,7 +431,7 @@
           "insertButton": "Crear",
           "updateButton": "Actualizar",
           "loading": "Por favor espera",
-          "confirmDialog": {
+          "confirm": {
             "title": "¿Estás absolutamente seguro?",
             "description": "Esta acción no se puede deshacer."
           },
@@ -440,7 +459,7 @@
           "messages": {
             "created": "¡{teamName} está en línea!",
             "updated": "¡{teamName} ha sido actualizado!",
-            "updatedWithNameChange": "¡{newName} (antes {oldName}) ha sido actualizado!",
+            "nameChange": "¡{newName} (antes {oldName}) ha sido actualizado!",
             "error": "Ocurrió un error"
           }
         }
@@ -473,7 +492,7 @@
           "addButton": "Agregar",
           "updateButton": "Actualizar",
           "loading": "Por favor espera",
-          "confirmDialog": {
+          "confirm": {
             "title": "¿Estás absolutamente seguro?",
             "description": "Esta acción no se puede deshacer."
           },
@@ -509,7 +528,7 @@
           "messages": {
             "created": "¡{teammateName} se unió a la misión!",
             "updated": "¡{teammateName} ha sido actualizado!",
-            "updatedWithNameChange": "¡{newName} (antes {oldName}) ha sido actualizado!",
+            "nameChange": "¡{newName} (antes {oldName}) ha sido actualizado!",
             "error": "Ocurrió un error"
           }
         }

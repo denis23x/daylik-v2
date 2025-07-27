@@ -94,8 +94,8 @@ export default function TeamsModal() {
             {isUpdate ? <TeamUpdateForm /> : <TeamInsertForm />}
           </FormProvider>
           <ConfirmDialog
-            title={t('modal.confirmDialog.title')}
-            description={t('modal.confirmDialog.description')}
+            title={t('modal.confirm.title')}
+            description={t('modal.confirm.description')}
             open={isConfirmOpen}
             onOpenChange={setIsConfirmOpen}
             onConfirmAction={form.handleSubmit(handleDelete)}

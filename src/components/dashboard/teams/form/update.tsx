@@ -75,7 +75,7 @@ export default function TeammateUpdateForm() {
 
         // Success message
         if (team.name !== formData.name) {
-          toast.success(t('updatedWithNameChange', { newName: formData.name, oldName: team.name }));
+          toast.success(t('nameChange', { newName: formData.name, oldName: team.name }));
         } else {
           toast.success(t('updated', { teamName: team.name }));
         }

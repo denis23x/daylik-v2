@@ -327,6 +327,25 @@
           }
         }
       },
+      "navbar": {
+        "sheet": {
+          "title": "Навигация",
+          "description": "Получите доступ к ресурсам и настройкам из этого бокового меню.",
+          "links": {
+            "teams": "Команды",
+            "teammates": "Участники команды",
+            "settings": "Настройки",
+            "feedback": "Обратная связь"
+          },
+          "buttons": {
+            "logout": "Выйти"
+          },
+          "confirm": {
+            "title": "Вы абсолютно уверены?",
+            "description": "Вам потребуется войти в систему еще раз, чтобы получить доступ к вашему аккаунту."
+          }
+        }
+      },
       "sync": {
         "live": {
           "hero": {
@@ -412,7 +431,7 @@
           "insertButton": "Создать",
           "updateButton": "Обновить",
           "loading": "Загрузка",
-          "confirmDialog": {
+          "confirm": {
             "title": "Вы абсолютно уверены?",
             "description": "Это действие нельзя отменить."
           },
@@ -440,7 +459,7 @@
           "messages": {
             "created": "Команда {teamName} в сети!",
             "updated": "Команда {teamName} обновлена!",
-            "updatedWithNameChange": "Команда {newName} (ранее {oldName}) обновлена!",
+            "nameChange": "Команда {newName} (ранее {oldName}) обновлена!",
             "error": "Произошла ошибка"
           }
         }
@@ -473,7 +492,7 @@
           "addButton": "Добавить",
           "updateButton": "Обновить",
           "loading": "Загрузка",
-          "confirmDialog": {
+          "confirm": {
             "title": "Вы абсолютно уверены?",
             "description": "Это действие нельзя отменить."
           },
@@ -509,7 +528,7 @@
           "messages": {
             "created": "Участник {teammateName} присоединился к команде!",
             "updated": "Участник {teammateName} обновлен!",
-            "updatedWithNameChange": "Участник {newName} (ранее {oldName}) обновлен!",
+            "nameChange": "Участник {newName} (ранее {oldName}) обновлен!",
             "error": "Произошла ошибка"
           }
         }
