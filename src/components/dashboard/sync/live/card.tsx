@@ -13,8 +13,10 @@ import type { SyncTeammate } from '@/types/syncTeammate.type';
 import { AnimatePresence, motion } from 'motion/react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import AvatarInitials from '@/components/avatar-initials';
+import { useTranslations } from 'next-intl';
 
 const SyncLiveCard = ({ team, teammate }: { team: SyncTeam; teammate: SyncTeammate }) => {
+  const t = useTranslations('components.dashboard.sync.live.card');
   const { setActive, setDone, showRoles, showNames } = useSyncLiveStore();
   const timer = useTimer(team.timer);
   const [progress, setProgress] = useState<number | undefined>(undefined);
@@ -197,16 +199,16 @@ const SyncLiveCard = ({ team, teammate }: { team: SyncTeam; teammate: SyncTeamma
                       className="pb-2 text-[11px] opacity-100 sm:text-xs"
                       variant={stopwatch.overtime >= 1 ? 'destructive' : 'secondary'}
                     >
-                      Overtime
+                      {t('badges.overtime')}
                     </Badge>
                   ) : (
                     <Badge className="pb-2 text-[11px] opacity-100 sm:text-xs" variant="secondary">
                       <span className="first-letter:uppercase">
                         {teammate.sync?.status === 'active'
                           ? timer.status === 'running'
-                            ? 'Active'
-                            : 'Paused'
-                          : 'Done'}
+                            ? t('badges.active')
+                            : t('badges.paused')
+                          : t('badges.done')}
                       </span>
                     </Badge>
                   )}

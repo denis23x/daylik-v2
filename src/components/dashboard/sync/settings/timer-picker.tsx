@@ -16,12 +16,14 @@ import { useSyncSettingsStore } from '@/store/useSyncSettingsStore';
 import { Slider } from '../../../ui/slider';
 import { getMiliseconds } from '@/utils/getMiliseconds';
 import { getSeconds } from '@/utils/getSeconds';
+import { useTranslations } from 'next-intl';
 
 // TODO: env
 const MIN_TIMER = 30;
 const MAX_TIMER = 180;
 
 const TimerPicker = ({ children }: { children: React.ReactNode }) => {
+  const t = useTranslations('components.dashboard.sync.settings.timerPicker');
   const [open, setOpen] = useState(false);
   const { timer: syncTimer, setTimer: setSyncTimer } = useSyncSettingsStore();
   const [timer, setTimer] = useState(0);
@@ -53,7 +55,7 @@ const TimerPicker = ({ children }: { children: React.ReactNode }) => {
             value={timer}
           >
             <NumberInputScrubArea>
-              <Label className="mb-2 cursor-ew-resize">Timer in seconds</Label>
+              <Label className="mb-2 cursor-ew-resize">{t('label')}</Label>
             </NumberInputScrubArea>
             <NumberInputGroup>
               <NumberInputDecrement />
@@ -69,7 +71,7 @@ const TimerPicker = ({ children }: { children: React.ReactNode }) => {
             onValueChange={([value]) => handleChange(value)}
           />
           <Button className="w-full" onClick={() => setOpen(false)}>
-            Close
+            {t('closeButton')}
           </Button>
         </div>
       </PopoverContent>

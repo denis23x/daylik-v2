@@ -326,6 +326,59 @@
             "error": "Ocurrió un error"
           }
         }
+      },
+      "sync": {
+        "live": {
+          "hero": {
+            "title": "Sincronización",
+            "description": "Ejecuta tu sincronización diaria en tiempo real. Elige quién habla después, gestiona el tiempo y el flujo, pausa cuando sea necesario y guía a tu equipo a través de una reunión enfocada y atractiva de principio a fin."
+          },
+          "grid": {
+            "title": "Sincronización",
+            "messages": {
+              "saving": "Guardando..",
+              "success": "¡Números recopilados. Contempla tus analíticas!",
+              "error": "Ocurrió un error"
+            },
+            "noTeammates": "No se encontraron compañeros de equipo",
+            "teamsButton": "Equipos"
+          },
+          "card": {
+            "badges": {
+              "overtime": "Tiempo extra",
+              "active": "Activo",
+              "paused": "Pausado",
+              "done": "Terminado"
+            }
+          },
+          "cardView": {
+            "labels": {
+              "showRoles": "Mostrar roles",
+              "showNames": "Mostrar nombres"
+            }
+          }
+        },
+        "settings": {
+          "hero": {
+            "title": "Configuración",
+            "description": "Configura tu sincronización antes de que comience. Selecciona quién está incluido, establece el temporizador, elimina compañeros de equipo no disponibles y ajusta el flujo para asegurar que tu sincronización funcione sin problemas desde el primer segundo."
+          },
+          "grid": {
+            "title": "Sincronización",
+            "estimatedTime": "~ {time} min.",
+            "tooltip": {
+              "title": "Tiempo estimado de sincronización:",
+              "description": "Temporizador × Participantes + Temporizador para el anfitrión"
+            },
+            "startButton": "Iniciar sincronización de {teamName}",
+            "noTeammates": "No se encontraron compañeros de equipo",
+            "teamsButton": "Equipos"
+          },
+          "timerPicker": {
+            "label": "Temporizador en segundos",
+            "closeButton": "Cerrar"
+          }
+        }
       }
     },
     "home": {

@@ -2,12 +2,15 @@
 
 import { Clock } from 'lucide-react';
 import DashboardHero from '../../hero';
+import { useTranslations } from 'next-intl';
 
 const SyncLiveHero = () => {
+  const t = useTranslations('components.dashboard.sync.live.hero');
+
   return (
     <DashboardHero
-      title="Sync"
-      description="Run your daily sync in real time. Choose who speaks next, manage the timing and flow, pause when needed, and guide your team through a focused, engaging stand-up from start to finish."
+      title={t('title')}
+      description={t('description')}
       icon={<Clock />}
     ></DashboardHero>
   );

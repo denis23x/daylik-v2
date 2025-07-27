@@ -326,6 +326,59 @@
             "error": "An error occurred"
           }
         }
+      },
+      "sync": {
+        "live": {
+          "hero": {
+            "title": "Sync",
+            "description": "Run your daily sync in real time. Choose who speaks next, manage the timing and flow, pause when needed, and guide your team through a focused, engaging stand-up from start to finish."
+          },
+          "grid": {
+            "title": "Sync",
+            "messages": {
+              "saving": "Saving..",
+              "success": "Numbers gathered. Behold your analytics!",
+              "error": "An error occurred"
+            },
+            "noTeammates": "No teammates found",
+            "teamsButton": "Teams"
+          },
+          "card": {
+            "badges": {
+              "overtime": "Overtime",
+              "active": "Active",
+              "paused": "Paused",
+              "done": "Done"
+            }
+          },
+          "cardView": {
+            "labels": {
+              "showRoles": "Show roles",
+              "showNames": "Show names"
+            }
+          }
+        },
+        "settings": {
+          "hero": {
+            "title": "Setup",
+            "description": "Configure your sync before it starts. Select who's in, set the timer, remove unavailable teammates, and fine-tune the flow to make sure your sync runs smoothly from the very first second."
+          },
+          "grid": {
+            "title": "Sync",
+            "estimatedTime": "~ {time} min.",
+            "tooltip": {
+              "title": "Estimated Sync time:",
+              "description": "Timer × Participants + Timer for the host"
+            },
+            "startButton": "Start {teamName} Sync",
+            "noTeammates": "No teammates found",
+            "teamsButton": "Teams"
+          },
+          "timerPicker": {
+            "label": "Timer in seconds",
+            "closeButton": "Close"
+          }
+        }
       }
     },
     "home": {

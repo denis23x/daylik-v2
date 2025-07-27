@@ -9,8 +9,10 @@ import { Label } from '@/components/ui/label';
 import { getCookie, setCookie } from '@/hooks/useCookie';
 import { COOKIE_CONSENT } from '@/lib/constants';
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
+import { useTranslations } from 'next-intl';
 
 const CardView = ({ disabled = false, children }: { disabled?: boolean; children: ReactNode }) => {
+  const t = useTranslations('components.dashboard.sync.live.cardView');
   const keyNames = useRef('sync-cards-show-names');
   const keyRoles = useRef('sync-cards-show-roles');
   const [open, setOpen] = useState(false);
@@ -58,7 +60,7 @@ const CardView = ({ disabled = false, children }: { disabled?: boolean; children
       </PopoverTrigger>
       <PopoverContent
         onOpenAutoFocus={(e) => e.preventDefault()}
-        className="w-44"
+        className="w-48"
         sideOffset={16}
         collisionPadding={16}
       >
@@ -70,7 +72,7 @@ const CardView = ({ disabled = false, children }: { disabled?: boolean; children
               checked={showRoles}
               onCheckedChange={handleRoles}
             />
-            <Label htmlFor="show-roles">Show roles</Label>
+            <Label htmlFor="show-roles">{t('labels.showRoles')}</Label>
           </div>
           <div className="flex items-center space-x-2">
             <Switch
@@ -79,7 +81,7 @@ const CardView = ({ disabled = false, children }: { disabled?: boolean; children
               checked={showNames}
               onCheckedChange={handleNames}
             />
-            <Label htmlFor="show-names">Show names</Label>
+            <Label htmlFor="show-names">{t('labels.showNames')}</Label>
           </div>
         </div>
       </PopoverContent>

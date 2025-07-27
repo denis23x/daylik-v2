@@ -326,6 +326,59 @@
             "error": "Ein Fehler ist aufgetreten"
           }
         }
+      },
+      "sync": {
+        "live": {
+          "hero": {
+            "title": "Synchronisation",
+            "description": "Führen Sie Ihre tägliche Synchronisation in Echtzeit durch. Wählen Sie, wer als nächstes spricht, verwalten Sie Timing und Ablauf, pausieren Sie bei Bedarf und führen Sie Ihr Team durch ein fokussiertes, fesselndes Stand-up von Anfang bis Ende."
+          },
+          "grid": {
+            "title": "Synchronisation",
+            "messages": {
+              "saving": "Speichern..",
+              "success": "Zahlen gesammelt. Betrachten Sie Ihre Analytik!",
+              "error": "Ein Fehler ist aufgetreten"
+            },
+            "noTeammates": "Keine Teammitglieder gefunden",
+            "teamsButton": "Teams"
+          },
+          "card": {
+            "badges": {
+              "overtime": "Überstunden",
+              "active": "Aktiv",
+              "paused": "Pausiert",
+              "done": "Fertig"
+            }
+          },
+          "cardView": {
+            "labels": {
+              "showRoles": "Rollen anzeigen",
+              "showNames": "Namen anzeigen"
+            }
+          }
+        },
+        "settings": {
+          "hero": {
+            "title": "Einrichtung",
+            "description": "Konfigurieren Sie Ihre Synchronisation, bevor sie beginnt. Wählen Sie, wer teilnimmt, stellen Sie den Timer ein, entfernen Sie nicht verfügbare Teammitglieder und optimieren Sie den Ablauf, damit Ihre Synchronisation von der ersten Sekunde an reibungslos läuft."
+          },
+          "grid": {
+            "title": "Synchronisation",
+            "estimatedTime": "~ {time} Min.",
+            "tooltip": {
+              "title": "Geschätzte Synchronisationszeit:",
+              "description": "Timer × Teilnehmer + Timer für den Gastgeber"
+            },
+            "startButton": "{teamName} Synchronisation starten",
+            "noTeammates": "Keine Teammitglieder gefunden",
+            "teamsButton": "Teams"
+          },
+          "timerPicker": {
+            "label": "Timer in Sekunden",
+            "closeButton": "Schließen"
+          }
+        }
       }
     },
     "home": {

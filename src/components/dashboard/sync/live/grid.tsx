@@ -22,12 +22,14 @@ import HoverEffectSkeletons from '@/components/dx/hover-effect/hover-effect-skel
 import HoverEffectError from '@/components/dx/hover-effect/hover-effect-error';
 import HoverEffectNotFound from '@/components/dx/hover-effect/hover-effect-not-found';
 import { motion, spring } from 'motion/react';
+import { useTranslations } from 'next-intl';
 
 // Mobile optimization
 const HoverEffect = lazy(() => import('@/components/dx/hover-effect/hover-effect'));
 const SyncLiveCard = lazy(() => import('./card'));
 
 const SyncLiveGrid = () => {
+  const t = useTranslations('components.dashboard.sync.live.grid');
   const sm = useMediaQuery('(min-width: 640px)');
   const params = useParams();
   const router = useRouter();
@@ -85,11 +87,11 @@ const SyncLiveGrid = () => {
     };
 
     toast.promise(handleFinish(), {
-      loading: 'Saving..',
-      success: 'Numbers gathered. Behold your analytics!',
-      error: (e: unknown) => (e instanceof Error ? e.message : 'An error occurred'),
+      loading: t('messages.saving'),
+      success: t('messages.success'),
+      error: (e: unknown) => (e instanceof Error ? e.message : t('messages.error')),
     });
-  }, [isDone, isStarted, team, teammates, router, createAnalytics, addTeammatesToAnalytic]);
+  }, [isDone, isStarted, team, teammates, router, createAnalytics, addTeammatesToAnalytic, t]);
 
   useEffect(() => {
     if (teammates.length) {
@@ -148,7 +150,7 @@ const SyncLiveGrid = () => {
         <div className="flex min-h-9 items-center gap-4">
           <ClockFading />
           {(isLoading || !isStarted) && !error && <Skeleton className="h-7 w-24" />}
-          {error && <span className="text-xl font-bold">Sync</span>}
+          {error && <span className="text-xl font-bold">{t('title')}</span>}
           {!isLoading && isStarted && !error && (
             <span className="text-xl font-bold">{team?.name}</span>
           )}
@@ -182,10 +184,10 @@ const SyncLiveGrid = () => {
           {(isLoading || !isStarted) && !error && SkeletonCards}
           {error && <HoverEffectError />}
           {!isLoading && isStarted && !error && teammates?.length === 0 && (
-            <HoverEffectNotFound title="No teammates found">
+            <HoverEffectNotFound title={t('noTeammates')}>
               <Button className="group" variant="secondary" asChild>
                 <Link href="/teams">
-                  Teams
+                  {t('teamsButton')}
                   <ArrowRight className="transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>

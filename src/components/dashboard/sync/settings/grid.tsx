@@ -23,6 +23,7 @@ import { useMediaQuery } from '@/hooks/ui/useMediaQuery';
 import HoverEffectSkeletons from '@/components/dx/hover-effect/hover-effect-skeletons';
 import HoverEffectError from '@/components/dx/hover-effect/hover-effect-error';
 import HoverEffectNotFound from '@/components/dx/hover-effect/hover-effect-not-found';
+import { useTranslations } from 'next-intl';
 
 // prettier-ignore
 const HoverEffectWithSorting = lazy(() => import('@/components/dx/hover-effect/hover-effect-with-sorting'));
@@ -41,6 +42,7 @@ function reducer(state: string[], action: { type: 'add' | 'remove'; UUID: string
 }
 
 const SyncSettingsGrid = () => {
+  const t = useTranslations('components.dashboard.sync.settings.grid');
   const sm = useMediaQuery('(min-width: 640px)');
   const params = useParams();
   const router = useRouter();
@@ -144,20 +146,20 @@ const SyncSettingsGrid = () => {
         <div className="flex min-h-9 items-center gap-4">
           <CalendarCog />
           {isLoading && <Skeleton className="h-7 w-24" />}
-          {error && <span className="text-xl font-bold">Sync</span>}
+          {error && <span className="text-xl font-bold">{t('title')}</span>}
           {!isLoading && !error && (
             <p className="flex items-center gap-2">
               <span className="text-xl font-bold">{team?.name}</span>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <span className="text-muted-foreground mt-1 text-sm">
-                    ~ {estimatedSyncTime} min.
+                    {t('estimatedTime', { time: estimatedSyncTime })}
                   </span>
                 </TooltipTrigger>
                 <TooltipContent collisionPadding={16} side="right">
                   <div className="flex flex-col gap-1">
-                    <p>Estimated Sync time:</p>
-                    <p>Timer × Participants + Timer for the host</p>
+                    <p>{t('tooltip.title')}</p>
+                    <p>{t('tooltip.description')}</p>
                   </div>
                 </TooltipContent>
               </Tooltip>
@@ -175,7 +177,7 @@ const SyncSettingsGrid = () => {
               disabled={teammatesAbsent.length === teammates?.length}
               onClick={handleStart}
             >
-              Start {team?.name} Sync
+              {t('startButton', { teamName: team?.name as string })}
             </RainbowButton>
           </div>
         )}
@@ -183,10 +185,10 @@ const SyncSettingsGrid = () => {
           {isLoading && SkeletonCards}
           {error && <HoverEffectError />}
           {!isLoading && !error && teammates?.length === 0 && (
-            <HoverEffectNotFound title="No teammates found">
+            <HoverEffectNotFound title={t('noTeammates')}>
               <Button className="group" variant="secondary" asChild>
                 <Link href="/teams">
-                  Teams
+                  {t('teamsButton')}
                   <ArrowRight className="transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
