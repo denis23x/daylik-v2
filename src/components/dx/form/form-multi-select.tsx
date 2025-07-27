@@ -14,6 +14,7 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/comp
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { ControllerRenderProps, useFormContext } from 'react-hook-form';
+import { useTranslations } from 'next-intl';
 
 export type MultiSelectItem = {
   key: string;
@@ -25,9 +26,9 @@ export type MultiSelectItem = {
 const FormMultiSelect = ({
   name,
   label,
-  placeholder = 'Select items',
-  searchPlaceholder = 'Search',
-  emptyMessage = 'No item found',
+  placeholder,
+  searchPlaceholder,
+  emptyMessage,
   items = [],
 }: {
   name: string;
@@ -38,6 +39,12 @@ const FormMultiSelect = ({
   items: MultiSelectItem[];
 }) => {
   const form = useFormContext();
+  const t = useTranslations('components.dx.form.multiSelect');
+
+  // Use translations as defaults when props are not provided
+  const defaultPlaceholder = placeholder || t('defaultPlaceholder');
+  const defaultSearchPlaceholder = searchPlaceholder || t('defaultSearchPlaceholder');
+  const defaultEmptyMessage = emptyMessage || t('defaultEmptyMessage');
 
   const handleSelect = (field: ControllerRenderProps, item: MultiSelectItem) => {
     const id = item.value.toString();
@@ -77,7 +84,7 @@ const FormMultiSelect = ({
                       field.value.length === 0 && 'text-muted-foreground'
                     )}
                     role="combobox"
-                    placeholder={placeholder}
+                    placeholder={defaultPlaceholder}
                     disabled={formState.isSubmitting}
                     value={
                       field.value.length > 0
@@ -90,7 +97,7 @@ const FormMultiSelect = ({
                             })
                             .filter(Boolean)
                             .join(', ')
-                        : placeholder
+                        : defaultPlaceholder
                     }
                     readOnly
                   />
@@ -105,11 +112,11 @@ const FormMultiSelect = ({
             >
               <Command className="w-full">
                 <CommandInput
-                  placeholder={searchPlaceholder}
+                  placeholder={defaultSearchPlaceholder}
                   className="h-9 text-base md:text-sm"
                 />
                 <CommandList>
-                  <CommandEmpty>{emptyMessage}</CommandEmpty>
+                  <CommandEmpty>{defaultEmptyMessage}</CommandEmpty>
                   <CommandGroup>
                     {items.map((item: MultiSelectItem) => (
                       <CommandItem

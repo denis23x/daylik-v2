@@ -24,6 +24,7 @@ import {
 import { useState } from 'react';
 import { Button } from './ui/button';
 import { Separator } from './ui/separator';
+import { useTranslations } from 'next-intl';
 
 interface ResponsiveDialogProps {
   title: string;
@@ -48,6 +49,7 @@ const ResponsiveDialog = ({
   open: controlledOpen,
   onOpenChange: controlledOnOpenChange,
 }: ResponsiveDialogProps) => {
+  const t = useTranslations('components.responsiveDialog');
   const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
   const sm = useMediaQuery('(min-width: 640px)');
 
@@ -75,7 +77,7 @@ const ResponsiveDialog = ({
             <div className="flex gap-4">
               <DialogClose asChild>
                 <Button variant="outline" disabled={disabled}>
-                  Close
+                  {t('buttons.close')}
                 </Button>
               </DialogClose>
               {right}
@@ -102,7 +104,7 @@ const ResponsiveDialog = ({
           {right}
           <DrawerClose asChild>
             <Button variant="outline" disabled={disabled}>
-              Close
+              {t('buttons.close')}
             </Button>
           </DrawerClose>
           {left}

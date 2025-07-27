@@ -7,7 +7,7 @@ import { usePathname, useRouter } from '@/i18n/navigation';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { routing } from '@/i18n/routing';
 import { Skeleton } from './ui/skeleton';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 const LanguageSwitcher = ({
   variant,
@@ -16,6 +16,7 @@ const LanguageSwitcher = ({
   variant: 'navbar' | 'sheet';
   className?: string;
 }) => {
+  const t = useTranslations('components.languageSwitcher');
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -36,7 +37,7 @@ const LanguageSwitcher = ({
         <Button
           variant={isNavbar ? 'ghost' : 'outline'}
           size={isNavbar ? 'icon' : 'default'}
-          aria-label="Change language"
+          aria-label={t('ariaLabel')}
           className={className}
         >
           <Languages />

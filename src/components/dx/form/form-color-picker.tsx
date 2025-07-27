@@ -8,6 +8,7 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/comp
 import { useFormContext } from 'react-hook-form';
 import { Pipette } from 'lucide-react';
 import type { Attributes } from 'react';
+import { useTranslations } from 'next-intl';
 
 const FormColorPicker = ({
   name,
@@ -20,6 +21,7 @@ const FormColorPicker = ({
 }) => {
   const form = useFormContext();
   const [open, setOpen] = useState(false);
+  const t = useTranslations('components.dx.form.colorPicker');
 
   return (
     <Popover open={open && !disabled} onOpenChange={setOpen}>
@@ -44,16 +46,21 @@ const FormColorPicker = ({
             name={name}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Choose a color</FormLabel>
+                <FormLabel>{t('chooseColor')}</FormLabel>
                 <div className="relative flex items-center gap-4">
-                  <Button variant="outline" size="icon">
+                  <Button variant="outline" size="icon" aria-label={t('chooseColor')}>
                     <Pipette />
                   </Button>
                   <FormControl>
                     <Input type="color" {...field} className="absolute h-9 w-9 opacity-0" />
                   </FormControl>
                   <FormControl>
-                    <Input type="text" {...field} placeholder="#000000" className="flex-1" />
+                    <Input
+                      type="text"
+                      {...field}
+                      placeholder={t('placeholder')}
+                      className="flex-1"
+                    />
                   </FormControl>
                 </div>
                 <FormMessage />
@@ -61,7 +68,7 @@ const FormColorPicker = ({
             )}
           />
           <Button className="w-full" onClick={() => setOpen(false)}>
-            Close
+            {t('close')}
           </Button>
         </div>
       </PopoverContent>

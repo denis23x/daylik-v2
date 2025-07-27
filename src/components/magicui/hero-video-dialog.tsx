@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import { XIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 type AnimationStyle =
   | 'from-bottom'
@@ -74,6 +75,7 @@ export default function HeroVideoDialog({
 }: HeroVideoProps) {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const t = useTranslations('components.magicui.heroVideoDialog');
 
   const selectedAnimation = animationVariants[animationStyle];
 
@@ -100,6 +102,7 @@ export default function HeroVideoDialog({
             <motion.button
               onClick={() => setIsVideoOpen(false)}
               className="absolute -top-16 right-0 cursor-pointer rounded-full bg-neutral-900/50 p-2 text-xl text-white ring-2 backdrop-blur-md dark:bg-neutral-100/50 dark:text-black"
+              aria-label={t('closeButton')}
             >
               <XIcon className="size-5" />
             </motion.button>

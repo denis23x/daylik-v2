@@ -6,6 +6,7 @@ import { Button } from './ui/button';
 import { useEffect, useState } from 'react';
 import { Skeleton } from './ui/skeleton';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
+import { useTranslations } from 'next-intl';
 
 const ThemeToggle = ({
   variant,
@@ -14,6 +15,7 @@ const ThemeToggle = ({
   variant: 'navbar' | 'sheet';
   className?: string;
 }) => {
+  const t = useTranslations('components.themeToggle');
   const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
   const { theme, setTheme } = useTheme();
@@ -24,9 +26,21 @@ const ThemeToggle = ({
   }, []);
 
   const themeOptions = [
-    { value: 'light', label: 'Light', icon: <SunIcon className="size-4" /> },
-    { value: 'dark', label: 'Dark', icon: <MoonIcon className="size-4" /> },
-    { value: 'system', label: 'System', icon: <Monitor className="size-4" /> },
+    {
+      value: 'light',
+      label: t('options.light'),
+      icon: <SunIcon className="size-4" />,
+    },
+    {
+      value: 'dark',
+      label: t('options.dark'),
+      icon: <MoonIcon className="size-4" />,
+    },
+    {
+      value: 'system',
+      label: t('options.system'),
+      icon: <Monitor className="size-4" />,
+    },
   ];
 
   const handleSelect = (value: string) => {
@@ -36,17 +50,24 @@ const ThemeToggle = ({
     setOpen(false);
   };
 
+  const getThemeLabel = () => {
+    const option = themeOptions.find((option) => option.value === theme);
+
+    // If the theme is not in the options, return the theme
+    return option ? option.label : theme;
+  };
+
   return mounted ? (
     <Popover modal={true} open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant={isNavbar ? 'ghost' : 'outline'}
           size={isNavbar ? 'icon' : 'default'}
-          aria-label="Change theme"
+          aria-label={t('ariaLabel')}
           className={className}
         >
           {theme === 'system' ? <Monitor /> : theme === 'dark' ? <MoonIcon /> : <SunIcon />}
-          {!isNavbar && <span className="first-letter:uppercase">{theme}</span>}
+          {!isNavbar && <span className="first-letter:uppercase">{getThemeLabel()}</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent align="center" className="w-auto min-w-0 p-1">
@@ -60,7 +81,7 @@ const ThemeToggle = ({
               role="option"
             >
               <Check className={`size-4 ${theme === option.value ? 'visible' : 'invisible'}`} />
-              <span className="first-letter:uppercase">{option.value}</span>
+              <span className="first-letter:uppercase">{option.label}</span>
             </li>
           ))}
         </ul>

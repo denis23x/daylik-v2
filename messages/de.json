@@ -681,6 +681,105 @@
           "testimonial": "Das beste Tool, das wir zu unserem Workflow hinzugefügt haben. Leichtgewichtig, mächtig und unglaublich einfach zu verwenden."
         }
       }
+    },
+    "dx": {
+      "form": {
+        "fileUploader": {
+          "uploadFile": "Datei hochladen",
+          "uploading": "Wird hochgeladen",
+          "close": "Schließen",
+          "messages": {
+            "noFileSelected": "Keine Datei ausgewählt",
+            "onlyImagesAllowed": "Nur Bilddateien sind erlaubt",
+            "fileTooLarge": "Datei ist zu groß (max {maxSize} MB)",
+            "uploadInProgress": "Upload bereits im Gange",
+            "uploadFailed": "Fehler beim Hochladen der Datei"
+          }
+        },
+        "multiSelect": {
+          "defaultPlaceholder": "Elemente auswählen",
+          "defaultSearchPlaceholder": "Suchen",
+          "defaultEmptyMessage": "Kein Element gefunden"
+        },
+        "colorPicker": {
+          "chooseColor": "Farbe wählen",
+          "placeholder": "#000000",
+          "close": "Schließen"
+        }
+      },
+      "hoverEffect": {
+        "error": {
+          "title": "Ein Fehler ist aufgetreten",
+          "report": "Melden"
+        }
+      }
+    },
+    "magicui": {
+      "heroVideoDialog": {
+        "closeButton": "Video schließen"
+      }
+    },
+    "ui": {
+      "command": {
+        "defaultTitle": "Befehlspalette",
+        "defaultDescription": "Suchen Sie nach einem Befehl zum Ausführen..."
+      },
+      "combobox": {
+        "removeAccessibilityLabel": "Entfernen"
+      },
+      "sheet": {
+        "closeAccessibilityLabel": "Schließen"
+      },
+      "dialog": {
+        "closeAccessibilityLabel": "Schließen"
+      }
+    },
+    "confirmDialog": {
+      "defaultCancelText": "Abbrechen",
+      "defaultConfirmText": "Bestätigen"
+    },
+    "cookie": {
+      "title": "Wir verwenden Cookies",
+      "description": {
+        "main": "Wir verwenden Cookies, um Ihnen die beste Erfahrung auf unserer Website zu bieten. Weitere Informationen zur Verwendung von Cookies finden Sie in unserer",
+        "agreement": "Durch Klicken auf Akzeptieren stimmen Sie der Verwendung von Cookies zu."
+      },
+      "links": {
+        "cookiePolicy": {
+          "text": "Cookie-Richtlinie",
+          "ariaLabel": "Erfahren Sie mehr über unsere Cookie-Richtlinie"
+        }
+      },
+      "buttons": {
+        "decline": "Ablehnen",
+        "accept": "Akzeptieren"
+      }
+    },
+    "languageSwitcher": {
+      "ariaLabel": "Sprache ändern"
+    },
+    "navbar": {
+      "links": {
+        "testimonials": "Testimonials",
+        "whyDaylik": "Warum Daylik?",
+        "pricing": "Preise"
+      },
+      "buttons": {
+        "signIn": "Anmelden"
+      }
+    },
+    "responsiveDialog": {
+      "buttons": {
+        "close": "Schließen"
+      }
+    },
+    "themeToggle": {
+      "ariaLabel": "Design ändern",
+      "options": {
+        "light": "Hell",
+        "dark": "Dunkel",
+        "system": "System"
+      }
     }
   }
 }

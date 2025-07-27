@@ -6,8 +6,10 @@ import ThemeToggle from './theme-toggle';
 import { Link } from '@/i18n/navigation';
 import { useAutoScroll } from '@/hooks/ui/useAutoScroll';
 import LanguageSwitcher from './language-switcher';
+import { useTranslations } from 'next-intl';
 
 const Navbar = () => {
+  const t = useTranslations('components.navbar');
   const { scrollTo } = useAutoScroll();
 
   const handleClick = (id: string) => {
@@ -26,7 +28,7 @@ const Navbar = () => {
               className="text-muted-foreground hover:text-foreground cursor-pointer text-sm"
               onClick={() => handleClick('testimonials')}
             >
-              Testimonials
+              {t('links.testimonials')}
             </span>
           </li>
           <li className="flex">
@@ -34,7 +36,7 @@ const Navbar = () => {
               className="text-muted-foreground hover:text-foreground cursor-pointer text-sm"
               onClick={() => handleClick('why')}
             >
-              Why Daylik?
+              {t('links.whyDaylik')}
             </span>
           </li>
           <li className="flex">
@@ -42,7 +44,7 @@ const Navbar = () => {
               className="text-muted-foreground hover:text-foreground cursor-pointer text-sm"
               onClick={() => handleClick('pricing')}
             >
-              Pricing
+              {t('links.pricing')}
             </span>
           </li>
         </ul>
@@ -50,7 +52,7 @@ const Navbar = () => {
           <ThemeToggle variant="navbar" />
           <LanguageSwitcher variant="navbar" />
           <Button className="inline-flex" asChild>
-            <Link href="/login">Sign In</Link>
+            <Link href="/login">{t('buttons.signIn')}</Link>
           </Button>
         </div>
       </div>

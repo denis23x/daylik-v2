@@ -681,6 +681,105 @@
           "testimonial": "Лучший инструмент, который мы добавили в наш рабочий процесс."
         }
       }
+    },
+    "dx": {
+      "form": {
+        "fileUploader": {
+          "uploadFile": "Загрузить файл",
+          "uploading": "Загружается",
+          "close": "Закрыть",
+          "messages": {
+            "noFileSelected": "Файл не выбран",
+            "onlyImagesAllowed": "Разрешены только файлы изображений",
+            "fileTooLarge": "Файл слишком большой (макс {maxSize} МБ)",
+            "uploadInProgress": "Загрузка уже выполняется",
+            "uploadFailed": "Ошибка загрузки файла"
+          }
+        },
+        "multiSelect": {
+          "defaultPlaceholder": "Выбрать элементы",
+          "defaultSearchPlaceholder": "Поиск",
+          "defaultEmptyMessage": "Ничего не найдено"
+        },
+        "colorPicker": {
+          "chooseColor": "Выберите цвет",
+          "placeholder": "#000000",
+          "close": "Закрыть"
+        }
+      },
+      "hoverEffect": {
+        "error": {
+          "title": "Произошла ошибка",
+          "report": "Сообщить"
+        }
+      }
+    },
+    "magicui": {
+      "heroVideoDialog": {
+        "closeButton": "Закрыть видео"
+      }
+    },
+    "ui": {
+      "command": {
+        "defaultTitle": "Командная панель",
+        "defaultDescription": "Поиск команды для выполнения..."
+      },
+      "combobox": {
+        "removeAccessibilityLabel": "Удалить"
+      },
+      "sheet": {
+        "closeAccessibilityLabel": "Закрыть"
+      },
+      "dialog": {
+        "closeAccessibilityLabel": "Закрыть"
+      }
+    },
+    "confirmDialog": {
+      "defaultCancelText": "Отмена",
+      "defaultConfirmText": "Подтвердить"
+    },
+    "cookie": {
+      "title": "Мы используем файлы cookie",
+      "description": {
+        "main": "Мы используем файлы cookie, чтобы обеспечить вам лучший опыт на нашем веб-сайте. Для получения дополнительной информации о том, как мы используем файлы cookie, см. нашу",
+        "agreement": "Нажимая «Принять», вы соглашаетесь на использование нами файлов cookie."
+      },
+      "links": {
+        "cookiePolicy": {
+          "text": "политику использования файлов cookie",
+          "ariaLabel": "Узнайте больше о нашей политике использования файлов cookie"
+        }
+      },
+      "buttons": {
+        "decline": "Отклонить",
+        "accept": "Принять"
+      }
+    },
+    "languageSwitcher": {
+      "ariaLabel": "Изменить язык"
+    },
+    "navbar": {
+      "links": {
+        "testimonials": "Отзывы",
+        "whyDaylik": "Почему Daylik?",
+        "pricing": "Цены"
+      },
+      "buttons": {
+        "signIn": "Войти"
+      }
+    },
+    "responsiveDialog": {
+      "buttons": {
+        "close": "Закрыть"
+      }
+    },
+    "themeToggle": {
+      "ariaLabel": "Изменить тему",
+      "options": {
+        "light": "Светлая",
+        "dark": "Тёмная",
+        "system": "Системная"
+      }
     }
   }
 }

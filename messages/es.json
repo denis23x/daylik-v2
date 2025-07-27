@@ -681,6 +681,105 @@
           "testimonial": "La mejor herramienta que hemos añadido a nuestro flujo de trabajo."
         }
       }
+    },
+    "dx": {
+      "form": {
+        "fileUploader": {
+          "uploadFile": "Subir archivo",
+          "uploading": "Subiendo",
+          "close": "Cerrar",
+          "messages": {
+            "noFileSelected": "Ningún archivo seleccionado",
+            "onlyImagesAllowed": "Solo se permiten archivos de imagen",
+            "fileTooLarge": "El archivo es demasiado grande (máx {maxSize} MB)",
+            "uploadInProgress": "Subida ya en progreso",
+            "uploadFailed": "Error al subir el archivo"
+          }
+        },
+        "multiSelect": {
+          "defaultPlaceholder": "Seleccionar elementos",
+          "defaultSearchPlaceholder": "Buscar",
+          "defaultEmptyMessage": "No se encontró ningún elemento"
+        },
+        "colorPicker": {
+          "chooseColor": "Elegir un color",
+          "placeholder": "#000000",
+          "close": "Cerrar"
+        }
+      },
+      "hoverEffect": {
+        "error": {
+          "title": "Ocurrió un error",
+          "report": "Reportar"
+        }
+      }
+    },
+    "magicui": {
+      "heroVideoDialog": {
+        "closeButton": "Cerrar video"
+      }
+    },
+    "ui": {
+      "command": {
+        "defaultTitle": "Paleta de Comandos",
+        "defaultDescription": "Buscar un comando para ejecutar..."
+      },
+      "combobox": {
+        "removeAccessibilityLabel": "Quitar"
+      },
+      "sheet": {
+        "closeAccessibilityLabel": "Cerrar"
+      },
+      "dialog": {
+        "closeAccessibilityLabel": "Cerrar"
+      }
+    },
+    "confirmDialog": {
+      "defaultCancelText": "Cancelar",
+      "defaultConfirmText": "Confirmar"
+    },
+    "cookie": {
+      "title": "Usamos cookies",
+      "description": {
+        "main": "Utilizamos cookies para garantizar que obtenga la mejor experiencia en nuestro sitio web. Para obtener más información sobre cómo usamos las cookies, consulte nuestra",
+        "agreement": "Al hacer clic en Aceptar, acepta nuestro uso de cookies."
+      },
+      "links": {
+        "cookiePolicy": {
+          "text": "política de cookies",
+          "ariaLabel": "Obtenga más información sobre nuestra política de cookies"
+        }
+      },
+      "buttons": {
+        "decline": "Rechazar",
+        "accept": "Aceptar"
+      }
+    },
+    "languageSwitcher": {
+      "ariaLabel": "Cambiar idioma"
+    },
+    "navbar": {
+      "links": {
+        "testimonials": "Testimonios",
+        "whyDaylik": "¿Por qué Daylik?",
+        "pricing": "Precios"
+      },
+      "buttons": {
+        "signIn": "Iniciar Sesión"
+      }
+    },
+    "responsiveDialog": {
+      "buttons": {
+        "close": "Cerrar"
+      }
+    },
+    "themeToggle": {
+      "ariaLabel": "Cambiar tema",
+      "options": {
+        "light": "Claro",
+        "dark": "Oscuro",
+        "system": "Sistema"
+      }
     }
   }
 }

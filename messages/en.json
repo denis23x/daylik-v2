@@ -681,6 +681,105 @@
           "testimonial": "The best tool we've added to our workflow. Lightweight, powerful, and incredibly easy to use."
         }
       }
+    },
+    "dx": {
+      "form": {
+        "fileUploader": {
+          "uploadFile": "Upload file",
+          "uploading": "Uploading",
+          "close": "Close",
+          "messages": {
+            "noFileSelected": "No file selected",
+            "onlyImagesAllowed": "Only image files are allowed",
+            "fileTooLarge": "File is too large (max {maxSize} MB)",
+            "uploadInProgress": "Upload already in progress",
+            "uploadFailed": "Failed to upload file"
+          }
+        },
+        "multiSelect": {
+          "defaultPlaceholder": "Select items",
+          "defaultSearchPlaceholder": "Search",
+          "defaultEmptyMessage": "No item found"
+        },
+        "colorPicker": {
+          "chooseColor": "Choose a color",
+          "placeholder": "#000000",
+          "close": "Close"
+        }
+      },
+      "hoverEffect": {
+        "error": {
+          "title": "An error occurred",
+          "report": "Report"
+        }
+      }
+    },
+    "magicui": {
+      "heroVideoDialog": {
+        "closeButton": "Close video"
+      }
+    },
+    "ui": {
+      "command": {
+        "defaultTitle": "Command Palette",
+        "defaultDescription": "Search for a command to run..."
+      },
+      "combobox": {
+        "removeAccessibilityLabel": "Remove"
+      },
+      "sheet": {
+        "closeAccessibilityLabel": "Close"
+      },
+      "dialog": {
+        "closeAccessibilityLabel": "Close"
+      }
+    },
+    "confirmDialog": {
+      "defaultCancelText": "Cancel",
+      "defaultConfirmText": "Confirm"
+    },
+    "cookie": {
+      "title": "We use cookies",
+      "description": {
+        "main": "We use cookies to ensure you get the best experience on our website. For more information on how we use cookies, please see our",
+        "agreement": "By clicking Accept, you agree to our use of cookies."
+      },
+      "links": {
+        "cookiePolicy": {
+          "text": "cookie policy",
+          "ariaLabel": "Learn more about our cookie policy"
+        }
+      },
+      "buttons": {
+        "decline": "Decline",
+        "accept": "Accept"
+      }
+    },
+    "languageSwitcher": {
+      "ariaLabel": "Change language"
+    },
+    "navbar": {
+      "links": {
+        "testimonials": "Testimonials",
+        "whyDaylik": "Why Daylik?",
+        "pricing": "Pricing"
+      },
+      "buttons": {
+        "signIn": "Sign In"
+      }
+    },
+    "responsiveDialog": {
+      "buttons": {
+        "close": "Close"
+      }
+    },
+    "themeToggle": {
+      "ariaLabel": "Change theme",
+      "options": {
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System"
+      }
     }
   }
 }

@@ -14,6 +14,7 @@ import {
   InputBaseFlexWrapper,
   InputBaseInput,
 } from '@/components/ui/input-base';
+import { useTranslations } from 'next-intl';
 
 export const Combobox = ComboboxPrimitive.Root;
 
@@ -67,6 +68,8 @@ function ComboboxTag({
   className,
   ...props
 }: React.ComponentProps<typeof ComboboxPrimitive.TagGroupItem>) {
+  const t = useTranslations('components.ui.combobox');
+
   return (
     <ComboboxPrimitive.TagGroupItem
       data-slot="combobox-tag"
@@ -80,7 +83,7 @@ function ComboboxTag({
       <Slottable>{children}</Slottable>
       <ComboboxPrimitive.TagGroupItemRemove className="group-data-disabled:pointer-events-none">
         <XIcon className="size-4" />
-        <span className="sr-only">Remove</span>
+        <span className="sr-only">{t('removeAccessibilityLabel')}</span>
       </ComboboxPrimitive.TagGroupItemRemove>
     </ComboboxPrimitive.TagGroupItem>
   );

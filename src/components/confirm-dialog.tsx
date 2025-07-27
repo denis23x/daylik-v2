@@ -12,6 +12,7 @@ import {
   AlertDialogAction,
 } from '@/components/ui/alert-dialog';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 interface ConfirmDialogProps {
   title: string;
@@ -28,13 +29,18 @@ export const ConfirmDialog = ({
   title,
   description,
   trigger,
-  confirmText = 'Confirm',
-  cancelText = 'Cancel',
+  confirmText,
+  cancelText,
   onConfirmAction,
   open: controlledOpen,
   onOpenChange: controlledOnOpenChange,
 }: ConfirmDialogProps) => {
+  const t = useTranslations('components.confirmDialog');
   const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
+
+  // Use translations as defaults when props are not provided
+  const defaultConfirmText = confirmText || t('defaultConfirmText');
+  const defaultCancelText = cancelText || t('defaultCancelText');
 
   const isControlled = controlledOpen !== undefined && controlledOnOpenChange !== undefined;
   const open = isControlled ? controlledOpen : uncontrolledOpen;
@@ -54,8 +60,8 @@ export const ConfirmDialog = ({
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>{cancelText}</AlertDialogCancel>
-          <AlertDialogAction onClick={handleConfirm}>{confirmText}</AlertDialogAction>
+          <AlertDialogCancel>{defaultCancelText}</AlertDialogCancel>
+          <AlertDialogAction onClick={handleConfirm}>{defaultConfirmText}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
