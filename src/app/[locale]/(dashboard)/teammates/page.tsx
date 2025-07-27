@@ -1,33 +1,33 @@
 import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
+import { PageProps } from '@/types/utils/pageProps.type';
 import TeammatesHero from '@/components/dashboard/teammates/hero';
 import TeammatesGrid from '@/components/dashboard/teammates/grid';
 import TeammatesModal from '@/components/dashboard/teammates/modal-dynamic';
 
-const pagedata = {
-  title: 'Teammates',
-  description:
-    'Manage your teammates. Add new teammates, edit information and track their activity.',
-  keywords: 'teammates, team members, team management, employees',
-};
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'app.dashboard.teammates' });
 
-export const metadata: Metadata = {
-  title: pagedata.title,
-  description: pagedata.description,
-  keywords: pagedata.keywords,
-  openGraph: {
-    title: pagedata.title,
-    description: pagedata.description,
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: pagedata.title,
-    description: pagedata.description,
-  },
-  robots: {
-    index: false,
-    follow: true,
-  },
-};
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    openGraph: {
+      title: t('title'),
+      description: t('description'),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('title'),
+      description: t('description'),
+    },
+    robots: {
+      index: false,
+      follow: false,
+    },
+  };
+}
 
 export default async function Teammates() {
   return (

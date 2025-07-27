@@ -1,32 +1,32 @@
 import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
+import { PageProps } from '@/types/utils/pageProps.type';
 import SyncSettingsHero from '@/components/dashboard/sync/settings/hero';
 import SyncSettingsGrid from '@/components/dashboard/sync/settings/grid';
 
-const pagedata = {
-  title: 'Sync Settings',
-  description:
-    'Configure team data synchronization parameters. Configure who will participate in the daily sync and set their order.',
-  keywords: 'sync settings, synchronization, parameters, updates, configuration',
-};
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'app.dashboard.syncSettings' });
 
-export const metadata: Metadata = {
-  title: pagedata.title,
-  description: pagedata.description,
-  keywords: pagedata.keywords,
-  openGraph: {
-    title: pagedata.title,
-    description: pagedata.description,
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: pagedata.title,
-    description: pagedata.description,
-  },
-  robots: {
-    index: false,
-    follow: true,
-  },
-};
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    openGraph: {
+      title: t('title'),
+      description: t('description'),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('title'),
+      description: t('description'),
+    },
+    robots: {
+      index: false,
+      follow: false,
+    },
+  };
+}
 
 export default async function SyncPage() {
   return (

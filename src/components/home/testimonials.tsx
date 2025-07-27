@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 
-const HomeTestimonial = () => {
+const HomeTestimonials = () => {
   const t = useTranslations('components.home.testimonials');
 
   return (
@@ -239,4 +239,4 @@ const HomeTestimonial = () => {
   );
 };
 
-export default HomeTestimonial;
+export default HomeTestimonials;

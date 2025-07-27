@@ -1,10 +1,5 @@
 {
   "app": {
-    "home": {
-      "title": "Plataforma de Gestión de Equipos y Analíticas",
-      "description": "Plataforma eficiente de gestión de equipos con sincronización y analíticas de rendimiento. Rastrea el progreso, gestiona compañeros de equipo y analiza resultados.",
-      "keywords": "gestión de equipos, analíticas, sincronización, rendimiento, productividad"
-    },
     "auth": {
       "login": {
         "title": "Iniciar Sesión",
@@ -26,6 +21,43 @@
         "description": "Verifica tu dirección de email para completar el registro y obtener acceso completo a todas las funciones.",
         "keywords": "verificación de email, verificar email, verificación de cuenta"
       }
+    },
+    "dashboard": {
+      "analytics": {
+        "title": "Analíticas",
+        "description": "Ver analíticas detalladas del rendimiento del equipo. Analizar métricas, reportes y estadísticas para tomar decisiones informadas.",
+        "keywords": "analíticas, estadísticas, reportes, rendimiento, métricas"
+      },
+      "settings": {
+        "title": "Configuración",
+        "description": "Configurar los ajustes de tu cuenta. Gestionar perfil, seguridad y otras preferencias de cuenta.",
+        "keywords": "configuración, perfil, seguridad, cuenta, ajustes"
+      },
+      "syncLive": {
+        "title": "Sincronización en Vivo",
+        "description": "Monitorear la sincronización de datos del equipo en tiempo real. Rastrear actividad y actualizaciones.",
+        "keywords": "sincronización, tiempo real, monitoreo, actividad del equipo"
+      },
+      "syncSettings": {
+        "title": "Configuración de Sincronización",
+        "description": "Configurar parámetros de sincronización de datos del equipo. Configurar quién participará en la sincronización diaria y establecer su orden.",
+        "keywords": "configuración de sincronización, sincronización, parámetros, actualizaciones, configuración"
+      },
+      "teammates": {
+        "title": "Compañeros de Equipo",
+        "description": "Gestionar tus compañeros de equipo. Agregar nuevos compañeros, editar información y rastrear su actividad.",
+        "keywords": "compañeros de equipo, miembros del equipo, gestión de equipos, empleados"
+      },
+      "teams": {
+        "title": "Equipos",
+        "description": "Gestionar, personalizar y supervisar tus equipos. Actualizar detalles del equipo y gestionar compañeros con facilidad.",
+        "keywords": "equipos, gestión de equipos, crear equipo, organización"
+      }
+    },
+    "home": {
+      "title": "Plataforma de Gestión de Equipos y Analíticas",
+      "description": "Plataforma eficiente de gestión de equipos con sincronización y analíticas de rendimiento. Rastrea el progreso, gestiona compañeros de equipo y analiza resultados.",
+      "keywords": "gestión de equipos, analíticas, sincronización, rendimiento, productividad"
     }
   },
   "components": {

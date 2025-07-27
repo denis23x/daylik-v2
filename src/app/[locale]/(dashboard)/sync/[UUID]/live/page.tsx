@@ -1,31 +1,32 @@
 import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
+import { PageProps } from '@/types/utils/pageProps.type';
 import SyncLiveHero from '@/components/dashboard/sync/live/hero';
 import SyncLiveGrid from '@/components/dashboard/sync/live/grid';
 
-const pagedata = {
-  title: 'Sync Live',
-  description: 'Monitor team data synchronization in real-time. Track activity and updates.',
-  keywords: 'synchronization, real-time, monitoring, team activity',
-};
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'app.dashboard.syncLive' });
 
-export const metadata: Metadata = {
-  title: pagedata.title,
-  description: pagedata.description,
-  keywords: pagedata.keywords,
-  openGraph: {
-    title: pagedata.title,
-    description: pagedata.description,
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: pagedata.title,
-    description: pagedata.description,
-  },
-  robots: {
-    index: false,
-    follow: true,
-  },
-};
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    openGraph: {
+      title: t('title'),
+      description: t('description'),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('title'),
+      description: t('description'),
+    },
+    robots: {
+      index: false,
+      follow: false,
+    },
+  };
+}
 
 export default async function SyncPage() {
   return (

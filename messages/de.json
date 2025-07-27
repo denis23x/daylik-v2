@@ -1,10 +1,5 @@
 {
   "app": {
-    "home": {
-      "title": "Team-Management und Analytics-Plattform",
-      "description": "Effiziente Team-Management-Plattform mit Synchronisation und Leistungsanalyse. Verfolgen Sie den Fortschritt, verwalten Sie Teammitglieder und analysieren Sie Ergebnisse.",
-      "keywords": "Team-Management, Analytics, Synchronisation, Leistung, Produktivität"
-    },
     "auth": {
       "login": {
         "title": "Anmelden",
@@ -26,6 +21,43 @@
         "description": "Verifizieren Sie Ihre E-Mail-Adresse, um die Registrierung abzuschließen und vollen Zugang zu allen Funktionen zu erhalten.",
         "keywords": "e-mail verifizierung, e-mail bestätigen, konto verifizierung"
       }
+    },
+    "dashboard": {
+      "analytics": {
+        "title": "Analytik",
+        "description": "Detaillierte Teamleistungsanalytik anzeigen. Analysieren Sie Metriken, Berichte und Statistiken, um fundierte Entscheidungen zu treffen.",
+        "keywords": "analytik, statistiken, berichte, leistung, metriken"
+      },
+      "settings": {
+        "title": "Einstellungen",
+        "description": "Konfigurieren Sie Ihre Kontoeinstellungen. Verwalten Sie Profil, Sicherheit und andere Kontopräferenzen.",
+        "keywords": "einstellungen, profil, sicherheit, konto, konfiguration"
+      },
+      "syncLive": {
+        "title": "Live-Synchronisation",
+        "description": "Überwachen Sie die Temdatensynchronisation in Echtzeit. Verfolgen Sie Aktivitäten und Updates.",
+        "keywords": "synchronisation, echtzeit, überwachung, teamaktivität"
+      },
+      "syncSettings": {
+        "title": "Synchronisationseinstellungen",
+        "description": "Konfigurieren Sie Temdatensynchronisationsparameter. Konfigurieren Sie, wer an der täglichen Synchronisation teilnimmt und setzen Sie deren Reihenfolge.",
+        "keywords": "sync-einstellungen, synchronisation, parameter, updates, konfiguration"
+      },
+      "teammates": {
+        "title": "Teammitglieder",
+        "description": "Verwalten Sie Ihre Teammitglieder. Fügen Sie neue Teammitglieder hinzu, bearbeiten Sie Informationen und verfolgen Sie deren Aktivität.",
+        "keywords": "teammitglieder, team-mitglieder, team-management, mitarbeiter"
+      },
+      "teams": {
+        "title": "Teams",
+        "description": "Verwalten, anpassen und überwachen Sie Ihre Teams. Aktualisieren Sie Teamdetails und verwalten Sie Teammitglieder mit Leichtigkeit.",
+        "keywords": "teams, team-management, team erstellen, organisation"
+      }
+    },
+    "home": {
+      "title": "Team-Management und Analytics-Plattform",
+      "description": "Effiziente Team-Management-Plattform mit Synchronisation und Leistungsanalyse. Verfolgen Sie den Fortschritt, verwalten Sie Teammitglieder und analysieren Sie Ergebnisse.",
+      "keywords": "Team-Management, Analytics, Synchronisation, Leistung, Produktivität"
     }
   },
   "components": {

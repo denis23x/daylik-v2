@@ -4,7 +4,7 @@ import { PageProps } from '@/types/utils/pageProps.type';
 import Navbar from '@/components/navbar';
 import HomeHero from '@/components/home/hero';
 import HomeFeatures from '@/components/home/features';
-import HomeTestimonial from '@/components/home/testimonial';
+import HomeTestimonials from '@/components/home/testimonials';
 import HomeStats from '@/components/home/stats';
 import HomePricing from '@/components/home/pricing';
 import Footer from '@/components/footer';
@@ -40,7 +40,7 @@ export default function Home() {
       <HomeHero />
       <HomeFeatures />
       <HomeStats />
-      <HomeTestimonial />
+      <HomeTestimonials />
       <HomePricing />
       <Footer />
     </>
