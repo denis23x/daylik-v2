@@ -146,6 +146,64 @@
         }
       }
     },
+    "dashboard": {
+      "analytics": {
+        "hero": {
+          "title": "Analíticas",
+          "description": "Revisa tus analíticas de sincronización diaria y engagement del equipo. Obtén insights de cada sesión, rastrea tendencias de participación y reflexiona sobre dinámicas del equipo para mejorar la colaboración futura."
+        },
+        "grid": {
+          "sync": "Sincronización",
+          "error": "Ocurrió un error",
+          "report": "Reportar",
+          "noTeammates": "No se encontraron compañeros",
+          "teams": "Equipos"
+        },
+        "table": {
+          "columns": {
+            "teammate": "Compañero",
+            "role": "Rol",
+            "total": "Total",
+            "paused": "Pausado",
+            "overtimes": "Horas extra"
+          },
+          "lookupPlaceholder": "Buscar compañero..",
+          "noTeammates": "No se encontraron compañeros"
+        },
+        "highlights": {
+          "achievements": {
+            "limitMaster": "Maestro del Límite",
+            "edgerunner": "Corredor del Límite",
+            "radioTower": "Torre de Radio",
+            "frozenHero": "Héroe Congelado",
+            "mysteryGhost": "Fantasma Misterioso"
+          },
+          "descriptions": {
+            "overtime": "Hora extra x{count}",
+            "onAir": "En Air {duration}",
+            "pausedTime": "Tiempo pausado {duration}",
+            "goneIn": "Se fue en {duration}",
+            "wrappedIn": "Terminado en {duration}"
+          }
+        },
+        "chart": {
+          "title": "Línea de Tiempo de Sync",
+          "description": "Un desglose completo de la sincronización de hoy",
+          "selectType": "Seleccionar un tipo",
+          "types": {
+            "step": "Paso",
+            "linear": "Lineal",
+            "natural": "Natural"
+          },
+          "labels": {
+            "total": "Total",
+            "paused": "Pausado",
+            "overtime": "Hora extra",
+            "timer": "Timer {duration}"
+          }
+        }
+      }
+    },
     "home": {
       "features": {
         "title": "Impulsa el Éxito del Equipo",

@@ -32,6 +32,7 @@ import { COOKIE_CONSENT } from '@/lib/constants';
 import { getCookie, setCookie } from '@/hooks/useCookie';
 import { formatDuration } from '@/utils/formatDuration';
 import { getMiliseconds } from '@/utils/getMiliseconds';
+import { useTranslations } from 'next-intl';
 
 type ChartType = 'step' | 'linear' | 'natural';
 
@@ -42,26 +43,27 @@ type ChartData = {
   paused: number;
 };
 
-const chartConfig = {
-  total: {
-    label: 'Total',
-    color: 'var(--color-chart-1)',
-  },
-  paused: {
-    label: 'Paused',
-    color: 'var(--color-chart-3)',
-  },
-  overtime: {
-    label: 'Overtime',
-    color: 'var(--destructive)',
-  },
-} satisfies ChartConfig;
-
 const AnalyticsChartLinear = () => {
+  const t = useTranslations('components.dashboard.analytics.chart');
   const keyTypes = useRef('analytics-chart-type');
   const [type, setType] = useState<string>('');
   const [chartData, setChartData] = useState<ChartData[]>([]);
   const { analytics, analyticsTeammates } = useAnalyticsStore();
+
+  const chartConfig = {
+    total: {
+      label: t('labels.total'),
+      color: 'var(--color-chart-1)',
+    },
+    paused: {
+      label: t('labels.paused'),
+      color: 'var(--color-chart-3)',
+    },
+    overtime: {
+      label: t('labels.overtime'),
+      color: 'var(--destructive)',
+    },
+  } satisfies ChartConfig;
 
   useEffect(() => {
     if (analyticsTeammates.length) {
@@ -93,18 +95,18 @@ const AnalyticsChartLinear = () => {
   return (
     <Card className="bg-transparent p-4">
       <CardHeader className="p-0">
-        <CardTitle>Sync Timeline</CardTitle>
-        <CardDescription>A complete breakdown of today&apos;s sync</CardDescription>
+        <CardTitle>{t('title')}</CardTitle>
+        <CardDescription>{t('description')}</CardDescription>
         <CardAction>
           <Select value={type} onValueChange={handleTypeChange}>
             <SelectTrigger className="w-30">
-              <SelectValue placeholder="Select a type" />
+              <SelectValue placeholder={t('selectType')} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem value="step">Step</SelectItem>
-                <SelectItem value="linear">Linear</SelectItem>
-                <SelectItem value="natural">Natural</SelectItem>
+                <SelectItem value="step">{t('types.step')}</SelectItem>
+                <SelectItem value="linear">{t('types.linear')}</SelectItem>
+                <SelectItem value="natural">{t('types.natural')}</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -128,7 +130,7 @@ const AnalyticsChartLinear = () => {
               isFront={true}
             >
               <Label
-                value={`Timer ${formatDuration(analytics?.timer as number)}`}
+                value={t('labels.timer', { duration: formatDuration(analytics?.timer as number) })}
                 position="insideTopLeft"
                 fill="var(--color-muted-foreground)"
                 fontSize={12}

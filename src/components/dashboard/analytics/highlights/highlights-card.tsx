@@ -4,8 +4,11 @@ import AvatarInitials from '@/components/avatar-initials';
 import { formatDuration } from '@/utils/formatDuration';
 import type { AnalyticsHighlight } from '@/types/analyticsHighlight.type';
 import { UserRound } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 const HighlightsCard = ({ highlight }: { highlight: AnalyticsHighlight }) => {
+  const t = useTranslations('components.dashboard.analytics.highlights.descriptions');
+
   return (
     <div className="flex flex-col gap-2">
       <Card className="relative size-full gap-0 p-2">
@@ -49,11 +52,15 @@ const HighlightsCard = ({ highlight }: { highlight: AnalyticsHighlight }) => {
           <div className="flex flex-1 flex-col overflow-hidden text-center">
             <span className="truncate text-sm font-semibold md:text-base">{highlight.label}</span>
             <span className="text-muted-foreground truncate text-[11px] sm:text-xs">
-              {highlight.key === 'edgerunner' && `Overtime x${highlight.overtime}`}
-              {highlight.key === 'radio-tower' && `On Air ${formatDuration(highlight.total)}`}
-              {highlight.key === 'frozen-hero' && `Paused time ${formatDuration(highlight.paused)}`}
-              {highlight.key === 'mystery-ghost' && `Gone in ${formatDuration(highlight.total)}`}
-              {highlight.key === 'limit-master' && `Wrapped in ${formatDuration(highlight.total)}`}
+              {highlight.key === 'edgerunner' && t('overtime', { count: highlight.overtime })}
+              {highlight.key === 'radio-tower' &&
+                t('onAir', { duration: formatDuration(highlight.total) })}
+              {highlight.key === 'frozen-hero' &&
+                t('pausedTime', { duration: formatDuration(highlight.paused) })}
+              {highlight.key === 'mystery-ghost' &&
+                t('goneIn', { duration: formatDuration(highlight.total) })}
+              {highlight.key === 'limit-master' &&
+                t('wrappedIn', { duration: formatDuration(highlight.total) })}
             </span>
           </div>
         </div>

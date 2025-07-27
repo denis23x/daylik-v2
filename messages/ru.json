@@ -146,6 +146,64 @@
         }
       }
     },
+    "dashboard": {
+      "analytics": {
+        "hero": {
+          "title": "Аналитика",
+          "description": "Просматривайте аналитику ваших ежедневных синков и вовлеченность команды. Получайте инсайты из каждой сессии, отслеживайте тренды участия и анализируйте командную динамику для улучшения будущего сотрудничества."
+        },
+        "grid": {
+          "sync": "Синк",
+          "error": "Произошла ошибка",
+          "report": "Сообщить",
+          "noTeammates": "Участники не найдены",
+          "teams": "Команды"
+        },
+        "table": {
+          "columns": {
+            "teammate": "Участник",
+            "role": "Роль",
+            "total": "Общее",
+            "paused": "На паузе",
+            "overtimes": "Овертайм"
+          },
+          "lookupPlaceholder": "Поиск участника..",
+          "noTeammates": "Участники не найдены"
+        },
+        "highlights": {
+          "achievements": {
+            "limitMaster": "Мастер",
+            "edgerunner": "Эджраннер",
+            "radioTower": "Радиовышка",
+            "frozenHero": "Замороженный",
+            "mysteryGhost": "Призрак"
+          },
+          "descriptions": {
+            "overtime": "Овертайм x{count}",
+            "onAir": "В эфире {duration}",
+            "pausedTime": "На заморозке {duration}",
+            "goneIn": "Исчез через {duration}",
+            "wrappedIn": "Справился за {duration}"
+          }
+        },
+        "chart": {
+          "title": "Временная шкала синка",
+          "description": "Полный таймлайн сегодняшнего синка",
+          "selectType": "Выберите тип",
+          "types": {
+            "step": "Шаг",
+            "linear": "Линейный",
+            "natural": "Естественный"
+          },
+          "labels": {
+            "total": "Общее",
+            "paused": "На паузе",
+            "overtime": "Овертайм",
+            "timer": "Таймер {duration}"
+          }
+        }
+      }
+    },
     "home": {
       "features": {
         "title": "Развивайте командную синергию",

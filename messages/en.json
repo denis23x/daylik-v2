@@ -146,6 +146,64 @@
         }
       }
     },
+    "dashboard": {
+      "analytics": {
+        "hero": {
+          "title": "Analytics",
+          "description": "Review your daily sync analytics and team engagement. Gain insights from each session, track participation trends, and reflect on team dynamics to improve future collaboration."
+        },
+        "grid": {
+          "sync": "Sync",
+          "error": "An error occurred",
+          "report": "Report",
+          "noTeammates": "No teammates found",
+          "teams": "Teams"
+        },
+        "table": {
+          "columns": {
+            "teammate": "Teammate",
+            "role": "Role",
+            "total": "Total",
+            "paused": "Paused",
+            "overtimes": "Overtimes"
+          },
+          "lookupPlaceholder": "Look up teammate..",
+          "noTeammates": "No teammates found"
+        },
+        "highlights": {
+          "achievements": {
+            "limitMaster": "Limit Master",
+            "edgerunner": "Edgerunner",
+            "radioTower": "Radio Tower",
+            "frozenHero": "Frozen Hero",
+            "mysteryGhost": "Mystery Ghost"
+          },
+          "descriptions": {
+            "overtime": "Overtime x{count}",
+            "onAir": "On Air {duration}",
+            "pausedTime": "Paused time {duration}",
+            "goneIn": "Gone in {duration}",
+            "wrappedIn": "Wrapped in {duration}"
+          }
+        },
+        "chart": {
+          "title": "Sync Timeline",
+          "description": "A complete breakdown of today's sync",
+          "selectType": "Select a type",
+          "types": {
+            "step": "Step",
+            "linear": "Linear",
+            "natural": "Natural"
+          },
+          "labels": {
+            "total": "Total",
+            "paused": "Paused",
+            "overtime": "Overtime",
+            "timer": "Timer {duration}"
+          }
+        }
+      }
+    },
     "home": {
       "features": {
         "title": "Drive Team Success",

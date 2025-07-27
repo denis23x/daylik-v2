@@ -2,12 +2,15 @@
 
 import { ChartLine } from 'lucide-react';
 import DashboardHero from '../hero';
+import { useTranslations } from 'next-intl';
 
 const AnalyticsHero = () => {
+  const t = useTranslations('components.dashboard.analytics.hero');
+
   return (
     <DashboardHero
-      title="Analytics"
-      description="Review your daily sync analytics and team engagement. Gain insights from each session, track participation trends, and reflect on team dynamics to improve future collaboration."
+      title={t('title')}
+      description={t('description')}
       icon={<ChartLine />}
     ></DashboardHero>
   );

@@ -17,8 +17,10 @@ import { useMediaQuery } from '@/hooks/ui/useMediaQuery';
 import HighlightsSkeletons from './highlights/highlights-skeletons';
 import { Skeleton } from '@/components/ui/skeleton';
 import { format } from 'date-fns';
+import { useTranslations } from 'next-intl';
 
 const AnalyticsGrid = () => {
+  const t = useTranslations('components.dashboard.analytics.grid');
   const sm = useMediaQuery('(min-width: 640px)');
   const params = useParams();
   const { analytics, analyticsTeammates, setAnalytics, setAnalyticsTeammates } =
@@ -61,7 +63,7 @@ const AnalyticsGrid = () => {
         <div className="flex min-h-9 items-center gap-4">
           <ChartLine />
           {isLoading && <Skeleton className="h-7 w-24" />}
-          {isError && <span className="text-xl font-bold">Sync</span>}
+          {isError && <span className="text-xl font-bold">{t('sync')}</span>}
           {!isLoading && !isError && (
             <p className="flex items-center gap-2">
               <span className="text-xl font-bold">{analyticsData?.team?.name}</span>
@@ -76,19 +78,19 @@ const AnalyticsGrid = () => {
           {isError && (
             <div className="flex min-h-[75lvh] max-w-md flex-col items-center justify-center gap-4">
               <Bug />
-              <div className="text-center text-xl font-semibold">An error occurred</div>
+              <div className="text-center text-xl font-semibold">{t('error')}</div>
               <Button variant="destructive" onClick={openFeedbackModal}>
-                Report
+                {t('report')}
               </Button>
             </div>
           )}
           {!isLoading && !isError && analytics && analyticsTeammates?.length === 0 && (
             <div className="flex min-h-[75lvh] max-w-md flex-col items-center justify-center gap-4">
               <CircleOff />
-              <div className="text-center text-xl font-semibold">No teammates found</div>
+              <div className="text-center text-xl font-semibold">{t('noTeammates')}</div>
               <Button className="group" variant="secondary" asChild>
                 <Link href="/teams">
-                  Teams
+                  {t('teams')}
                   <ArrowRight className="transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>

@@ -146,6 +146,64 @@
         }
       }
     },
+    "dashboard": {
+      "analytics": {
+        "hero": {
+          "title": "Analytik",
+          "description": "Überprüfen Sie Ihre täglichen Sync-Analysen und Team-Engagement. Gewinnen Sie Einblicke aus jeder Sitzung, verfolgen Sie Teilnahmetrends und reflektieren Sie Teamdynamiken, um die zukünftige Zusammenarbeit zu verbessern."
+        },
+        "grid": {
+          "sync": "Sync",
+          "error": "Ein Fehler ist aufgetreten",
+          "report": "Melden",
+          "noTeammates": "Keine Teammitglieder gefunden",
+          "teams": "Teams"
+        },
+        "table": {
+          "columns": {
+            "teammate": "Teammitglied",
+            "role": "Rolle",
+            "total": "Gesamt",
+            "paused": "Pausiert",
+            "overtimes": "Überstunden"
+          },
+          "lookupPlaceholder": "Teammitglied suchen..",
+          "noTeammates": "Keine Teammitglieder gefunden"
+        },
+        "highlights": {
+          "achievements": {
+            "limitMaster": "Zeitmeister",
+            "edgerunner": "Grenzgänger",
+            "radioTower": "Funkturm",
+            "frozenHero": "Eingefrorener Held",
+            "mysteryGhost": "Mysteriöser Geist"
+          },
+          "descriptions": {
+            "overtime": "Überstunden x{count}",
+            "onAir": "On Air {duration}",
+            "pausedTime": "Pausenzeit {duration}",
+            "goneIn": "Verschwunden in {duration}",
+            "wrappedIn": "Abgeschlossen in {duration}"
+          }
+        },
+        "chart": {
+          "title": "Sync-Zeitachse",
+          "description": "Eine vollständige Aufschlüsselung des heutigen Syncs",
+          "selectType": "Typ auswählen",
+          "types": {
+            "step": "Stufe",
+            "linear": "Linear",
+            "natural": "Natürlich"
+          },
+          "labels": {
+            "total": "Gesamt",
+            "paused": "Pausiert",
+            "overtime": "Überstunden",
+            "timer": "Timer {duration}"
+          }
+        }
+      }
+    },
     "home": {
       "features": {
         "title": "Teamerfolgfördern",

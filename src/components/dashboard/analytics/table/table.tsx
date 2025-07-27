@@ -22,14 +22,16 @@ import { columns as baseColumns } from './columns';
 import type { AnalyticsTeammate } from '@/types/analyticsTeammate.type';
 import { Input } from '@/components/ui/input';
 import { useAnalyticsStore } from '@/store/useAnalyticsStore';
+import { useTranslations } from 'next-intl';
 
 const AnalyticsTable = () => {
+  const t = useTranslations('components.dashboard.analytics.table');
   const [sorting, setSorting] = useState<SortingState>([{ id: 'order', desc: false }]);
   const [filter, setFilter] = useState('');
   const deferredFilter = useDeferredValue(filter);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const { analyticsTeammates } = useAnalyticsStore();
-  const columns = useMemo(() => baseColumns({ sorting }), [sorting]);
+  const columns = useMemo(() => baseColumns({ sorting, t }), [sorting, t]);
   const table = useReactTable<AnalyticsTeammate>({
     data: analyticsTeammates,
     columns,
@@ -51,7 +53,7 @@ const AnalyticsTable = () => {
   return (
     <div className="flex flex-col gap-4">
       <Input
-        placeholder="Look up teammate.."
+        placeholder={t('lookupPlaceholder')}
         value={filter}
         onChange={(event) => setFilter(event.target.value)}
         autoComplete="off"
@@ -104,7 +106,7 @@ const AnalyticsTable = () => {
                 <TableCell colSpan={6}>
                   <p className="mx-auto flex max-w-md flex-col items-center justify-center py-8">
                     <span className="text-lg font-semibold">{filter}</span>
-                    <span className="text-muted-foreground text-sm">No teammates found</span>
+                    <span className="text-muted-foreground text-sm">{t('noTeammates')}</span>
                   </p>
                 </TableCell>
               </TableRow>

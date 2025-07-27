@@ -9,12 +9,14 @@ import HighlightsSkeletons from './highlights-skeletons';
 import { getHighlightsSizes } from '@/utils/getHighlightsSizes';
 import { getHighlightsPlaceholder } from '@/utils/getHighlightsPlaceholder';
 import type { AnalyticsHighlight } from '@/types/analyticsHighlight.type';
+import { useTranslations } from 'next-intl';
 
 // prettier-ignore
 const HoverEffectHighlights = lazy(() => import('@/components/dx/hover-effect/hover-effect-highlights'));
 const HighlightsCard = lazy(() => import('./highlights-card'));
 
 const AnalyticsHighlights = () => {
+  const t = useTranslations('components.dashboard.analytics.highlights.achievements');
   const sm = useMediaQuery('(min-width: 640px)');
   const { analytics, analyticsTeammates } = useAnalyticsStore();
   const [highlights, setHighlights] = useState<AnalyticsHighlight[]>([]);
@@ -28,7 +30,7 @@ const AnalyticsHighlights = () => {
       const highlightRules = [
         {
           key: 'limit-master',
-          label: 'Limit Master',
+          label: t('limitMaster'),
           icon: <Crown className="fill-current text-amber-400" />,
           predicate: (t: AnalyticsTeammate) => t.paused === 0,
           sort: (a: AnalyticsTeammate, b: AnalyticsTeammate) => {
@@ -37,7 +39,7 @@ const AnalyticsHighlights = () => {
         },
         {
           key: 'edgerunner',
-          label: 'Edgerunner',
+          label: t('edgerunner'),
           icon: <CircleCheckBig className="text-emerald-400" />,
           predicate: (t: AnalyticsTeammate) => t.overtime !== 0,
           sort: (a: AnalyticsTeammate, b: AnalyticsTeammate) => {
@@ -46,7 +48,7 @@ const AnalyticsHighlights = () => {
         },
         {
           key: 'radio-tower',
-          label: 'Radio Tower',
+          label: t('radioTower'),
           icon: <RadioTower className="text-red-400" />,
           predicate: () => true,
           sort: (a: AnalyticsTeammate, b: AnalyticsTeammate) => {
@@ -55,7 +57,7 @@ const AnalyticsHighlights = () => {
         },
         {
           key: 'frozen-hero',
-          label: 'Frozen Hero',
+          label: t('frozenHero'),
           icon: <Snowflake className="text-blue-400" />,
           predicate: (t: AnalyticsTeammate) => t.paused !== 0,
           sort: (a: AnalyticsTeammate, b: AnalyticsTeammate) => {
@@ -64,7 +66,7 @@ const AnalyticsHighlights = () => {
         },
         {
           key: 'mystery-ghost',
-          label: 'Mystery Ghost',
+          label: t('mysteryGhost'),
           icon: <Ghost className="text-foreground" />,
           predicate: () => true,
           sort: (a: AnalyticsTeammate, b: AnalyticsTeammate) => {
@@ -113,7 +115,7 @@ const AnalyticsHighlights = () => {
 
       setHighlights(highlightsSorted);
     }
-  }, [analytics, analyticsTeammates]);
+  }, [analytics, analyticsTeammates, t]);
 
   const DesktopHighlights = (
     <HoverEffectHighlights>
