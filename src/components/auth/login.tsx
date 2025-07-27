@@ -16,7 +16,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
 import { Loader2, LogIn } from 'lucide-react';
-import { useSignIn } from '@/hooks/useAuth';
+import { useSignIn, useSignInWithGoogle } from '@/hooks/useAuth';
 import { Card, CardContent } from '@/components/ui/card';
 import { MagicCard } from '../magicui/magic-card';
 import { useTranslations } from 'next-intl';
@@ -25,6 +25,7 @@ const AuthLogin = () => {
   const t = useTranslations('components.auth.login');
   const router = useRouter();
   const { mutateAsync: signIn } = useSignIn();
+  const { mutateAsync: signInWithGoogle } = useSignInWithGoogle();
 
   const formSchema = z.object({
     email: z.string().min(1, t('form.email.required')).email(t('form.email.invalid')),
@@ -45,6 +46,14 @@ const AuthLogin = () => {
 
       // Redirect
       router.push('/teams');
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'An error occurred');
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle();
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'An error occurred');
     }
@@ -109,7 +118,12 @@ const AuthLogin = () => {
                   {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
                   {form.formState.isSubmitting ? t('buttons.loading') : t('buttons.submit')}
                 </Button>
-                <Button type="button" className="w-full" variant="secondary" disabled={true}>
+                <Button
+                  type="button"
+                  className="w-full"
+                  variant="secondary"
+                  onClick={handleGoogleSignIn}
+                >
                   {t('buttons.google')}
                 </Button>
               </form>

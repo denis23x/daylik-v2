@@ -1,5 +1,6 @@
 import {
   signIn,
+  signInWithGoogle,
   signUp,
   resetPassword,
   updatePassword,
@@ -21,6 +22,12 @@ export function useGetUser() {
 export function useSignIn() {
   return useMutation({
     mutationFn: signIn,
+  });
+}
+
+export function useSignInWithGoogle() {
+  return useMutation({
+    mutationFn: signInWithGoogle,
   });
 }
 
