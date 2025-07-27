@@ -2,7 +2,7 @@
 
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
 import { useFormContext } from 'react-hook-form';
-import { FeedbackSchema } from './form-schema';
+import { createFeedbackSchema } from './form-schema';
 import { z } from 'zod';
 import { Textarea } from '@/components/ui/textarea';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
@@ -11,7 +11,7 @@ import { useTranslations } from 'next-intl';
 
 const FeedbackFormFields = () => {
   const t = useTranslations('components.dashboard.modals.feedback.form');
-  const form = useFormContext<z.infer<typeof FeedbackSchema>>();
+  const form = useFormContext<z.infer<ReturnType<typeof createFeedbackSchema>>>();
 
   return (
     <>
