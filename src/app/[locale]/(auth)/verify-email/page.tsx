@@ -1,31 +1,31 @@
 import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
+import { PageProps } from '@/types/utils/pageProps.type';
 import AuthVerifyEmail from '@/components/auth/verify-email-suspense';
 
-const pagedata = {
-  title: 'Verify Email',
-  description:
-    'Verify your email address to complete registration and get full access to all features.',
-  keywords: 'email verification, verify email, account verification',
-};
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'app.auth.verifyEmail' });
 
-export const metadata: Metadata = {
-  title: pagedata.title,
-  description: pagedata.description,
-  keywords: pagedata.keywords,
-  openGraph: {
-    title: pagedata.title,
-    description: pagedata.description,
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: pagedata.title,
-    description: pagedata.description,
-  },
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    openGraph: {
+      title: t('title'),
+      description: t('description'),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('title'),
+      description: t('description'),
+    },
+    robots: {
+      index: false,
+      follow: false,
+    },
+  };
+}
 
 export default function VerifyEmail() {
   return <AuthVerifyEmail />;

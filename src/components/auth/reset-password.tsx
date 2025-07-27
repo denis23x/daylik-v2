@@ -20,14 +20,16 @@ import { useResetPassword } from '@/hooks/useAuth';
 import { Card } from '../ui/card';
 import { CardContent } from '../ui/card';
 import { MagicCard } from '../magicui/magic-card';
-
-const formSchema = z.object({
-  email: z.string().email(),
-});
+import { useTranslations } from 'next-intl';
 
 const AuthResetPassword = () => {
+  const t = useTranslations('components.auth.resetPassword');
   const router = useRouter();
   const { mutateAsync: resetPassword } = useResetPassword();
+
+  const formSchema = z.object({
+    email: z.string().min(1, t('form.email.required')).email(t('form.email.invalid')),
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
@@ -50,7 +52,7 @@ const AuthResetPassword = () => {
   return (
     <div className="flex min-h-lvh flex-col items-center justify-center gap-4 px-4">
       <Lock />
-      <p className="text-xl font-bold tracking-tight">Reset your password</p>
+      <p className="text-xl font-bold tracking-tight">{t('title')}</p>
       <Card className="w-full max-w-xs border-none p-0 shadow-none">
         <MagicCard className="p-4">
           <CardContent className="p-0">
@@ -61,11 +63,11 @@ const AuthResetPassword = () => {
                   name="email"
                   render={({ field, formState }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel>{t('form.email.label')}</FormLabel>
                       <FormControl>
                         <Input
                           type="email"
-                          placeholder="We'll send you a link"
+                          placeholder={t('form.email.placeholder')}
                           className="w-full"
                           disabled={formState.isSubmitting}
                           autoComplete="email"
@@ -81,7 +83,7 @@ const AuthResetPassword = () => {
                 />
                 <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
                   {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
-                  {form.formState.isSubmitting ? 'Please wait' : 'Send link'}
+                  {form.formState.isSubmitting ? t('buttons.loading') : t('buttons.submit')}
                 </Button>
               </form>
             </Form>
@@ -89,9 +91,9 @@ const AuthResetPassword = () => {
         </MagicCard>
       </Card>
       <p className="text-center text-sm">
-        Remember your password?{' '}
+        {t('links.rememberPassword')}{' '}
         <Link href="/login" className="text-muted-foreground underline">
-          Log in
+          {t('links.login')}
         </Link>
       </p>
     </div>

@@ -4,9 +4,116 @@
       "title": "Plataforma de Gestión de Equipos y Analíticas",
       "description": "Plataforma eficiente de gestión de equipos con sincronización y analíticas de rendimiento. Rastrea el progreso, gestiona compañeros de equipo y analiza resultados.",
       "keywords": "gestión de equipos, analíticas, sincronización, rendimiento, productividad"
+    },
+    "auth": {
+      "login": {
+        "title": "Iniciar Sesión",
+        "description": "Inicia sesión en tu cuenta para acceder a gestión de equipos, analíticas y funciones de sincronización de datos.",
+        "keywords": "iniciar sesión, login, autorización, autenticación"
+      },
+      "signup": {
+        "title": "Registrarse",
+        "description": "Crea tu cuenta y comienza a gestionar equipos eficientemente, rastrear analíticas y sincronizar datos.",
+        "keywords": "registrarse, registro, crear cuenta, equipos"
+      },
+      "resetPassword": {
+        "title": "Restablecer Contraseña",
+        "description": "Recupera el acceso a tu cuenta. Ingresa tu email para recibir un enlace de restablecimiento de contraseña.",
+        "keywords": "restablecer contraseña, recuperación de contraseña, olvidé contraseña"
+      },
+      "verifyEmail": {
+        "title": "Verificar Email",
+        "description": "Verifica tu dirección de email para completar el registro y obtener acceso completo a todas las funciones.",
+        "keywords": "verificación de email, verificar email, verificación de cuenta"
+      }
     }
   },
   "components": {
+    "auth": {
+      "login": {
+        "title": "Iniciar sesión en Daylik",
+        "form": {
+          "email": {
+            "label": "Email",
+            "placeholder": "¿Cuál es tu email?",
+            "required": "El email es requerido",
+            "invalid": "Por favor ingresa un email válido"
+          },
+          "password": {
+            "label": "Contraseña",
+            "placeholder": "Shh... es un secreto",
+            "required": "La contraseña es requerida",
+            "minLength": "La contraseña debe tener al menos 8 caracteres"
+          }
+        },
+        "buttons": {
+          "submit": "Continuar con Email",
+          "google": "Continuar con Google",
+          "loading": "Por favor espera"
+        },
+        "links": {
+          "forgotPassword": "¿Olvidaste tu contraseña?",
+          "noAccount": "¿No tienes una cuenta?",
+          "createAccount": "Crear cuenta"
+        }
+      },
+      "signup": {
+        "title": "Registrarse en Daylik",
+        "form": {
+          "email": {
+            "label": "Email",
+            "placeholder": "¿Cuál es tu email?",
+            "required": "El email es requerido",
+            "invalid": "Por favor ingresa un email válido"
+          },
+          "password": {
+            "label": "Contraseña",
+            "placeholder": "Hazla fuerte (mín. 8 caracteres)",
+            "required": "La contraseña es requerida",
+            "minLength": "La contraseña debe tener al menos 8 caracteres"
+          }
+        },
+        "buttons": {
+          "submit": "Continuar con Email",
+          "google": "Continuar con Google",
+          "loading": "Por favor espera"
+        },
+        "links": {
+          "hasAccount": "¿Ya tienes una cuenta?",
+          "login": "Iniciar sesión"
+        }
+      },
+      "resetPassword": {
+        "title": "Restablecer tu contraseña",
+        "form": {
+          "email": {
+            "label": "Email",
+            "placeholder": "Te enviaremos un enlace",
+            "required": "El email es requerido",
+            "invalid": "Por favor ingresa un email válido"
+          }
+        },
+        "buttons": {
+          "submit": "Enviar enlace",
+          "loading": "Por favor espera"
+        },
+        "links": {
+          "rememberPassword": "¿Recuerdas tu contraseña?",
+          "login": "Iniciar sesión"
+        }
+      },
+      "verifyEmail": {
+        "title": "Revisa tu email",
+        "messages": {
+          "confirmation": "Te hemos enviado un enlace de confirmación a tu dirección de email. Por favor revisa tu bandeja de entrada y haz clic en el enlace para verificar tu cuenta.",
+          "passwordReset": "Te hemos enviado un enlace para restablecer tu contraseña a tu dirección de email. Por favor revisa tu bandeja de entrada y haz clic en el enlace para actualizar tu contraseña."
+        },
+        "links": {
+          "noEmail": "¿No recibiste el email?",
+          "contactUs": "Contáctanos"
+        }
+      }
+    },
     "home": {
       "features": {
         "title": "Impulsa el Éxito del Equipo",

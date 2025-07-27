@@ -4,9 +4,116 @@
       "title": "Team Management and Analytics Platform",
       "description": "Efficient team management platform with synchronization and performance analytics. Track progress, manage teammates, and analyze results.",
       "keywords": "team management, analytics, synchronization, performance, productivity"
+    },
+    "auth": {
+      "login": {
+        "title": "Sign In",
+        "description": "Sign in to your account to access team management, analytics and data synchronization features.",
+        "keywords": "sign in, login, authorization, authentication"
+      },
+      "signup": {
+        "title": "Sign Up",
+        "description": "Create your account and start efficiently managing teams, tracking analytics and synchronizing data.",
+        "keywords": "sign up, registration, create account, teams"
+      },
+      "resetPassword": {
+        "title": "Reset Password",
+        "description": "Recover access to your account. Enter your email to receive a password reset link.",
+        "keywords": "reset password, password recovery, forgot password"
+      },
+      "verifyEmail": {
+        "title": "Verify Email",
+        "description": "Verify your email address to complete registration and get full access to all features.",
+        "keywords": "email verification, verify email, account verification"
+      }
     }
   },
   "components": {
+    "auth": {
+      "login": {
+        "title": "Log in to Daylik",
+        "form": {
+          "email": {
+            "label": "Email",
+            "placeholder": "What's your email?",
+            "required": "Email is required",
+            "invalid": "Please enter a valid email"
+          },
+          "password": {
+            "label": "Password",
+            "placeholder": "Shhh... it's a secret",
+            "required": "Password is required",
+            "minLength": "Password must be at least 8 characters long"
+          }
+        },
+        "buttons": {
+          "submit": "Continue with Email",
+          "google": "Continue with Google",
+          "loading": "Please wait"
+        },
+        "links": {
+          "forgotPassword": "Forgot your password?",
+          "noAccount": "Don't have an account?",
+          "createAccount": "Create account"
+        }
+      },
+      "signup": {
+        "title": "Sign up for Daylik",
+        "form": {
+          "email": {
+            "label": "Email",
+            "placeholder": "What's your email?",
+            "required": "Email is required",
+            "invalid": "Please enter a valid email"
+          },
+          "password": {
+            "label": "Password",
+            "placeholder": "Make it strong (min. 8 characters)",
+            "required": "Password is required",
+            "minLength": "Password must be at least 8 characters long"
+          }
+        },
+        "buttons": {
+          "submit": "Continue with Email",
+          "google": "Continue with Google",
+          "loading": "Please wait"
+        },
+        "links": {
+          "hasAccount": "Already have an account?",
+          "login": "Log in"
+        }
+      },
+      "resetPassword": {
+        "title": "Reset your password",
+        "form": {
+          "email": {
+            "label": "Email",
+            "placeholder": "We'll send you a link",
+            "required": "Email is required",
+            "invalid": "Please enter a valid email"
+          }
+        },
+        "buttons": {
+          "submit": "Send link",
+          "loading": "Please wait"
+        },
+        "links": {
+          "rememberPassword": "Remember your password?",
+          "login": "Log in"
+        }
+      },
+      "verifyEmail": {
+        "title": "Check your email",
+        "messages": {
+          "confirmation": "We've sent you a confirmation link to your email address. Please check your inbox and click the link to verify your account.",
+          "passwordReset": "We've sent you a password reset link to your email address. Please check your inbox and click the link to update your password."
+        },
+        "links": {
+          "noEmail": "Didn't receive the email?",
+          "contactUs": "Contact Us"
+        }
+      }
+    },
     "home": {
       "features": {
         "title": "Drive Team Success",

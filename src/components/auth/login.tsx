@@ -19,15 +19,17 @@ import { Loader2, LogIn } from 'lucide-react';
 import { useSignIn } from '@/hooks/useAuth';
 import { Card, CardContent } from '@/components/ui/card';
 import { MagicCard } from '../magicui/magic-card';
-
-const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8, 'Password must be at least 8 characters long'),
-});
+import { useTranslations } from 'next-intl';
 
 const AuthLogin = () => {
+  const t = useTranslations('components.auth.login');
   const router = useRouter();
   const { mutateAsync: signIn } = useSignIn();
+
+  const formSchema = z.object({
+    email: z.string().min(1, t('form.email.required')).email(t('form.email.invalid')),
+    password: z.string().min(8, t('form.password.minLength')),
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
@@ -51,7 +53,7 @@ const AuthLogin = () => {
   return (
     <div className="flex min-h-lvh flex-col items-center justify-center gap-4 px-4">
       <LogIn />
-      <p className="text-xl font-bold tracking-tight">Log in to Daylik</p>
+      <p className="text-xl font-bold tracking-tight">{t('title')}</p>
       <Card className="w-full max-w-xs border-none p-0 shadow-none">
         <MagicCard className="p-4">
           <CardContent className="p-0">
@@ -62,11 +64,11 @@ const AuthLogin = () => {
                   name="email"
                   render={({ field, formState }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel>{t('form.email.label')}</FormLabel>
                       <FormControl>
                         <Input
                           type="email"
-                          placeholder="What's your email?"
+                          placeholder={t('form.email.placeholder')}
                           className="w-full"
                           disabled={formState.isSubmitting}
                           autoComplete="email"
@@ -85,11 +87,11 @@ const AuthLogin = () => {
                   name="password"
                   render={({ field, formState }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>{t('form.password.label')}</FormLabel>
                       <FormControl>
                         <Input
                           type="password"
-                          placeholder="Shhh... it's a secret"
+                          placeholder={t('form.password.placeholder')}
                           className="w-full"
                           disabled={formState.isSubmitting}
                           autoComplete="current-password"
@@ -105,10 +107,10 @@ const AuthLogin = () => {
                 />
                 <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
                   {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
-                  {form.formState.isSubmitting ? 'Please wait' : 'Continue with Email'}
+                  {form.formState.isSubmitting ? t('buttons.loading') : t('buttons.submit')}
                 </Button>
                 <Button type="button" className="w-full" variant="secondary" disabled={true}>
-                  Continue with Google
+                  {t('buttons.google')}
                 </Button>
               </form>
             </Form>
@@ -119,12 +121,12 @@ const AuthLogin = () => {
         href="/reset-password"
         className="text-muted-foreground block text-center text-sm underline"
       >
-        Forgot your password?
+        {t('links.forgotPassword')}
       </Link>
       <p className="text-center text-sm">
-        Don&apos;t have an account?{' '}
+        {t('links.noAccount')}{' '}
         <Link href="/signup" className="text-muted-foreground inline underline">
-          Create account
+          {t('links.createAccount')}
         </Link>
       </p>
     </div>

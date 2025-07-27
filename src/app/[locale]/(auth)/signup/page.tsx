@@ -1,31 +1,31 @@
 import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
+import { PageProps } from '@/types/utils/pageProps.type';
 import AuthSignUp from '@/components/auth/signup';
 
-const pagedata = {
-  title: 'Sign Up',
-  description:
-    'Create your account and start efficiently managing teams, tracking analytics and synchronizing data.',
-  keywords: 'sign up, registration, create account, teams',
-};
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'app.auth.signup' });
 
-export const metadata: Metadata = {
-  title: pagedata.title,
-  description: pagedata.description,
-  keywords: pagedata.keywords,
-  openGraph: {
-    title: pagedata.title,
-    description: pagedata.description,
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: pagedata.title,
-    description: pagedata.description,
-  },
-  robots: {
-    index: false,
-    follow: true,
-  },
-};
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    openGraph: {
+      title: t('title'),
+      description: t('description'),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('title'),
+      description: t('description'),
+    },
+    robots: {
+      index: false,
+      follow: false,
+    },
+  };
+}
 
 export default function Signup() {
   return <AuthSignUp />;

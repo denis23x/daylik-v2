@@ -83,6 +83,7 @@ function NumberInputField({
   return (
     <NumberInputPrimitive.Input
       data-slot="number-input-field"
+      inputMode="decimal"
       className={cn(
         'border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 flex h-full w-full min-w-0 border bg-transparent px-3 py-1 text-center text-base tabular-nums transition-[color,box-shadow] ease-out outline-none data-disabled:pointer-events-none data-disabled:opacity-50 md:text-sm',
         'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',

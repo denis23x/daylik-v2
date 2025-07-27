@@ -86,6 +86,7 @@ const TeammatesFormFields = () => {
                     placeholder="Got a cool picture? Paste the link"
                     {...field}
                     value={field.value || ''}
+                    inputMode="url"
                     disabled={form.formState.isSubmitting}
                   />
                   {field.value && (
