@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRandomHexColor } from '@/hooks/ui/useRandomHexColor';
-import { TeammatesFormSchema } from './form/form-schema';
+import { createTeammatesFormSchema } from './form/form-schema';
 import { Button } from '@/components/ui/button';
 import { Loader2, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -20,16 +20,19 @@ import { useDeleteFiles } from '@/hooks/useFiles';
 import { getFilePath } from '@/lib/api/files';
 import { Form as FormProvider } from '@/components/ui/form';
 import { BUCKET_IMAGES } from '@/lib/constants';
+import { useTranslations } from 'next-intl';
 
 export default function TeammatesModal() {
+  const t = useTranslations('components.dashboard.teammates');
   const { isOpen, mode, teammate, closeModal } = useTeammatesStore();
   const { generateRandomHex } = useRandomHexColor();
   const { mutateAsync: deleteTeammate } = useDeleteTeammate();
   const { mutate: deleteFiles } = useDeleteFiles();
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const queryClient = useQueryClient();
+  const isUpdate = mode === 'update';
 
-  const form = useForm<z.infer<typeof TeammatesFormSchema>>({
+  const form = useForm<z.infer<ReturnType<typeof createTeammatesFormSchema>>>({
     defaultValues: {
       name: '',
       role: '',
@@ -37,7 +40,7 @@ export default function TeammatesModal() {
       avatar: null,
       color: '',
     },
-    resolver: zodResolver(TeammatesFormSchema),
+    resolver: zodResolver(createTeammatesFormSchema(t)),
   });
 
   useEffect(() => {
@@ -86,9 +89,9 @@ export default function TeammatesModal() {
         closeModal();
 
         // Success message
-        toast.success(`${teammate.name} has left the building`);
+        toast.success(t('modal.messages.deleted', { teammateName: teammate.name }));
       } catch (error) {
-        toast.error(error instanceof Error ? error.message : 'An error occurred');
+        toast.error(error instanceof Error ? error.message : t('modal.messages.error'));
       }
     }
   };
@@ -98,20 +101,16 @@ export default function TeammatesModal() {
       open={isOpen}
       onOpenChange={(open) => !form.formState.isSubmitting && !open && closeModal()}
       disabled={form.formState.isSubmitting}
-      title={mode === 'update' ? 'Update Teammate' : 'Add Teammate'}
-      description={
-        mode === 'update'
-          ? 'Update teammate info and manage their teams.'
-          : 'Add a new teammate to start collaborating with your team.'
-      }
+      title={t(`modal.${mode}.title`)}
+      description={t(`modal.${mode}.description`)}
       content={
         <>
           <FormProvider {...form}>
-            {mode === 'update' ? <TeammateUpdateForm /> : <TeammateInsertForm />}
+            {isUpdate ? <TeammateUpdateForm /> : <TeammateInsertForm />}
           </FormProvider>
           <ConfirmDialog
-            title="Are you absolutely sure?"
-            description="This action cannot be undone."
+            title={t('modal.confirmDialog.title')}
+            description={t('modal.confirmDialog.description')}
             open={isConfirmOpen}
             onOpenChange={setIsConfirmOpen}
             onConfirmAction={form.handleSubmit(handleDelete)}
@@ -120,7 +119,7 @@ export default function TeammatesModal() {
       }
       trigger={undefined}
       left={
-        mode === 'update' ? (
+        isUpdate ? (
           <Button
             type="button"
             variant="destructive"
@@ -128,14 +127,18 @@ export default function TeammatesModal() {
             onClick={() => setIsConfirmOpen(true)}
           >
             <Trash2 className="hidden sm:block" />
-            Delete
+            {t('modal.deleteButton')}
           </Button>
         ) : undefined
       }
       right={
         <Button type="submit" form="teammate-form" disabled={form.formState.isSubmitting}>
           {form.formState.isSubmitting && <Loader2 className="mr-2 animate-spin" />}
-          {form.formState.isSubmitting ? 'Please wait' : mode === 'update' ? 'Update' : 'Add'}
+          {form.formState.isSubmitting
+            ? t('modal.loading')
+            : isUpdate
+              ? t('modal.updateButton')
+              : t('modal.addButton')}
         </Button>
       }
     />

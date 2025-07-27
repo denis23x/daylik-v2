@@ -379,6 +379,140 @@
             "closeButton": "Close"
           }
         }
+      },
+      "teams": {
+        "hero": {
+          "title": "Teams",
+          "description": "Create, edit, and manage teams to align your projects with strategic goals. Assign teammates, clarify roles, and maintain a structured workspace that improves focus and coordination.",
+          "createButton": "Create Team"
+        },
+        "grid": {
+          "title": "Teams",
+          "noTeams": "No teams found",
+          "createButton": "Create Team"
+        },
+        "card": {
+          "addTeammates": "Add Teammates",
+          "sync": "Sync"
+        },
+        "cardNew": {
+          "title": "New",
+          "createButton": "Create Team"
+        },
+        "modal": {
+          "insert": {
+            "title": "Create Team",
+            "description": "Create a new team to start collaborating with your members."
+          },
+          "update": {
+            "title": "Edit Team",
+            "description": "Edit team info and manage their members."
+          },
+          "deleteButton": "Delete",
+          "insertButton": "Create",
+          "updateButton": "Update",
+          "loading": "Please wait",
+          "confirmDialog": {
+            "title": "Are you absolutely sure?",
+            "description": "This action cannot be undone."
+          },
+          "messages": {
+            "deleted": "Poof! {teamName} disbanded",
+            "error": "An error occurred"
+          }
+        },
+        "form": {
+          "name": {
+            "label": "Name",
+            "placeholder": "What's your team called?",
+            "validation": "Team name must be at least 2 characters"
+          },
+          "teammates": {
+            "label": "Teammates",
+            "placeholder": "Select teammates (optional)",
+            "searchPlaceholder": "Search",
+            "emptyMessage": "No teammates found"
+          },
+          "image": {
+            "label": "Image",
+            "placeholder": "Got a cool picture? Paste the link"
+          },
+          "messages": {
+            "created": "{teamName} is online!",
+            "updated": "{teamName} has been patched!",
+            "updatedWithNameChange": "{newName} (ex. {oldName}) has been patched!",
+            "error": "An error occurred"
+          }
+        }
+      },
+      "teammates": {
+        "hero": {
+          "title": "Teammates",
+          "description": "Add, update, or remove teammates and assign them to the right teams. Strengthen collaboration by keeping your workspace organized and your people connected to what matters.",
+          "addButton": "Add Teammate"
+        },
+        "grid": {
+          "title": "Teammates",
+          "noTeammates": "No teammates found",
+          "addButton": "Add Teammate"
+        },
+        "cardNew": {
+          "title": "New",
+          "subtitle": "Add a teammate"
+        },
+        "modal": {
+          "insert": {
+            "title": "Add Teammate",
+            "description": "Add a new teammate to start collaborating with your team."
+          },
+          "update": {
+            "title": "Update Teammate",
+            "description": "Update teammate info and manage their teams."
+          },
+          "deleteButton": "Delete",
+          "addButton": "Add",
+          "updateButton": "Update",
+          "loading": "Please wait",
+          "confirmDialog": {
+            "title": "Are you absolutely sure?",
+            "description": "This action cannot be undone."
+          },
+          "messages": {
+            "deleted": "{teammateName} has left the building",
+            "error": "An error occurred"
+          }
+        },
+        "form": {
+          "name": {
+            "label": "Name",
+            "placeholder": "What's their name?",
+            "validation": "Teammate name must be at least 2 characters"
+          },
+          "role": {
+            "label": "Role",
+            "placeholder": "What's their role in the team?",
+            "validation": "Role must be at least 2 characters"
+          },
+          "teams": {
+            "label": "Teams",
+            "placeholder": "Select teams (optional)",
+            "searchPlaceholder": "Search",
+            "emptyMessage": "No teams found"
+          },
+          "avatar": {
+            "label": "Avatar",
+            "placeholder": "Got a cool picture? Paste the link"
+          },
+          "color": {
+            "validation": "Color must be a valid hex code"
+          },
+          "messages": {
+            "created": "{teammateName} joined the mission!",
+            "updated": "{teammateName} has been patched!",
+            "updatedWithNameChange": "{newName} (ex. {oldName}) has been patched!",
+            "error": "An error occurred"
+          }
+        }
       }
     },
     "home": {

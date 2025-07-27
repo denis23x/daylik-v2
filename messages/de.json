@@ -379,6 +379,140 @@
             "closeButton": "Schließen"
           }
         }
+      },
+      "teams": {
+        "hero": {
+          "title": "Teams",
+          "description": "Erstellen, bearbeiten und verwalten Sie Teams, um Ihre Projekte mit strategischen Zielen zu verbinden. Weisen Sie Teammitglieder zu, klären Sie Rollen und sorgen Sie für einen strukturierten Arbeitsplatz, der Fokus und Koordination verbessert.",
+          "createButton": "Team erstellen"
+        },
+        "grid": {
+          "title": "Teams",
+          "noTeams": "Keine Teams gefunden",
+          "createButton": "Team erstellen"
+        },
+        "card": {
+          "addTeammates": "Teammitglieder hinzufügen",
+          "sync": "Synchronisation"
+        },
+        "cardNew": {
+          "title": "Neu",
+          "createButton": "Team erstellen"
+        },
+        "modal": {
+          "insert": {
+            "title": "Team erstellen",
+            "description": "Erstellen Sie ein neues Team, um mit Ihren Mitgliedern zusammenzuarbeiten."
+          },
+          "update": {
+            "title": "Team bearbeiten",
+            "description": "Bearbeiten Sie Teaminfos und verwalten Sie deren Mitglieder."
+          },
+          "deleteButton": "Löschen",
+          "insertButton": "Erstellen",
+          "updateButton": "Aktualisieren",
+          "loading": "Bitte warten",
+          "confirmDialog": {
+            "title": "Sind Sie absolut sicher?",
+            "description": "Diese Aktion kann nicht rückgängig gemacht werden."
+          },
+          "messages": {
+            "deleted": "Puff! {teamName} aufgelöst",
+            "error": "Ein Fehler ist aufgetreten"
+          }
+        },
+        "form": {
+          "name": {
+            "label": "Name",
+            "placeholder": "Wie heißt Ihr Team?",
+            "validation": "Teamname muss mindestens 2 Zeichen lang sein"
+          },
+          "teammates": {
+            "label": "Teammitglieder",
+            "placeholder": "Teammitglieder auswählen (optional)",
+            "searchPlaceholder": "Suchen",
+            "emptyMessage": "Keine Teammitglieder gefunden"
+          },
+          "image": {
+            "label": "Bild",
+            "placeholder": "Haben Sie ein cooles Bild? Link einfügen"
+          },
+          "messages": {
+            "created": "{teamName} ist online!",
+            "updated": "{teamName} wurde aktualisiert!",
+            "updatedWithNameChange": "{newName} (ehem. {oldName}) wurde aktualisiert!",
+            "error": "Ein Fehler ist aufgetreten"
+          }
+        }
+      },
+      "teammates": {
+        "hero": {
+          "title": "Teammitglieder",
+          "description": "Fügen Sie Teammitglieder hinzu, aktualisieren oder entfernen Sie sie und weisen Sie sie den richtigen Teams zu. Stärken Sie die Zusammenarbeit, indem Sie Ihren Arbeitsplatz organisiert halten und Ihre Mitarbeiter mit dem verbinden, was wichtig ist.",
+          "addButton": "Teammitglied hinzufügen"
+        },
+        "grid": {
+          "title": "Teammitglieder",
+          "noTeammates": "Keine Teammitglieder gefunden",
+          "addButton": "Teammitglied hinzufügen"
+        },
+        "cardNew": {
+          "title": "Neu",
+          "subtitle": "Teammitglied hinzufügen"
+        },
+        "modal": {
+          "insert": {
+            "title": "Teammitglied hinzufügen",
+            "description": "Fügen Sie ein neues Teammitglied hinzu, um mit Ihrem Team zusammenzuarbeiten."
+          },
+          "update": {
+            "title": "Teammitglied aktualisieren",
+            "description": "Aktualisieren Sie die Teammitglied-Infos und verwalten Sie deren Teams."
+          },
+          "deleteButton": "Löschen",
+          "addButton": "Hinzufügen",
+          "updateButton": "Aktualisieren",
+          "loading": "Bitte warten",
+          "confirmDialog": {
+            "title": "Sind Sie absolut sicher?",
+            "description": "Diese Aktion kann nicht rückgängig gemacht werden."
+          },
+          "messages": {
+            "deleted": "{teammateName} hat das Gebäude verlassen",
+            "error": "Ein Fehler ist aufgetreten"
+          }
+        },
+        "form": {
+          "name": {
+            "label": "Name",
+            "placeholder": "Wie heißen sie?",
+            "validation": "Teammitgliedname muss mindestens 2 Zeichen lang sein"
+          },
+          "role": {
+            "label": "Rolle",
+            "placeholder": "Welche Rolle haben sie im Team?",
+            "validation": "Rolle muss mindestens 2 Zeichen lang sein"
+          },
+          "teams": {
+            "label": "Teams",
+            "placeholder": "Teams auswählen (optional)",
+            "searchPlaceholder": "Suchen",
+            "emptyMessage": "Keine Teams gefunden"
+          },
+          "avatar": {
+            "label": "Avatar",
+            "placeholder": "Haben Sie ein cooles Bild? Link einfügen"
+          },
+          "color": {
+            "validation": "Farbe muss ein gültiger Hex-Code sein"
+          },
+          "messages": {
+            "created": "{teammateName} ist der Mission beigetreten!",
+            "updated": "{teammateName} wurde aktualisiert!",
+            "updatedWithNameChange": "{newName} (ehem. {oldName}) wurde aktualisiert!",
+            "error": "Ein Fehler ist aufgetreten"
+          }
+        }
       }
     },
     "home": {

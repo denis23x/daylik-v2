@@ -4,8 +4,10 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { UserRoundPlus } from 'lucide-react';
 import { useTeammatesStore } from '@/store/useTeammatesStore';
 import { BorderBeam } from '@/components/magicui/border-beam';
+import { useTranslations } from 'next-intl';
 
 const TeammatesCardNew = () => {
+  const t = useTranslations('components.dashboard.teammates.cardNew');
   const { openModal } = useTeammatesStore();
 
   const handleInsert = () => {
@@ -24,8 +26,8 @@ const TeammatesCardNew = () => {
         </Avatar>
       </CardContent>
       <CardFooter className="flex flex-col items-stretch p-0 text-center">
-        <span className="truncate text-lg font-semibold sm:text-2xl">New</span>
-        <p className="text-muted-foreground truncate text-xs sm:text-sm">Add a teammate</p>
+        <span className="truncate text-lg font-semibold sm:text-2xl">{t('title')}</span>
+        <p className="text-muted-foreground truncate text-xs sm:text-sm">{t('subtitle')}</p>
       </CardFooter>
       <BorderBeam duration={8} size={100} />
     </Card>

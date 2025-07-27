@@ -5,19 +5,21 @@ import { toast } from 'sonner';
 import { useCreateTeammate } from '@/hooks/useTeammates';
 import { useTeammatesStore } from '@/store/useTeammatesStore';
 import { TeammatesFormFields } from './form-fields';
-import { TeammatesFormSchema } from './form-schema';
+import { createTeammatesFormSchema } from './form-schema';
 import { z } from 'zod';
 import { useAddTeamsToTeammate } from '@/hooks/useTeamsTeammates';
 import { useAutoScroll } from '@/hooks/ui/useAutoScroll';
+import { useTranslations } from 'next-intl';
 
 export default function TeammateInsertForm() {
-  const form = useFormContext<z.infer<typeof TeammatesFormSchema>>();
+  const t = useTranslations('components.dashboard.teammates.form.messages');
+  const form = useFormContext<z.infer<ReturnType<typeof createTeammatesFormSchema>>>();
   const { mutateAsync: createTeammate } = useCreateTeammate();
   const { mutateAsync: addTeamsToTeammate } = useAddTeamsToTeammate();
   const { closeModal } = useTeammatesStore();
   const { scrollTo } = useAutoScroll();
 
-  const handleSubmit = async (formData: z.infer<typeof TeammatesFormSchema>) => {
+  const handleSubmit = async (formData: z.infer<ReturnType<typeof createTeammatesFormSchema>>) => {
     try {
       const teammate = await createTeammate({
         name: formData.name,
@@ -38,9 +40,9 @@ export default function TeammateInsertForm() {
       closeModal();
 
       // Success message
-      toast.success(`${teammate.name} joined the mission!`);
+      toast.success(t('created', { teammateName: teammate.name }));
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'An error occurred');
+      toast.error(error instanceof Error ? error.message : t('error'));
     }
   };
 

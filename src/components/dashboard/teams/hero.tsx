@@ -4,8 +4,10 @@ import { Grid2x2Check, Plus } from 'lucide-react';
 import { useTeamsStore } from '@/store/useTeamsStore';
 import DashboardHero from '../hero';
 import { RainbowButton } from '@/components/magicui/rainbow-button';
+import { useTranslations } from 'next-intl';
 
 const TeamsHero = () => {
+  const t = useTranslations('components.dashboard.teams.hero');
   const { openModal } = useTeamsStore();
 
   const handleInsert = () => {
@@ -13,13 +15,9 @@ const TeamsHero = () => {
   };
 
   return (
-    <DashboardHero
-      title="Teams"
-      description="Create, edit, and manage teams to align your projects with strategic goals. Assign teammates, clarify roles, and maintain a structured workspace that improves focus and coordination."
-      icon={<Grid2x2Check />}
-    >
+    <DashboardHero title={t('title')} description={t('description')} icon={<Grid2x2Check />}>
       <RainbowButton onClick={handleInsert}>
-        <Plus /> Create Team
+        <Plus /> {t('createButton')}
       </RainbowButton>
     </DashboardHero>
   );

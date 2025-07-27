@@ -379,6 +379,140 @@
             "closeButton": "Cerrar"
           }
         }
+      },
+      "teams": {
+        "hero": {
+          "title": "Equipos",
+          "description": "Crea, edita y gestiona equipos para alinear tus proyectos con objetivos estratégicos. Asigna compañeros de equipo, clarifica roles y mantén un espacio de trabajo estructurado que mejore el enfoque y la coordinación.",
+          "createButton": "Crear Equipo"
+        },
+        "grid": {
+          "title": "Equipos",
+          "noTeams": "No se encontraron equipos",
+          "createButton": "Crear Equipo"
+        },
+        "card": {
+          "addTeammates": "Agregar Compañeros",
+          "sync": "Sincronización"
+        },
+        "cardNew": {
+          "title": "Nuevo",
+          "createButton": "Crear Equipo"
+        },
+        "modal": {
+          "insert": {
+            "title": "Crear Equipo",
+            "description": "Crea un nuevo equipo para comenzar a colaborar con tus miembros."
+          },
+          "update": {
+            "title": "Editar Equipo",
+            "description": "Edita la información del equipo y gestiona sus miembros."
+          },
+          "deleteButton": "Eliminar",
+          "insertButton": "Crear",
+          "updateButton": "Actualizar",
+          "loading": "Por favor espera",
+          "confirmDialog": {
+            "title": "¿Estás absolutamente seguro?",
+            "description": "Esta acción no se puede deshacer."
+          },
+          "messages": {
+            "deleted": "¡Puf! {teamName} disuelto",
+            "error": "Ocurrió un error"
+          }
+        },
+        "form": {
+          "name": {
+            "label": "Nombre",
+            "placeholder": "¿Cómo se llama tu equipo?",
+            "validation": "El nombre del equipo debe tener al menos 2 caracteres"
+          },
+          "teammates": {
+            "label": "Compañeros de Equipo",
+            "placeholder": "Seleccionar compañeros (opcional)",
+            "searchPlaceholder": "Buscar",
+            "emptyMessage": "No se encontraron compañeros de equipo"
+          },
+          "image": {
+            "label": "Imagen",
+            "placeholder": "¿Tienes una imagen genial? Pega el enlace"
+          },
+          "messages": {
+            "created": "¡{teamName} está en línea!",
+            "updated": "¡{teamName} ha sido actualizado!",
+            "updatedWithNameChange": "¡{newName} (antes {oldName}) ha sido actualizado!",
+            "error": "Ocurrió un error"
+          }
+        }
+      },
+      "teammates": {
+        "hero": {
+          "title": "Compañeros de Equipo",
+          "description": "Agrega, actualiza o elimina compañeros de equipo y asígnalos a los equipos correctos. Fortalece la colaboración manteniendo tu espacio de trabajo organizado y conectando a las personas con lo que importa.",
+          "addButton": "Agregar Compañero"
+        },
+        "grid": {
+          "title": "Compañeros de Equipo",
+          "noTeammates": "No se encontraron compañeros de equipo",
+          "addButton": "Agregar Compañero"
+        },
+        "cardNew": {
+          "title": "Nuevo",
+          "subtitle": "Agregar un compañero"
+        },
+        "modal": {
+          "insert": {
+            "title": "Agregar Compañero",
+            "description": "Agrega un nuevo compañero para comenzar a colaborar con tu equipo."
+          },
+          "update": {
+            "title": "Actualizar Compañero",
+            "description": "Actualiza la información del compañero y gestiona sus equipos."
+          },
+          "deleteButton": "Eliminar",
+          "addButton": "Agregar",
+          "updateButton": "Actualizar",
+          "loading": "Por favor espera",
+          "confirmDialog": {
+            "title": "¿Estás absolutamente seguro?",
+            "description": "Esta acción no se puede deshacer."
+          },
+          "messages": {
+            "deleted": "{teammateName} ha abandonado el edificio",
+            "error": "Ocurrió un error"
+          }
+        },
+        "form": {
+          "name": {
+            "label": "Nombre",
+            "placeholder": "¿Cómo se llaman?",
+            "validation": "El nombre del compañero debe tener al menos 2 caracteres"
+          },
+          "role": {
+            "label": "Rol",
+            "placeholder": "¿Cuál es su rol en el equipo?",
+            "validation": "El rol debe tener al menos 2 caracteres"
+          },
+          "teams": {
+            "label": "Equipos",
+            "placeholder": "Seleccionar equipos (opcional)",
+            "searchPlaceholder": "Buscar",
+            "emptyMessage": "No se encontraron equipos"
+          },
+          "avatar": {
+            "label": "Avatar",
+            "placeholder": "¿Tienes una imagen genial? Pega el enlace"
+          },
+          "color": {
+            "validation": "El color debe ser un código hex válido"
+          },
+          "messages": {
+            "created": "¡{teammateName} se unió a la misión!",
+            "updated": "¡{teammateName} ha sido actualizado!",
+            "updatedWithNameChange": "¡{newName} (antes {oldName}) ha sido actualizado!",
+            "error": "Ocurrió un error"
+          }
+        }
       }
     },
     "home": {

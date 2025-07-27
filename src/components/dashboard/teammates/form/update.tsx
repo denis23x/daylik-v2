@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import { useUpdateTeammate } from '@/hooks/useTeammates';
 import { useTeammatesStore } from '@/store/useTeammatesStore';
 import { TeammatesFormFields } from './form-fields';
-import { TeammatesFormSchema } from './form-schema';
+import { createTeammatesFormSchema } from './form-schema';
 import { z } from 'zod';
 import { useAddTeamsToTeammate, useRemoveTeamsFromTeammate } from '@/hooks/useTeamsTeammates';
 import { useQueryClient } from '@tanstack/react-query';
@@ -13,9 +13,11 @@ import { getFilePath } from '@/lib/api/files';
 import { BUCKET_IMAGES } from '@/lib/constants';
 import { useDeleteFiles } from '@/hooks/useFiles';
 import { useAutoScroll } from '@/hooks/ui/useAutoScroll';
+import { useTranslations } from 'next-intl';
 
 export default function TeammateUpdateForm() {
-  const form = useFormContext<z.infer<typeof TeammatesFormSchema>>();
+  const t = useTranslations('components.dashboard.teammates.form.messages');
+  const form = useFormContext<z.infer<ReturnType<typeof createTeammatesFormSchema>>>();
   const { mutateAsync: updateTeammate } = useUpdateTeammate();
   const { mutateAsync: addTeamsToTeammate } = useAddTeamsToTeammate();
   const { mutateAsync: removeTeamsFromTeammate } = useRemoveTeamsFromTeammate();
@@ -24,7 +26,7 @@ export default function TeammateUpdateForm() {
   const { scrollTo } = useAutoScroll();
   const queryClient = useQueryClient();
 
-  const handleSubmit = async (formData: z.infer<typeof TeammatesFormSchema>) => {
+  const handleSubmit = async (formData: z.infer<ReturnType<typeof createTeammatesFormSchema>>) => {
     if (teammate) {
       try {
         if (Object.keys(form.formState.dirtyFields).length) {
@@ -75,12 +77,14 @@ export default function TeammateUpdateForm() {
 
         // Success message
         if (teammate.name !== formData.name) {
-          toast.success(`${formData.name} (ex. ${teammate.name}) has been patched!`);
+          toast.success(
+            t('updatedWithNameChange', { newName: formData.name, oldName: teammate.name })
+          );
         } else {
-          toast.success(`${teammate.name} has been patched!`);
+          toast.success(t('updated', { teammateName: teammate.name }));
         }
       } catch (error) {
-        toast.error(error instanceof Error ? error.message : 'An error occurred');
+        toast.error(error instanceof Error ? error.message : t('error'));
       }
     }
   };

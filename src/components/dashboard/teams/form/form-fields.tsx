@@ -3,7 +3,7 @@
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useFormContext } from 'react-hook-form';
-import { TeamsFormSchema } from './form-schema';
+import { createTeamsFormSchema } from './form-schema';
 import { z } from 'zod';
 import FormMultiSelect from '@/components/dx/form/form-multi-select';
 import { useTeammates } from '@/hooks/useTeammates';
@@ -12,9 +12,11 @@ import { Button } from '@/components/ui/button';
 import { FolderOpenIcon, X } from 'lucide-react';
 import FormFileUploader from '@/components/dx/form/form-file-uploader';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 const TeamsFormFields = () => {
-  const form = useFormContext<z.infer<typeof TeamsFormSchema>>();
+  const t = useTranslations('components.dashboard.teams.form');
+  const form = useFormContext<z.infer<ReturnType<typeof createTeamsFormSchema>>>();
   const { data: teammates } = useTeammates({ query: 'UUID, name, role' });
 
   return (
@@ -25,12 +27,12 @@ const TeamsFormFields = () => {
         render={({ field, formState }) => (
           <FormItem>
             <FormLabel>
-              Name
+              {t('name.label')}
               <span className="text-destructive">*</span>
             </FormLabel>
             <FormControl>
               <Input
-                placeholder="What's your team called?"
+                placeholder={t('name.placeholder')}
                 disabled={formState.isSubmitting}
                 {...field}
               />
@@ -41,10 +43,10 @@ const TeamsFormFields = () => {
       />
       <FormMultiSelect
         name="teammates"
-        label="Teammates"
-        placeholder="Select teammates (optional)"
-        searchPlaceholder="Search"
-        emptyMessage="No teammates found"
+        label={t('teammates.label')}
+        placeholder={t('teammates.placeholder')}
+        searchPlaceholder={t('teammates.searchPlaceholder')}
+        emptyMessage={t('teammates.emptyMessage')}
         items={(teammates as Teammate[])?.map((teammate) => ({
           key: teammate.UUID,
           value: teammate.UUID,
@@ -58,12 +60,12 @@ const TeamsFormFields = () => {
           name="image"
           render={({ field }) => (
             <FormItem className="flex-1">
-              <FormLabel>Image</FormLabel>
+              <FormLabel>{t('image.label')}</FormLabel>
               <FormControl>
                 <div className="relative">
                   <Input
                     className={cn(field.value && 'pr-8')}
-                    placeholder="Got a cool picture? Paste the link"
+                    placeholder={t('image.placeholder')}
                     {...field}
                     value={field.value || ''}
                     inputMode="url"

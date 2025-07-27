@@ -3,21 +3,23 @@
 import { useFormContext } from 'react-hook-form';
 import { toast } from 'sonner';
 import { TeamsFormFields } from './form-fields';
-import { TeamsFormSchema } from './form-schema';
+import { createTeamsFormSchema } from './form-schema';
 import { z } from 'zod';
 import { useCreateTeam } from '@/hooks/useTeams';
 import { useTeamsStore } from '@/store/useTeamsStore';
 import { useAddTeammatesToTeam } from '@/hooks/useTeamsTeammates';
 import { useAutoScroll } from '@/hooks/ui/useAutoScroll';
+import { useTranslations } from 'next-intl';
 
 export default function TeammateInsertForm() {
-  const form = useFormContext<z.infer<typeof TeamsFormSchema>>();
+  const t = useTranslations('components.dashboard.teams.form.messages');
+  const form = useFormContext<z.infer<ReturnType<typeof createTeamsFormSchema>>>();
   const { mutateAsync: createTeam } = useCreateTeam();
   const { mutateAsync: addTeammatesToTeam } = useAddTeammatesToTeam();
   const { closeModal } = useTeamsStore();
   const { scrollTo } = useAutoScroll();
 
-  const handleSubmit = async (formData: z.infer<typeof TeamsFormSchema>) => {
+  const handleSubmit = async (formData: z.infer<ReturnType<typeof createTeamsFormSchema>>) => {
     try {
       const team = await createTeam({
         name: formData.name,
@@ -36,9 +38,9 @@ export default function TeammateInsertForm() {
       closeModal();
 
       // Success message
-      toast.success(`${team.name} is online!`);
+      toast.success(t('created', { teamName: team.name }));
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'An error occurred');
+      toast.error(error instanceof Error ? error.message : t('error'));
     }
   };
 

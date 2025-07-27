@@ -10,6 +10,7 @@ import HoverEffectSkeletons from '@/components/dx/hover-effect/hover-effect-skel
 import HoverEffectError from '@/components/dx/hover-effect/hover-effect-error';
 import HoverEffectNotFound from '@/components/dx/hover-effect/hover-effect-not-found';
 import { Button } from '@/components/ui/button';
+import { useTranslations } from 'next-intl';
 
 // Mobile optimization
 const HoverEffect = lazy(() => import('@/components/dx/hover-effect/hover-effect'));
@@ -17,6 +18,7 @@ const TeamsCardNew = lazy(() => import('./card-new'));
 const TeamsCard = lazy(() => import('./card'));
 
 const TeamsGrid = () => {
+  const t = useTranslations('components.dashboard.teams.grid');
   const sm = useMediaQuery('(min-width: 640px)');
   const { openModal } = useTeamsStore();
   const {
@@ -60,15 +62,15 @@ const TeamsGrid = () => {
       <div className="flex w-full flex-col gap-4">
         <div className="flex min-h-9 items-center gap-4">
           <Grid2x2 />
-          <span className="text-xl font-bold">Teams</span>
+          <span className="text-xl font-bold">{t('title')}</span>
         </div>
         <div className="flex w-full flex-col items-center gap-4">
           {isLoading && SkeletonCards}
           {error && <HoverEffectError />}
           {!isLoading && !error && teams?.length === 0 && (
-            <HoverEffectNotFound title="No teams found">
+            <HoverEffectNotFound title={t('noTeams')}>
               <Button variant="secondary" onClick={handleInsert}>
-                <Plus /> Create Team
+                <Plus /> {t('createButton')}
               </Button>
             </HoverEffectNotFound>
           )}

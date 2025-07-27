@@ -12,6 +12,7 @@ import HoverEffectSkeletons from '@/components/dx/hover-effect/hover-effect-skel
 import HoverEffectError from '@/components/dx/hover-effect/hover-effect-error';
 import HoverEffectNotFound from '@/components/dx/hover-effect/hover-effect-not-found';
 import { Button } from '@/components/ui/button';
+import { useTranslations } from 'next-intl';
 
 // Mobile optimization
 const HoverEffect = lazy(() => import('@/components/dx/hover-effect/hover-effect'));
@@ -19,6 +20,7 @@ const TeammatesCardNew = lazy(() => import('./card-new'));
 const TeammatesCard = lazy(() => import('./card'));
 
 const TeammatesGrid = () => {
+  const t = useTranslations('components.dashboard.teammates.grid');
   const sm = useMediaQuery('(min-width: 640px)');
   const { openModal } = useTeammatesStore();
   const { data: teammates, error, isLoading } = useTeammates({ query: '*' });
@@ -69,15 +71,15 @@ const TeammatesGrid = () => {
       <div className="flex w-full flex-col gap-4">
         <div className="flex min-h-9 items-center gap-4">
           <UsersRound />
-          <span className="text-xl font-bold">Teammates</span>
+          <span className="text-xl font-bold">{t('title')}</span>
         </div>
         <div className="flex w-full flex-col items-center gap-4">
           {isLoading && SkeletonCards}
           {error && <HoverEffectError />}
           {!isLoading && !error && teammates?.length === 0 && (
-            <HoverEffectNotFound title="No teammates found">
+            <HoverEffectNotFound title={t('noTeammates')}>
               <Button variant="secondary" onClick={handleInsert}>
-                <Plus /> Add Teammate
+                <Plus /> {t('addButton')}
               </Button>
             </HoverEffectNotFound>
           )}

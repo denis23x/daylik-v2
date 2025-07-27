@@ -12,8 +12,10 @@ import { getDisplayTeammates } from '@/utils/getDisplayTeammates';
 import { toast } from 'sonner';
 import { useTeammatesFromTeam } from '@/hooks/useTeamsTeammates';
 import { useTeamsStore } from '@/store/useTeamsStore';
+import { useTranslations } from 'next-intl';
 
 const TeamsCard = ({ team }: { team: Team }) => {
+  const t = useTranslations('components.dashboard.teams.card');
   const { openModal } = useTeamsStore();
   const { refetch } = useTeammatesFromTeam({
     query: 'teammateUUID',
@@ -106,11 +108,11 @@ const TeamsCard = ({ team }: { team: Team }) => {
       <CardFooter className="flex flex-col items-stretch p-0 text-center">
         {team.teammates?.length ? (
           <Button asChild>
-            <Link href={`/sync/${team.UUID}/settings`}>Sync</Link>
+            <Link href={`/sync/${team.UUID}/settings`}>{t('sync')}</Link>
           </Button>
         ) : (
           <Button variant="secondary" onClick={() => handleUpdate(team)}>
-            Add Teammates
+            {t('addTeammates')}
           </Button>
         )}
       </CardFooter>

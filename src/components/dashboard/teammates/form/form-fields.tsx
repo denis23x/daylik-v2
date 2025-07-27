@@ -9,7 +9,7 @@ import FormFileUploader from '@/components/dx/form/form-file-uploader';
 import FormColorPicker from '@/components/dx/form/form-color-picker';
 import FormAutocomplete from '@/components/dx/form/form-autocomplete';
 import { useFormContext } from 'react-hook-form';
-import { TeammatesFormSchema } from './form-schema';
+import { createTeammatesFormSchema } from './form-schema';
 import { z } from 'zod';
 import { useTeams } from '@/hooks/useTeams';
 import type { Team } from '@/types/team.type';
@@ -17,9 +17,11 @@ import { cn } from '@/lib/utils';
 import { getCookie } from '@/hooks/useCookie';
 import { COOKIE_ROLES } from '@/lib/constants';
 import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 const TeammatesFormFields = () => {
-  const form = useFormContext<z.infer<typeof TeammatesFormSchema>>();
+  const t = useTranslations('components.dashboard.teammates.form');
+  const form = useFormContext<z.infer<ReturnType<typeof createTeammatesFormSchema>>>();
   const { data: teams } = useTeams({ query: 'UUID, name' });
   const [roles, setRoles] = useState([]);
 
@@ -38,11 +40,11 @@ const TeammatesFormFields = () => {
         render={({ field }) => (
           <FormItem>
             <FormLabel>
-              Name <span className="text-destructive">*</span>
+              {t('name.label')} <span className="text-destructive">*</span>
             </FormLabel>
             <FormControl>
               <Input
-                placeholder="What's their name?"
+                placeholder={t('name.placeholder')}
                 {...field}
                 disabled={form.formState.isSubmitting}
               />
@@ -53,8 +55,8 @@ const TeammatesFormFields = () => {
       />
       <FormAutocomplete
         name="role"
-        label="Role"
-        placeholder="What's their role in the team?"
+        label={t('role.label')}
+        placeholder={t('role.placeholder')}
         items={(roles as string[])?.map((role, index) => ({
           key: String(index),
           value: role,
@@ -62,10 +64,10 @@ const TeammatesFormFields = () => {
       />
       <FormMultiSelect
         name="teams"
-        label="Teams"
-        placeholder="Select teams (optional)"
-        searchPlaceholder="Search"
-        emptyMessage="No teams found"
+        label={t('teams.label')}
+        placeholder={t('teams.placeholder')}
+        searchPlaceholder={t('teams.searchPlaceholder')}
+        emptyMessage={t('teams.emptyMessage')}
         items={(teams as Team[])?.map((team) => ({
           key: team.UUID,
           value: team.UUID,
@@ -78,12 +80,12 @@ const TeammatesFormFields = () => {
           name="avatar"
           render={({ field }) => (
             <FormItem className="flex-1">
-              <FormLabel>Avatar</FormLabel>
+              <FormLabel>{t('avatar.label')}</FormLabel>
               <FormControl>
                 <div className="relative">
                   <Input
                     className={cn(field.value && 'pr-8')}
-                    placeholder="Got a cool picture? Paste the link"
+                    placeholder={t('avatar.placeholder')}
                     {...field}
                     value={field.value || ''}
                     inputMode="url"

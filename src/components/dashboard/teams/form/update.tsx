@@ -3,7 +3,7 @@
 import { useFormContext } from 'react-hook-form';
 import { toast } from 'sonner';
 import { TeamsFormFields } from './form-fields';
-import { TeamsFormSchema } from './form-schema';
+import { createTeamsFormSchema } from './form-schema';
 import { z } from 'zod';
 import { useTeamsStore } from '@/store/useTeamsStore';
 import { useUpdateTeam } from '@/hooks/useTeams';
@@ -13,9 +13,11 @@ import { getFilePath } from '@/lib/api/files';
 import { BUCKET_IMAGES } from '@/lib/constants';
 import { useAutoScroll } from '@/hooks/ui/useAutoScroll';
 import { useQueryClient } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
 
 export default function TeammateUpdateForm() {
-  const form = useFormContext<z.infer<typeof TeamsFormSchema>>();
+  const t = useTranslations('components.dashboard.teams.form.messages');
+  const form = useFormContext<z.infer<ReturnType<typeof createTeamsFormSchema>>>();
   const { mutateAsync: updateTeam } = useUpdateTeam();
   const { mutateAsync: addTeammatesToTeam } = useAddTeammatesToTeam();
   const { mutateAsync: removeTeammatesFromTeam } = useRemoveTeammatesFromTeam();
@@ -24,7 +26,7 @@ export default function TeammateUpdateForm() {
   const { scrollTo } = useAutoScroll();
   const queryClient = useQueryClient();
 
-  const handleSubmit = async (formData: z.infer<typeof TeamsFormSchema>) => {
+  const handleSubmit = async (formData: z.infer<ReturnType<typeof createTeamsFormSchema>>) => {
     if (team) {
       try {
         if (Object.keys(form.formState.dirtyFields).length) {
@@ -73,12 +75,12 @@ export default function TeammateUpdateForm() {
 
         // Success message
         if (team.name !== formData.name) {
-          toast.success(`${formData.name} (ex. ${team.name}) has been patched!`);
+          toast.success(t('updatedWithNameChange', { newName: formData.name, oldName: team.name }));
         } else {
-          toast.success(`${team.name} has been patched!`);
+          toast.success(t('updated', { teamName: team.name }));
         }
       } catch (error) {
-        toast.error(error instanceof Error ? error.message : 'An error occurred');
+        toast.error(error instanceof Error ? error.message : t('error'));
       }
     }
   };

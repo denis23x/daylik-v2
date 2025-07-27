@@ -6,7 +6,7 @@ import TeamUpdateForm from './form/update';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { TeamsFormSchema } from './form/form-schema';
+import { createTeamsFormSchema } from './form/form-schema';
 import { Button } from '@/components/ui/button';
 import { Loader2, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -18,20 +18,23 @@ import { Form as FormProvider } from '@/components/ui/form';
 import { getFilePath } from '@/lib/api/files';
 import { BUCKET_IMAGES } from '@/lib/constants';
 import { useDeleteFiles } from '@/hooks/useFiles';
+import { useTranslations } from 'next-intl';
 
 export default function TeamsModal() {
+  const t = useTranslations('components.dashboard.teams');
   const { isOpen, mode, team, closeModal } = useTeamsStore();
   const { mutateAsync: deleteTeam } = useDeleteTeam();
   const { mutate: deleteFiles } = useDeleteFiles();
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const isUpdate = mode === 'update';
 
-  const form = useForm<z.infer<typeof TeamsFormSchema>>({
+  const form = useForm<z.infer<ReturnType<typeof createTeamsFormSchema>>>({
     defaultValues: {
       name: '',
       teammates: [],
       image: null,
     },
-    resolver: zodResolver(TeamsFormSchema),
+    resolver: zodResolver(createTeamsFormSchema(t)),
   });
 
   useEffect(() => {
@@ -71,9 +74,9 @@ export default function TeamsModal() {
         closeModal();
 
         // Success message
-        toast.success(`Poof! ${team.name} disbanded`);
+        toast.success(t('modal.messages.deleted', { teamName: team.name }));
       } catch (error) {
-        toast.error(error instanceof Error ? error.message : 'An error occurred');
+        toast.error(error instanceof Error ? error.message : t('modal.messages.error'));
       }
     }
   };
@@ -83,20 +86,16 @@ export default function TeamsModal() {
       open={isOpen}
       onOpenChange={(open) => !form.formState.isSubmitting && !open && closeModal()}
       disabled={form.formState.isSubmitting}
-      title={mode === 'update' ? 'Edit Team' : 'Create Team'}
-      description={
-        mode === 'update'
-          ? 'Edit team info and manage their members.'
-          : 'Create a new team to start collaborating with your members.'
-      }
+      title={t(`modal.${mode}.title`)}
+      description={t(`modal.${mode}.description`)}
       content={
         <>
           <FormProvider {...form}>
-            {mode === 'update' ? <TeamUpdateForm /> : <TeamInsertForm />}
+            {isUpdate ? <TeamUpdateForm /> : <TeamInsertForm />}
           </FormProvider>
           <ConfirmDialog
-            title="Are you absolutely sure?"
-            description="This action cannot be undone."
+            title={t('modal.confirmDialog.title')}
+            description={t('modal.confirmDialog.description')}
             open={isConfirmOpen}
             onOpenChange={setIsConfirmOpen}
             onConfirmAction={form.handleSubmit(handleDelete)}
@@ -105,7 +104,7 @@ export default function TeamsModal() {
       }
       trigger={undefined}
       left={
-        mode === 'update' ? (
+        isUpdate ? (
           <Button
             type="button"
             variant="destructive"
@@ -113,14 +112,18 @@ export default function TeamsModal() {
             onClick={() => setIsConfirmOpen(true)}
           >
             <Trash2 className="hidden sm:block" />
-            Delete
+            {t('modal.deleteButton')}
           </Button>
         ) : undefined
       }
       right={
         <Button type="submit" form="team-form" disabled={form.formState.isSubmitting}>
           {form.formState.isSubmitting && <Loader2 className="mr-2 animate-spin" />}
-          {form.formState.isSubmitting ? 'Please wait' : mode === 'update' ? 'Update' : 'Create'}
+          {form.formState.isSubmitting
+            ? t('modal.loading')
+            : isUpdate
+              ? t('modal.updateButton')
+              : t('modal.insertButton')}
         </Button>
       }
     />
