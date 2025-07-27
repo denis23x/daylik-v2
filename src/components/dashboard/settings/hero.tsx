@@ -2,12 +2,15 @@
 
 import { Settings } from 'lucide-react';
 import DashboardHero from '../hero';
+import { useTranslations } from 'next-intl';
 
 const ProfileHero = () => {
+  const t = useTranslations('components.dashboard.settings.hero');
+
   return (
     <DashboardHero
-      title="Settings"
-      description="Manage your personal settings and preferences. Update your settings, customize your experience, and keep your account details up to date for a smoother workflow."
+      title={t('title')}
+      description={t('description')}
       icon={<Settings />}
     ></DashboardHero>
   );

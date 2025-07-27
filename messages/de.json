@@ -202,6 +202,130 @@
             "timer": "Timer {duration}"
           }
         }
+      },
+      "modals": {
+        "feedback": {
+          "title": "Feedback",
+          "description": "Ihr Feedback hilft uns, den Service für alle zu verbessern.",
+          "form": {
+            "priority": {
+              "label": "Priorität",
+              "options": {
+                "low": "Niedrig",
+                "medium": "Mittel",
+                "high": "Hoch"
+              }
+            },
+            "message": {
+              "label": "Nachricht",
+              "placeholder": "Details, Vorschläge oder Probleme..",
+              "required": "Nachricht muss mindestens 2 Zeichen lang sein"
+            }
+          },
+          "buttons": {
+            "send": "Senden",
+            "loading": "Bitte warten"
+          },
+          "messages": {
+            "success": "Ihr Feedback hilft uns, jeden Tag besser zu werden!",
+            "error": "Ein Fehler ist aufgetreten"
+          }
+        }
+      },
+      "settings": {
+        "hero": {
+          "title": "Einstellungen",
+          "description": "Verwalten Sie Ihre persönlichen Einstellungen und Präferenzen. Aktualisieren Sie Ihre Einstellungen, passen Sie Ihre Erfahrung an und halten Sie Ihre Kontodaten für einen reibungsloseren Workflow auf dem neuesten Stand."
+        },
+        "tabs": {
+          "title": "Einstellungen",
+          "names": {
+            "subscription": "Abonnement",
+            "email": "E-Mail",
+            "password": "Passwort"
+          }
+        },
+        "subscription": {
+          "title": "Aktives Abonnement",
+          "description": "Verwalten Sie Ihre Abonnement- und Abrechnungsdetails. Aktualisieren Sie Ihren Abonnementplan, sehen Sie Ihre Abrechnungshistorie ein und verwalten Sie Ihre Zahlungsmethoden.",
+          "plan": {
+            "name": "Offene Beta",
+            "description": "Vollzugang während der Beta-Phase. Alle Funktionen kostenlos freigeschaltet."
+          },
+          "features": {
+            "unlimitedTeams": "Unbegrenzte Teams",
+            "unlimitedTeammates": "Unbegrenzte Teammitglieder",
+            "unlimitedSyncs": "Unbegrenzte Syncs",
+            "basicAnalytics": "Grundlegende Analytik",
+            "unlimitedHistory": "Unbegrenzte Sync-Historie",
+            "prioritySupport": "Prioritätssupport"
+          }
+        },
+        "email": {
+          "title": "E-Mail-Adresse aktualisieren",
+          "description": "Ändern Sie die mit Ihrem Konto verknüpfte E-Mail-Adresse. Ein Bestätigungslink wird gesendet, um die neue Adresse zu verifizieren, bevor die Aktualisierung angewendet wird.",
+          "form": {
+            "new": {
+              "label": "Neu",
+              "placeholder": "Wie lautet Ihre neue E-Mail-Adresse?"
+            },
+            "current": {
+              "label": "Aktuell"
+            }
+          },
+          "buttons": {
+            "sendLink": "Link senden",
+            "deleteAccount": "Mein Konto löschen",
+            "loading": "Bitte warten"
+          },
+          "messages": {
+            "confirmationSent": "Wir haben Bestätigungs-E-Mails an Ihre aktuelle und neue E-Mail-Adresse gesendet. Bitte überprüfen Sie beide Posteingänge und klicken Sie auf die Links, um den Vorgang abzuschließen.",
+            "deleting": "Wird gelöscht..",
+            "error": "Ein Fehler ist aufgetreten"
+          },
+          "deleteConfirm": {
+            "title": "Sind Sie absolut sicher?",
+            "description": "Diese Aktion wird Ihr Konto und alle zugehörigen Daten dauerhaft löschen. Dies kann nicht rückgängig gemacht werden."
+          }
+        },
+        "password": {
+          "title": "Passwort aktualisieren",
+          "description": "Setzen Sie ein neues Passwort, um Ihr Konto sicher zu halten. Wählen Sie etwas Starkes und Einzigartiges — Ihre Änderungen werden sofort nach dem Speichern wirksam.",
+          "form": {
+            "validation": "Das Passwort muss mindestens 8 Zeichen lang sein",
+            "placeholder": "Machen Sie es stark (min. 8 Zeichen)",
+            "ariaLabels": {
+              "hidePassword": "Passwort verbergen",
+              "showPassword": "Passwort anzeigen",
+              "passwordStrength": "Passwortstärke",
+              "passwordRequirements": "Passwort-Anforderungen",
+              "requirementMet": " - Anforderung erfüllt",
+              "requirementNotMet": " - Anforderung nicht erfüllt"
+            }
+          },
+          "strength": {
+            "new": "Neues Passwort",
+            "weak": "Schwaches Passwort",
+            "medium": "Mittleres Passwort",
+            "strong": "Starkes Passwort",
+            "veryStrong": "Sehr starkes Passwort"
+          },
+          "requirements": {
+            "minLength": "Mindestens 8 Zeichen",
+            "number": "Mindestens 1 Zahl",
+            "lowercase": "Mindestens 1 Kleinbuchstabe",
+            "uppercase": "Mindestens 1 Großbuchstabe",
+            "special": "Mindestens 1 Sonderzeichen"
+          },
+          "buttons": {
+            "update": "Aktualisieren",
+            "loading": "Bitte warten"
+          },
+          "messages": {
+            "updated": "Passwort aktualisiert",
+            "error": "Ein Fehler ist aufgetreten"
+          }
+        }
       }
     },
     "home": {

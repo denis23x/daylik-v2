@@ -202,6 +202,130 @@
             "timer": "Timer {duration}"
           }
         }
+      },
+      "modals": {
+        "feedback": {
+          "title": "Feedback",
+          "description": "Your feedback helps us improve the service for everyone.",
+          "form": {
+            "priority": {
+              "label": "Priority",
+              "options": {
+                "low": "Low",
+                "medium": "Medium",
+                "high": "High"
+              }
+            },
+            "message": {
+              "label": "Message",
+              "placeholder": "Details, suggestions, or issues..",
+              "required": "Message must be at least 2 characters"
+            }
+          },
+          "buttons": {
+            "send": "Send",
+            "loading": "Please wait"
+          },
+          "messages": {
+            "success": "Your feedback helps us get better every day!",
+            "error": "An error occurred"
+          }
+        }
+      },
+      "settings": {
+        "hero": {
+          "title": "Settings",
+          "description": "Manage your personal settings and preferences. Update your settings, customize your experience, and keep your account details up to date for a smoother workflow."
+        },
+        "tabs": {
+          "title": "Settings",
+          "names": {
+            "subscription": "Subscription",
+            "email": "Email",
+            "password": "Password"
+          }
+        },
+        "subscription": {
+          "title": "Active Subscription",
+          "description": "Manage your subscription and billing details. Update your subscription plan, view your billing history, and manage your payment methods.",
+          "plan": {
+            "name": "Open Beta",
+            "description": "Full access during the beta period. All features unlocked for free."
+          },
+          "features": {
+            "unlimitedTeams": "Unlimited teams",
+            "unlimitedTeammates": "Unlimited teammates",
+            "unlimitedSyncs": "Unlimited syncs",
+            "basicAnalytics": "Basic analytics",
+            "unlimitedHistory": "Unlimited sync history",
+            "prioritySupport": "Priority support"
+          }
+        },
+        "email": {
+          "title": "Update Email Address",
+          "description": "Change the email address linked to your account. A confirmation link will be sent to verify the new address before the update is applied.",
+          "form": {
+            "new": {
+              "label": "New",
+              "placeholder": "What's your new email?"
+            },
+            "current": {
+              "label": "Current"
+            }
+          },
+          "buttons": {
+            "sendLink": "Send Link",
+            "deleteAccount": "Delete My Account",
+            "loading": "Please wait"
+          },
+          "messages": {
+            "confirmationSent": "We've sent confirmation emails to both your current and new email addresses. Please check both inboxes and click the links to complete the process.",
+            "deleting": "Deleting..",
+            "error": "An error occurred"
+          },
+          "deleteConfirm": {
+            "title": "Are you absolutely sure?",
+            "description": "This action will permanently delete your account and all associated data. This cannot be undone."
+          }
+        },
+        "password": {
+          "title": "Update Password",
+          "description": "Set a new password to keep your account secure. Choose something strong and unique — your changes will take effect immediately after saving.",
+          "form": {
+            "validation": "Password must be at least 8 characters long",
+            "placeholder": "Make it strong (min. 8 characters)",
+            "ariaLabels": {
+              "hidePassword": "Hide password",
+              "showPassword": "Show password",
+              "passwordStrength": "Password strength",
+              "passwordRequirements": "Password requirements",
+              "requirementMet": " - Requirement met",
+              "requirementNotMet": " - Requirement not met"
+            }
+          },
+          "strength": {
+            "new": "New password",
+            "weak": "Weak password",
+            "medium": "Medium password",
+            "strong": "Strong password",
+            "veryStrong": "Very strong password"
+          },
+          "requirements": {
+            "minLength": "At least 8 characters",
+            "number": "At least 1 number",
+            "lowercase": "At least 1 lowercase letter",
+            "uppercase": "At least 1 uppercase letter",
+            "special": "At least 1 special character"
+          },
+          "buttons": {
+            "update": "Update",
+            "loading": "Please wait"
+          },
+          "messages": {
+            "updated": "Password updated",
+            "error": "An error occurred"
+          }
+        }
       }
     },
     "home": {

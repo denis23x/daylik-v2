@@ -21,17 +21,19 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useEffect, useState } from 'react';
 import { ConfirmDialog } from '@/components/confirm-dialog';
 import { deleteAllCookies } from '@/hooks/useCookie';
-
-const formSchema = z.object({
-  newEmail: z.string().email(),
-  oldEmail: z.string().email(),
-});
+import { useTranslations } from 'next-intl';
 
 const TabsEmail = () => {
+  const t = useTranslations('components.dashboard.settings.email');
   const { data } = useGetUser();
   const { mutateAsync: deleteUser } = useDeleteUser();
   const { mutateAsync: updateEmail } = useUpdateEmail();
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+
+  const formSchema = z.object({
+    newEmail: z.string().email(),
+    oldEmail: z.string().email(),
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
@@ -55,7 +57,7 @@ const TabsEmail = () => {
         oldEmail: data?.user?.email || '',
       });
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'An error occurred');
+      toast.error(error instanceof Error ? error.message : t('messages.error'));
     }
   };
 
@@ -71,28 +73,21 @@ const TabsEmail = () => {
     };
 
     toast.promise(p(), {
-      loading: 'Deleting..',
-      error: (e: unknown) => (e instanceof Error ? e.message : 'An error occurred'),
+      loading: t('messages.deleting'),
+      error: (e: unknown) => (e instanceof Error ? e.message : t('messages.error')),
     });
   };
 
   return (
     <Card className="p-4">
       <CardHeader className="p-0">
-        <CardTitle>Update Email Address</CardTitle>
-        <CardDescription className="border-b pb-6">
-          Change the email address linked to your account. A confirmation link will be sent to
-          verify the new address before the update is applied.
-        </CardDescription>
+        <CardTitle>{t('title')}</CardTitle>
+        <CardDescription className="border-b pb-6">{t('description')}</CardDescription>
       </CardHeader>
       <CardContent className="p-0">
         {form.formState.isSubmitSuccessful && (
           <Alert className="mb-6" variant="destructive">
-            <AlertDescription className="inline">
-              We&apos;ve sent confirmation emails to both your <strong>current</strong> and{' '}
-              <strong>new</strong> email addresses. Please check both inboxes and click the links to
-              complete the process.
-            </AlertDescription>
+            <AlertDescription className="inline">{t('messages.confirmationSent')}</AlertDescription>
           </Alert>
         )}
         <Form {...form}>
@@ -102,11 +97,11 @@ const TabsEmail = () => {
               name="newEmail"
               render={({ field, formState }) => (
                 <FormItem>
-                  <FormLabel>New</FormLabel>
+                  <FormLabel>{t('form.new.label')}</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
-                      placeholder="What's your new email?"
+                      placeholder={t('form.new.placeholder')}
                       className="w-full"
                       disabled={formState.isSubmitting}
                       autoComplete="email"
@@ -125,7 +120,7 @@ const TabsEmail = () => {
               name="oldEmail"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Current</FormLabel>
+                  <FormLabel>{t('form.current.label')}</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
@@ -144,7 +139,7 @@ const TabsEmail = () => {
             />
             <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
               {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
-              {form.formState.isSubmitting ? 'Please wait' : 'Send Link'}
+              {form.formState.isSubmitting ? t('buttons.loading') : t('buttons.sendLink')}
             </Button>
             <Button
               type="button"
@@ -158,13 +153,13 @@ const TabsEmail = () => {
               ) : (
                 <Trash2 className="hidden sm:block" />
               )}
-              {form.formState.isSubmitting ? 'Please wait' : 'Delete My Account'}
+              {form.formState.isSubmitting ? t('buttons.loading') : t('buttons.deleteAccount')}
             </Button>
           </form>
         </Form>
         <ConfirmDialog
-          title="Are you absolutely sure?"
-          description="This action will permanently delete your account and all associated data. This cannot be undone."
+          title={t('deleteConfirm.title')}
+          description={t('deleteConfirm.description')}
           open={isConfirmOpen}
           onOpenChange={setIsConfirmOpen}
           onConfirmAction={handleDeleteUser}

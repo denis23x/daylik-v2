@@ -8,15 +8,18 @@ import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { useEffect } from 'react';
 import { Form as FormProvider } from '@/components/ui/form';
-import { FeedbackSchema } from './form/form-schema';
+import { createFeedbackSchema } from './form/form-schema';
 import { FeedbackFormFields } from './form/form-fields';
 import { useFeedbackStore } from '@/store/useFeedbackStore';
 import { useSendFeedback } from '@/hooks/useFeedback';
 import { toast } from 'sonner';
+import { useTranslations } from 'next-intl';
 
 export default function FeedbackModal() {
+  const t = useTranslations('components.dashboard.modals.feedback');
   const { isOpen, closeModal } = useFeedbackStore();
   const { mutateAsync: sendFeedback } = useSendFeedback();
+  const FeedbackSchema = createFeedbackSchema(t);
 
   const form = useForm<z.infer<typeof FeedbackSchema>>({
     defaultValues: {
@@ -43,9 +46,9 @@ export default function FeedbackModal() {
       closeModal();
 
       // Show message
-      toast.success('Your feedback helps us get better every day!');
+      toast.success(t('messages.success'));
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'An error occurred');
+      toast.error(error instanceof Error ? error.message : t('messages.error'));
     }
   };
 
@@ -54,8 +57,8 @@ export default function FeedbackModal() {
       open={isOpen}
       onOpenChange={(open) => !form.formState.isSubmitting && !open && closeModal()}
       disabled={form.formState.isSubmitting}
-      title="Feedback"
-      description="Your feedback helps us improve the service for everyone."
+      title={t('title')}
+      description={t('description')}
       content={
         <FormProvider {...form}>
           <form id="feedback-form" className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
@@ -68,7 +71,7 @@ export default function FeedbackModal() {
       right={
         <Button type="submit" form="feedback-form" disabled={form.formState.isSubmitting}>
           {form.formState.isSubmitting && <Loader2 className="mr-2 animate-spin" />}
-          {form.formState.isSubmitting ? 'Please wait' : 'Send'}
+          {form.formState.isSubmitting ? t('buttons.loading') : t('buttons.send')}
         </Button>
       }
     />

@@ -202,6 +202,130 @@
             "timer": "Timer {duration}"
           }
         }
+      },
+      "modals": {
+        "feedback": {
+          "title": "Feedback",
+          "description": "Tu feedback nos ayuda a mejorar el servicio para todos.",
+          "form": {
+            "priority": {
+              "label": "Prioridad",
+              "options": {
+                "low": "Baja",
+                "medium": "Media",
+                "high": "Alta"
+              }
+            },
+            "message": {
+              "label": "Mensaje",
+              "placeholder": "Detalles, sugerencias o problemas..",
+              "required": "El mensaje debe tener al menos 2 caracteres"
+            }
+          },
+          "buttons": {
+            "send": "Enviar",
+            "loading": "Por favor espera"
+          },
+          "messages": {
+            "success": "¡Tu feedback nos ayuda a mejorar cada día!",
+            "error": "Ocurrió un error"
+          }
+        }
+      },
+      "settings": {
+        "hero": {
+          "title": "Configuración",
+          "description": "Gestiona tu configuración personal y preferencias. Actualiza tu configuración, personaliza tu experiencia y mantén los detalles de tu cuenta actualizados para un flujo de trabajo más fluido."
+        },
+        "tabs": {
+          "title": "Configuración",
+          "names": {
+            "subscription": "Suscripción",
+            "email": "Email",
+            "password": "Contraseña"
+          }
+        },
+        "subscription": {
+          "title": "Suscripción Activa",
+          "description": "Gestiona tu suscripción y detalles de facturación. Actualiza tu plan de suscripción, ve tu historial de facturación y gestiona tus métodos de pago.",
+          "plan": {
+            "name": "Beta Abierta",
+            "description": "Acceso completo durante el período beta. Todas las funciones desbloqueadas gratis."
+          },
+          "features": {
+            "unlimitedTeams": "Equipos ilimitados",
+            "unlimitedTeammates": "Compañeros ilimitados",
+            "unlimitedSyncs": "Sincronizaciones ilimitadas",
+            "basicAnalytics": "Analíticas básicas",
+            "unlimitedHistory": "Historial ilimitado",
+            "prioritySupport": "Soporte prioritario"
+          }
+        },
+        "email": {
+          "title": "Actualizar Dirección de Email",
+          "description": "Cambia la dirección de email vinculada a tu cuenta. Se enviará un enlace de confirmación para verificar la nueva dirección antes de aplicar la actualización.",
+          "form": {
+            "new": {
+              "label": "Nuevo",
+              "placeholder": "¿Cuál es tu nuevo email?"
+            },
+            "current": {
+              "label": "Actual"
+            }
+          },
+          "buttons": {
+            "sendLink": "Enviar Enlace",
+            "deleteAccount": "Eliminar Mi Cuenta",
+            "loading": "Por favor espera"
+          },
+          "messages": {
+            "confirmationSent": "Hemos enviado emails de confirmación a tu dirección actual y nueva. Por favor revisa ambas bandejas de entrada y haz clic en los enlaces para completar el proceso.",
+            "deleting": "Eliminando..",
+            "error": "Ocurrió un error"
+          },
+          "deleteConfirm": {
+            "title": "¿Estás absolutamente seguro?",
+            "description": "Esta acción eliminará permanentemente tu cuenta y todos los datos asociados. Esto no se puede deshacer."
+          }
+        },
+        "password": {
+          "title": "Actualizar Contraseña",
+          "description": "Establece una nueva contraseña para mantener tu cuenta segura. Elige algo fuerte y único — tus cambios tendrán efecto inmediatamente después de guardar.",
+          "form": {
+            "validation": "La contraseña debe tener al menos 8 caracteres",
+            "placeholder": "Hazla fuerte (mín. 8 caracteres)",
+            "ariaLabels": {
+              "hidePassword": "Ocultar contraseña",
+              "showPassword": "Mostrar contraseña",
+              "passwordStrength": "Fuerza de la contraseña",
+              "passwordRequirements": "Requisitos de la contraseña",
+              "requirementMet": " - Requisito cumplido",
+              "requirementNotMet": " - Requisito no cumplido"
+            }
+          },
+          "strength": {
+            "new": "Nueva contraseña",
+            "weak": "Contraseña débil",
+            "medium": "Contraseña media",
+            "strong": "Contraseña fuerte",
+            "veryStrong": "Contraseña muy fuerte"
+          },
+          "requirements": {
+            "minLength": "Al menos 8 caracteres",
+            "number": "Al menos 1 número",
+            "lowercase": "Al menos 1 letra minúscula",
+            "uppercase": "Al menos 1 letra mayúscula",
+            "special": "Al menos 1 carácter especial"
+          },
+          "buttons": {
+            "update": "Actualizar",
+            "loading": "Por favor espera"
+          },
+          "messages": {
+            "updated": "Contraseña actualizada",
+            "error": "Ocurrió un error"
+          }
+        }
       }
     },
     "home": {

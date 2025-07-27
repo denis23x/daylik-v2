@@ -10,13 +10,15 @@ import { Loader2 } from 'lucide-react';
 import { useUpdatePassword } from '@/hooks/useAuth';
 import { TabsPasswordInput } from './tabs-password-input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-
-const formSchema = z.object({
-  password: z.string().min(8, 'Password must be at least 8 characters long'),
-});
+import { useTranslations } from 'next-intl';
 
 const TabsPassword = () => {
+  const t = useTranslations('components.dashboard.settings.password');
   const { mutateAsync: updatePassword } = useUpdatePassword();
+
+  const formSchema = z.object({
+    password: z.string().min(8, t('form.validation')),
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
@@ -33,20 +35,17 @@ const TabsPassword = () => {
       form.reset();
 
       // Show message
-      toast.success('Password updated');
+      toast.success(t('messages.updated'));
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'An error occurred');
+      toast.error(error instanceof Error ? error.message : t('messages.error'));
     }
   };
 
   return (
     <Card className="p-4">
       <CardHeader className="p-0">
-        <CardTitle>Update Password</CardTitle>
-        <CardDescription className="border-b pb-6">
-          Set a new password to keep your account secure. Choose something strong and unique — your
-          changes will take effect immediately after saving.
-        </CardDescription>
+        <CardTitle>{t('title')}</CardTitle>
+        <CardDescription className="border-b pb-6">{t('description')}</CardDescription>
       </CardHeader>
       <CardContent className="p-0">
         <Form {...form}>
@@ -54,7 +53,7 @@ const TabsPassword = () => {
             <TabsPasswordInput name="password" />
             <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
               {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
-              {form.formState.isSubmitting ? 'Please wait' : 'Update'}
+              {form.formState.isSubmitting ? t('buttons.loading') : t('buttons.update')}
             </Button>
           </form>
         </Form>

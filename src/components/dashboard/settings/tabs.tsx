@@ -7,8 +7,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getQueryParams } from '@/utils/getQueryParams';
 import { Settings } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 const SettingsTabs = () => {
+  const t = useTranslations('components.dashboard.settings.tabs');
   const [tab, setTab] = useState('email');
 
   useEffect(() => {
@@ -35,14 +37,14 @@ const SettingsTabs = () => {
       <div className="flex w-full flex-col gap-4">
         <div className="flex min-h-9 items-center gap-4">
           <Settings />
-          <span className="text-xl font-bold">Settings</span>
+          <span className="text-xl font-bold">{t('title')}</span>
         </div>
         <div className="flex w-full flex-col items-center gap-4">
           <Tabs value={tab} onValueChange={handleTabsChange} className="w-full sm:max-w-md">
             <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="subscription">Subscription</TabsTrigger>
-              <TabsTrigger value="email">Email</TabsTrigger>
-              <TabsTrigger value="password">Password</TabsTrigger>
+              <TabsTrigger value="subscription">{t('names.subscription')}</TabsTrigger>
+              <TabsTrigger value="email">{t('names.email')}</TabsTrigger>
+              <TabsTrigger value="password">{t('names.password')}</TabsTrigger>
             </TabsList>
             <TabsContent value="email">
               <TabsEmail />

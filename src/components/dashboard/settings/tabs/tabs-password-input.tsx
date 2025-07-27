@@ -6,8 +6,10 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { FormControl } from '@/components/ui/form';
+import { useTranslations } from 'next-intl';
 
 export function TabsPasswordInput({ name }: { name: string }) {
+  const t = useTranslations('components.dashboard.settings.password');
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const form = useFormContext();
   const toggleVisibility = () => setIsVisible((prevState) => !prevState);
@@ -20,11 +22,11 @@ export function TabsPasswordInput({ name }: { name: string }) {
 
   const checkStrength = (pass: string) => {
     const requirements = [
-      { regex: /.{8,}/, text: 'At least 8 characters' },
-      { regex: /[0-9]/, text: 'At least 1 number' },
-      { regex: /[a-z]/, text: 'At least 1 lowercase letter' },
-      { regex: /[A-Z]/, text: 'At least 1 uppercase letter' },
-      { regex: /[!@#$%^&*(),.?":{}|<>]/, text: 'At least 1 special character' },
+      { regex: /.{8,}/, text: t('requirements.minLength') },
+      { regex: /[0-9]/, text: t('requirements.number') },
+      { regex: /[a-z]/, text: t('requirements.lowercase') },
+      { regex: /[A-Z]/, text: t('requirements.uppercase') },
+      { regex: /[!@#$%^&*(),.?":{}|<>]/, text: t('requirements.special') },
     ];
 
     return requirements.map((req) => ({
@@ -49,11 +51,11 @@ export function TabsPasswordInput({ name }: { name: string }) {
   };
 
   const getStrengthText = (score: number) => {
-    if (score === 0) return 'New password';
-    if (score <= 2) return 'Weak password';
-    if (score <= 3) return 'Medium password';
-    if (score === 4) return 'Strong password';
-    return 'Very strong password'; // 满足所有5项时
+    if (score === 0) return t('strength.new');
+    if (score <= 2) return t('strength.weak');
+    if (score <= 3) return t('strength.medium');
+    if (score === 4) return t('strength.strong');
+    return t('strength.veryStrong'); // 满足所有5项时
   };
 
   return (
@@ -68,7 +70,7 @@ export function TabsPasswordInput({ name }: { name: string }) {
               <FormControl>
                 <Input
                   type={isVisible ? 'text' : 'password'}
-                  placeholder="Make it strong (min. 8 characters)"
+                  placeholder={t('form.placeholder')}
                   className="w-full"
                   disabled={formState.isSubmitting}
                   autoComplete="new-password"
@@ -82,7 +84,9 @@ export function TabsPasswordInput({ name }: { name: string }) {
                 className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:text-foreground focus-visible:ring-ring/30 absolute inset-y-px end-px flex h-full w-9 items-center justify-center rounded-e-lg transition-shadow focus-visible:border focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
                 type="button"
                 onClick={toggleVisibility}
-                aria-label={isVisible ? 'Hide password' : 'Show password'}
+                aria-label={
+                  isVisible ? t('form.ariaLabels.hidePassword') : t('form.ariaLabels.showPassword')
+                }
                 aria-pressed={isVisible}
                 aria-controls="password"
               >
@@ -104,7 +108,7 @@ export function TabsPasswordInput({ name }: { name: string }) {
         aria-valuenow={strengthScore}
         aria-valuemin={0}
         aria-valuemax={5}
-        aria-label="Password strength"
+        aria-label={t('form.ariaLabels.passwordStrength')}
       >
         <div
           className={`h-full ${getStrengthColor(
@@ -115,7 +119,7 @@ export function TabsPasswordInput({ name }: { name: string }) {
       </div>
 
       {/* Password requirements list */}
-      <ul className="space-y-1.5" aria-label="Password requirements">
+      <ul className="space-y-1.5" aria-label={t('form.ariaLabels.passwordRequirements')}>
         {strength.map((req, index) => (
           <li key={index} className="flex items-center gap-2">
             {req.met ? (
@@ -126,7 +130,9 @@ export function TabsPasswordInput({ name }: { name: string }) {
             <span className={`text-xs ${req.met ? 'text-emerald-600' : 'text-muted-foreground'}`}>
               {req.text}
               <span className="sr-only">
-                {req.met ? ' - Requirement met' : ' - Requirement not met'}
+                {req.met
+                  ? t('form.ariaLabels.requirementMet')
+                  : t('form.ariaLabels.requirementNotMet')}
               </span>
             </span>
           </li>
