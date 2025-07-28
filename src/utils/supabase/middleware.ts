@@ -1,8 +1,24 @@
-import { createServerClient } from '@supabase/ssr';
 import { type NextRequest, NextResponse } from 'next/server';
 import { LOCALES } from '@/lib/constants';
 
 export const updateSession = async (request: NextRequest, response: NextResponse) => {
+  const path =
+    request.nextUrl.pathname
+      .split('/')
+      .filter((segment) => !!segment)
+      .filter((segment) => !LOCALES.includes(segment))
+      .shift() || '/';
+
+  const isIndex = path === '/';
+
+  if (isIndex) {
+    return response;
+  }
+
+  // The following section handles redirect logic
+  // for authenticated and unauthenticated users.
+
+  const { createServerClient } = await import('@supabase/ssr');
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -30,28 +46,13 @@ export const updateSession = async (request: NextRequest, response: NextResponse
     data: { user },
   } = await supabase.auth.getUser();
 
-  const path =
-    request.nextUrl.pathname
-      .split('/')
-      .filter((segment) => !!segment)
-      .filter((segment) => !LOCALES.includes(segment))
-      .shift() || '/';
-
-  const isAuth = ['login', 'signup', 'verify-email', 'reset-password'].some((segment) => {
-    return path.startsWith(segment);
-  });
+  // If a user is not authenticated and tries to access a private route,
+  // they should be redirected to the login page.
 
   const isPrivate = ['analytics', 'settings', 'sync', 'teammates', 'teams'].some((segment) => {
     return path.startsWith(segment);
   });
 
-  const isIndex = path === '/';
-
-  // The following section handles redirect logic
-  // for authenticated and unauthenticated users.
-
-  // If a user is not authenticated and tries to access a private route,
-  // they should be redirected to the login page.
   if (!user && isPrivate) {
     const url = request.nextUrl.clone();
 
@@ -62,7 +63,12 @@ export const updateSession = async (request: NextRequest, response: NextResponse
 
   // If a user is already authenticated and tries to access an authentication route or the index route,
   // they should be redirected to the teams page.
-  if (user && (isAuth || isIndex)) {
+
+  const isAuth = ['login', 'signup', 'verify-email', 'reset-password'].some((segment) => {
+    return path.startsWith(segment);
+  });
+
+  if (user && isAuth) {
     const url = request.nextUrl.clone();
 
     url.pathname = `/teams`;

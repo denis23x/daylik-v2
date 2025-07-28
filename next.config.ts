@@ -8,6 +8,9 @@ import rehypePrettyCode from 'rehype-pretty-code';
 import { transformerMetaHighlight } from '@shikijs/transformers';
 
 const nextConfig: NextConfig = {
+  experimental: {
+    inlineCss: true,
+  },
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   images: {
     remotePatterns: [
