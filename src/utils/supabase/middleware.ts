@@ -1,24 +1,8 @@
+import { createServerClient } from '@supabase/ssr';
 import { type NextRequest, NextResponse } from 'next/server';
 import { LOCALES } from '@/lib/constants';
 
 export const updateSession = async (request: NextRequest, response: NextResponse) => {
-  const path =
-    request.nextUrl.pathname
-      .split('/')
-      .filter((segment) => !!segment)
-      .filter((segment) => !LOCALES.includes(segment))
-      .shift() || '/';
-
-  const isIndex = path === '/';
-
-  if (isIndex) {
-    return response;
-  }
-
-  // The following section handles redirect logic
-  // for authenticated and unauthenticated users.
-
-  const { createServerClient } = await import('@supabase/ssr');
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -46,14 +30,24 @@ export const updateSession = async (request: NextRequest, response: NextResponse
     data: { user },
   } = await supabase.auth.getUser();
 
+  // The following section handles redirect logic
+  // for authenticated and unauthenticated users.
+
+  const path =
+    request.nextUrl.pathname
+      .split('/')
+      .filter((segment) => !!segment)
+      .filter((segment) => !LOCALES.includes(segment))
+      .shift() || '/';
+
   // If a user is not authenticated and tries to access a private route,
   // they should be redirected to the login page.
 
-  const isPrivate = ['analytics', 'settings', 'sync', 'teammates', 'teams'].some((segment) => {
+  const isDashboard = ['analytics', 'settings', 'sync', 'teammates', 'teams'].some((segment) => {
     return path.startsWith(segment);
   });
 
-  if (!user && isPrivate) {
+  if (!user && isDashboard) {
     const url = request.nextUrl.clone();
 
     url.pathname = `/login`;
@@ -68,7 +62,9 @@ export const updateSession = async (request: NextRequest, response: NextResponse
     return path.startsWith(segment);
   });
 
-  if (user && isAuth) {
+  const isIndex = path === '/';
+
+  if (user && (isAuth || isIndex)) {
     const url = request.nextUrl.clone();
 
     url.pathname = `/teams`;
