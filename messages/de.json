@@ -267,10 +267,12 @@
           "form": {
             "new": {
               "label": "Neu",
-              "placeholder": "Wie lautet Ihre neue E-Mail-Adresse?"
+              "placeholder": "Wie lautet Ihre neue E-Mail-Adresse?",
+              "invalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein"
             },
             "current": {
-              "label": "Aktuell"
+              "label": "Aktuell",
+              "invalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein"
             }
           },
           "buttons": {

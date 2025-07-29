@@ -267,10 +267,12 @@
           "form": {
             "new": {
               "label": "New",
-              "placeholder": "What's your new email?"
+              "placeholder": "What's your new email?",
+              "invalid": "Please enter a valid email"
             },
             "current": {
-              "label": "Current"
+              "label": "Current",
+              "invalid": "Please enter a valid email"
             }
           },
           "buttons": {
@@ -505,7 +507,7 @@
           "name": {
             "label": "Name",
             "placeholder": "What's their name?",
-            "validation": "Teammate name must be at least 2 characters"
+            "validation": "Name must be at least 2 characters"
           },
           "role": {
             "label": "Role",

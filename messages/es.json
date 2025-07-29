@@ -267,10 +267,12 @@
           "form": {
             "new": {
               "label": "Nuevo",
-              "placeholder": "¿Cuál es tu nuevo email?"
+              "placeholder": "¿Cuál es tu nuevo email?",
+              "invalid": "Por favor, introduzca un email válido"
             },
             "current": {
-              "label": "Actual"
+              "label": "Actual",
+              "invalid": "Por favor, introduzca un email válido"
             }
           },
           "buttons": {

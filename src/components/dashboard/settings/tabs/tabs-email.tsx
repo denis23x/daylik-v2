@@ -31,8 +31,8 @@ const TabsEmail = () => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   const formSchema = z.object({
-    newEmail: z.string().email(),
-    oldEmail: z.string().email(),
+    newEmail: z.string().email(t('form.new.invalid')),
+    oldEmail: z.string().email(t('form.current.invalid')),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({

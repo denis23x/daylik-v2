@@ -71,7 +71,7 @@ export function TabsPasswordInput({ name }: { name: string }) {
                 <Input
                   type={isVisible ? 'text' : 'password'}
                   placeholder={t('form.placeholder')}
-                  className="w-full"
+                  className="w-full pr-8"
                   disabled={formState.isSubmitting}
                   autoComplete="new-password"
                   inputMode="text"
