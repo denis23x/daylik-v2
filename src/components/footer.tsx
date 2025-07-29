@@ -23,16 +23,16 @@ const footerSections = [
     title: 'Legal',
     links: [
       {
-        title: 'Analytics',
-        href: '/legal/analytics',
+        title: 'Cookies Policy',
+        href: '/legal/cookies-policy',
       },
       {
-        title: 'Third Parties',
-        href: '/legal/third-parties',
+        title: 'Privacy Policy',
+        href: '/legal/privacy-policy',
       },
       {
-        title: 'Cookie Policy',
-        href: '/legal/cookie-policy',
+        title: 'Terms and Conditions',
+        href: '/legal/terms-and-conditions',
       },
     ],
   },

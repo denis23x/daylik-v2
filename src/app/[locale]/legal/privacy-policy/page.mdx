@@ -1,0 +1,208 @@
+import MdxLayout from '@/components/mdx/mdx-layout';
+
+# Privacy Policy
+
+_Last updated: July 29, 2025_
+
+This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.
+
+We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy.
+
+## Interpretation and Definitions
+
+### Interpretation
+
+The words with capitalized initial letters have meanings defined under the following conditions. These definitions apply regardless of whether they appear in singular or plural.
+
+### Definitions
+
+For the purposes of this Privacy Policy:
+
+- **Account** means a unique account created for You to access our Service or parts of our Service.
+- **Affiliate** means an entity that controls, is controlled by, or is under common control with a party. "Control" means ownership of 50% or more of voting securities.
+- **Company** (referred to as either "the Company", "We", "Us" or "Our") refers to Daylik.
+- **Cookies** are small files placed on Your device by a website, storing browsing history details.
+- **Country** refers to: Thailand
+- **Device** means any device that can access the Service, such as a computer, cellphone, or tablet.
+- **Personal Data** is any information that relates to an identified or identifiable individual.
+- **Service** refers to the Website.
+- **Service Provider** means any person or company processing data on behalf of the Company.
+- **Usage Data** refers to data collected automatically (e.g., duration of a page visit).
+- **Website** refers to Daylik, accessible from [https://www.daylik.io](https://www.daylik.io)
+- **You** means the individual accessing the Service, or the entity on behalf of which the Service is accessed.
+
+## Collecting and Using Your Personal Data
+
+### Types of Data Collected
+
+#### Personal Data
+
+While using Our Service, We may ask You to provide certain personally identifiable information, such as:
+
+- Email address
+- Usage Data
+
+#### Usage Data
+
+Collected automatically and may include:
+
+- IP address
+- Browser type and version
+- Pages visited
+- Time and date of visit
+- Device identifiers
+- Mobile device type and OS
+
+We may also collect data sent by your browser or mobile device.
+
+#### Tracking Technologies and Cookies
+
+We use cookies and similar technologies (beacons, tags, scripts) to track activity and improve the Service.
+
+Technologies include:
+
+- **Cookies or Browser Cookies:** Small files placed on Your device. You can refuse them, but some parts of the Service may not work.
+- **Web Beacons:** Small electronic files (also called pixel tags or clear gifs) used for analytics and user tracking.
+
+Cookies may be:
+
+- **Persistent:** Stay on device when offline.
+- **Session:** Deleted when browser is closed.
+
+[Learn more about cookies](https://www.termsfeed.com/blog/cookies/#What_Are_Cookies)
+
+We use:
+
+- **Necessary / Essential Cookies** (Session, by Us): To provide core functionality.
+- **Cookies Policy / Notice Acceptance Cookies** (Persistent, by Us): To detect cookie consent.
+- **Functionality Cookies** (Persistent, by Us): To remember preferences like language and login.
+
+See our Cookies Policy for more.
+
+### Use of Your Personal Data
+
+The Company may use your data to:
+
+- Provide and maintain the Service.
+- Manage Your Account.
+- Fulfill contracts.
+- Contact You (email, phone, notifications).
+- Send You marketing info (unless opted out).
+- Handle requests.
+- Conduct business transfers.
+- Analyze data to improve services.
+
+We may share your info:
+
+- **With Service Providers:** For analytics or communications.
+- **For business transfers:** Mergers, acquisitions, etc.
+- **With Affiliates:** Who follow this policy.
+- **With Business Partners:** For product or promo offers.
+- **With Other Users:** When shared publicly in the app.
+- **With Your Consent:** For other purposes.
+
+### Retention of Your Personal Data
+
+We retain data only as long as needed for the purposes in this policy, to comply with legal obligations, resolve disputes, and enforce agreements.
+
+Usage Data may be kept longer for security or analytics, or when required by law.
+
+### Transfer of Your Personal Data
+
+Your data may be transferred to — and maintained on — computers outside Your region.
+
+By submitting your data, You agree to such transfer.
+
+We ensure your data is securely treated, with safeguards and proper controls in place.
+
+### Delete Your Personal Data
+
+You can request deletion of your Personal Data.
+
+You may:
+
+- Delete info from your Account settings.
+- Contact Us for data deletion or correction.
+
+Some data may be retained for legal reasons.
+
+### Disclosure of Your Personal Data
+
+#### Business Transactions
+
+If the Company is involved in a merger or sale, Your Personal Data may be transferred. We’ll notify You before that happens.
+
+#### Law Enforcement
+
+We may disclose Your data to legal authorities when required.
+
+#### Other Legal Requirements
+
+We may disclose data to:
+
+- Comply with law
+- Defend Company rights
+- Investigate misuse
+- Protect user or public safety
+- Prevent legal liability
+
+### Security of Your Personal Data
+
+We strive to protect Your data but cannot guarantee 100% security due to the nature of internet transmission.
+
+## Children's Privacy
+
+We do not knowingly collect data from anyone under 13. If a child provides us data, contact Us. We'll delete such data if found.
+
+In countries requiring parental consent, we may require such consent before collecting data.
+
+## Links to Other Websites
+
+Our Service may contain links to third-party sites. We are not responsible for their content or privacy practices. Review their policies before using them.
+
+## Changes to this Privacy Policy
+
+We may update this Privacy Policy. Changes will be posted on this page with an updated "Last updated" date.
+
+You may be notified via email or a prominent Service notice before changes take effect.
+
+Review this Privacy Policy periodically.
+
+## Contact Us
+
+If you have any questions, contact us:
+
+- By email: [office@daylik.io](mailto:office@daylik.io)
+
+Created with the help of the [Privacy Policy Generator](https://www.termsfeed.com/privacy-policy-generator/).
+
+export const pagedata = {
+  title: 'Privacy Policy',
+  description:
+    'Learn how we collect, use, disclose, and protect your personal data when using our Service, including information about cookies, data retention, user rights, and third-party sharing.',
+  keywords:
+    'privacy policy, personal data, cookies, data collection, data usage, gdpr, user rights, data protection, service providers, daylik, account security, legal compliance',
+};
+
+export const metadata = {
+  title: pagedata.title,
+  description: pagedata.description,
+  keywords: pagedata.keywords,
+  openGraph: {
+    title: pagedata.title,
+    description: pagedata.description,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: pagedata.title,
+    description: pagedata.description,
+  },
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
+export default function MDXPage({ children }) {
+  return <MdxLayout>{children}</MdxLayout>;
+}

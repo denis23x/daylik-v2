@@ -1,0 +1,154 @@
+import MdxLayout from '@/components/mdx/mdx-layout';
+
+# Terms and Conditions
+
+_Last updated: July 29, 2025_
+
+Please read these terms and conditions carefully before using Our Service.
+
+## Interpretation and Definitions
+
+### Interpretation
+
+The words with capitalized initial letters have meanings defined under the following conditions. These definitions apply regardless of whether they appear in singular or plural.
+
+### Definitions
+
+For the purposes of these Terms and Conditions:
+
+- **Affiliate** means an entity that controls, is controlled by or is under common control with a party. "Control" means ownership of 50% or more of voting securities.
+- **Country** refers to: Thailand
+- **Company** (referred to as either "the Company", "We", "Us" or "Our") refers to Daylik.
+- **Device** means any device that can access the Service, such as a computer, cellphone, or tablet.
+- **Service** refers to the Website.
+- **Terms and Conditions** (also referred as "Terms") mean this agreement between You and the Company regarding use of the Service.
+- **Third-party Social Media Service** means services or content provided by third parties that may be available through the Service.
+- **Website** refers to Daylik, accessible from [https://www.daylik.io](https://www.daylik.io)
+- **You** means the individual or entity accessing the Service.
+
+## Acknowledgment
+
+These Terms and Conditions govern use of the Service and form the agreement between You and the Company.
+
+By using the Service, You agree to be bound by these Terms. If You disagree with any part, do not use the Service.
+
+You must be over 18 years old to use the Service.
+
+Use of the Service is also conditioned on your acceptance of our [Privacy Policy](./privacy-policy), which describes how We collect and use personal data. Please read it carefully.
+
+## Links to Other Websites
+
+The Service may contain links to third-party websites not owned or controlled by the Company.
+
+We are not responsible for the content, policies, or practices of third-party websites.
+
+We recommend reviewing the terms and privacy policies of any third-party websites You visit.
+
+## Termination
+
+We may suspend or terminate Your access to the Service immediately for any reason, including violation of these Terms.
+
+Upon termination, Your right to use the Service will end immediately.
+
+## Limitation of Liability
+
+Our liability is limited to the amount paid by You through the Service or $100 if no purchase was made.
+
+To the fullest extent permitted by law, We are not liable for any indirect or consequential damages, including:
+
+- Loss of profits
+- Loss of data
+- Personal injury
+- Privacy breaches
+
+Some jurisdictions do not allow limitations, so some exclusions may not apply to You.
+
+## "AS IS" and "AS AVAILABLE" Disclaimer
+
+The Service is provided "AS IS" and "AS AVAILABLE", without warranties of any kind.
+
+We do not guarantee:
+
+- Availability or error-free operation
+- Accuracy or reliability of content
+- Freedom from viruses or other harmful components
+
+Some jurisdictions do not allow exclusion of certain warranties, so these may not apply to You.
+
+## Governing Law
+
+These Terms are governed by the laws of Thailand. Other local, state, or international laws may also apply based on Your location.
+
+## Disputes Resolution
+
+If You have a dispute with the Company, You agree to first try to resolve it informally by contacting Us.
+
+## For European Union (EU) Users
+
+If You are an EU consumer, You will benefit from any mandatory provisions of the law of the country in which You are resident.
+
+## United States Legal Compliance
+
+You represent and warrant that:
+
+1. You are not located in a U.S. embargoed country.
+2. You are not listed on any U.S. government list of prohibited parties.
+
+## Severability and Waiver
+
+### Severability
+
+If any provision is held unenforceable, it will be interpreted to fulfill its purpose, and the rest of the Terms will remain in effect.
+
+### Waiver
+
+Failure to enforce any right under these Terms will not waive that right.
+
+## Translation Interpretation
+
+If these Terms have been translated, the English version shall prevail in case of conflict.
+
+## Changes to These Terms and Conditions
+
+We may revise these Terms at any time. Material changes will be announced at least 30 days in advance.
+
+By continuing to use the Service after changes are effective, You agree to be bound by them. If You disagree, stop using the Service.
+
+## Contact Us
+
+If you have any questions, contact us:
+
+- By email: [office@daylik.io](mailto:office@daylik.io)
+
+Created with the help of the [Terms and Conditions Generator](https://www.termsfeed.com/terms-conditions-generator/).
+
+export const pagedata = {
+  title: 'Terms and Conditions',
+  description:
+    'Review the terms and conditions governing your use of our Service, including user responsibilities, limitations of liability, dispute resolution, and legal compliance.',
+  keywords:
+    'terms and conditions, user agreement, service terms, liability, dispute resolution, legal compliance, data protection, website terms, daylik, service usage, privacy',
+};
+
+export const metadata = {
+  title: pagedata.title,
+  description: pagedata.description,
+  keywords: pagedata.keywords,
+  openGraph: {
+    title: pagedata.title,
+    description: pagedata.description,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: pagedata.title,
+    description: pagedata.description,
+  },
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
+export default function MDXPage({ children }) {
+  return <MdxLayout>{children}</MdxLayout>;
+}

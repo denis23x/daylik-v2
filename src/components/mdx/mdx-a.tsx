@@ -11,7 +11,9 @@ export default function MdxA({
   const preRef: RefObject<HTMLAnchorElement | null> = useRef<HTMLAnchorElement | null>(null);
 
   // @ts-expect-error href is not exists
-  const target = props.href.startsWith('http') ? '_blank' : '_self';
+  const target = ['http', 'mailto', 'tel', 'sms'].find((scheme) => props.href.startsWith(scheme))
+    ? '_blank'
+    : '_self';
 
   return (
     // @ts-expect-error href is required
