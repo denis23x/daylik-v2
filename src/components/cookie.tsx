@@ -50,7 +50,7 @@ export default function Cookie() {
               {t('description.main')}{' '}
               <Link
                 className="underline"
-                href="/legal/cookie-policy"
+                href="/legal/cookies-policy"
                 aria-label={t('links.cookiePolicy.ariaLabel')}
               >
                 {t('links.cookiePolicy.text')}

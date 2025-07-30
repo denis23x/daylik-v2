@@ -1,5 +1,3 @@
-import MdxLayout from '@/components/mdx/mdx-layout';
-
 # Privacy Policy
 
 _Last updated: July 29, 2025_
@@ -175,34 +173,3 @@ If you have any questions, contact us:
 - By email: [office@daylik.io](mailto:office@daylik.io)
 
 Created with the help of the [Privacy Policy Generator](https://www.termsfeed.com/privacy-policy-generator/).
-
-export const pagedata = {
-  title: 'Privacy Policy',
-  description:
-    'Learn how we collect, use, disclose, and protect your personal data when using our Service, including information about cookies, data retention, user rights, and third-party sharing.',
-  keywords:
-    'privacy policy, personal data, cookies, data collection, data usage, gdpr, user rights, data protection, service providers, daylik, account security, legal compliance',
-};
-
-export const metadata = {
-  title: pagedata.title,
-  description: pagedata.description,
-  keywords: pagedata.keywords,
-  openGraph: {
-    title: pagedata.title,
-    description: pagedata.description,
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: pagedata.title,
-    description: pagedata.description,
-  },
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
-
-export default function MDXPage({ children }) {
-  return <MdxLayout>{children}</MdxLayout>;
-}

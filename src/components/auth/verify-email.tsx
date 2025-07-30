@@ -1,17 +1,18 @@
 'use client';
 
-import { Link } from '@/i18n/navigation';
 import { Mail } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { CardContent } from '../ui/card';
 import { Card } from '../ui/card';
 import { MagicCard } from '../magicui/magic-card';
 import { useTranslations } from 'next-intl';
+import { useFeedbackStore } from '@/store/useFeedbackStore';
 
 const AuthVerifyEmail = () => {
   const t = useTranslations('components.auth.verifyEmail');
   const searchParams = useSearchParams();
   const updatePassword = searchParams.get('updatePassword');
+  const { openModal } = useFeedbackStore();
 
   return (
     <div className="flex min-h-lvh flex-col items-center justify-center gap-4 px-4">
@@ -28,9 +29,12 @@ const AuthVerifyEmail = () => {
       </Card>
       <p className="text-center text-sm">
         {t('links.noEmail')}{' '}
-        <Link href="#" className="text-muted-foreground underline">
+        <span
+          className="text-muted-foreground cursor-pointer text-sm underline"
+          onClick={openModal}
+        >
           {t('links.contactUs')}
-        </Link>
+        </span>
       </p>
     </div>
   );

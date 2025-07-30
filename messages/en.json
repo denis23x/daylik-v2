@@ -58,6 +58,23 @@
       "title": "Team Management and Analytics Platform",
       "description": "Efficient team management platform with synchronization and performance analytics. Track progress, manage teammates, and analyze results.",
       "keywords": "team management, analytics, synchronization, performance, productivity"
+    },
+    "legal": {
+      "cookiesPolicy": {
+        "title": "Cookies Policy",
+        "description": "Learn how we use cookies on our website, including the types of cookies we use, why we use them, and how you can manage your cookie preferences.",
+        "keywords": "cookies policy, cookie usage, session cookies, persistent cookies, website tracking, user preferences, privacy, daylik, browser settings, disable cookies, manage cookies"
+      },
+      "privacyPolicy": {
+        "title": "Privacy Policy",
+        "description": "Learn how we collect, use, disclose, and protect your personal data when using our Service, including information about cookies, data retention, user rights, and third-party sharing.",
+        "keywords": "privacy policy, personal data, cookies, data collection, data usage, gdpr, user rights, data protection, service providers, daylik, account security, legal compliance"
+      },
+      "termsAndConditions": {
+        "title": "Terms and Conditions",
+        "description": "Review the terms and conditions governing your use of our Service, including user responsibilities, limitations of liability, dispute resolution, and legal compliance.",
+        "keywords": "terms and conditions, user agreement, service terms, liability, dispute resolution, legal compliance, data protection, website terms, daylik, service usage, privacy"
+      }
     }
   },
   "components": {
@@ -332,7 +349,7 @@
       "navbar": {
         "sheet": {
           "title": "Navigation",
-          "description": "Access your resources and settings from this sidebar menu.",
+          "description": "Quick access to your tools and settings.",
           "links": {
             "teams": "Teams",
             "teammates": "Teammates",
@@ -749,7 +766,7 @@
       "links": {
         "cookiePolicy": {
           "text": "cookie policy",
-          "ariaLabel": "Learn more about our cookie policy"
+          "ariaLabel": "Learn more about our cookies policy"
         }
       },
       "buttons": {
@@ -759,6 +776,10 @@
     },
     "languageSwitcher": {
       "ariaLabel": "Change language"
+    },
+    "logo": {
+      "logoAlt": "Daylik mascot",
+      "logoText": "Daylik"
     },
     "navbar": {
       "links": {

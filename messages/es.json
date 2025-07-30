@@ -58,6 +58,23 @@
       "title": "Plataforma de Gestión de Equipos y Analíticas",
       "description": "Plataforma eficiente de gestión de equipos con sincronización y analíticas de rendimiento. Rastrea el progreso, gestiona compañeros de equipo y analiza resultados.",
       "keywords": "gestión de equipos, analíticas, sincronización, rendimiento, productividad"
+    },
+    "legal": {
+      "cookiesPolicy": {
+        "title": "Política de Cookies",
+        "description": "Descubre cómo utilizamos las cookies en nuestro sitio web, incluyendo los tipos de cookies que usamos, por qué las usamos y cómo puedes gestionar tus preferencias.",
+        "keywords": "política de cookies, uso de cookies, cookies de sesión, cookies persistentes, seguimiento web, preferencias del usuario, privacidad, daylik, configuración del navegador, desactivar cookies, gestionar cookies"
+      },
+      "privacyPolicy": {
+        "title": "Política de Privacidad",
+        "description": "Infórmate sobre cómo recopilamos, usamos, divulgamos y protegemos tus datos personales al utilizar nuestro servicio, incluyendo información sobre cookies, retención de datos, derechos del usuario y compartición con terceros.",
+        "keywords": "política de privacidad, datos personales, cookies, recopilación de datos, uso de datos, gdpr, derechos del usuario, protección de datos, proveedores de servicios, daylik, seguridad de cuenta, cumplimiento legal"
+      },
+      "termsAndConditions": {
+        "title": "Términos y Condiciones",
+        "description": "Consulta los términos y condiciones que rigen el uso de nuestro servicio, incluyendo las responsabilidades del usuario, limitaciones de responsabilidad, resolución de disputas y cumplimiento legal.",
+        "keywords": "términos y condiciones, acuerdo de usuario, condiciones del servicio, responsabilidad, resolución de disputas, cumplimiento legal, protección de datos, términos del sitio web, daylik, uso del servicio, privacidad"
+      }
     }
   },
   "components": {
@@ -332,7 +349,7 @@
       "navbar": {
         "sheet": {
           "title": "Navegación",
-          "description": "Accede a tus recursos y configuración desde este menú lateral.",
+          "description": "Acceso rápido a tus herramientas y configuraciones.",
           "links": {
             "teams": "Equipos",
             "teammates": "Compañeros de Equipo",
@@ -759,6 +776,10 @@
     },
     "languageSwitcher": {
       "ariaLabel": "Cambiar idioma"
+    },
+    "logo": {
+      "logoAlt": "Mascota de Daylik",
+      "logoText": "Daylik"
     },
     "navbar": {
       "links": {

@@ -23,7 +23,6 @@ export const metadata: Metadata = {
     template: '%s | Daylik',
     default: 'Daylik',
   },
-  description: 'Daylik is a platform for managing teams and their teammates.',
   openGraph: {
     title: {
       template: '%s | Daylik',

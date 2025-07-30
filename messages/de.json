@@ -58,6 +58,23 @@
       "title": "Team-Management und Analytics-Plattform",
       "description": "Effiziente Team-Management-Plattform mit Synchronisation und Leistungsanalyse. Verfolgen Sie den Fortschritt, verwalten Sie Teammitglieder und analysieren Sie Ergebnisse.",
       "keywords": "Team-Management, Analytics, Synchronisation, Leistung, Produktivität"
+    },
+    "legal": {
+      "cookiesPolicy": {
+        "title": "Cookie-Richtlinie",
+        "description": "Erfahren Sie, wie wir Cookies auf unserer Website verwenden – einschließlich der Arten von Cookies, warum wir sie einsetzen und wie Sie Ihre Cookie-Einstellungen verwalten können.",
+        "keywords": "Cookie-Richtlinie, Verwendung von Cookies, Sitzungscookies, persistente Cookies, Website-Tracking, Benutzereinstellungen, Datenschutz, daylik, Browsereinstellungen, Cookies deaktivieren, Cookies verwalten"
+      },
+      "privacyPolicy": {
+        "title": "Datenschutzerklärung",
+        "description": "Erfahren Sie, wie wir Ihre personenbezogenen Daten beim Nutzen unseres Dienstes erheben, verwenden, offenlegen und schützen – einschließlich Informationen zu Cookies, Datenspeicherung, Nutzerrechten und Weitergabe an Dritte.",
+        "keywords": "Datenschutzerklärung, personenbezogene Daten, Cookies, Datenerhebung, Datennutzung, DSGVO, Nutzerrechte, Datenschutz, Dienstanbieter, daylik, Kontosicherheit, rechtliche Einhaltung"
+      },
+      "termsAndConditions": {
+        "title": "Allgemeine Geschäftsbedingungen",
+        "description": "Lesen Sie die Bedingungen für die Nutzung unseres Dienstes, einschließlich Nutzerpflichten, Haftungsbeschränkungen, Streitbeilegung und rechtlicher Einhaltung.",
+        "keywords": "AGB, Nutzungsbedingungen, Benutzervereinbarung, Haftung, Streitbeilegung, rechtliche Einhaltung, Datenschutz, Website-Bedingungen, daylik, Servicenutzung, Privatsphäre"
+      }
     }
   },
   "components": {
@@ -332,7 +349,7 @@
       "navbar": {
         "sheet": {
           "title": "Navigation",
-          "description": "Greifen Sie auf Ihre Ressourcen und Einstellungen über dieses Seitenmenü zu.",
+          "description": "Schneller Zugriff auf deine Tools und Einstellungen.",
           "links": {
             "teams": "Teams",
             "teammates": "Teammitglieder",
@@ -759,6 +776,10 @@
     },
     "languageSwitcher": {
       "ariaLabel": "Sprache ändern"
+    },
+    "logo": {
+      "logoAlt": "Daylik-Maskottchen",
+      "logoText": "Daylik"
     },
     "navbar": {
       "links": {

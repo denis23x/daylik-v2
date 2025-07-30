@@ -41,6 +41,7 @@ const HomeTestimonials = () => {
                 <Link
                   href={`https://x.com/${t('sophia-lee.profileUrl')}`}
                   target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={t('sophia-lee.profileAriaLabel')}
                 >
                   <svg
@@ -85,6 +86,7 @@ const HomeTestimonials = () => {
                 <Link
                   href={`https://x.com/${t('john-doe.profileUrl')}`}
                   target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={t('john-doe.profileAriaLabel')}
                 >
                   <svg
@@ -129,6 +131,7 @@ const HomeTestimonials = () => {
                 <Link
                   href={`https://x.com/${t('emily-davis.profileUrl')}`}
                   target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={t('emily-davis.profileAriaLabel')}
                 >
                   <svg
@@ -173,6 +176,7 @@ const HomeTestimonials = () => {
                 <Link
                   href={`https://x.com/${t('michael-johnson.profileUrl')}`}
                   target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={t('michael-johnson.profileAriaLabel')}
                 >
                   <svg
@@ -217,6 +221,7 @@ const HomeTestimonials = () => {
                 <Link
                   href={`https://x.com/${t('daniel-martinez.profileUrl')}`}
                   target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={t('daniel-martinez.profileAriaLabel')}
                 >
                   <svg

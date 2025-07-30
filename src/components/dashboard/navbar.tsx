@@ -35,7 +35,6 @@ import { ConfirmDialog } from '../confirm-dialog';
 import { useSignOut } from '@/hooks/useAuth';
 import NavbarCalendar from './navbar-calendar';
 import { useFeedbackStore } from '@/store/useFeedbackStore';
-import Feedback from './modals/feedback/modal';
 import LanguageSwitcher from '../language-switcher';
 import { useTranslations } from 'next-intl';
 
@@ -45,7 +44,7 @@ const NavigationSheet = () => {
   const [open, setOpen] = useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const { mutateAsync: signOut } = useSignOut();
-  const { openModal: openFeedbackModal } = useFeedbackStore();
+  const { openModal } = useFeedbackStore();
 
   // Close sheet when route changes
   useEffect(() => {
@@ -108,7 +107,7 @@ const NavigationSheet = () => {
             </NavigationMenuItem>
             <Separator />
             <NavigationMenuItem>
-              <div className="flex cursor-pointer items-center gap-2" onClick={openFeedbackModal}>
+              <div className="flex cursor-pointer items-center gap-2" onClick={openModal}>
                 <MessageCircleMore size={16} />
                 {t('links.feedback')}
               </div>
@@ -129,7 +128,6 @@ const NavigationSheet = () => {
           onOpenChange={setIsConfirmOpen}
           onConfirmAction={handleLogout}
         />
-        <Feedback />
       </SheetContent>
     </Sheet>
   );

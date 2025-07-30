@@ -1,5 +1,3 @@
-import MdxLayout from '@/components/mdx/mdx-layout';
-
 # Terms and Conditions
 
 _Last updated: July 29, 2025_
@@ -121,34 +119,3 @@ If you have any questions, contact us:
 - By email: [office@daylik.io](mailto:office@daylik.io)
 
 Created with the help of the [Terms and Conditions Generator](https://www.termsfeed.com/terms-conditions-generator/).
-
-export const pagedata = {
-  title: 'Terms and Conditions',
-  description:
-    'Review the terms and conditions governing your use of our Service, including user responsibilities, limitations of liability, dispute resolution, and legal compliance.',
-  keywords:
-    'terms and conditions, user agreement, service terms, liability, dispute resolution, legal compliance, data protection, website terms, daylik, service usage, privacy',
-};
-
-export const metadata = {
-  title: pagedata.title,
-  description: pagedata.description,
-  keywords: pagedata.keywords,
-  openGraph: {
-    title: pagedata.title,
-    description: pagedata.description,
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: pagedata.title,
-    description: pagedata.description,
-  },
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
-
-export default function MDXPage({ children }) {
-  return <MdxLayout>{children}</MdxLayout>;
-}
