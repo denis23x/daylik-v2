@@ -108,7 +108,14 @@ const TeamsCard = ({ team }: { team: Team }) => {
       <CardFooter className="flex flex-col items-stretch p-0 text-center">
         {team.teammates?.length ? (
           <Button asChild>
-            <Link href={`/sync/${team.UUID}/settings`}>{t('sync')}</Link>
+            <Link
+              href={{
+                pathname: '/sync/[UUID]/settings',
+                params: { UUID: team.UUID },
+              }}
+            >
+              {t('sync')}
+            </Link>
           </Button>
         ) : (
           <Button variant="secondary" onClick={() => handleUpdate(team)}>

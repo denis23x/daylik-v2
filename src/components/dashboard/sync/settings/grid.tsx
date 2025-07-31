@@ -105,7 +105,10 @@ const SyncSettingsGrid = () => {
     setLiveTeammates(teammates.filter(({ UUID }) => !teammatesAbsent.includes(UUID)));
 
     // Redirect
-    router.push(`/sync/${params.UUID}/live`);
+    router.push({
+      pathname: '/sync/[UUID]/live',
+      params: { UUID: String(params.UUID) },
+    });
   };
 
   const SkeletonCards = (

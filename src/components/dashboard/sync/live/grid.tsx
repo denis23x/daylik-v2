@@ -83,7 +83,10 @@ const SyncLiveGrid = () => {
         teammates,
       });
 
-      router.replace(`/analytics/${analytics.UUID}`);
+      router.replace({
+        pathname: '/analytics/[UUID]',
+        params: { UUID: analytics.UUID },
+      });
     };
 
     toast.promise(handleFinish(), {

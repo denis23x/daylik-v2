@@ -18,26 +18,26 @@ const Footer = () => {
             <ul className="flex flex-col gap-2">
               <li className="block">
                 <Link
-                  href={t('legal.items.0.href')}
+                  href="/legal/cookies-policy"
                   className="text-muted-foreground hover:text-foreground"
                 >
-                  {t('legal.items.0.title')}
+                  {t('legal.items.cookies.title')}
                 </Link>
               </li>
               <li className="block">
                 <Link
-                  href={t('legal.items.1.href')}
+                  href="/legal/privacy-policy"
                   className="text-muted-foreground hover:text-foreground"
                 >
-                  {t('legal.items.1.title')}
+                  {t('legal.items.privacy.title')}
                 </Link>
               </li>
               <li className="block">
                 <Link
-                  href={t('legal.items.2.href')}
+                  href="/legal/terms-and-conditions"
                   className="text-muted-foreground hover:text-foreground"
                 >
-                  {t('legal.items.2.title')}
+                  {t('legal.items.terms.title')}
                 </Link>
               </li>
             </ul>

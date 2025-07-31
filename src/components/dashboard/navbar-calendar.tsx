@@ -90,7 +90,10 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
                 {analyticsByDate.map((analytic) => (
                   <li key={analytic.UUID}>
                     <Link
-                      href={`/analytics/${analytic.UUID}`}
+                      href={{
+                        pathname: '/analytics/[UUID]',
+                        params: { UUID: analytic.UUID },
+                      }}
                       className="group bg-muted after:bg-primary/70 relative flex items-center justify-between gap-4 rounded-md py-2 pr-4 pl-6 text-sm after:absolute after:inset-y-2 after:left-2 after:w-1 after:rounded-full"
                     >
                       <div className="flex flex-col">

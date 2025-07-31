@@ -5,6 +5,12 @@ export const routing = defineRouting({
   locales: LOCALES,
   defaultLocale: 'en',
   pathnames: {
+    '/': {
+      de: '/',
+      es: '/',
+      en: '/',
+      ru: '/',
+    },
     '/login': {
       de: '/anmelden',
       es: '/iniciar-sesion',

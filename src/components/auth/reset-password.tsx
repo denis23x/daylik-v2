@@ -43,7 +43,10 @@ const AuthResetPassword = () => {
       await resetPassword({ ...formData });
 
       // Redirect
-      router.push('/verify-email?updatePassword=1');
+      router.push({
+        pathname: '/verify-email',
+        query: { updatePassword: '1' },
+      });
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'An error occurred');
     }

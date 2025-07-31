@@ -779,17 +779,14 @@
       "legal": {
         "title": "Legal",
         "items": {
-          "0": {
-            "title": "Cookie Policy",
-            "href": "/legal/cookies-policy"
+          "cookies": {
+            "title": "Cookie Policy"
           },
-          "1": {
-            "title": "Privacy Policy",
-            "href": "/legal/privacy-policy"
+          "privacy": {
+            "title": "Privacy Policy"
           },
-          "2": {
-            "title": "Terms and Conditions",
-            "href": "/legal/terms-and-conditions"
+          "terms": {
+            "title": "Terms and Conditions"
           }
         }
       }

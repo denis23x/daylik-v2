@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 
 const HomeTestimonials = () => {
   const t = useTranslations('components.home.testimonials');

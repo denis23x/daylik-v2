@@ -5,9 +5,10 @@ import { Button } from './ui/button';
 import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
-import { routing } from '@/i18n/routing';
 import { Skeleton } from './ui/skeleton';
 import { useLocale, useTranslations } from 'next-intl';
+import { LOCALES } from '@/lib/constants';
+import { useParams, useSearchParams } from 'next/navigation';
 
 const LanguageSwitcher = ({
   variant,
@@ -19,12 +20,23 @@ const LanguageSwitcher = ({
   const t = useTranslations('components.languageSwitcher');
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
+  const params = useParams<{ UUID: string }>();
+  const searchParams = useSearchParams();
   const pathname = usePathname();
   const locale = useLocale();
   const isNavbar = variant === 'navbar';
 
   const handleChange = (locale: string) => {
-    router.replace(pathname, { locale });
+    router.replace(
+      {
+        pathname,
+        params,
+        query: Object.fromEntries(searchParams.entries()),
+      },
+      {
+        locale,
+      }
+    );
   };
 
   useEffect(() => {
@@ -46,7 +58,7 @@ const LanguageSwitcher = ({
       </PopoverTrigger>
       <PopoverContent align="center" className="w-auto min-w-0 p-1">
         <ul className="flex flex-col gap-1">
-          {routing.locales.map((l) => (
+          {LOCALES.map((l) => (
             <li
               key={l}
               className="hover:bg-muted flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm transition-colors"

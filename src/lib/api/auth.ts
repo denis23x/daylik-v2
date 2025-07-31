@@ -59,7 +59,7 @@ export async function signUp({ email, password }: SignUpParams) {
     email,
     password,
     options: {
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_URL}/teams?welcomeUser=1`,
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_URL}/teams`,
     },
   });
   if (error) throw error;
