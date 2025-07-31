@@ -774,6 +774,26 @@
         "accept": "Принять"
       }
     },
+    "footer": {
+      "description": "Daylik — это эффективная платформа для управления командой и анализа эффективности.",
+      "legal": {
+        "title": "Политики",
+        "items": {
+          "0": {
+            "title": "Политика использования файлов cookie",
+            "href": "/legal/cookies-policy"
+          },
+          "1": {
+            "title": "Политика конфиденциальности",
+            "href": "/legal/privacy-policy"
+          },
+          "2": {
+            "title": "Условия использования",
+            "href": "/legal/terms-and-conditions"
+          }
+        }
+      }
+    },
     "languageSwitcher": {
       "ariaLabel": "Изменить язык"
     },

@@ -18,12 +18,8 @@ export default function MdxA({
   return (
     // @ts-expect-error href is required
     <Link className="inline" ref={preRef} {...props} target={target}>
-      <span className="inline-block max-w-full overflow-hidden align-bottom text-ellipsis underline">
-        {children}
-      </span>
-      {target === '_blank' && (
-        <ArrowUpRight className="inline-block size-4 min-w-4 align-baseline" />
-      )}
+      <span className="inline wrap-anywhere underline">{children}</span>
+      {target === '_blank' && <ArrowUpRight className="inline size-4 min-w-4 align-baseline" />}
     </Link>
   );
 }

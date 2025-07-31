@@ -46,14 +46,14 @@ const HomeStats = () => {
           </div>
         </li>
       </ul>
-      <RainbowButton className="rounded-full px-3" as="span">
+      <RainbowButton className="rounded-full p-0" as="span">
         <Link
           href="/signup"
           aria-label={t('buttonAriaLabel')}
-          className="flex items-center gap-1.5"
+          className="flex size-full items-center justify-center gap-1.5 px-3 py-2"
         >
           {t('buttonText')}
-          <Flame />
+          <Flame className="fill-destructive dark:fill-transparent" />
         </Link>
       </RainbowButton>
     </div>

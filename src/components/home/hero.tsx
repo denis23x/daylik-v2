@@ -28,9 +28,9 @@ const HomeHero = () => {
         <h1 className="mt-6 text-3xl font-bold sm:text-4xl md:text-5xl">{t('title')}</h1>
         <p className="mt-6 text-[17px] md:text-lg">{t('description')}</p>
         <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <Button className="rounded-full px-3" as="span">
+          <Button className="rounded-full p-0" as="span">
             <Link
-              className="flex items-center gap-1.5"
+              className="flex size-full items-center justify-center gap-1.5 px-3 py-2"
               href="/signup"
               aria-label={t('getStartedAriaLabel')}
             >

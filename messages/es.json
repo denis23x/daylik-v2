@@ -774,6 +774,26 @@
         "accept": "Aceptar"
       }
     },
+    "footer": {
+      "description": "Daylik es una plataforma eficiente de gestión de equipos y análisis del rendimiento.",
+      "legal": {
+        "title": "Legal",
+        "items": {
+          "0": {
+            "title": "Política de Cookies",
+            "href": "/legal/cookies-policy"
+          },
+          "1": {
+            "title": "Política de Privacidad",
+            "href": "/legal/privacy-policy"
+          },
+          "2": {
+            "title": "Términos y Condiciones",
+            "href": "/legal/terms-and-conditions"
+          }
+        }
+      }
+    },
     "languageSwitcher": {
       "ariaLabel": "Cambiar idioma"
     },

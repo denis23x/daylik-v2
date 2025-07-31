@@ -1,69 +1,47 @@
 import { Link } from '@/i18n/navigation';
 import { Logo } from './logo';
-
-const footerSections = [
-  {
-    title: 'Guides',
-    links: [
-      {
-        title: 'Ask for Help',
-        href: '/guides/how-to-ask-for-help-without-feeling-dumb',
-      },
-      {
-        title: 'Great Standup',
-        href: '/guides/how-to-run-a-great-daily-standup',
-      },
-      {
-        title: 'Handle Blockers',
-        href: '/guides/how-to-flag-and-handle-blockers',
-      },
-    ],
-  },
-  {
-    title: 'Legal',
-    links: [
-      {
-        title: 'Cookies Policy',
-        href: '/legal/cookies-policy',
-      },
-      {
-        title: 'Privacy Policy',
-        href: '/legal/privacy-policy',
-      },
-      {
-        title: 'Terms and Conditions',
-        href: '/legal/terms-and-conditions',
-      },
-    ],
-  },
-];
+import { useTranslations } from 'next-intl';
 
 const Footer = () => {
+  const t = useTranslations('components.footer');
+
   return (
     <footer className="bg-background/80 w-full border-t">
       <div className="container mx-auto flex flex-col items-start justify-between gap-4 p-4 md:flex-row">
         <div className="flex max-w-xs flex-col gap-4">
           <Logo />
-          <p className="text-muted-foreground">
-            Daylik is a efficient team management platform with synchronization and performance
-            analytics.
-          </p>
+          <p className="text-muted-foreground">{t('description')}</p>
         </div>
         <div className="flex w-full flex-wrap gap-x-16 gap-y-4 md:flex-nowrap md:justify-end">
-          {footerSections.map(({ title, links }) => (
-            <nav className="flex flex-col gap-4" key={title}>
-              <span className="font-semibold">{title}</span>
-              <ul className="flex flex-col gap-2">
-                {links.map(({ title, href }) => (
-                  <li key={title}>
-                    <Link href={href} className="text-muted-foreground hover:text-foreground">
-                      {title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          ))}
+          <nav className="flex flex-col gap-4">
+            <span className="font-semibold">{t('legal.title')}</span>
+            <ul className="flex flex-col gap-2">
+              <li className="block">
+                <Link
+                  href={t('legal.items.0.href')}
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  {t('legal.items.0.title')}
+                </Link>
+              </li>
+              <li className="block">
+                <Link
+                  href={t('legal.items.1.href')}
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  {t('legal.items.1.title')}
+                </Link>
+              </li>
+              <li className="block">
+                <Link
+                  href={t('legal.items.2.href')}
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  {t('legal.items.2.title')}
+                </Link>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </footer>

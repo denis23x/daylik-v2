@@ -45,8 +45,12 @@ const HomePricing = () => {
                 {t('free.features.history')}
               </li>
             </ul>
-            <Button variant="secondary" size="lg" className="mt-6 w-full" as="span">
-              <Link href="/signup" aria-label={t('free.buttonAriaLabel')}>
+            <Button variant="secondary" size="lg" className="mt-6 w-full p-0" as="span">
+              <Link
+                href="/signup"
+                aria-label={t('free.buttonAriaLabel')}
+                className="flex size-full items-center justify-center"
+              >
                 {t('free.buttonText')}
               </Link>
             </Button>
@@ -88,11 +92,11 @@ const HomePricing = () => {
                 {t('beta.features.support')}
               </li>
             </ul>
-            <Button variant="default" size="lg" className="mt-6 w-full px-3" as="span">
+            <Button variant="default" size="lg" className="mt-6 w-full p-0" as="span">
               <Link
                 href="/signup"
                 aria-label={t('beta.buttonAriaLabel')}
-                className="flex items-center gap-1.5"
+                className="flex size-full items-center justify-center gap-1.5"
               >
                 <PartyPopper />
                 {t('beta.buttonText')}
@@ -129,8 +133,12 @@ const HomePricing = () => {
                 {t('pro.features.history')}
               </li>
             </ul>
-            <Button variant="secondary" size="lg" className="mt-6 w-full" as="span">
-              <Link href="/signup" aria-label={t('pro.buttonAriaLabel')}>
+            <Button variant="secondary" size="lg" className="mt-6 w-full p-0" as="span">
+              <Link
+                href="/signup"
+                aria-label={t('pro.buttonAriaLabel')}
+                className="flex size-full items-center justify-center"
+              >
                 {t('pro.buttonText')}
               </Link>
             </Button>
