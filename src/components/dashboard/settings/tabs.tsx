@@ -8,10 +8,11 @@ import { getQueryParams } from '@/utils/getQueryParams';
 import { Settings } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const SettingsTabs = () => {
   const t = useTranslations('components.dashboard.settings.tabs');
-  const [tab, setTab] = useState('email');
+  const [tab, setTab] = useState('');
 
   useEffect(() => {
     const onPopState = () => setTab(getQueryParams('tabs') || 'subscription');
@@ -54,6 +55,9 @@ const SettingsTabs = () => {
             </TabsContent>
             <TabsContent value="subscription">
               <TabsSubscription />
+            </TabsContent>
+            <TabsContent value="">
+              <Skeleton className="h-96 w-full rounded-xl sm:max-w-md" />
             </TabsContent>
           </Tabs>
         </div>

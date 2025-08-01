@@ -3,12 +3,12 @@
     "auth": {
       "login": {
         "title": "Sign In",
-        "description": "Sign in to your account to access team management, analytics and data synchronization features.",
+        "description": "Sign in to your account to access team management, analytics and data sync features.",
         "keywords": "sign in, login, authorization, authentication"
       },
       "signup": {
         "title": "Sign Up",
-        "description": "Create your account and start efficiently managing teams, tracking analytics and synchronizing data.",
+        "description": "Create your account and start efficiently managing teams, tracking analytics and sync data.",
         "keywords": "sign up, registration, create account, teams"
       },
       "resetPassword": {
@@ -35,13 +35,13 @@
       },
       "syncLive": {
         "title": "Sync Live",
-        "description": "Monitor team data synchronization in real-time. Track activity and updates.",
-        "keywords": "synchronization, real-time, monitoring, team activity"
+        "description": "Monitor team data sync in real-time. Track activity and updates.",
+        "keywords": "sync, real-time, monitoring, team activity"
       },
       "syncSettings": {
         "title": "Sync Settings",
-        "description": "Configure team data synchronization parameters. Configure who will participate in the daily sync and set their order.",
-        "keywords": "sync settings, synchronization, parameters, updates, configuration"
+        "description": "Configure team data sync parameters. Configure who will participate in the daily sync and set their order.",
+        "keywords": "sync settings, parameters, updates, configuration"
       },
       "teammates": {
         "title": "Teammates",
@@ -56,8 +56,8 @@
     },
     "home": {
       "title": "Team Management and Analytics Platform",
-      "description": "Efficient team management platform with synchronization and performance analytics. Track progress, manage teammates, and analyze results.",
-      "keywords": "team management, analytics, synchronization, performance, productivity"
+      "description": "Efficient team management platform with sync and performance analytics. Track progress, manage teammates, and analyze results.",
+      "keywords": "team management, analytics, sync, performance, productivity"
     },
     "legal": {
       "cookiesPolicy": {
@@ -194,6 +194,13 @@
             "radioTower": "Radio Tower",
             "frozenHero": "Frozen Hero",
             "mysteryGhost": "Mystery Ghost"
+          },
+          "notFound": {
+            "abbreviation": "N/A",
+            "edgerunner": "No close calls",
+            "radioTower": "No radio today",
+            "frozenHero": "No chill detected",
+            "mysteryGhost": "No ghosts spotted"
           },
           "descriptions": {
             "overtime": "Overtime x{count}",
@@ -406,7 +413,7 @@
             "estimatedTime": "~ {time} min.",
             "tooltip": {
               "title": "Estimated Sync time:",
-              "description": "Timer × Participants + Timer for the host"
+              "description": "Timer × Teammates + Timer for the host"
             },
             "startButton": "Start {teamName} Sync",
             "noTeammates": "No teammates found",

@@ -1,12 +1,13 @@
 import type { AnalyticsTeammate } from '@/types/analyticsTeammate.type';
+import { useTranslations } from 'next-intl';
 import { v4 as uuidv4 } from 'uuid';
 
-export function getHighlightsPlaceholder(key: string) {
+export function getHighlightsPlaceholder(key: string, t: ReturnType<typeof useTranslations>) {
   const role = () => {
-    if (key === 'frozen-hero') return 'No chill detected';
-    if (key === 'edgerunner') return 'No close calls';
-    if (key === 'mystery-ghost') return 'No ghosts spotted';
-    if (key === 'radio-tower') return 'No radio today';
+    if (key === 'frozen-hero') return t('notFound.frozenHero');
+    if (key === 'edgerunner') return t('notFound.edgerunner');
+    if (key === 'mystery-ghost') return t('notFound.mysteryGhost');
+    if (key === 'radio-tower') return t('notFound.radioTower');
     return '';
   };
 
@@ -20,7 +21,7 @@ export function getHighlightsPlaceholder(key: string) {
     overtime: 0,
     teammate: {
       UUID: uuidv4(),
-      name: 'N/A',
+      name: t('notFound.abbreviation'),
       role: role(),
       color: 'color-mix(in oklab, var(--secondary) 80%, transparent)',
       avatar: null,

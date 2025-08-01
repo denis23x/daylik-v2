@@ -16,7 +16,7 @@ const HoverEffectHighlights = lazy(() => import('@/components/dx/hover-effect/ho
 const HighlightsCard = lazy(() => import('./highlights-card'));
 
 const AnalyticsHighlights = () => {
-  const t = useTranslations('components.dashboard.analytics.highlights.achievements');
+  const t = useTranslations('components.dashboard.analytics.highlights');
   const sm = useMediaQuery('(min-width: 640px)');
   const { analytics, analyticsTeammates } = useAnalyticsStore();
   const [highlights, setHighlights] = useState<AnalyticsHighlight[]>([]);
@@ -30,7 +30,7 @@ const AnalyticsHighlights = () => {
       const highlightRules = [
         {
           key: 'limit-master',
-          label: t('limitMaster'),
+          label: t('achievements.limitMaster'),
           icon: <Crown className="fill-current text-amber-400" />,
           predicate: (t: AnalyticsTeammate) => t.paused === 0,
           sort: (a: AnalyticsTeammate, b: AnalyticsTeammate) => {
@@ -39,7 +39,7 @@ const AnalyticsHighlights = () => {
         },
         {
           key: 'edgerunner',
-          label: t('edgerunner'),
+          label: t('achievements.edgerunner'),
           icon: <CircleCheckBig className="text-emerald-400" />,
           predicate: (t: AnalyticsTeammate) => t.overtime !== 0,
           sort: (a: AnalyticsTeammate, b: AnalyticsTeammate) => {
@@ -48,7 +48,7 @@ const AnalyticsHighlights = () => {
         },
         {
           key: 'radio-tower',
-          label: t('radioTower'),
+          label: t('achievements.radioTower'),
           icon: <RadioTower className="text-red-400" />,
           predicate: () => true,
           sort: (a: AnalyticsTeammate, b: AnalyticsTeammate) => {
@@ -57,7 +57,7 @@ const AnalyticsHighlights = () => {
         },
         {
           key: 'frozen-hero',
-          label: t('frozenHero'),
+          label: t('achievements.frozenHero'),
           icon: <Snowflake className="text-blue-400" />,
           predicate: (t: AnalyticsTeammate) => t.paused !== 0,
           sort: (a: AnalyticsTeammate, b: AnalyticsTeammate) => {
@@ -66,7 +66,7 @@ const AnalyticsHighlights = () => {
         },
         {
           key: 'mystery-ghost',
-          label: t('mysteryGhost'),
+          label: t('achievements.mysteryGhost'),
           icon: <Ghost className="text-foreground" />,
           predicate: () => true,
           sort: (a: AnalyticsTeammate, b: AnalyticsTeammate) => {
@@ -88,7 +88,7 @@ const AnalyticsHighlights = () => {
             ? candidate
             : {
                 placeholder: true,
-                ...getHighlightsPlaceholder(highlight.key),
+                ...getHighlightsPlaceholder(highlight.key, t),
               };
 
           // Add the highlight to the set of used

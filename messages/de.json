@@ -34,14 +34,14 @@
         "keywords": "einstellungen, profil, sicherheit, konto, konfiguration"
       },
       "syncLive": {
-        "title": "Live-Synchronisation",
-        "description": "Überwachen Sie die Temdatensynchronisation in Echtzeit. Verfolgen Sie Aktivitäten und Updates.",
-        "keywords": "synchronisation, echtzeit, überwachung, teamaktivität"
+        "title": "Live-Sync",
+        "description": "Überwachen Sie das Team-Sync in Echtzeit. Verfolgen Sie Aktivitäten und Updates.",
+        "keywords": "sync, echtzeit, überwachung, teamaktivität"
       },
       "syncSettings": {
-        "title": "Synchronisationseinstellungen",
-        "description": "Konfigurieren Sie Temdatensynchronisationsparameter. Konfigurieren Sie, wer an der täglichen Synchronisation teilnimmt und setzen Sie deren Reihenfolge.",
-        "keywords": "sync-einstellungen, synchronisation, parameter, updates, konfiguration"
+        "title": "Sync-Einstellungen",
+        "description": "Konfigurieren Sie Team-Sync-Parameter. Konfigurieren Sie, wer am täglichen Sync teilnimmt und setzen Sie deren Reihenfolge.",
+        "keywords": "sync-einstellungen, sync, parameter, updates, konfiguration"
       },
       "teammates": {
         "title": "Teammitglieder",
@@ -56,8 +56,8 @@
     },
     "home": {
       "title": "Team-Management und Analytics-Plattform",
-      "description": "Effiziente Team-Management-Plattform mit Synchronisation und Leistungsanalyse. Verfolgen Sie den Fortschritt, verwalten Sie Teammitglieder und analysieren Sie Ergebnisse.",
-      "keywords": "Team-Management, Analytics, Synchronisation, Leistung, Produktivität"
+      "description": "Effiziente Team-Management-Plattform mit Sync und Leistungsanalyse. Verfolgen Sie den Fortschritt, verwalten Sie Teammitglieder und analysieren Sie Ergebnisse.",
+      "keywords": "Team-Management, Analytics, Sync, Leistung, Produktivität"
     },
     "legal": {
       "cookiesPolicy": {
@@ -182,7 +182,7 @@
             "role": "Rolle",
             "total": "Gesamt",
             "paused": "Pausiert",
-            "overtimes": "Überstunden"
+            "overtimes": "Extrazeit"
           },
           "lookupPlaceholder": "Teammitglied suchen..",
           "noTeammates": "Keine Teammitglieder gefunden"
@@ -192,12 +192,19 @@
             "limitMaster": "Zeitmeister",
             "edgerunner": "Grenzgänger",
             "radioTower": "Funkturm",
-            "frozenHero": "Eingefrorener Held",
-            "mysteryGhost": "Mysteriöser Geist"
+            "frozenHero": "Frostheld",
+            "mysteryGhost": "Geist"
+          },
+          "notFound": {
+            "abbreviation": "k. A.",
+            "edgerunner": "Kein Vorfall",
+            "radioTower": "Kein Radio",
+            "frozenHero": "Keine Ruhe",
+            "mysteryGhost": "Keine Geister"
           },
           "descriptions": {
-            "overtime": "Überstunden x{count}",
-            "onAir": "On Air {duration}",
+            "overtime": "Extrazeit x{count}",
+            "onAir": "Auf Sendung {duration}",
             "pausedTime": "Pausenzeit {duration}",
             "goneIn": "Verschwunden in {duration}",
             "wrappedIn": "Abgeschlossen in {duration}"
@@ -215,15 +222,15 @@
           "labels": {
             "total": "Gesamt",
             "paused": "Pausiert",
-            "overtime": "Überstunden",
-            "timer": "Timer {duration}"
+            "overtime": "Extrazeit",
+            "timer": "Zeitmesser {duration}"
           }
         }
       },
       "modals": {
         "feedback": {
-          "title": "Feedback",
-          "description": "Ihr Feedback hilft uns, den Service für alle zu verbessern.",
+          "title": "Rückmeldung",
+          "description": "Ihre Rückmeldung hilft uns, den Service für alle zu verbessern.",
           "form": {
             "priority": {
               "label": "Priorität",
@@ -244,7 +251,7 @@
             "loading": "Bitte warten"
           },
           "messages": {
-            "success": "Ihr Feedback hilft uns, jeden Tag besser zu werden!",
+            "success": "Ihre Rückmeldung hilft uns, jeden Tag besser zu werden!",
             "error": "Ein Fehler ist aufgetreten"
           }
         }
@@ -354,7 +361,7 @@
             "teams": "Teams",
             "teammates": "Teammitglieder",
             "settings": "Einstellungen",
-            "feedback": "Feedback"
+            "feedback": "Rückmeldung"
           },
           "buttons": {
             "logout": "Abmelden"
@@ -368,11 +375,11 @@
       "sync": {
         "live": {
           "hero": {
-            "title": "Synchronisation",
-            "description": "Führen Sie Ihre tägliche Synchronisation in Echtzeit durch. Wählen Sie, wer als nächstes spricht, verwalten Sie Timing und Ablauf, pausieren Sie bei Bedarf und führen Sie Ihr Team durch ein fokussiertes, fesselndes Stand-up von Anfang bis Ende."
+            "title": "Sync",
+            "description": "Führen Sie Ihr tägliches Sync in Echtzeit durch. Wählen Sie, wer als nächstes spricht, verwalten Sie Timing und Ablauf, pausieren Sie bei Bedarf und führen Sie Ihr Team durch ein fokussiertes, fesselndes Stand-up von Anfang bis Ende."
           },
           "grid": {
-            "title": "Synchronisation",
+            "title": "Sync",
             "messages": {
               "saving": "Speichern..",
               "success": "Zahlen gesammelt. Betrachten Sie Ihre Analytik!",
@@ -383,7 +390,7 @@
           },
           "card": {
             "badges": {
-              "overtime": "Überstunden",
+              "overtime": "Extrazeit",
               "active": "Aktiv",
               "paused": "Pausiert",
               "done": "Fertig"
@@ -399,21 +406,21 @@
         "settings": {
           "hero": {
             "title": "Einrichtung",
-            "description": "Konfigurieren Sie Ihre Synchronisation, bevor sie beginnt. Wählen Sie, wer teilnimmt, stellen Sie den Timer ein, entfernen Sie nicht verfügbare Teammitglieder und optimieren Sie den Ablauf, damit Ihre Synchronisation von der ersten Sekunde an reibungslos läuft."
+            "description": "Konfigurieren Sie Ihr Sync, bevor es beginnt. Wählen Sie, wer teilnimmt, stellen Sie den Zeitmesser ein, entfernen Sie nicht verfügbare Teammitglieder und optimieren Sie den Ablauf, damit Ihr Sync von der ersten Sekunde an reibungslos läuft."
           },
           "grid": {
-            "title": "Synchronisation",
+            "title": "Sync",
             "estimatedTime": "~ {time} Min.",
             "tooltip": {
-              "title": "Geschätzte Synchronisationszeit:",
-              "description": "Timer × Teilnehmer + Timer für den Gastgeber"
+              "title": "Geschätzte Sync-Zeit:",
+              "description": "Zeitmesser × Teilnehmer + Zeitmesser für den Gastgeber"
             },
-            "startButton": "{teamName} Synchronisation starten",
+            "startButton": "{teamName} Sync starten",
             "noTeammates": "Keine Teammitglieder gefunden",
             "teamsButton": "Teams"
           },
           "timerPicker": {
-            "label": "Timer in Sekunden",
+            "label": "Zeitmesser in Sekunden",
             "closeButton": "Schließen"
           }
         }
@@ -431,7 +438,7 @@
         },
         "card": {
           "addTeammates": "Teammitglieder hinzufügen",
-          "sync": "Synchronisation"
+          "sync": "Sync"
         },
         "cardNew": {
           "title": "Neu",
@@ -635,8 +642,8 @@
       "stats": {
         "title": "Warum Daylik?",
         "subtitle": "Nach dem Wechsel zu Daylik..",
-        "buttonText": "Starte deine Synchronisation",
-        "buttonAriaLabel": "Starten Sie Ihre Synchronisation mit Daylik - Jetzt registrieren",
+        "buttonText": "Starte dein Sync",
+        "buttonAriaLabel": "Starten Sie Ihr Sync mit Daylik - Jetzt registrieren",
         "items": {
           "communication": {
             "percentage": "89%",

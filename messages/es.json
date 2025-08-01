@@ -34,19 +34,19 @@
         "keywords": "configuración, perfil, seguridad, cuenta, ajustes"
       },
       "syncLive": {
-        "title": "Sincronización en Vivo",
-        "description": "Monitorear la sincronización de datos del equipo en tiempo real. Rastrear actividad y actualizaciones.",
-        "keywords": "sincronización, tiempo real, monitoreo, actividad del equipo"
+        "title": "Sync en Vivo",
+        "description": "Monitorear el sync de datos del equipo en tiempo real. Rastrear actividad y actualizaciones.",
+        "keywords": "sync, tiempo real, monitoreo, actividad del equipo"
       },
       "syncSettings": {
-        "title": "Configuración de Sincronización",
-        "description": "Configurar parámetros de sincronización de datos del equipo. Configurar quién participará en la sincronización diaria y establecer su orden.",
-        "keywords": "configuración de sincronización, sincronización, parámetros, actualizaciones, configuración"
+        "title": "Configuración de Sync",
+        "description": "Configurar parámetros de sync de datos del equipo. Configurar quién participará en el sync diario y establecer su orden.",
+        "keywords": "configuración de sync, sync, parámetros, actualizaciones, configuración"
       },
       "teammates": {
         "title": "Compañeros de Equipo",
-        "description": "Gestionar tus compañeros de equipo. Agregar nuevos compañeros, editar información y rastrear su actividad.",
-        "keywords": "compañeros de equipo, miembros del equipo, gestión de equipos, empleados"
+        "description": "Gestionar tus compañeros. Agregar nuevos compañeros, editar información y rastrear su actividad.",
+        "keywords": "compañeros, gestión de equipos, empleados"
       },
       "teams": {
         "title": "Equipos",
@@ -56,8 +56,8 @@
     },
     "home": {
       "title": "Plataforma de Gestión de Equipos y Analíticas",
-      "description": "Plataforma eficiente de gestión de equipos con sincronización y analíticas de rendimiento. Rastrea el progreso, gestiona compañeros de equipo y analiza resultados.",
-      "keywords": "gestión de equipos, analíticas, sincronización, rendimiento, productividad"
+      "description": "Plataforma eficiente de gestión de equipos con sync y analíticas de rendimiento. Rastrea el progreso, gestiona compañeros y analiza resultados.",
+      "keywords": "gestión de equipos, analíticas, sync, rendimiento, productividad"
     },
     "legal": {
       "cookiesPolicy": {
@@ -167,10 +167,10 @@
       "analytics": {
         "hero": {
           "title": "Analíticas",
-          "description": "Revisa tus analíticas de sincronización diaria y engagement del equipo. Obtén insights de cada sesión, rastrea tendencias de participación y reflexiona sobre dinámicas del equipo para mejorar la colaboración futura."
+          "description": "Revisa tus analíticas de sync diario y engagement del equipo. Obtén insights de cada sesión, rastrea tendencias de participación y reflexiona sobre dinámicas del equipo para mejorar la colaboración futura."
         },
         "grid": {
-          "sync": "Sincronización",
+          "sync": "Sync",
           "error": "Ocurrió un error",
           "report": "Reportar",
           "noTeammates": "No se encontraron compañeros",
@@ -182,22 +182,29 @@
             "role": "Rol",
             "total": "Total",
             "paused": "Pausado",
-            "overtimes": "Horas extra"
+            "overtimes": "Extras"
           },
           "lookupPlaceholder": "Buscar compañero..",
           "noTeammates": "No se encontraron compañeros"
         },
         "highlights": {
           "achievements": {
-            "limitMaster": "Maestro del Límite",
-            "edgerunner": "Corredor del Límite",
-            "radioTower": "Torre de Radio",
-            "frozenHero": "Héroe Congelado",
-            "mysteryGhost": "Fantasma Misterioso"
+            "limitMaster": "Maestro",
+            "edgerunner": "Límite",
+            "radioTower": "Radio",
+            "frozenHero": "Congelado",
+            "mysteryGhost": "Fantasma"
+          },
+          "notFound": {
+            "abbreviation": "N/D",
+            "edgerunner": "Sin incidentes",
+            "radioTower": "Sin radio",
+            "frozenHero": "Sin calma",
+            "mysteryGhost": "Sin fantasmas"
           },
           "descriptions": {
-            "overtime": "Hora extra x{count}",
-            "onAir": "En Air {duration}",
+            "overtime": "Extras x{count}",
+            "onAir": "En Aire {duration}",
             "pausedTime": "Tiempo pausado {duration}",
             "goneIn": "Se fue en {duration}",
             "wrappedIn": "Terminado en {duration}"
@@ -205,7 +212,7 @@
         },
         "chart": {
           "title": "Línea de Tiempo de Sync",
-          "description": "Un desglose completo de la sincronización de hoy",
+          "description": "Un desglose completo del sync de hoy",
           "selectType": "Seleccionar un tipo",
           "types": {
             "step": "Paso",
@@ -215,15 +222,15 @@
           "labels": {
             "total": "Total",
             "paused": "Pausado",
-            "overtime": "Hora extra",
-            "timer": "Timer {duration}"
+            "overtime": "Extras",
+            "timer": "Temporizador {duration}"
           }
         }
       },
       "modals": {
         "feedback": {
-          "title": "Feedback",
-          "description": "Tu feedback nos ayuda a mejorar el servicio para todos.",
+          "title": "Comentarios",
+          "description": "Tus comentarios nos ayudan a mejorar el servicio para todos.",
           "form": {
             "priority": {
               "label": "Prioridad",
@@ -244,7 +251,7 @@
             "loading": "Por favor espera"
           },
           "messages": {
-            "success": "¡Tu feedback nos ayuda a mejorar cada día!",
+            "success": "¡Tus comentarios nos ayudan a mejorar cada día!",
             "error": "Ocurrió un error"
           }
         }
@@ -272,7 +279,7 @@
           "features": {
             "unlimitedTeams": "Equipos ilimitados",
             "unlimitedTeammates": "Compañeros ilimitados",
-            "unlimitedSyncs": "Sincronizaciones ilimitadas",
+            "unlimitedSyncs": "Syncs ilimitados",
             "basicAnalytics": "Analíticas básicas",
             "unlimitedHistory": "Historial ilimitado",
             "prioritySupport": "Soporte prioritario"
@@ -352,9 +359,9 @@
           "description": "Acceso rápido a tus herramientas y configuraciones.",
           "links": {
             "teams": "Equipos",
-            "teammates": "Compañeros de Equipo",
+            "teammates": "Compañeros",
             "settings": "Configuración",
-            "feedback": "Feedback"
+            "feedback": "Comentarios"
           },
           "buttons": {
             "logout": "Cerrar Sesión"
@@ -368,22 +375,22 @@
       "sync": {
         "live": {
           "hero": {
-            "title": "Sincronización",
-            "description": "Ejecuta tu sincronización diaria en tiempo real. Elige quién habla después, gestiona el tiempo y el flujo, pausa cuando sea necesario y guía a tu equipo a través de una reunión enfocada y atractiva de principio a fin."
+            "title": "Sync",
+            "description": "Ejecuta tu sync diario en tiempo real. Elige quién habla después, gestiona el tiempo y el flujo, pausa cuando sea necesario y guía a tu equipo a través de una reunión enfocada y atractiva de principio a fin."
           },
           "grid": {
-            "title": "Sincronización",
+            "title": "Sync",
             "messages": {
               "saving": "Guardando..",
               "success": "¡Números recopilados. Contempla tus analíticas!",
               "error": "Ocurrió un error"
             },
-            "noTeammates": "No se encontraron compañeros de equipo",
+            "noTeammates": "No se encontraron compañeros",
             "teamsButton": "Equipos"
           },
           "card": {
             "badges": {
-              "overtime": "Tiempo extra",
+              "overtime": "Extras",
               "active": "Activo",
               "paused": "Pausado",
               "done": "Terminado"
@@ -399,17 +406,17 @@
         "settings": {
           "hero": {
             "title": "Configuración",
-            "description": "Configura tu sincronización antes de que comience. Selecciona quién está incluido, establece el temporizador, elimina compañeros de equipo no disponibles y ajusta el flujo para asegurar que tu sincronización funcione sin problemas desde el primer segundo."
+            "description": "Configura tu sync antes de que comience. Selecciona quién está incluido, establece el temporizador, elimina compañeros no disponibles y ajusta el flujo para asegurar que tu sync funcione sin problemas desde el primer segundo."
           },
           "grid": {
-            "title": "Sincronización",
+            "title": "Sync",
             "estimatedTime": "~ {time} min.",
             "tooltip": {
-              "title": "Tiempo estimado de sincronización:",
+              "title": "Tiempo estimado de sync:",
               "description": "Temporizador × Participantes + Temporizador para el anfitrión"
             },
-            "startButton": "Iniciar sincronización de {teamName}",
-            "noTeammates": "No se encontraron compañeros de equipo",
+            "startButton": "Iniciar sync de {teamName}",
+            "noTeammates": "No se encontraron compañeros",
             "teamsButton": "Equipos"
           },
           "timerPicker": {
@@ -421,7 +428,7 @@
       "teams": {
         "hero": {
           "title": "Equipos",
-          "description": "Crea, edita y gestiona equipos para alinear tus proyectos con objetivos estratégicos. Asigna compañeros de equipo, clarifica roles y mantén un espacio de trabajo estructurado que mejore el enfoque y la coordinación.",
+          "description": "Crea, edita y gestiona equipos para alinear tus proyectos con objetivos estratégicos. Asigna compañeros, clarifica roles y mantén un espacio de trabajo estructurado que mejore el enfoque y la coordinación.",
           "createButton": "Crear Equipo"
         },
         "grid": {
@@ -431,7 +438,7 @@
         },
         "card": {
           "addTeammates": "Agregar Compañeros",
-          "sync": "Sincronización"
+          "sync": "Sync"
         },
         "cardNew": {
           "title": "Nuevo",
@@ -466,10 +473,10 @@
             "validation": "El nombre del equipo debe tener al menos 2 caracteres"
           },
           "teammates": {
-            "label": "Compañeros de Equipo",
+            "label": "Compañeros",
             "placeholder": "Seleccionar compañeros (opcional)",
             "searchPlaceholder": "Buscar",
-            "emptyMessage": "No se encontraron compañeros de equipo"
+            "emptyMessage": "No se encontraron compañeros"
           },
           "image": {
             "label": "Imagen",
@@ -485,13 +492,13 @@
       },
       "teammates": {
         "hero": {
-          "title": "Compañeros de Equipo",
-          "description": "Agrega, actualiza o elimina compañeros de equipo y asígnalos a los equipos correctos. Fortalece la colaboración manteniendo tu espacio de trabajo organizado y conectando a las personas con lo que importa.",
+          "title": "Compañeros",
+          "description": "Agrega, actualiza o elimina compañeros y asígnalos a los equipos correctos. Fortalece la colaboración manteniendo tu espacio de trabajo organizado y conectando a las personas con lo que importa.",
           "addButton": "Agregar Compañero"
         },
         "grid": {
-          "title": "Compañeros de Equipo",
-          "noTeammates": "No se encontraron compañeros de equipo",
+          "title": "Compañeros",
+          "noTeammates": "No se encontraron compañeros",
           "addButton": "Agregar Compañero"
         },
         "cardNew": {
@@ -596,7 +603,7 @@
           "features": {
             "teams": "1 equipo",
             "teammates": "Hasta 3 compañeros",
-            "syncs": "5 sincronizaciones por semana",
+            "syncs": "5 syncs por semana",
             "analytics": "Analíticas básicas",
             "history": "Historial de 7 días"
           }
@@ -611,7 +618,7 @@
           "features": {
             "teams": "Equipos ilimitados",
             "teammates": "Compañeros ilimitados",
-            "syncs": "Sincronizaciones ilimitadas",
+            "syncs": "Syncs ilimitados",
             "analytics": "Analíticas básicas",
             "history": "Historial ilimitado",
             "support": "Soporte prioritario"
@@ -626,7 +633,7 @@
           "features": {
             "teams": "Hasta 5 equipos",
             "teammates": "Hasta 50 compañeros",
-            "syncs": "Sincronizaciones ilimitadas",
+            "syncs": "Syncs ilimitados",
             "analytics": "Analíticas avanzadas",
             "history": "Historial de 90 días"
           }
@@ -635,8 +642,8 @@
       "stats": {
         "title": "¿Por qué Daylik?",
         "subtitle": "Después de cambiar a Daylik..",
-        "buttonText": "Comienza tu Sincronización",
-        "buttonAriaLabel": "Comienza tu sincronización con Daylik - Regístrate ahora",
+        "buttonText": "Comienza tu Sync",
+        "buttonAriaLabel": "Comienza tu sync con Daylik - Regístrate ahora",
         "items": {
           "communication": {
             "percentage": "89%",
