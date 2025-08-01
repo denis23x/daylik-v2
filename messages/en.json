@@ -665,7 +665,6 @@
           "avatarAlt": "Profile photo of Sophia Lee, Engineering Lead",
           "avatar": "sophia-lee.jpeg",
           "name": "Sophia Lee",
-          "profileUrl": "#",
           "profileAriaLabel": "View Sophia Lee's profile on X (formerly Twitter)",
           "designation": "Engineering Lead",
           "testimonial": "Daylik completely transformed how our team handles daily updates. No more chaos — just clarity."
@@ -674,7 +673,6 @@
           "avatarAlt": "Profile photo of John Doe, Data Analyst",
           "avatar": "john-doe.jpeg",
           "name": "John Doe",
-          "profileUrl": "#",
           "profileAriaLabel": "View John Doe's profile on X (formerly Twitter)",
           "designation": "Data Analyst",
           "testimonial": "The analytics give me exactly what I need — clear trends and insights without the noise."
@@ -683,7 +681,6 @@
           "avatarAlt": "Profile photo of Emily Davis, Scrum Master",
           "avatar": "emily-davis.jpeg",
           "name": "Emily Davis",
-          "profileUrl": "#",
           "profileAriaLabel": "View Emily Davis's profile on X (formerly Twitter)",
           "designation": "Scrum Master",
           "testimonial": "The easiest onboarding experience we've had. Our daily check-ins are now automated and transparent."
@@ -692,7 +689,6 @@
           "avatarAlt": "Profile photo of Michael Johnson, Product Manager",
           "avatar": "michael-johnson.jpeg",
           "name": "Michael Johnson",
-          "profileUrl": "#",
           "profileAriaLabel": "View Michael Johnson's profile on X (formerly Twitter)",
           "designation": "Product Manager",
           "testimonial": "We've seen a huge boost in accountability and focus thanks to Daylik."
@@ -701,7 +697,6 @@
           "avatarAlt": "Profile photo of Daniel Martinez, Software Engineer",
           "avatar": "daniel-martinez.jpeg",
           "name": "Daniel Martinez",
-          "profileUrl": "#",
           "profileAriaLabel": "View Daniel Martinez's profile on X (formerly Twitter)",
           "designation": "Software Engineer",
           "testimonial": "The best tool we've added to our workflow. Lightweight, powerful, and incredibly easy to use."

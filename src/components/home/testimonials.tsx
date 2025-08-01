@@ -39,7 +39,7 @@ const HomeTestimonials = () => {
               </div>
               <Button variant="ghost" size="icon" as="span">
                 <Link
-                  href={`https://x.com/${t('sophia-lee.profileUrl')}`}
+                  href={`https://x.com`}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={t('sophia-lee.profileAriaLabel')}
@@ -84,7 +84,7 @@ const HomeTestimonials = () => {
               </div>
               <Button variant="ghost" size="icon" as="span">
                 <Link
-                  href={`https://x.com/${t('john-doe.profileUrl')}`}
+                  href={`https://x.com`}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={t('john-doe.profileAriaLabel')}
@@ -129,7 +129,7 @@ const HomeTestimonials = () => {
               </div>
               <Button variant="ghost" size="icon" as="span">
                 <Link
-                  href={`https://x.com/${t('emily-davis.profileUrl')}`}
+                  href={`https://x.com`}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={t('emily-davis.profileAriaLabel')}
@@ -174,7 +174,7 @@ const HomeTestimonials = () => {
               </div>
               <Button variant="ghost" size="icon" as="span">
                 <Link
-                  href={`https://x.com/${t('michael-johnson.profileUrl')}`}
+                  href={`https://x.com`}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={t('michael-johnson.profileAriaLabel')}
@@ -219,7 +219,7 @@ const HomeTestimonials = () => {
               </div>
               <Button variant="ghost" size="icon" as="span">
                 <Link
-                  href={`https://x.com/${t('daniel-martinez.profileUrl')}`}
+                  href={`https://x.com`}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={t('daniel-martinez.profileAriaLabel')}

@@ -665,7 +665,6 @@
           "avatarAlt": "Profilfoto von Sophia Lee, Engineering Lead",
           "avatar": "sophia-lee.jpeg",
           "name": "Sophia Lee",
-          "profileUrl": "#",
           "profileAriaLabel": "Profil von Sophia Lee auf X (ehemals Twitter) ansehen",
           "designation": "Engineering Lead",
           "testimonial": "Daylik hat vollständig verändert, wie unser Team tägliche Updates handhabt. Kein Chaos mehr — nur Klarheit."
@@ -674,7 +673,6 @@
           "avatarAlt": "Profilfoto von John Doe, Data Analyst",
           "avatar": "john-doe.jpeg",
           "name": "John Doe",
-          "profileUrl": "#",
           "profileAriaLabel": "Profil von John Doe auf X (ehemals Twitter) ansehen",
           "designation": "Datenanalyst",
           "testimonial": "Die Analytik gibt mir genau das, was ich brauche — klare Trends und Einblicke ohne Rauschen."
@@ -683,7 +681,6 @@
           "avatarAlt": "Profilfoto von Emily Davis, Scrum Master",
           "avatar": "emily-davis.jpeg",
           "name": "Emily Davis",
-          "profileUrl": "#",
           "profileAriaLabel": "Profil von Emily Davis auf X (ehemals Twitter) ansehen",
           "designation": "Scrum Master",
           "testimonial": "Die einfachste Onboarding-Erfahrung, die wir hatten. Unsere täglichen Check-ins sind jetzt automatisiert und transparent."
@@ -692,7 +689,6 @@
           "avatarAlt": "Profilfoto von Michael Johnson, Product Manager",
           "avatar": "michael-johnson.jpeg",
           "name": "Michael Johnson",
-          "profileUrl": "#",
           "profileAriaLabel": "Profil von Michael Johnson auf X (ehemals Twitter) ansehen",
           "designation": "Product Manager",
           "testimonial": "Wir haben einen enormen Anstieg in Verantwortlichkeit und Fokus dank Daylik gesehen."
@@ -701,7 +697,6 @@
           "avatarAlt": "Profilfoto von Daniel Martinez, Software Engineer",
           "avatar": "daniel-martinez.jpeg",
           "name": "Daniel Martinez",
-          "profileUrl": "#",
           "profileAriaLabel": "Profil von Daniel Martinez auf X (ehemals Twitter) ansehen",
           "designation": "Software Engineer",
           "testimonial": "Das beste Tool, das wir zu unserem Workflow hinzugefügt haben. Leichtgewichtig, mächtig und unglaublich einfach zu verwenden."

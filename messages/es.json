@@ -665,7 +665,6 @@
           "avatarAlt": "Foto de perfil de Sophia Lee, Líder de Ingeniería",
           "avatar": "sophia-lee.jpeg",
           "name": "Sophia Lee",
-          "profileUrl": "#",
           "profileAriaLabel": "Ver el perfil de Sophia Lee en X (antes Twitter)",
           "designation": "Líder de Ingeniería",
           "testimonial": "Daylik transformó completamente cómo nuestro equipo maneja las actualizaciones diarias."
@@ -674,7 +673,6 @@
           "avatarAlt": "Foto de perfil de John Doe, Analista de Datos",
           "avatar": "john-doe.jpeg",
           "name": "John Doe",
-          "profileUrl": "#",
           "profileAriaLabel": "Ver el perfil de John Doe en X (antes Twitter)",
           "designation": "Analista de Datos",
           "testimonial": "Las analíticas me dan exactamente lo que necesito — tendencias claras e insights sin ruido."
@@ -683,7 +681,6 @@
           "avatarAlt": "Foto de perfil de Emily Davis, Scrum Master",
           "avatar": "emily-davis.jpeg",
           "name": "Emily Davis",
-          "profileUrl": "#",
           "profileAriaLabel": "Ver el perfil de Emily Davis en X (antes Twitter)",
           "designation": "Scrum Master",
           "testimonial": "Nuestros check-ins diarios ahora están automatizados y son transparentes."
@@ -692,7 +689,6 @@
           "avatarAlt": "Foto de perfil de Michael Johnson, Product Manager",
           "avatar": "michael-johnson.jpeg",
           "name": "Michael Johnson",
-          "profileUrl": "#",
           "profileAriaLabel": "Ver el perfil de Michael Johnson en X (antes Twitter)",
           "designation": "Product Manager",
           "testimonial": "Hemos visto un gran impulso en responsabilidad y enfoque gracias a Daylik."
@@ -701,7 +697,6 @@
           "avatarAlt": "Foto de perfil de Daniel Martinez, Ingeniero de Software",
           "avatar": "daniel-martinez.jpeg",
           "name": "Daniel Martinez",
-          "profileUrl": "#",
           "profileAriaLabel": "Ver el perfil de Daniel Martinez en X (antes Twitter)",
           "designation": "Ingeniero de Software",
           "testimonial": "La mejor herramienta que hemos añadido a nuestro flujo de trabajo."
