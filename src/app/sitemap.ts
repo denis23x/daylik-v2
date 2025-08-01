@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { LOCALES } from '@/lib/constants';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://daylik.net';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://daylik.io';
   const locales = LOCALES;
   const defaultLocale = 'en';
 
@@ -20,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: localizedUrl,
         lastModified,
         changeFrequency: 'weekly',
-        priority: locale === defaultLocale ? 1 : 0.8,
+        priority: locale === defaultLocale ? 1.0 : 0.8,
         alternates: {
           languages: Object.fromEntries([
             ...locales.map((altLocale) => [altLocale, `${baseUrl}/${altLocale}${path}`]),
