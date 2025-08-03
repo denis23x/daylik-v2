@@ -21,6 +21,7 @@ export default function RetroModal() {
       left={undefined}
       right={undefined}
       showClose={false}
+      maxWidth={mode === 'qr' ? 'sm:max-w-sm' : 'sm:max-w-xl'}
     />
   );
 }

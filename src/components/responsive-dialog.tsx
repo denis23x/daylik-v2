@@ -37,6 +37,7 @@ interface ResponsiveDialogProps {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   showClose?: boolean;
+  maxWidth?: string;
 }
 
 const ResponsiveDialog = ({
@@ -50,6 +51,7 @@ const ResponsiveDialog = ({
   open: controlledOpen,
   onOpenChange: controlledOnOpenChange,
   showClose = true,
+  maxWidth = 'sm:max-w-lg',
 }: ResponsiveDialogProps) => {
   const t = useTranslations('components.responsiveDialog');
   const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
@@ -67,7 +69,7 @@ const ResponsiveDialog = ({
         <DialogTrigger suppressHydrationWarning asChild>
           {trigger}
         </DialogTrigger>
-        <DialogContent>
+        <DialogContent className={maxWidth}>
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
             <DialogDescription>{description}</DialogDescription>
