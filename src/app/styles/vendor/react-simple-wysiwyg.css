@@ -1,0 +1,17 @@
+.rsw-editor {
+  .rsw-ce {
+    @apply prose focus:outline-none;
+  }
+
+  .rsw-toolbar {
+    @apply bg-background;
+
+    .rsw-btn {
+      @apply bg-background hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:hover:bg-input/50 flex size-8 cursor-pointer items-center justify-center;
+
+      &[data-active='true'] {
+        @apply bg-accent text-accent-foreground dark:bg-accent/50 dark:text-accent-foreground;
+      }
+    }
+  }
+}

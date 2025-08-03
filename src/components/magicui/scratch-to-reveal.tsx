@@ -2,7 +2,9 @@
 
 import { cn } from '@/lib/utils';
 import { motion, useAnimation } from 'motion/react';
+import { useTheme } from 'next-themes';
 import React, { useEffect, useRef, useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 interface ScratchToRevealProps {
   children: React.ReactNode;
@@ -22,10 +24,15 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isScratching, setIsScratching] = useState(false);
   const controls = useAnimation();
+  const t = useTranslations('components.dashboard.retro.wordcloud');
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
+    const rootStyles = getComputedStyle(document.documentElement);
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
+    const title = t('title');
+    const description = t('description');
     if (!canvas || !ctx) return;
 
     const dpr = window.devicePixelRatio || 1;
@@ -49,14 +56,9 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
 
     const animate = (time: number) => {
       const t = (time - start) / 3000;
-
-      // Цвета с плавным изменением и небольшой амплитудой (±20)
-      // const base = 20; dark
-      // const base = 230; light
-      // const amplitude = 5;
-
-      const base = 150;
-      const amplitude = 50;
+      const color = rootStyles.getPropertyValue('--foreground');
+      const base = resolvedTheme === 'dark' ? 20 : 230;
+      const amplitude = 5;
 
       const r1 = Math.floor(base + amplitude * Math.sin(t));
       const g1 = Math.floor(base + amplitude * Math.sin(t + 2));
@@ -83,11 +85,13 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, width, height);
 
-      ctx.font = '24px Geist';
+      ctx.font = '24px sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillStyle = 'white';
-      ctx.fillText('Scratch To Reveal', width / 2, height / 2);
+      ctx.fillStyle = color;
+      ctx.fillText(title, width / 2, height / 2 - 16);
+      ctx.font = '16px sans-serif';
+      ctx.fillText(description, width / 2, height / 2 + 16);
 
       animationFrameId = requestAnimationFrame(animate);
     };
@@ -95,7 +99,7 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
     animationFrameId = requestAnimationFrame(animate);
 
     return () => cancelAnimationFrame(animationFrameId);
-  }, [width, height]);
+  }, [width, height, resolvedTheme, t]);
 
   useEffect(() => {
     const handleDocumentMouseMove = (event: MouseEvent) => {
@@ -149,7 +153,7 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
       const y = clientY - rect.top + 16;
       ctx.globalCompositeOperation = 'destination-out';
       ctx.beginPath();
-      ctx.arc(x, y, 30, 0, Math.PI * 2);
+      ctx.arc(x - 16, y - 16, 16, 0, Math.PI * 2);
       ctx.fill();
     }
   };
@@ -160,8 +164,6 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
       style={{
         width,
         height,
-        cursor:
-          "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSIxNSIgc3R5bGU9ImZpbGw6I2ZmZjtzdHJva2U6IzAwMDtzdHJva2Utd2lkdGg6MXB4OyIgLz4KPC9zdmc+'), auto",
       }}
       animate={controls}
     >

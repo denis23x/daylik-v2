@@ -17,6 +17,7 @@
 @import './styles/utilities/scale.css';
 
 @import './styles/vendor/shiki.css';
+@import './styles/vendor/react-simple-wysiwyg.css';
 
 @plugin '@tailwindcss/typography';
 

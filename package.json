@@ -70,6 +70,8 @@
     "react-day-picker": "^9.7.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.56.3",
+    "react-qr-code": "^2.0.18",
+    "react-simple-wysiwyg": "^3.4.0",
     "recharts": "^2.15.3",
     "rehype-pretty-code": "^0.14.1",
     "rehype-slug": "^6.0.0",

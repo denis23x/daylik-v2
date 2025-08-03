@@ -6,19 +6,22 @@ import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { Dock, DockIcon } from '@/components/magicui/dock';
 import { Link } from '@/i18n/navigation';
+import { useRetroStore } from '@/store/useRetroStore';
 
 const RetroDock = () => {
+  const { openModal } = useRetroStore();
+
   const handleNotes = () => {
-    alert('Notes');
+    openModal('notes');
   };
 
   const handleQrCode = () => {
-    alert('QrCode');
+    openModal('qr');
   };
 
   return (
     <div className="fixed bottom-12 left-1/2 -translate-x-1/2">
-      <Dock direction="middle" className="bg-background">
+      <Dock direction="middle" className="bg-background shadow-lg">
         <DockIcon>
           <Link href="/teams" className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}>
             <HomeIcon />

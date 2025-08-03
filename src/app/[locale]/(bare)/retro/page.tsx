@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { PageProps } from '@/types/utils/pageProps.type';
 import RetroDock from '@/components/dashboard/retro/dock';
 import RetroWordcloud from '@/components/dashboard/retro/wordcloud-dynamic';
+import RetroModal from '@/components/dashboard/retro/modal-dynamic';
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
@@ -32,6 +33,7 @@ export default async function RetroPage() {
   return (
     <>
       <RetroWordcloud />
+      <RetroModal />
       <RetroDock />
     </>
   );
