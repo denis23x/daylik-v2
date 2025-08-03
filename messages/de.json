@@ -262,6 +262,16 @@
         }
       },
       "retro": {
+        "modal": {
+          "notes": {
+            "title": "Retro-Notizen",
+            "description": "Schreibe, bearbeite und speichere deine Gedanken während des Retros. Du kannst später jederzeit darauf zurückgreifen."
+          },
+          "qr": {
+            "title": "Anonym fragen",
+            "description": "Deine Teammitglieder können den QR-Code scannen und während des Retros anonym Fragen stellen."
+          }
+        },
         "wordcloud": {
           "title": "Gehen dir die Gesprächsthemen aus?",
           "description": "Kratzen zum Enthüllen",

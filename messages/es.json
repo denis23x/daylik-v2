@@ -262,6 +262,16 @@
         }
       },
       "retro": {
+        "modal": {
+          "notes": {
+            "title": "Notas del retro",
+            "description": "Escribe, edita y guarda tus ideas durante el retro. Puedes volver a ellas en cualquier momento."
+          },
+          "qr": {
+            "title": "Haz una pregunta anónima",
+            "description": "Tus compañeros pueden escanear el código QR y enviar preguntas anónimas en tiempo real durante el retro."
+          }
+        },
         "wordcloud": {
           "title": "¿Se están acabando los temas para discutir?",
           "description": "Rasca para revelar",

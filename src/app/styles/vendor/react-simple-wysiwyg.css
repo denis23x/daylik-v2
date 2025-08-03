@@ -1,17 +1,25 @@
 .rsw-editor {
+  all: unset;
+
+  @apply !border-border;
+
   .rsw-ce {
-    @apply prose focus:outline-none;
+    @apply text-foreground focus:outline-none;
   }
 
   .rsw-toolbar {
-    @apply bg-background;
+    @apply bg-background !border-border;
 
     .rsw-btn {
-      @apply bg-background hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:hover:bg-input/50 flex size-8 cursor-pointer items-center justify-center;
+      @apply text-foreground bg-background hover:bg-accent hover:text-accent-foreground dark:hover:bg-input/50 flex size-8 cursor-pointer items-center justify-center dark:bg-transparent;
 
       &[data-active='true'] {
         @apply bg-accent text-accent-foreground dark:bg-accent/50 dark:text-accent-foreground;
       }
+    }
+
+    .rsw-separator {
+      @apply border-border m-0;
     }
   }
 }

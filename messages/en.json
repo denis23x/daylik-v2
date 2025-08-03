@@ -262,6 +262,16 @@
         }
       },
       "retro": {
+        "modal": {
+          "notes": {
+            "title": "Retro Notes",
+            "description": "Write, edit and save your thoughts during retros. You can revisit them later anytime."
+          },
+          "qr": {
+            "title": "Ask Anonymously",
+            "description": "Your teammates can scan the QR code and submit anonymous questions in real-time during the retro."
+          }
+        },
         "wordcloud": {
           "title": "Running out of topics to discuss?",
           "description": "Scratch to reveal",

@@ -36,6 +36,7 @@ interface ResponsiveDialogProps {
   disabled?: boolean;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  showClose?: boolean;
 }
 
 const ResponsiveDialog = ({
@@ -48,6 +49,7 @@ const ResponsiveDialog = ({
   disabled = false,
   open: controlledOpen,
   onOpenChange: controlledOnOpenChange,
+  showClose = true,
 }: ResponsiveDialogProps) => {
   const t = useTranslations('components.responsiveDialog');
   const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
@@ -72,17 +74,21 @@ const ResponsiveDialog = ({
           </DialogHeader>
           <Separator />
           {content}
-          <DialogFooter className={left ? 'gap-4 sm:justify-between' : 'gap-4'}>
-            {left}
-            <div className="flex gap-4">
-              <DialogClose asChild>
-                <Button variant="outline" disabled={disabled}>
-                  {t('buttons.close')}
-                </Button>
-              </DialogClose>
-              {right}
-            </div>
-          </DialogFooter>
+          {(left || showClose || right) && (
+            <DialogFooter className={left ? 'gap-4 sm:justify-between' : 'gap-4'}>
+              {left}
+              <div className="flex gap-4">
+                {showClose && (
+                  <DialogClose asChild>
+                    <Button variant="outline" disabled={disabled}>
+                      {t('buttons.close')}
+                    </Button>
+                  </DialogClose>
+                )}
+                {right}
+              </div>
+            </DialogFooter>
+          )}
         </DialogContent>
       </Dialog>
     );
@@ -100,15 +106,19 @@ const ResponsiveDialog = ({
         </DrawerHeader>
         <Separator className="mb-4" />
         <div className="px-4">{content}</div>
-        <DrawerFooter className="gap-4">
-          {right}
-          <DrawerClose asChild>
-            <Button variant="outline" disabled={disabled}>
-              {t('buttons.close')}
-            </Button>
-          </DrawerClose>
-          {left}
-        </DrawerFooter>
+        {(right || showClose || left) && (
+          <DrawerFooter className="gap-4">
+            {right}
+            {showClose && (
+              <DrawerClose asChild>
+                <Button variant="outline" disabled={disabled}>
+                  {t('buttons.close')}
+                </Button>
+              </DrawerClose>
+            )}
+            {left}
+          </DrawerFooter>
+        )}
       </DrawerContent>
     </Drawer>
   );
