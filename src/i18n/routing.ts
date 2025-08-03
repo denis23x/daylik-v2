@@ -71,6 +71,12 @@ export const routing = defineRouting({
       en: '/teams',
       ru: '/команды',
     },
+    '/retro': {
+      de: '/retro',
+      es: '/retro',
+      en: '/retro',
+      ru: '/ретро',
+    },
     '/legal/cookies-policy': {
       de: '/rechtliches/cookie-richtlinie',
       es: '/legal/política-de-cookies',

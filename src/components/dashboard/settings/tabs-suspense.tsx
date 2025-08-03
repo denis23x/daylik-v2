@@ -3,7 +3,7 @@
 import { Suspense } from 'react';
 import SettingsTabs from './tabs';
 
-const ProfileTabsSuspense = () => {
+const SettingsTabsSuspense = () => {
   return (
     <Suspense>
       <SettingsTabs />
@@ -11,4 +11,4 @@ const ProfileTabsSuspense = () => {
   );
 };
 
-export default ProfileTabsSuspense;
+export default SettingsTabsSuspense;

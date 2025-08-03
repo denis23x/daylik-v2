@@ -28,6 +28,11 @@
         "description": "Ver analíticas detalladas del rendimiento del equipo. Analizar métricas, reportes y estadísticas para tomar decisiones informadas.",
         "keywords": "analíticas, estadísticas, reportes, rendimiento, métricas"
       },
+      "retro": {
+        "title": "Retro",
+        "description": "Dirige una retrospectiva en vivo con tu equipo. Comparte opiniones, responde preguntas y reflexiona en conjunto para fortalecer la colaboración y la confianza del equipo.",
+        "keywords": "retro, retrospectiva de equipo, retroalimentación, colaboración, sesión en vivo"
+      },
       "settings": {
         "title": "Configuración",
         "description": "Configurar los ajustes de tu cuenta. Gestionar perfil, seguridad y otras preferencias de cuenta.",
@@ -360,6 +365,7 @@
           "links": {
             "teams": "Equipos",
             "teammates": "Compañeros",
+            "retro": "Retro",
             "settings": "Configuración",
             "feedback": "Comentarios"
           },

@@ -28,6 +28,11 @@
         "description": "Detaillierte Teamleistungsanalytik anzeigen. Analysieren Sie Metriken, Berichte und Statistiken, um fundierte Entscheidungen zu treffen.",
         "keywords": "analytik, statistiken, berichte, leistung, metriken"
       },
+      "retro": {
+        "title": "Retro",
+        "description": "Führe eine Live-Retrospektive mit deinem Team durch. Teilt Feedback, beantwortet Fragen und reflektiert gemeinsam, um Zusammenarbeit und Vertrauen zu stärken.",
+        "keywords": "retro, team retrospektive, feedback, zusammenarbeit, live session"
+      },
       "settings": {
         "title": "Einstellungen",
         "description": "Konfigurieren Sie Ihre Kontoeinstellungen. Verwalten Sie Profil, Sicherheit und andere Kontopräferenzen.",
@@ -360,6 +365,7 @@
           "links": {
             "teams": "Teams",
             "teammates": "Teammitglieder",
+            "retro": "Retro",
             "settings": "Einstellungen",
             "feedback": "Rückmeldung"
           },

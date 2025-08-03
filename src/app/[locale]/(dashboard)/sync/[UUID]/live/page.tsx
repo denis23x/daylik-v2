@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function SyncPage() {
+export default async function SyncLivePage() {
   return (
     <>
       <SyncLiveHero />

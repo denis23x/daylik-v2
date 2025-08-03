@@ -20,6 +20,7 @@ import {
   MessageCircleMore,
   Settings,
   UsersRound,
+  Armchair,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { usePathname } from '@/i18n/navigation';
@@ -93,6 +94,15 @@ const NavigationSheet = () => {
                 <Link className="flex items-center gap-2" href="/teammates">
                   <UsersRound size={16} />
                   {t('links.teammates')}
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <Separator />
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link className="flex items-center gap-2" href="/retro">
+                  <Armchair size={16} />
+                  {t('links.retro')}
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>

@@ -43,7 +43,15 @@ export const updateSession = async (request: NextRequest, response: NextResponse
   // If a user is not authenticated and tries to access a private route,
   // they should be redirected to the login page.
 
-  const isDashboard = ['analytics', 'settings', 'sync', 'teammates', 'teams'].some((segment) => {
+  const isDashboard = [
+    'analytics',
+    'settings',
+    'sync',
+    'teammates',
+    'teams',
+    'retro',
+    'kanban',
+  ].some((segment) => {
     return path.startsWith(segment);
   });
 

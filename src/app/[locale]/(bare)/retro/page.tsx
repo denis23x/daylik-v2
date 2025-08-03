@@ -1,12 +1,12 @@
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { PageProps } from '@/types/utils/pageProps.type';
-import SyncSettingsHero from '@/components/dashboard/sync/settings/hero';
-import SyncSettingsGrid from '@/components/dashboard/sync/settings/grid';
+import RetroDock from '@/components/dashboard/retro/dock';
+import RetroWordcloud from '@/components/dashboard/retro/wordcloud-dynamic';
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'app.dashboard.syncSettings' });
+  const t = await getTranslations({ locale, namespace: 'app.dashboard.retro' });
 
   return {
     title: t('title'),
@@ -28,11 +28,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function SyncSettingsPage() {
+export default async function RetroPage() {
   return (
     <>
-      <SyncSettingsHero />
-      <SyncSettingsGrid />
+      <RetroWordcloud />
+      <RetroDock />
     </>
   );
 }

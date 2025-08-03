@@ -4,7 +4,7 @@ import { Settings } from 'lucide-react';
 import DashboardHero from '../hero';
 import { useTranslations } from 'next-intl';
 
-const ProfileHero = () => {
+const SettingsHero = () => {
   const t = useTranslations('components.dashboard.settings.hero');
 
   return (
@@ -16,4 +16,4 @@ const ProfileHero = () => {
   );
 };
 
-export default ProfileHero;
+export default SettingsHero;

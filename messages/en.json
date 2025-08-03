@@ -28,6 +28,11 @@
         "description": "View detailed team performance analytics. Analyze metrics, reports and statistics to make informed decisions.",
         "keywords": "analytics, statistics, reports, performance, metrics"
       },
+      "retro": {
+        "title": "Retro",
+        "description": "Run a live retrospective with your team. Share feedback, answer questions, and reflect together to improve team collaboration and trust.",
+        "keywords": "retro, team retrospective, feedback, team collaboration, live session"
+      },
       "settings": {
         "title": "Settings",
         "description": "Configure your account settings. Manage profile, security and other account preferences.",
@@ -360,6 +365,7 @@
           "links": {
             "teams": "Teams",
             "teammates": "Teammates",
+            "retro": "Retro",
             "settings": "Settings",
             "feedback": "Feedback"
           },
