@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { PageProps } from '@/types/utils/pageProps.type';
-import RetroDock from '@/components/dashboard/retro/dock';
+import RetroDock from '@/components/dashboard/retro/dock-suspense';
 import RetroWordcloud from '@/components/dashboard/retro/wordcloud/wordcloud-dynamic';
 import RetroModal from '@/components/dashboard/retro/modal-dynamic';
 

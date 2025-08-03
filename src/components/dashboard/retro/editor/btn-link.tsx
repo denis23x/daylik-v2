@@ -5,7 +5,6 @@ export const BtnLink = createButton('Link', <Link className="size-4" />, ({ $sel
   if ($selection?.nodeName === 'A') {
     document.execCommand('unlink');
   } else {
-    // eslint-disable-next-line no-alert
     document.execCommand('createLink', false, prompt('URL', '') || undefined);
   }
 });
