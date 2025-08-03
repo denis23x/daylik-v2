@@ -27,7 +27,7 @@ const RetroNotesEditor = () => {
   };
 
   return (
-    <Tabs className="w-full" value={tab} onValueChange={handleTabsChange}>
+    <Tabs className="mb-4 w-full sm:mb-0" value={tab} onValueChange={handleTabsChange}>
       <TabsList className="grid w-full grid-cols-5">
         <TabsTrigger value="1">June 20</TabsTrigger>
         <TabsTrigger value="2">June 27</TabsTrigger>
@@ -35,12 +35,7 @@ const RetroNotesEditor = () => {
         <TabsTrigger value="4">Jule 20</TabsTrigger>
         <TabsTrigger value="5">Aug 03</TabsTrigger>
       </TabsList>
-      <Editor
-        value={html}
-        onChange={handleChange}
-        placeholder="..."
-        className="prose min-h-32 w-full sm:min-h-64"
-      >
+      <Editor value={html} onChange={handleChange} placeholder="..." className="prose min-h-64">
         <Toolbar>
           <BtnUndo />
           <BtnRedo />

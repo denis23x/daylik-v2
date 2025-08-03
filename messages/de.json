@@ -273,7 +273,7 @@
           }
         },
         "wordcloud": {
-          "title": "Gehen dir die Gesprächsthemen aus?",
+          "title": "Brauchst du Themen für Gespräche?",
           "description": "Kratzen zum Enthüllen",
           "words": {
             "focus": "Fokus",

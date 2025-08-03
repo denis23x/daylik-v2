@@ -273,7 +273,7 @@
           }
         },
         "wordcloud": {
-          "title": "Running out of topics to discuss?",
+          "title": "Need topics to discuss?",
           "description": "Scratch to reveal",
           "words": {
             "focus": "focus",

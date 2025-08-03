@@ -1,15 +1,17 @@
 import { create } from 'zustand';
 
+type RetroMode = 'notes' | 'qr';
+
 interface RetroStore {
   isOpen: boolean;
-  mode: 'notes' | 'qr';
-  openModal: (mode: 'notes' | 'qr') => void;
+  mode: RetroMode;
+  openModal: (mode: RetroMode) => void;
   closeModal: () => void;
 }
 
 export const useRetroStore = create<RetroStore>((set) => ({
   isOpen: false,
   mode: 'notes',
-  openModal: (mode) => set({ isOpen: true, mode }),
+  openModal: (mode: RetroMode) => set({ isOpen: true, mode }),
   closeModal: () => set({ isOpen: false }),
 }));

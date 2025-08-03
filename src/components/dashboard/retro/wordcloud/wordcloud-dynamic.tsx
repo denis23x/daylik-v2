@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 
-const Wordcloud = dynamic(() => import('./wordcloud').then((mod) => mod.default), {
+const Wordcloud = dynamic(() => import('./wordcloud-adaptive').then((mod) => mod.default), {
   ssr: false,
 });
 

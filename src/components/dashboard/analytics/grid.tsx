@@ -16,20 +16,14 @@ import { useFeedbackStore } from '@/store/useFeedbackStore';
 import { useMediaQuery } from '@/hooks/ui/useMediaQuery';
 import HighlightsSkeletons from './highlights/highlights-skeletons';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Locale, format } from 'date-fns';
-import { useLocale, useTranslations } from 'next-intl';
-import { de, es, ru } from 'date-fns/locale';
-import { LOCALES } from '@/lib/constants';
+import { format } from 'date-fns';
+import { useTranslations } from 'next-intl';
+import { useDateFnsLocale } from '@/hooks/ui/useDateFnsLocale';
 
 const AnalyticsGrid = () => {
   const t = useTranslations('components.dashboard.analytics.grid');
-  const locale = useLocale();
-  const localeMap: Partial<Record<(typeof LOCALES)[number], Locale>> = {
-    es: es,
-    de: de,
-    ru: ru,
-  };
   const sm = useMediaQuery('(min-width: 640px)');
+  const locale = useDateFnsLocale();
   const params = useParams();
   const { analytics, analyticsTeammates, setAnalytics, setAnalyticsTeammates } =
     useAnalyticsStore();
@@ -76,8 +70,8 @@ const AnalyticsGrid = () => {
             <p className="flex items-center gap-2">
               <span className="text-xl font-bold">{analyticsData?.team?.name}</span>
               <span className="text-muted-foreground mt-1 text-sm first-letter:capitalize">
-                {format(new Date(analyticsData?.createdAt as string), 'EEEE, dd MMMM', {
-                  locale: localeMap[locale as (typeof LOCALES)[number]],
+                {format(new Date(analyticsData?.createdAt as string), 'EEEE, do MMMM', {
+                  locale,
                 })}
               </span>
             </p>
