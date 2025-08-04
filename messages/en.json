@@ -903,7 +903,8 @@
         "multiSelect": {
           "defaultPlaceholder": "Select items",
           "defaultSearchPlaceholder": "Search",
-          "defaultEmptyMessage": "No item found"
+          "defaultEmptyMessage": "No item found",
+          "selectAll": "Select all"
         },
         "colorPicker": {
           "chooseColor": "Choose a color",

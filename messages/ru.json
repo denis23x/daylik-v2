@@ -565,7 +565,7 @@
             "title": "Синк",
             "messages": {
               "saving": "Сохранение..",
-              "success": "Данные собраны. Подготавливаем вашу аналитику!",
+              "success": "Подготавливаем аналитику..",
               "error": "Произошла ошибка"
             },
             "noTeammates": "Тиммейты не найдены",
@@ -903,7 +903,8 @@
         "multiSelect": {
           "defaultPlaceholder": "Выбрать элементы",
           "defaultSearchPlaceholder": "Поиск",
-          "defaultEmptyMessage": "Ничего не найдено"
+          "defaultEmptyMessage": "Ничего не найдено",
+          "selectAll": "Выбрать все"
         },
         "colorPicker": {
           "chooseColor": "Выберите цвет",

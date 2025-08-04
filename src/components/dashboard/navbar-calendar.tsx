@@ -10,27 +10,22 @@ import { useTeamsFromAnalytic } from '@/hooks/useAnalyticsTeams';
 import { Link, usePathname } from '@/i18n/navigation';
 import type { Analytics } from '@/types/analytics.type';
 import { ArrowRight } from 'lucide-react';
-import { useLocale } from 'next-intl';
-import { es, de, ru } from 'react-day-picker/locale';
-import type { Locale } from 'react-day-picker';
-import { LOCALES } from '@/lib/constants';
+import { useDayPickerLocale } from '@/hooks/ui/useDayPickerLocale';
+import { getCurrentMonthRange } from '@/utils/getCurrentMonthRange';
 
 const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
-  const locale = useLocale();
+  const locale = useDayPickerLocale();
   const pathname = usePathname();
-  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [day, setDay] = useState<Date | undefined>(new Date());
+  const [month, setMonth] = useState<Date | undefined>(new Date());
+  const { from, to } = getCurrentMonthRange(month);
   const [open, setOpen] = useState(false);
   const [analyticsByDate, setAnalyticsByDate] = useState<Analytics[]>([]);
   const { data: analytics } = useTeamsFromAnalytic({
     query: `*, teams (UUID, name)`,
+    gte: from,
+    lte: to,
   });
-
-  // Locale map for DayPicker
-  const localeMap: Partial<Record<(typeof LOCALES)[number], Locale>> = {
-    es,
-    de,
-    ru,
-  };
 
   // Close sheet when route changes
   useEffect(() => {
@@ -38,10 +33,10 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
   }, [pathname]);
 
   useEffect(() => {
-    if (date && analytics) {
-      setAnalyticsByDate(analytics.filter((analytic) => isSameDay(analytic.createdAt, date)));
+    if (day && analytics) {
+      setAnalyticsByDate(analytics.filter((analytic) => isSameDay(analytic.createdAt, day)));
     }
-  }, [date, analytics, setAnalyticsByDate]);
+  }, [day, analytics, setAnalyticsByDate]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -55,9 +50,10 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
         <div className="flex flex-col">
           <Calendar
             mode="single"
-            selected={date}
-            onSelect={setDate}
-            locale={localeMap[locale as keyof typeof localeMap]}
+            selected={day}
+            onSelect={setDay}
+            onMonthChange={setMonth}
+            locale={locale}
             components={{
               DayButton: ({ children, modifiers, day, ...props }) => {
                 return (

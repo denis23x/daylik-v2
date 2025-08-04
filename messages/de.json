@@ -903,7 +903,8 @@
         "multiSelect": {
           "defaultPlaceholder": "Elemente auswählen",
           "defaultSearchPlaceholder": "Suchen",
-          "defaultEmptyMessage": "Kein Element gefunden"
+          "defaultEmptyMessage": "Kein Element gefunden",
+          "selectAll": "Alle auswählen"
         },
         "colorPicker": {
           "chooseColor": "Farbe wählen",

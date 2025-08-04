@@ -61,18 +61,33 @@ const FormMultiSelect = ({
     form.setValue(name, selectedIds);
   };
 
+  const handleSelectAll = () => {
+    const selectedIds = items.map((item) => item.value);
+
+    // Select all items
+    form.setValue(name, selectedIds);
+  };
+
   return (
     <FormField
       control={form.control}
       name={name}
       render={({ field, formState }) => (
         <FormItem className="flex flex-col">
-          <FormLabel htmlFor={name}>
-            {label}{' '}
-            {field.value.length !== 0 && (
-              <span className="text-muted-foreground">({field.value.length})</span>
-            )}
-          </FormLabel>
+          <div className="flex items-center justify-between">
+            <FormLabel htmlFor={name}>
+              {label}{' '}
+              {field.value.length !== 0 && (
+                <span className="text-muted-foreground">({field.value.length})</span>
+              )}
+            </FormLabel>
+            <span
+              className="text-muted-foreground cursor-pointer text-xs"
+              onClick={() => handleSelectAll()}
+            >
+              {t('selectAll')}
+            </span>
+          </div>
           <Popover modal={true}>
             <PopoverTrigger asChild>
               <FormControl>
