@@ -10,7 +10,7 @@ import AnalyticsHighlights from './highlights/highlights';
 import AnalyticsChartLinear from './chart-linear/chart-linear';
 import AnalyticsTable from './table/table';
 import { useAnalyticsStore } from '@/store/useAnalyticsStore';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Link } from '@/i18n/navigation';
 import { useFeedbackStore } from '@/store/useFeedbackStore';
 import { useMediaQuery } from '@/hooks/ui/useMediaQuery';
@@ -19,6 +19,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { format } from 'date-fns';
 import { useTranslations } from 'next-intl';
 import { useDateFnsLocale } from '@/hooks/ui/useDateFnsLocale';
+import { cn } from '@/lib/utils';
 
 const AnalyticsGrid = () => {
   const t = useTranslations('components.dashboard.analytics.grid');
@@ -92,12 +93,10 @@ const AnalyticsGrid = () => {
             <div className="flex min-h-[75lvh] max-w-md flex-col items-center justify-center gap-4">
               <CircleOff />
               <div className="text-center text-xl font-semibold">{t('noTeammates')}</div>
-              <Button className="group" variant="secondary" asChild>
-                <Link href="/teams">
-                  {t('teams')}
-                  <ArrowRight className="transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
+              <Link className={cn(buttonVariants({ variant: 'secondary' }), 'group')} href="/teams">
+                {t('teams')}
+                <ArrowRight className="transition-transform group-hover:translate-x-1" />
+              </Link>
             </div>
           )}
           {!isLoading && !isError && analytics && analyticsTeammates?.length !== 0 && (

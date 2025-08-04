@@ -2,7 +2,7 @@
 
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
 import { ArrowRight, ClockFading, Dices, Eye, Shuffle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { lazy, Suspense, useEffect, useState } from 'react';
 import type { SyncTeammate } from '@/types/syncTeammate.type';
 import type { Team } from '@/types/team.type';
@@ -23,6 +23,7 @@ import HoverEffectError from '@/components/dx/hover-effect/hover-effect-error';
 import HoverEffectNotFound from '@/components/dx/hover-effect/hover-effect-not-found';
 import { motion, spring } from 'motion/react';
 import { useTranslations } from 'next-intl';
+import { cn } from '@/lib/utils';
 
 // Mobile optimization
 const HoverEffect = lazy(() => import('@/components/dx/hover-effect/hover-effect'));
@@ -188,12 +189,10 @@ const SyncLiveGrid = () => {
           {error && <HoverEffectError />}
           {!isLoading && isStarted && !error && teammates?.length === 0 && (
             <HoverEffectNotFound title={t('noTeammates')}>
-              <Button className="group" variant="secondary" asChild>
-                <Link href="/teams">
-                  {t('teamsButton')}
-                  <ArrowRight className="transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
+              <Link className={cn(buttonVariants({ variant: 'secondary' }), 'group')} href="/teams">
+                {t('teamsButton')}
+                <ArrowRight className="transition-transform group-hover:translate-x-1" />
+              </Link>
             </HoverEffectNotFound>
           )}
           {!isLoading && isStarted && !error && teammates?.length !== 0 && (

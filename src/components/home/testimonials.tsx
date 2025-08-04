@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
@@ -37,24 +38,23 @@ const HomeTestimonials = () => {
                   <p className="text-sm">{t('sophia-lee.designation')}</p>
                 </div>
               </div>
-              <Button variant="ghost" size="icon" as="span">
-                <Link
-                  href={`https://x.com`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={t('sophia-lee.profileAriaLabel')}
+              <Link
+                className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
+                href={`https://x.com`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t('sophia-lee.profileAriaLabel')}
+              >
+                <svg
+                  role="img"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="fill-foreground size-5"
                 >
-                  <svg
-                    role="img"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="fill-foreground size-5"
-                  >
-                    <title>X</title>
-                    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
-                  </svg>
-                </Link>
-              </Button>
+                  <title>X</title>
+                  <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+                </svg>
+              </Link>
             </div>
             <p className="mt-5 text-[17px]">{t('sophia-lee.testimonial')}</p>
           </div>
@@ -82,24 +82,23 @@ const HomeTestimonials = () => {
                   <p className="text-sm">{t('john-doe.designation')}</p>
                 </div>
               </div>
-              <Button variant="ghost" size="icon" as="span">
-                <Link
-                  href={`https://x.com`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={t('john-doe.profileAriaLabel')}
+              <Link
+                className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
+                href={`https://x.com`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t('john-doe.profileAriaLabel')}
+              >
+                <svg
+                  role="img"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="fill-foreground size-5"
                 >
-                  <svg
-                    role="img"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="fill-foreground size-5"
-                  >
-                    <title>X</title>
-                    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
-                  </svg>
-                </Link>
-              </Button>
+                  <title>X</title>
+                  <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+                </svg>
+              </Link>
             </div>
             <p className="mt-5 text-[17px]">{t('john-doe.testimonial')}</p>
           </div>
@@ -127,24 +126,23 @@ const HomeTestimonials = () => {
                   <p className="text-sm">{t('emily-davis.designation')}</p>
                 </div>
               </div>
-              <Button variant="ghost" size="icon" as="span">
-                <Link
-                  href={`https://x.com`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={t('emily-davis.profileAriaLabel')}
+              <Link
+                className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
+                href={`https://x.com`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t('emily-davis.profileAriaLabel')}
+              >
+                <svg
+                  role="img"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="fill-foreground size-5"
                 >
-                  <svg
-                    role="img"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="fill-foreground size-5"
-                  >
-                    <title>X</title>
-                    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
-                  </svg>
-                </Link>
-              </Button>
+                  <title>X</title>
+                  <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+                </svg>
+              </Link>
             </div>
             <p className="mt-5 text-[17px]">{t('emily-davis.testimonial')}</p>
           </div>
@@ -172,24 +170,23 @@ const HomeTestimonials = () => {
                   <p className="text-sm">{t('michael-johnson.designation')}</p>
                 </div>
               </div>
-              <Button variant="ghost" size="icon" as="span">
-                <Link
-                  href={`https://x.com`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={t('michael-johnson.profileAriaLabel')}
+              <Link
+                className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
+                href={`https://x.com`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t('michael-johnson.profileAriaLabel')}
+              >
+                <svg
+                  role="img"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="fill-foreground size-5"
                 >
-                  <svg
-                    role="img"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="fill-foreground size-5"
-                  >
-                    <title>X</title>
-                    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
-                  </svg>
-                </Link>
-              </Button>
+                  <title>X</title>
+                  <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+                </svg>
+              </Link>
             </div>
             <p className="mt-5 text-[17px]">{t('michael-johnson.testimonial')}</p>
           </div>
@@ -217,24 +214,23 @@ const HomeTestimonials = () => {
                   <p className="text-sm">{t('daniel-martinez.designation')}</p>
                 </div>
               </div>
-              <Button variant="ghost" size="icon" as="span">
-                <Link
-                  href={`https://x.com`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={t('daniel-martinez.profileAriaLabel')}
+              <Link
+                className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
+                href={`https://x.com`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t('daniel-martinez.profileAriaLabel')}
+              >
+                <svg
+                  role="img"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="fill-foreground size-5"
                 >
-                  <svg
-                    role="img"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="fill-foreground size-5"
-                  >
-                    <title>X</title>
-                    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
-                  </svg>
-                </Link>
-              </Button>
+                  <title>X</title>
+                  <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+                </svg>
+              </Link>
             </div>
             <p className="mt-5 text-[17px]">{t('daniel-martinez.testimonial')}</p>
           </div>

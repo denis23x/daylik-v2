@@ -80,6 +80,11 @@
         "description": "Lesen Sie die Bedingungen für die Nutzung unseres Dienstes, einschließlich Nutzerpflichten, Haftungsbeschränkungen, Streitbeilegung und rechtlicher Einhaltung.",
         "keywords": "AGB, Nutzungsbedingungen, Benutzervereinbarung, Haftung, Streitbeilegung, rechtliche Einhaltung, Datenschutz, Website-Bedingungen, daylik, Servicenutzung, Privatsphäre"
       }
+    },
+    "notFound": {
+      "title": "Seite nicht gefunden",
+      "description": "Sieht so aus, als wären Sie falsch abgebogen. Überprüfen Sie den Link oder kehren Sie zur Startseite zurück.",
+      "keywords": "seite nicht gefunden, fehler, existiert nicht, falscher link, zurück zur startseite"
     }
   },
   "components": {
@@ -993,6 +998,11 @@
       "buttons": {
         "signIn": "Anmelden"
       }
+    },
+    "notFound": {
+      "title": "Seite nicht gefunden",
+      "description": "Die Seite, die Sie suchen, existiert nicht.",
+      "teamsButton": "Teams"
     },
     "responsiveDialog": {
       "buttons": {

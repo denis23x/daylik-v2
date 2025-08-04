@@ -1,12 +1,13 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { Logo } from './logo';
 import ThemeToggle from './theme-toggle';
 import { Link } from '@/i18n/navigation';
 import { useAutoScroll } from '@/hooks/ui/useAutoScroll';
 import LanguageSwitcher from './language-switcher';
 import { useTranslations } from 'next-intl';
+import { cn } from '@/lib/utils';
 
 const Navbar = () => {
   const t = useTranslations('components.navbar');
@@ -51,9 +52,9 @@ const Navbar = () => {
         <div className="flex items-center gap-3">
           <ThemeToggle variant="navbar" />
           <LanguageSwitcher variant="navbar" />
-          <Button className="inline-flex" asChild>
-            <Link href="/login">{t('buttons.signIn')}</Link>
-          </Button>
+          <Link className={cn(buttonVariants({ variant: 'default' }))} href="/login">
+            {t('buttons.signIn')}
+          </Link>
         </div>
       </div>
     </nav>

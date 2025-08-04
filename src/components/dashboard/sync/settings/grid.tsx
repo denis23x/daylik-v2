@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { useSyncSettingsStore } from '@/store/useSyncSettingsStore';
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
 import { lazy, Suspense, useEffect, useReducer, useState } from 'react';
@@ -24,6 +24,7 @@ import HoverEffectSkeletons from '@/components/dx/hover-effect/hover-effect-skel
 import HoverEffectError from '@/components/dx/hover-effect/hover-effect-error';
 import HoverEffectNotFound from '@/components/dx/hover-effect/hover-effect-not-found';
 import { useTranslations } from 'next-intl';
+import { cn } from '@/lib/utils';
 
 // prettier-ignore
 const HoverEffectWithSorting = lazy(() => import('@/components/dx/hover-effect/hover-effect-with-sorting'));
@@ -189,12 +190,10 @@ const SyncSettingsGrid = () => {
           {error && <HoverEffectError />}
           {!isLoading && !error && teammates?.length === 0 && (
             <HoverEffectNotFound title={t('noTeammates')}>
-              <Button className="group" variant="secondary" asChild>
-                <Link href="/teams">
-                  {t('teamsButton')}
-                  <ArrowRight className="transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
+              <Link className={cn(buttonVariants({ variant: 'secondary' }), 'group')} href="/teams">
+                {t('teamsButton')}
+                <ArrowRight className="transition-transform group-hover:translate-x-1" />
+              </Link>
             </HoverEffectNotFound>
           )}
           {!isLoading && !error && teammates?.length !== 0 && (

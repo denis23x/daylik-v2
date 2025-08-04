@@ -80,6 +80,11 @@
         "description": "Consulta los términos y condiciones que rigen el uso de nuestro servicio, incluyendo las responsabilidades del usuario, limitaciones de responsabilidad, resolución de disputas y cumplimiento legal.",
         "keywords": "términos y condiciones, acuerdo de usuario, condiciones del servicio, responsabilidad, resolución de disputas, cumplimiento legal, protección de datos, términos del sitio web, daylik, uso del servicio, privacidad"
       }
+    },
+    "notFound": {
+      "title": "Página no encontrada",
+      "description": "Parece que te perdiste. Verifica el enlace o vuelve a la página principal.",
+      "keywords": "página no encontrada, error, enlace incorrecto, no existe, volver al inicio"
     }
   },
   "components": {
@@ -993,6 +998,11 @@
       "buttons": {
         "signIn": "Iniciar Sesión"
       }
+    },
+    "notFound": {
+      "title": "Esta página no existe",
+      "description": "Es posible que hayas escrito mal la dirección o seguido un enlace antiguo.",
+      "teamsButton": "Equipos"
     },
     "responsiveDialog": {
       "buttons": {

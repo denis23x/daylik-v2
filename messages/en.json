@@ -80,6 +80,11 @@
         "description": "Review the terms and conditions governing your use of our Service, including user responsibilities, limitations of liability, dispute resolution, and legal compliance.",
         "keywords": "terms and conditions, user agreement, service terms, liability, dispute resolution, legal compliance, data protection, website terms, daylik, service usage, privacy"
       }
+    },
+    "notFound": {
+      "title": "Page Not Found",
+      "description": "Looks like you’ve taken a wrong turn. Please check the link or go back to the homepage.",
+      "keywords": "page not found, error, not existing, wrong link, back to homepage"
     }
   },
   "components": {
@@ -993,6 +998,11 @@
       "buttons": {
         "signIn": "Sign In"
       }
+    },
+    "notFound": {
+      "title": "Page not found",
+      "description": "The page you are looking for does not exist.",
+      "teamsButton": "Teams"
     },
     "responsiveDialog": {
       "buttons": {

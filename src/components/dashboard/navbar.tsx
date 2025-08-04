@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Logo } from '../logo';
 import ThemeToggle from '../theme-toggle';
 import { Link } from '@/i18n/navigation';
@@ -38,6 +38,7 @@ import NavbarCalendar from './navbar-calendar';
 import { useFeedbackStore } from '@/store/useFeedbackStore';
 import LanguageSwitcher from '../language-switcher';
 import { useTranslations } from 'next-intl';
+import { cn } from '@/lib/utils';
 
 const NavigationSheet = () => {
   const t = useTranslations('components.dashboard.navbar.sheet');
@@ -151,16 +152,15 @@ const DashboardNavbar = () => {
           <Logo />
         </Link>
         <div className="flex items-center gap-4">
-          <Button className="inline-flex" variant="outline" size="icon" asChild>
-            <Link href="/teams">
-              <Grid2x2 />
-            </Link>
-          </Button>
-          <Button className="inline-flex" variant="outline" size="icon" asChild>
-            <Link href="/teammates">
-              <UsersRound />
-            </Link>
-          </Button>
+          <Link className={cn(buttonVariants({ variant: 'outline', size: 'icon' }))} href="/teams">
+            <Grid2x2 />
+          </Link>
+          <Link
+            className={cn(buttonVariants({ variant: 'outline', size: 'icon' }))}
+            href="/teammates"
+          >
+            <UsersRound />
+          </Link>
           <NavbarCalendar>
             <Button variant="outline" size="icon" type="button">
               <CalendarSearch className="h-5 w-5" />

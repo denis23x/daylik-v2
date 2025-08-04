@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Pencil, UserRoundPlus } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
@@ -13,6 +13,7 @@ import { toast } from 'sonner';
 import { useTeammatesFromTeam } from '@/hooks/useTeamsTeammates';
 import { useTeamsStore } from '@/store/useTeamsStore';
 import { useTranslations } from 'next-intl';
+import { cn } from '@/lib/utils';
 
 const TeamsCard = ({ team }: { team: Team }) => {
   const t = useTranslations('components.dashboard.teams.card');
@@ -107,16 +108,15 @@ const TeamsCard = ({ team }: { team: Team }) => {
       </CardContent>
       <CardFooter className="flex flex-col items-stretch p-0 text-center">
         {team.teammates?.length ? (
-          <Button asChild>
-            <Link
-              href={{
-                pathname: '/sync/[UUID]/settings',
-                params: { UUID: team.UUID },
-              }}
-            >
-              {t('sync')}
-            </Link>
-          </Button>
+          <Link
+            className={cn(buttonVariants({ variant: 'default' }))}
+            href={{
+              pathname: '/sync/[UUID]/settings',
+              params: { UUID: team.UUID },
+            }}
+          >
+            {t('sync')}
+          </Link>
         ) : (
           <Button variant="secondary" onClick={() => handleUpdate(team)}>
             {t('addTeammates')}

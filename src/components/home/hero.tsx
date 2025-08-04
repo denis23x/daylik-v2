@@ -1,10 +1,11 @@
 import { AnimatedGridPattern } from '@/components/magicui/animated-grid-pattern';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { CirclePlay, Sparkles } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import HeroVideoDialog from '../magicui/hero-video-dialog';
 import { Badge } from '../ui/badge';
 import { useTranslations } from 'next-intl';
+import { cn } from '@/lib/utils';
 
 const HomeHero = () => {
   const t = useTranslations('components.home.hero');
@@ -28,15 +29,13 @@ const HomeHero = () => {
         <h1 className="mt-6 text-3xl font-bold sm:text-4xl md:text-5xl">{t('title')}</h1>
         <p className="mt-6 text-[17px] md:text-lg">{t('description')}</p>
         <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <Button className="rounded-full p-0" as="span">
-            <Link
-              className="flex size-full items-center justify-center gap-1.5 px-3 py-2"
-              href="/signup"
-              aria-label={t('getStartedAriaLabel')}
-            >
-              {t('getStarted')} <Sparkles />
-            </Link>
-          </Button>
+          <Link
+            className={cn(buttonVariants({ variant: 'default' }), 'rounded-full')}
+            href="/signup"
+            aria-label={t('getStartedAriaLabel')}
+          >
+            {t('getStarted')} <Sparkles />
+          </Link>
           <HeroVideoDialog
             animationStyle="from-center"
             videoSrc="https://www.youtube.com/embed/dQw4w9WgXcQ?si=H7TCoQe5aNcuOh2Y"

@@ -1,9 +1,10 @@
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { CircleCheck, PartyPopper } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
+import { cn } from '@/lib/utils';
 
 const HomePricing = () => {
   const t = useTranslations('components.home.pricing');
@@ -45,21 +46,19 @@ const HomePricing = () => {
                 {t('free.features.history')}
               </li>
             </ul>
-            <Button variant="secondary" size="lg" className="mt-6 w-full p-0" as="span">
-              <Link
-                href="/signup"
-                aria-label={t('free.buttonAriaLabel')}
-                className="flex size-full items-center justify-center"
-              >
-                {t('free.buttonText')}
-              </Link>
-            </Button>
+            <Link
+              className={cn(buttonVariants({ variant: 'secondary', size: 'lg' }), 'mt-6 w-full')}
+              href="/signup"
+              aria-label={t('free.buttonAriaLabel')}
+            >
+              {t('free.buttonText')}
+            </Link>
           </div>
         </li>
 
         {/* Beta Plan */}
         <li className="order-1 flex justify-center transition-opacity duration-200 sm:col-span-4 lg:order-2 lg:col-span-2">
-          <div className="bg-card border-primary dark:border-primary/15 relative max-w-md rounded-lg border-[2px] p-6 py-10 sm:max-w-[288px] sm:gap-6 md:max-w-[352px]">
+          <div className="bg-card border-primary dark:border-primary/15 relative max-w-md rounded-lg border-[2px] p-6 pt-10 pb-6 sm:max-w-[288px] sm:gap-6 md:max-w-[352px]">
             <Badge className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2">
               {t('beta.badge')}
             </Badge>
@@ -92,16 +91,14 @@ const HomePricing = () => {
                 {t('beta.features.support')}
               </li>
             </ul>
-            <Button variant="default" size="lg" className="mt-6 w-full p-0" as="span">
-              <Link
-                href="/signup"
-                aria-label={t('beta.buttonAriaLabel')}
-                className="flex size-full items-center justify-center gap-1.5"
-              >
-                <PartyPopper />
-                {t('beta.buttonText')}
-              </Link>
-            </Button>
+            <Link
+              className={cn(buttonVariants({ variant: 'default', size: 'lg' }), 'mt-6 w-full')}
+              href="/signup"
+              aria-label={t('beta.buttonAriaLabel')}
+            >
+              <PartyPopper />
+              {t('beta.buttonText')}
+            </Link>
           </div>
         </li>
 
@@ -133,15 +130,13 @@ const HomePricing = () => {
                 {t('pro.features.history')}
               </li>
             </ul>
-            <Button variant="secondary" size="lg" className="mt-6 w-full p-0" as="span">
-              <Link
-                href="/signup"
-                aria-label={t('pro.buttonAriaLabel')}
-                className="flex size-full items-center justify-center"
-              >
-                {t('pro.buttonText')}
-              </Link>
-            </Button>
+            <Link
+              className={cn(buttonVariants({ variant: 'secondary', size: 'lg' }), 'mt-6 w-full')}
+              href="/signup"
+              aria-label={t('pro.buttonAriaLabel')}
+            >
+              {t('pro.buttonText')}
+            </Link>
           </div>
         </li>
       </ul>
