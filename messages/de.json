@@ -237,35 +237,6 @@
           }
         }
       },
-      "modals": {
-        "feedback": {
-          "title": "Rückmeldung",
-          "description": "Ihre Rückmeldung hilft uns, den Service für alle zu verbessern.",
-          "form": {
-            "priority": {
-              "label": "Priorität",
-              "options": {
-                "low": "Niedrig",
-                "medium": "Mittel",
-                "high": "Hoch"
-              }
-            },
-            "message": {
-              "label": "Nachricht",
-              "placeholder": "Details, Vorschläge oder Probleme..",
-              "required": "Nachricht muss mindestens 2 Zeichen lang sein"
-            }
-          },
-          "buttons": {
-            "send": "Senden",
-            "loading": "Bitte warten"
-          },
-          "messages": {
-            "success": "Ihre Rückmeldung hilft uns, jeden Tag besser zu werden!",
-            "error": "Ein Fehler ist aufgetreten"
-          }
-        }
-      },
       "retro": {
         "modal": {
           "notes": {
@@ -892,6 +863,33 @@
       }
     },
     "dx": {
+      "feedback": {
+        "title": "Rückmeldung",
+        "description": "Ihre Rückmeldung hilft uns, den Service für alle zu verbessern.",
+        "form": {
+          "priority": {
+            "label": "Priorität",
+            "options": {
+              "low": "Niedrig",
+              "medium": "Mittel",
+              "high": "Hoch"
+            }
+          },
+          "message": {
+            "label": "Nachricht",
+            "placeholder": "Details, Vorschläge oder Probleme..",
+            "required": "Nachricht muss mindestens 2 Zeichen lang sein"
+          }
+        },
+        "buttons": {
+          "send": "Senden",
+          "loading": "Bitte warten"
+        },
+        "messages": {
+          "success": "Ihre Rückmeldung hilft uns, jeden Tag besser zu werden!",
+          "error": "Ein Fehler ist aufgetreten"
+        }
+      },
       "form": {
         "fileUploader": {
           "uploadFile": "Datei hochladen",
@@ -921,6 +919,25 @@
         "error": {
           "title": "Ein Fehler ist aufgetreten",
           "report": "Melden"
+        }
+      },
+      "retro": {
+        "title": "Retro",
+        "description": "Erstelle eine neue Retro-Sitzung, um über die letzte Arbeit nachzudenken, Herausforderungen zu erkennen und das Team zu verbessern.",
+        "form": {
+          "name": {
+            "label": "Name",
+            "placeholder": "Wie heißt deine Retro?",
+            "required": "Der Name muss mindestens 2 Zeichen lang sein"
+          }
+        },
+        "buttons": {
+          "create": "Erstellen",
+          "loading": "Bitte warten"
+        },
+        "messages": {
+          "success": "Dein Retro wurde erstellt!",
+          "error": "Ein Fehler ist aufgetreten"
         }
       }
     },

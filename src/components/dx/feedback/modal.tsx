@@ -16,7 +16,7 @@ import { toast } from 'sonner';
 import { useTranslations } from 'next-intl';
 
 export default function FeedbackModal() {
-  const t = useTranslations('components.dashboard.modals.feedback');
+  const t = useTranslations('components.dx.feedback');
   const { isOpen, closeModal } = useFeedbackStore();
   const { mutateAsync: sendFeedback } = useSendFeedback();
   const FeedbackSchema = createFeedbackSchema(t);

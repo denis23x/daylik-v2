@@ -237,35 +237,6 @@
           }
         }
       },
-      "modals": {
-        "feedback": {
-          "title": "Comentarios",
-          "description": "Tus comentarios nos ayudan a mejorar el servicio para todos.",
-          "form": {
-            "priority": {
-              "label": "Prioridad",
-              "options": {
-                "low": "Baja",
-                "medium": "Media",
-                "high": "Alta"
-              }
-            },
-            "message": {
-              "label": "Mensaje",
-              "placeholder": "Detalles, sugerencias o problemas..",
-              "required": "El mensaje debe tener al menos 2 caracteres"
-            }
-          },
-          "buttons": {
-            "send": "Enviar",
-            "loading": "Por favor espera"
-          },
-          "messages": {
-            "success": "¡Tus comentarios nos ayudan a mejorar cada día!",
-            "error": "Ocurrió un error"
-          }
-        }
-      },
       "retro": {
         "modal": {
           "notes": {
@@ -892,6 +863,33 @@
       }
     },
     "dx": {
+      "feedback": {
+        "title": "Comentarios",
+        "description": "Tus comentarios nos ayudan a mejorar el servicio para todos.",
+        "form": {
+          "priority": {
+            "label": "Prioridad",
+            "options": {
+              "low": "Baja",
+              "medium": "Media",
+              "high": "Alta"
+            }
+          },
+          "message": {
+            "label": "Mensaje",
+            "placeholder": "Detalles, sugerencias o problemas..",
+            "required": "El mensaje debe tener al menos 2 caracteres"
+          }
+        },
+        "buttons": {
+          "send": "Enviar",
+          "loading": "Por favor espera"
+        },
+        "messages": {
+          "success": "¡Tus comentarios nos ayudan a mejorar cada día!",
+          "error": "Ocurrió un error"
+        }
+      },
       "form": {
         "fileUploader": {
           "uploadFile": "Subir archivo",
@@ -921,6 +919,25 @@
         "error": {
           "title": "Ocurrió un error",
           "report": "Reportar"
+        }
+      },
+      "retro": {
+        "title": "Retro",
+        "description": "Crea una nueva sesión retro para reflexionar sobre el trabajo reciente, identificar desafíos y mejorar como equipo.",
+        "form": {
+          "name": {
+            "label": "Nombre",
+            "placeholder": "¿Cómo se llama tu retro?",
+            "required": "El nombre debe tener al menos 2 caracteres"
+          }
+        },
+        "buttons": {
+          "create": "Crear",
+          "loading": "Por favor espera"
+        },
+        "messages": {
+          "success": "¡Tu retro ha sido creada!",
+          "error": "Ocurrió un error"
         }
       }
     },

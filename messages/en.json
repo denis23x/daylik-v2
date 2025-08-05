@@ -237,35 +237,6 @@
           }
         }
       },
-      "modals": {
-        "feedback": {
-          "title": "Feedback",
-          "description": "Your feedback helps us improve the service for everyone.",
-          "form": {
-            "priority": {
-              "label": "Priority",
-              "options": {
-                "low": "Low",
-                "medium": "Medium",
-                "high": "High"
-              }
-            },
-            "message": {
-              "label": "Message",
-              "placeholder": "Details, suggestions, or issues..",
-              "required": "Message must be at least 2 characters"
-            }
-          },
-          "buttons": {
-            "send": "Send",
-            "loading": "Please wait"
-          },
-          "messages": {
-            "success": "Your feedback helps us get better every day!",
-            "error": "An error occurred"
-          }
-        }
-      },
       "retro": {
         "modal": {
           "notes": {
@@ -892,6 +863,33 @@
       }
     },
     "dx": {
+      "feedback": {
+        "title": "Feedback",
+        "description": "Your feedback helps us improve the service for everyone.",
+        "form": {
+          "priority": {
+            "label": "Priority",
+            "options": {
+              "low": "Low",
+              "medium": "Medium",
+              "high": "High"
+            }
+          },
+          "message": {
+            "label": "Message",
+            "placeholder": "Details, suggestions, or issues..",
+            "required": "Message must be at least 2 characters"
+          }
+        },
+        "buttons": {
+          "send": "Send",
+          "loading": "Please wait"
+        },
+        "messages": {
+          "success": "Your feedback helps us get better every day!",
+          "error": "An error occurred"
+        }
+      },
       "form": {
         "fileUploader": {
           "uploadFile": "Upload file",
@@ -921,6 +919,25 @@
         "error": {
           "title": "An error occurred",
           "report": "Report"
+        }
+      },
+      "retro": {
+        "title": "Retro",
+        "description": "Create a new retro session to reflect on recent work, identify challenges, and improve as a team.",
+        "form": {
+          "name": {
+            "label": "Name",
+            "placeholder": "What's your retro called?",
+            "required": "Name must be at least 2 characters"
+          }
+        },
+        "buttons": {
+          "create": "Create",
+          "loading": "Please wait"
+        },
+        "messages": {
+          "success": "Your retro has been created!",
+          "error": "An error occurred"
         }
       }
     },

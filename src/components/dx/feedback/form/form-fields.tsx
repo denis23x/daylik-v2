@@ -10,7 +10,7 @@ import { Angry, Annoyed, Laugh } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 const FeedbackFormFields = () => {
-  const t = useTranslations('components.dashboard.modals.feedback.form');
+  const t = useTranslations('components.dx.feedback.form');
   const form = useFormContext<z.infer<ReturnType<typeof createFeedbackSchema>>>();
 
   return (
