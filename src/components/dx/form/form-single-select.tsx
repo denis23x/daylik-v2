@@ -13,18 +13,18 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { ControllerRenderProps, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-export type MultiSelectItem = {
+export type SingleSelectItem = {
   key: string;
   value: string;
   label: string;
   description?: string;
 };
 
-const FormMultiSelect = ({
+const FormSingleSelect = ({
   required = false,
   name,
   label,
@@ -39,10 +39,10 @@ const FormMultiSelect = ({
   placeholder?: string;
   searchPlaceholder?: string;
   emptyMessage?: string;
-  items: MultiSelectItem[];
+  items: SingleSelectItem[];
 }) => {
   const form = useFormContext();
-  const t = useTranslations('components.dx.form.multiSelect');
+  const t = useTranslations('components.dx.form.singleSelect');
   const [isOpen, setIsOpen] = useState(false);
 
   // Use translations as defaults when props are not provided
@@ -50,26 +50,11 @@ const FormMultiSelect = ({
   const defaultSearchPlaceholder = searchPlaceholder || t('defaultSearchPlaceholder');
   const defaultEmptyMessage = emptyMessage || t('defaultEmptyMessage');
 
-  const handleSelect = (field: ControllerRenderProps, item: MultiSelectItem) => {
-    const id = item.value.toString();
-    const selectedIds = [...field.value];
+  const handleSelect = (item: SingleSelectItem) => {
+    form.setValue(name, item.value);
 
-    if (selectedIds.includes(id)) {
-      const index = selectedIds.indexOf(id);
-
-      selectedIds.splice(index, 1);
-    } else {
-      selectedIds.push(id);
-    }
-
-    form.setValue(name, selectedIds);
-  };
-
-  const handleSelectAll = () => {
-    const selectedIds = items.map((item) => item.value);
-
-    // Select all items
-    form.setValue(name, selectedIds);
+    // Close the popover
+    setIsOpen(false);
   };
 
   return (
@@ -78,47 +63,21 @@ const FormMultiSelect = ({
       name={name}
       render={({ field, formState }) => (
         <FormItem className="flex flex-col">
-          <div className="flex items-center justify-between">
-            <FormLabel htmlFor={name}>
-              {label}{' '}
-              {field.value.length !== 0 && (
-                <span className="text-muted-foreground">({field.value.length})</span>
-              )}
-              {required && <span className="text-destructive">*</span>}
-            </FormLabel>
-            <span
-              className="text-muted-foreground cursor-pointer text-xs"
-              onClick={() => handleSelectAll()}
-            >
-              {t('selectAll')}
-            </span>
-          </div>
+          <FormLabel htmlFor={name}>
+            {label}
+            {required && <span className="text-destructive">*</span>}
+          </FormLabel>
           <Popover open={isOpen} onOpenChange={setIsOpen} modal={true}>
             <PopoverTrigger asChild>
               <div className="relative">
                 <FormControl>
                   <Input
                     id={name}
-                    className={cn(
-                      'w-full pr-6 text-left',
-                      field.value.length === 0 && 'text-muted-foreground'
-                    )}
+                    className="w-full pr-6 text-left"
                     role="combobox"
                     placeholder={defaultPlaceholder}
                     disabled={formState.isSubmitting}
-                    value={
-                      field.value.length > 0
-                        ? field.value
-                            .map((value: string) => {
-                              const item = items.find((item: MultiSelectItem) => {
-                                return item.value === value;
-                              });
-                              return item ? item.label : '';
-                            })
-                            .filter(Boolean)
-                            .join(', ')
-                        : defaultPlaceholder
-                    }
+                    {...field}
                     readOnly
                   />
                 </FormControl>
@@ -138,11 +97,11 @@ const FormMultiSelect = ({
                 <CommandList>
                   <CommandEmpty>{defaultEmptyMessage}</CommandEmpty>
                   <CommandGroup>
-                    {items.map((item: MultiSelectItem) => (
+                    {items.map((item: SingleSelectItem) => (
                       <CommandItem
                         key={item.key}
                         value={item.label}
-                        onSelect={() => handleSelect(field, item)}
+                        onSelect={() => handleSelect(item)}
                       >
                         {item.label}
                         {item.description && (
@@ -153,7 +112,7 @@ const FormMultiSelect = ({
                         <Check
                           className={cn(
                             'ml-auto',
-                            field.value.includes(item.value) ? 'opacity-100' : 'opacity-0'
+                            field.value === item.value ? 'opacity-100' : 'opacity-0'
                           )}
                         />
                       </CommandItem>
@@ -170,4 +129,4 @@ const FormMultiSelect = ({
   );
 };
 
-export default FormMultiSelect;
+export default FormSingleSelect;

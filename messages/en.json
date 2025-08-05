@@ -100,7 +100,7 @@
           },
           "password": {
             "label": "Password",
-            "placeholder": "Shhh... it's a secret",
+            "placeholder": "Shhh.. it's a secret",
             "required": "Password is required",
             "minLength": "Password must be at least 8 characters long"
           }
@@ -909,6 +909,11 @@
           "defaultEmptyMessage": "No item found",
           "selectAll": "Select all"
         },
+        "singleSelect": {
+          "defaultPlaceholder": "Select item",
+          "defaultSearchPlaceholder": "Search",
+          "defaultEmptyMessage": "Nothing found"
+        },
         "colorPicker": {
           "chooseColor": "Choose a color",
           "placeholder": "#000000",
@@ -923,16 +928,23 @@
       },
       "retro": {
         "title": "Retro",
-        "description": "Create a new retro session to reflect on recent work, identify challenges, and improve as a team.",
+        "description": "A retro session helps reflect on recent work, uncover challenges, and grow as a team.",
         "form": {
           "name": {
-            "label": "Name",
+            "label": "Create a new retro",
             "placeholder": "What's your retro called?",
             "required": "Name must be at least 2 characters"
+          },
+          "namePrevious": {
+            "label": "Select from previous retros",
+            "placeholder": "What's your previous retro called?",
+            "required": "Name must be at least 2 characters",
+            "searchPlaceholder": "Search for previous retro..",
+            "emptyMessage": "No retro found"
           }
         },
         "buttons": {
-          "create": "Create",
+          "continue": "Continue",
           "loading": "Please wait"
         },
         "messages": {
@@ -949,7 +961,7 @@
     "ui": {
       "command": {
         "defaultTitle": "Command Palette",
-        "defaultDescription": "Search for a command to run..."
+        "defaultDescription": "Search for a command to run.."
       },
       "combobox": {
         "removeAccessibilityLabel": "Remove"

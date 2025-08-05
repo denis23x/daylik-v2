@@ -100,7 +100,7 @@
           },
           "password": {
             "label": "Contraseña",
-            "placeholder": "Shh... es un secreto",
+            "placeholder": "Shh.. es un secreto",
             "required": "La contraseña es requerida",
             "minLength": "La contraseña debe tener al menos 8 caracteres"
           }
@@ -909,6 +909,11 @@
           "defaultEmptyMessage": "No se encontró ningún elemento",
           "selectAll": "Seleccionar todos"
         },
+        "singleSelect": {
+          "defaultPlaceholder": "Seleccionar elemento",
+          "defaultSearchPlaceholder": "Buscar",
+          "defaultEmptyMessage": "No se encontró nada"
+        },
         "colorPicker": {
           "chooseColor": "Elegir un color",
           "placeholder": "#000000",
@@ -923,16 +928,23 @@
       },
       "retro": {
         "title": "Retro",
-        "description": "Crea una nueva sesión retro para reflexionar sobre el trabajo reciente, identificar desafíos y mejorar como equipo.",
+        "description": "Una sesión retro permite reflexionar sobre el trabajo reciente, identificar desafíos y fortalecer al equipo.",
         "form": {
           "name": {
-            "label": "Nombre",
+            "label": "Cree un nuevo retro",
             "placeholder": "¿Cómo se llama tu retro?",
             "required": "El nombre debe tener al menos 2 caracteres"
+          },
+          "namePrevious": {
+            "label": "Selecciona entre retros anteriores",
+            "placeholder": "¿Cómo se llamaba tu retro anterior?",
+            "required": "El nombre debe tener al menos 2 caracteres",
+            "searchPlaceholder": "Buscar retros anteriores..",
+            "emptyMessage": "No se encontró ningún retro"
           }
         },
         "buttons": {
-          "create": "Crear",
+          "continue": "Continuar",
           "loading": "Por favor espera"
         },
         "messages": {
@@ -949,7 +961,7 @@
     "ui": {
       "command": {
         "defaultTitle": "Paleta de Comandos",
-        "defaultDescription": "Buscar un comando para ejecutar..."
+        "defaultDescription": "Buscar un comando para ejecutar.."
       },
       "combobox": {
         "removeAccessibilityLabel": "Quitar"

@@ -21,6 +21,7 @@ export default function RetroModal({ children }: { children: React.ReactNode }) 
   const form = useForm<z.infer<typeof RetroSchema>>({
     defaultValues: {
       name: '',
+      namePrevious: '',
     },
     resolver: zodResolver(RetroSchema),
   });
@@ -68,7 +69,7 @@ export default function RetroModal({ children }: { children: React.ReactNode }) 
         right={
           <Button type="submit" form="retro-form" disabled={form.formState.isSubmitting}>
             {form.formState.isSubmitting && <Loader2 className="mr-2 animate-spin" />}
-            {form.formState.isSubmitting ? t('buttons.loading') : t('buttons.create')}
+            {form.formState.isSubmitting ? t('buttons.loading') : t('buttons.continue')}
           </Button>
         }
       />

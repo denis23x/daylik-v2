@@ -100,7 +100,7 @@
           },
           "password": {
             "label": "Passwort",
-            "placeholder": "Psst... das ist ein Geheimnis",
+            "placeholder": "Psst.. das ist ein Geheimnis",
             "required": "Passwort ist erforderlich",
             "minLength": "Das Passwort muss mindestens 8 Zeichen lang sein"
           }
@@ -909,6 +909,11 @@
           "defaultEmptyMessage": "Kein Element gefunden",
           "selectAll": "Alle auswählen"
         },
+        "singleSelect": {
+          "defaultPlaceholder": "Element auswählen",
+          "defaultSearchPlaceholder": "Suche",
+          "defaultEmptyMessage": "Nichts gefunden"
+        },
         "colorPicker": {
           "chooseColor": "Farbe wählen",
           "placeholder": "#000000",
@@ -923,16 +928,23 @@
       },
       "retro": {
         "title": "Retro",
-        "description": "Erstelle eine neue Retro-Sitzung, um über die letzte Arbeit nachzudenken, Herausforderungen zu erkennen und das Team zu verbessern.",
+        "description": "Eine Retro-Sitzung dient dazu, über die letzte Arbeit nachzudenken, Herausforderungen zu erkennen und das Team weiterzuentwickeln.",
         "form": {
           "name": {
-            "label": "Name",
+            "label": "Erstellen Sie ein neues Retro",
             "placeholder": "Wie heißt deine Retro?",
             "required": "Der Name muss mindestens 2 Zeichen lang sein"
+          },
+          "namePrevious": {
+            "label": "Wähle aus früheren Retros",
+            "placeholder": "Wie hieß dein vorheriges Retro?",
+            "required": "Der Name muss mindestens 2 Zeichen lang sein",
+            "searchPlaceholder": "Frühere Retros durchsuchen..",
+            "emptyMessage": "Kein Retro gefunden"
           }
         },
         "buttons": {
-          "create": "Erstellen",
+          "continue": "Weiter",
           "loading": "Bitte warten"
         },
         "messages": {
@@ -949,7 +961,7 @@
     "ui": {
       "command": {
         "defaultTitle": "Befehlspalette",
-        "defaultDescription": "Suchen Sie nach einem Befehl zum Ausführen..."
+        "defaultDescription": "Suchen Sie nach einem Befehl zum Ausführen.."
       },
       "combobox": {
         "removeAccessibilityLabel": "Entfernen"

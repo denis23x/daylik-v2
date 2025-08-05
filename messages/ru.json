@@ -100,7 +100,7 @@
           },
           "password": {
             "label": "Пароль",
-            "placeholder": "Тc-c-c... это секрет",
+            "placeholder": "Тc-c-c.. это секрет",
             "required": "Пароль обязателен",
             "minLength": "Пароль должен содержать не менее 8 символов"
           }
@@ -207,7 +207,7 @@
           },
           "notFound": {
             "abbreviation": "Н/Д",
-            "edgerunner": "Инцидентов не было",
+            "edgerunner": "Без Эджраннеров",
             "radioTower": "Радио выключено",
             "frozenHero": "Без замороженных",
             "mysteryGhost": "Призраков не было"
@@ -909,6 +909,11 @@
           "defaultEmptyMessage": "Ничего не найдено",
           "selectAll": "Выбрать все"
         },
+        "singleSelect": {
+          "defaultPlaceholder": "Выбрать элемент",
+          "defaultSearchPlaceholder": "Поиск",
+          "defaultEmptyMessage": "Ничего не найдено"
+        },
         "colorPicker": {
           "chooseColor": "Выберите цвет",
           "placeholder": "#000000",
@@ -923,16 +928,23 @@
       },
       "retro": {
         "title": "Ретро",
-        "description": "Создайте новую ретро-сессию, чтобы обсудить недавнюю работу, определить сложности и улучшить командную работу.",
+        "description": "Ретро-сессия поможет обсудить недавнюю работу, выявить сложности и усилить командную эффективность.",
         "form": {
           "name": {
-            "label": "Название",
+            "label": "Создайте новое ретро",
             "placeholder": "Как называется ваше ретро?",
             "required": "Название должно содержать не менее 2 символов"
+          },
+          "namePrevious": {
+            "label": "Выберите из предыдущих ретро",
+            "placeholder": "Как называлось предыдущее ретро?",
+            "required": "Название должно содержать не менее 2 символов",
+            "searchPlaceholder": "Поиск по предыдущим ретро..",
+            "emptyMessage": "Ретро не найдено"
           }
         },
         "buttons": {
-          "create": "Создать",
+          "continue": "Продолжить",
           "loading": "Пожалуйста, подождите"
         },
         "messages": {
@@ -949,7 +961,7 @@
     "ui": {
       "command": {
         "defaultTitle": "Командная панель",
-        "defaultDescription": "Поиск команды для выполнения..."
+        "defaultDescription": "Поиск команды для выполнения.."
       },
       "combobox": {
         "removeAccessibilityLabel": "Удалить"
