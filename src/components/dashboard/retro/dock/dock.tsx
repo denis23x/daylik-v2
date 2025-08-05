@@ -1,6 +1,6 @@
 'use client';
 
-import { HomeIcon, NotebookPenIcon, QrCode } from 'lucide-react';
+import { AtSign, HomeIcon, NotebookPenIcon, QrCode } from 'lucide-react';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
@@ -17,6 +17,10 @@ const RetroDock = () => {
     openModal('notes');
   };
 
+  const handleMessages = () => {
+    alert('messages');
+  };
+
   const handleQrCode = () => {
     openModal('qr');
   };
@@ -30,6 +34,9 @@ const RetroDock = () => {
         <Separator orientation="vertical" className="h-full" />
         <Button variant="ghost" size="icon" onClick={handleNotes}>
           <NotebookPenIcon />
+        </Button>
+        <Button variant="ghost" size="icon" onClick={handleMessages}>
+          <AtSign />
         </Button>
         <Button variant="ghost" size="icon" onClick={handleQrCode}>
           <QrCode />

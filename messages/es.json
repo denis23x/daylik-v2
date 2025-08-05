@@ -1002,7 +1002,7 @@
     "notFound": {
       "title": "Esta página no existe",
       "description": "Es posible que hayas escrito mal la dirección o seguido un enlace antiguo.",
-      "teamsButton": "Equipos"
+      "homeButton": "Inicio"
     },
     "responsiveDialog": {
       "buttons": {

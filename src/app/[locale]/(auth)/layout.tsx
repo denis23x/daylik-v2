@@ -1,6 +1,6 @@
 import { ReactQueryProvider } from '@/context/ReactQueryProvider';
 import Sonner from '@/components/sonner';
-import Feedback from '@/components/dashboard/modals/feedback/modal';
+import Feedback from '@/components/dx/feedback/modal';
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (

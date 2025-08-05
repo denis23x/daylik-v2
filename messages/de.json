@@ -1002,7 +1002,7 @@
     "notFound": {
       "title": "Seite nicht gefunden",
       "description": "Die Seite, die Sie suchen, existiert nicht.",
-      "teamsButton": "Teams"
+      "homeButton": "Startseite"
     },
     "responsiveDialog": {
       "buttons": {

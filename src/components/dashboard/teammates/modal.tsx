@@ -2,8 +2,6 @@
 
 import ResponsiveDialog from '@/components/responsive-dialog';
 import { useTeammatesStore } from '@/store/useTeammatesStore';
-import TeammateInsertForm from './form/insert';
-import TeammateUpdateForm from './form/update';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -21,6 +19,11 @@ import { getFilePath } from '@/lib/api/files';
 import { Form as FormProvider } from '@/components/ui/form';
 import { BUCKET_IMAGES } from '@/lib/constants';
 import { useTranslations } from 'next-intl';
+import dynamic from 'next/dynamic';
+
+// Mobile optimization
+const TeammateInsertForm = dynamic(() => import('./form/insert'));
+const TeammateUpdateForm = dynamic(() => import('./form/update'));
 
 export default function TeammatesModal() {
   const t = useTranslations('components.dashboard.teammates');

@@ -1,8 +1,6 @@
 'use client';
 
 import ResponsiveDialog from '@/components/responsive-dialog';
-import TeamInsertForm from './form/insert';
-import TeamUpdateForm from './form/update';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -19,6 +17,11 @@ import { getFilePath } from '@/lib/api/files';
 import { BUCKET_IMAGES } from '@/lib/constants';
 import { useDeleteFiles } from '@/hooks/useFiles';
 import { useTranslations } from 'next-intl';
+import dynamic from 'next/dynamic';
+
+// Mobile optimization
+const TeamInsertForm = dynamic(() => import('./form/insert'));
+const TeamUpdateForm = dynamic(() => import('./form/update'));
 
 export default function TeamsModal() {
   const t = useTranslations('components.dashboard.teams');

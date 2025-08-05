@@ -1002,7 +1002,7 @@
     "notFound": {
       "title": "Не найдено",
       "description": "Кажется, вы свернули не туда.",
-      "teamsButton": "Команды"
+      "homeButton": "На главную"
     },
     "responsiveDialog": {
       "buttons": {
