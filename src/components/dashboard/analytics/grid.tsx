@@ -93,9 +93,9 @@ const AnalyticsGrid = () => {
             <div className="flex min-h-[75lvh] max-w-md flex-col items-center justify-center gap-4">
               <CircleOff />
               <div className="text-center text-xl font-semibold">{t('noTeammates')}</div>
-              <Link className={cn(buttonVariants({ variant: 'secondary' }), 'group')} href="/teams">
+              <Link className={cn(buttonVariants({ variant: 'secondary' }))} href="/teams">
                 {t('teams')}
-                <ArrowRight className="transition-transform group-hover:translate-x-1" />
+                <ArrowRight />
               </Link>
             </div>
           )}

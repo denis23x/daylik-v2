@@ -9,9 +9,11 @@ import { isSameDay, format } from 'date-fns';
 import { useTeamsFromAnalytic } from '@/hooks/useAnalyticsTeams';
 import { Link, usePathname } from '@/i18n/navigation';
 import type { Analytics } from '@/types/analytics.type';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, RefreshCw } from 'lucide-react';
 import { useDayPickerLocale } from '@/hooks/ui/useDayPickerLocale';
 import { getCurrentMonthRange } from '@/utils/getCurrentMonthRange';
+import { cn } from '@/lib/utils';
+import { buttonVariants } from '../ui/button';
 
 const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
   const locale = useDayPickerLocale();
@@ -90,19 +92,18 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
                         pathname: '/analytics/[UUID]',
                         params: { UUID: analytic.UUID },
                       }}
-                      className="group bg-muted after:bg-primary/70 relative flex items-center justify-between gap-4 rounded-md py-2 pr-4 pl-6 text-sm after:absolute after:inset-y-2 after:left-2 after:w-1 after:rounded-full"
+                      className={cn(buttonVariants({ variant: 'secondary' }), 'w-full')}
                     >
-                      <div className="flex flex-col">
-                        <span className="font-medium">{analytic.team?.name}</span>
-                        <div className="text-muted-foreground text-xs">
-                          {format(analytic.startedAt, 'HH:mm')} -{' '}
-                          {format(analytic.finishedAt, 'HH:mm')}
-                        </div>
-                      </div>
-                      <ArrowRight
-                        className="transition-transform group-hover:translate-x-1"
-                        size={16}
-                      />
+                      <RefreshCw />
+                      <p className="inline flex-1 align-middle">
+                        <span className="font-medium">
+                          {analytic.team?.name}{' '}
+                          <span className="text-muted-foreground text-xs">
+                            {format(analytic.createdAt, 'HH:mm')}
+                          </span>
+                        </span>
+                      </p>
+                      <ArrowRight />
                     </Link>
                   </li>
                 ))}

@@ -15,9 +15,9 @@ const NotFound = () => {
       <span className="text-2xl font-bold sm:text-3xl md:text-4xl">{t('title')}</span>
       <p className="text-base md:text-lg">{t('description')}</p>
       <div className="flex gap-2">
-        <Link className={cn(buttonVariants({ variant: 'secondary' }), 'group')} href="/">
+        <Link className={cn(buttonVariants({ variant: 'secondary' }))} href="/">
           {t('homeButton')}
-          <ArrowRight className="transition-transform group-hover:translate-x-1" />
+          <ArrowRight />
         </Link>
       </div>
     </div>

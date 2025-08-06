@@ -189,9 +189,9 @@ const SyncLiveGrid = () => {
           {error && <HoverEffectError />}
           {!isLoading && isStarted && !error && teammates?.length === 0 && (
             <HoverEffectNotFound title={t('noTeammates')}>
-              <Link className={cn(buttonVariants({ variant: 'secondary' }), 'group')} href="/teams">
+              <Link className={cn(buttonVariants({ variant: 'secondary' }))} href="/teams">
                 {t('teamsButton')}
-                <ArrowRight className="transition-transform group-hover:translate-x-1" />
+                <ArrowRight />
               </Link>
             </HoverEffectNotFound>
           )}
