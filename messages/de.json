@@ -114,6 +114,9 @@
           "forgotPassword": "Passwort vergessen?",
           "noAccount": "Noch kein Konto?",
           "createAccount": "Konto erstellen"
+        },
+        "messages": {
+          "error": "Ein Fehler ist aufgetreten"
         }
       },
       "signup": {
@@ -140,6 +143,9 @@
         "links": {
           "hasAccount": "Bereits ein Konto?",
           "login": "Anmelden"
+        },
+        "messages": {
+          "error": "Ein Fehler ist aufgetreten"
         }
       },
       "resetPassword": {
@@ -159,6 +165,9 @@
         "links": {
           "rememberPassword": "Passwort wieder eingefallen?",
           "login": "Anmelden"
+        },
+        "messages": {
+          "error": "Ein Fehler ist aufgetreten"
         }
       },
       "verifyEmail": {
@@ -529,6 +538,9 @@
           "confirm": {
             "title": "Sind Sie absolut sicher?",
             "description": "Sie müssen sich erneut anmelden, um auf Ihr Konto zuzugreifen."
+          },
+          "messages": {
+            "error": "Ein Fehler ist aufgetreten"
           }
         }
       },
@@ -908,7 +920,8 @@
           "defaultPlaceholder": "Elemente auswählen",
           "defaultSearchPlaceholder": "Suchen",
           "defaultEmptyMessage": "Kein Element gefunden",
-          "selectAll": "Alle auswählen"
+          "selectAll": "Alle auswählen",
+          "deselectAll": "Alle abwählen"
         },
         "singleSelect": {
           "defaultPlaceholder": "Element auswählen",

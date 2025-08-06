@@ -114,6 +114,9 @@
           "forgotPassword": "Forgot your password?",
           "noAccount": "Don't have an account?",
           "createAccount": "Create account"
+        },
+        "messages": {
+          "error": "An error occurred"
         }
       },
       "signup": {
@@ -140,6 +143,9 @@
         "links": {
           "hasAccount": "Already have an account?",
           "login": "Log in"
+        },
+        "messages": {
+          "error": "An error occurred"
         }
       },
       "resetPassword": {
@@ -159,6 +165,9 @@
         "links": {
           "rememberPassword": "Remember your password?",
           "login": "Log in"
+        },
+        "messages": {
+          "error": "An error occurred"
         }
       },
       "verifyEmail": {
@@ -529,6 +538,9 @@
           "confirm": {
             "title": "Are you absolutely sure?",
             "description": "You'll need to sign in again to access your account."
+          },
+          "messages": {
+            "error": "An error occurred"
           }
         }
       },
@@ -908,7 +920,8 @@
           "defaultPlaceholder": "Select items",
           "defaultSearchPlaceholder": "Search",
           "defaultEmptyMessage": "No item found",
-          "selectAll": "Select all"
+          "selectAll": "Select all",
+          "deselectAll": "Deselect all"
         },
         "singleSelect": {
           "defaultPlaceholder": "Select item",

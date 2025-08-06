@@ -114,6 +114,9 @@
           "forgotPassword": "Забыли пароль?",
           "noAccount": "Нет аккаунта?",
           "createAccount": "Создать аккаунт"
+        },
+        "messages": {
+          "error": "Произошла ошибка"
         }
       },
       "signup": {
@@ -140,6 +143,9 @@
         "links": {
           "hasAccount": "Уже есть аккаунт?",
           "login": "Войти"
+        },
+        "messages": {
+          "error": "Произошла ошибка"
         }
       },
       "resetPassword": {
@@ -159,6 +165,9 @@
         "links": {
           "rememberPassword": "Вспомнили пароль?",
           "login": "Войти"
+        },
+        "messages": {
+          "error": "Произошла ошибка"
         }
       },
       "verifyEmail": {
@@ -529,6 +538,9 @@
           "confirm": {
             "title": "Вы абсолютно уверены?",
             "description": "Вам потребуется войти в систему еще раз, чтобы получить доступ к вашему аккаунту."
+          },
+          "messages": {
+            "error": "Произошла ошибка"
           }
         }
       },
@@ -908,7 +920,8 @@
           "defaultPlaceholder": "Выбрать элементы",
           "defaultSearchPlaceholder": "Поиск",
           "defaultEmptyMessage": "Ничего не найдено",
-          "selectAll": "Выбрать все"
+          "selectAll": "Выбрать все",
+          "deselectAll": "Снять выделение"
         },
         "singleSelect": {
           "defaultPlaceholder": "Выбрать элемент",

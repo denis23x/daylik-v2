@@ -66,10 +66,11 @@ const FormMultiSelect = ({
   };
 
   const handleSelectAll = () => {
+    const selectedAll = form.getValues(name).length === items.length;
     const selectedIds = items.map((item) => item.value);
 
     // Select all items
-    form.setValue(name, selectedIds);
+    form.setValue(name, selectedAll ? [] : selectedIds);
   };
 
   return (
@@ -90,7 +91,7 @@ const FormMultiSelect = ({
               className="text-muted-foreground cursor-pointer text-xs"
               onClick={() => handleSelectAll()}
             >
-              {t('selectAll')}
+              {field.value.length === items.length ? t('deselectAll') : t('selectAll')}
             </span>
           </div>
           <Popover open={isOpen} onOpenChange={setIsOpen} modal={true}>

@@ -114,6 +114,9 @@
           "forgotPassword": "¿Olvidaste tu contraseña?",
           "noAccount": "¿No tienes una cuenta?",
           "createAccount": "Crear cuenta"
+        },
+        "messages": {
+          "error": "Ocurrió un error"
         }
       },
       "signup": {
@@ -140,6 +143,9 @@
         "links": {
           "hasAccount": "¿Ya tienes una cuenta?",
           "login": "Iniciar sesión"
+        },
+        "messages": {
+          "error": "Ocurrió un error"
         }
       },
       "resetPassword": {
@@ -159,6 +165,9 @@
         "links": {
           "rememberPassword": "¿Recuerdas tu contraseña?",
           "login": "Iniciar sesión"
+        },
+        "messages": {
+          "error": "Ocurrió un error"
         }
       },
       "verifyEmail": {
@@ -529,6 +538,9 @@
           "confirm": {
             "title": "¿Estás absolutamente seguro?",
             "description": "Necesitarás iniciar sesión nuevamente para acceder a tu cuenta."
+          },
+          "messages": {
+            "error": "Ocurrió un error"
           }
         }
       },
@@ -908,7 +920,8 @@
           "defaultPlaceholder": "Seleccionar elementos",
           "defaultSearchPlaceholder": "Buscar",
           "defaultEmptyMessage": "No se encontró ningún elemento",
-          "selectAll": "Seleccionar todos"
+          "selectAll": "Seleccionar todos",
+          "deselectAll": "Deseleccionar todos"
         },
         "singleSelect": {
           "defaultPlaceholder": "Seleccionar elemento",

@@ -47,7 +47,7 @@ const AuthLogin = () => {
       // Redirect
       router.push('/teams');
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'An error occurred');
+      toast.error(error instanceof Error ? error.message : t('messages.error'));
     }
   };
 
@@ -55,7 +55,7 @@ const AuthLogin = () => {
     try {
       await signInWithGoogle();
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'An error occurred');
+      toast.error(error instanceof Error ? error.message : t('messages.error'));
     }
   };
 

@@ -64,7 +64,7 @@ const NavigationSheet = () => {
 
     toast.promise(p(), {
       // loading: 'Ending session..',
-      error: (e: unknown) => (e instanceof Error ? e.message : 'An error occurred'),
+      error: (e: unknown) => (e instanceof Error ? e.message : t('messages.error')),
     });
   };
 

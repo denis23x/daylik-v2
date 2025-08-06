@@ -48,7 +48,7 @@ const AuthResetPassword = () => {
         query: { updatePassword: '1' },
       });
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'An error occurred');
+      toast.error(error instanceof Error ? error.message : t('messages.error'));
     }
   };
 

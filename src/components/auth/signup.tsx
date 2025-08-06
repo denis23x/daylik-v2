@@ -47,7 +47,7 @@ const AuthSignUp = () => {
       // Redirect
       router.push('/verify-email');
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'An error occurred');
+      toast.error(error instanceof Error ? error.message : t('messages.error'));
     }
   };
 
@@ -55,7 +55,7 @@ const AuthSignUp = () => {
     try {
       await signInWithGoogle();
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'An error occurred');
+      toast.error(error instanceof Error ? error.message : t('messages.error'));
     }
   };
 
