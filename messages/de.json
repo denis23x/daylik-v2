@@ -523,7 +523,8 @@
             "feedback": "Rückmeldung"
           },
           "buttons": {
-            "logout": "Abmelden"
+            "logout": "Abmelden",
+            "update": "Aktualisieren"
           },
           "confirm": {
             "title": "Sind Sie absolut sicher?",

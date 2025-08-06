@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3100",
-    "dev:turbopack": "next dev -p 3100 --turbopack",
+    "dev:turbopack": "npm run dev -- --turbopack",
+    "dev:https": "npm run dev -- --experimental-https",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -81,6 +82,7 @@
     "shiki": "^3.8.1",
     "sonner": "^2.0.3",
     "tailwind-merge": "^3.2.0",
+    "tailwindcss-displaymodes": "^1.0.8",
     "usehooks-ts": "^3.1.1",
     "uuid": "^11.1.0",
     "vaul": "^1.1.2",

@@ -523,7 +523,8 @@
             "feedback": "Comentarios"
           },
           "buttons": {
-            "logout": "Cerrar Sesión"
+            "logout": "Cerrar Sesión",
+            "update": "Actualizar"
           },
           "confirm": {
             "title": "¿Estás absolutamente seguro?",

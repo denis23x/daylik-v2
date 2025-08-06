@@ -523,7 +523,8 @@
             "feedback": "Feedback"
           },
           "buttons": {
-            "logout": "Logout"
+            "logout": "Logout",
+            "update": "Update"
           },
           "confirm": {
             "title": "Are you absolutely sure?",

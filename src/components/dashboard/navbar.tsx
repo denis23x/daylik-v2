@@ -127,6 +127,13 @@ const NavigationSheet = () => {
           </NavigationMenuList>
         </NavigationMenu>
         <SheetFooter className="gap-3">
+          <Button
+            className="standalone:flex hidden"
+            variant="outline"
+            onClick={() => window.location.reload()}
+          >
+            {t('buttons.update')}
+          </Button>
           <div className="flex items-center gap-3">
             <ThemeToggle className="flex-1" variant="sheet" />
             <LanguageSwitcher className="flex-1" variant="sheet" />

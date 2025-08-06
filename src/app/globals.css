@@ -20,6 +20,7 @@
 @import './styles/vendor/react-simple-wysiwyg.css';
 
 @plugin '@tailwindcss/typography';
+@plugin 'tailwindcss-displaymodes';
 
 @custom-variant dark (&:is(.dark *));
 
