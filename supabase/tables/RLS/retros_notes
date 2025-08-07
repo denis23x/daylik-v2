@@ -1,0 +1,19 @@
+ALTER POLICY "Self"
+ON "public"."retros_notes"
+TO authenticated
+USING (
+  EXISTS (
+    SELECT 1
+    FROM retros
+    WHERE retros."UUID" = retros_notes."retroUUID"
+      AND retros."userUUID" = (select auth.uid())
+  )
+)
+WITH CHECK (
+  EXISTS (
+    SELECT 1
+    FROM retros
+    WHERE retros."UUID" = retros_notes."retroUUID"
+      AND retros."userUUID" = (select auth.uid())
+  )
+);

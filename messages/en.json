@@ -610,7 +610,10 @@
         },
         "card": {
           "addTeammates": "Add Teammates",
-          "sync": "Sync"
+          "sync": "Sync",
+          "messages": {
+            "error": "An error occurred"
+          }
         },
         "cardNew": {
           "title": "New",
@@ -676,6 +679,11 @@
         "cardNew": {
           "title": "New",
           "subtitle": "Add a teammate"
+        },
+        "card": {
+          "messages": {
+            "error": "An error occurred"
+          }
         },
         "modal": {
           "insert": {
@@ -963,6 +971,15 @@
     "magicui": {
       "heroVideoDialog": {
         "closeButton": "Close video"
+      }
+    },
+    "mdx": {
+      "mdxPre": {
+        "copyAriaLabel": "Copy",
+        "messages": {
+          "success": "Copied",
+          "error": "An error occurred"
+        }
       }
     },
     "ui": {

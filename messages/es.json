@@ -610,7 +610,10 @@
         },
         "card": {
           "addTeammates": "Agregar Compañeros",
-          "sync": "Sync"
+          "sync": "Sync",
+          "messages": {
+            "error": "Ocurrió un error"
+          }
         },
         "cardNew": {
           "title": "Nuevo",
@@ -676,6 +679,11 @@
         "cardNew": {
           "title": "Nuevo",
           "subtitle": "Agregar un compañero"
+        },
+        "card": {
+          "messages": {
+            "error": "Ocurrió un error"
+          }
         },
         "modal": {
           "insert": {
@@ -963,6 +971,15 @@
     "magicui": {
       "heroVideoDialog": {
         "closeButton": "Cerrar video"
+      }
+    },
+    "mdx": {
+      "mdxPre": {
+        "copyAriaLabel": "Copiar",
+        "messages": {
+          "success": "Copiado",
+          "error": "Ocurrió un error"
+        }
       }
     },
     "ui": {

@@ -8,8 +8,10 @@ import type { Teammate } from '@/types/teammate.type';
 import { useTeamsToTeammate } from '@/hooks/useTeamsTeammates';
 import { toast } from 'sonner';
 import { useTeammatesStore } from '@/store/useTeammatesStore';
+import { useTranslations } from 'next-intl';
 
 const TeammatesCard = ({ teammate }: { teammate: Teammate }) => {
+  const t = useTranslations('dashboard.teammates.card');
   const { openModal } = useTeammatesStore();
   const { refetch } = useTeamsToTeammate({
     query: 'teamUUID',
@@ -27,7 +29,7 @@ const TeammatesCard = ({ teammate }: { teammate: Teammate }) => {
         teams: teams.map(({ teamUUID }) => teamUUID),
       });
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'An error occurred');
+      toast.error(error instanceof Error ? error.message : t('messages.error'));
     }
   };
 

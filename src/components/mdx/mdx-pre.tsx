@@ -5,6 +5,7 @@ import { DetailedHTMLProps, HTMLAttributes, RefObject, useRef, useState } from '
 import { Button } from '@/components/ui/button';
 import { useCopyToClipboard } from 'usehooks-ts';
 import { toast } from 'sonner';
+import { useTranslations } from 'next-intl';
 
 export default function MdxPre({
   children,
@@ -13,14 +14,15 @@ export default function MdxPre({
   const preRef: RefObject<HTMLPreElement | null> = useRef<HTMLPreElement | null>(null);
   const [, copy] = useCopyToClipboard();
   const [isCopied, setIsCopied] = useState(false);
+  const t = useTranslations('components.mdx.mdxPre');
 
   const handleClickCopy = () => {
     const code: string | null | undefined = preRef.current?.textContent;
 
     if (code) {
       toast.promise(copy?.(code), {
-        success: 'Copied!',
-        error: (e: unknown) => (e instanceof Error ? e.message : 'An error occurred'),
+        success: t('messages.success'),
+        error: (e: unknown) => (e instanceof Error ? e.message : t('messages.error')),
       });
 
       setIsCopied(true);
@@ -35,7 +37,7 @@ export default function MdxPre({
       <Button
         variant="outline"
         size="icon"
-        aria-label="Copy"
+        aria-label={t('copyAriaLabel')}
         onClick={handleClickCopy}
         className="absolute top-2 right-2 z-10"
       >

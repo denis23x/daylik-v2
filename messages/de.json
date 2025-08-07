@@ -610,7 +610,10 @@
         },
         "card": {
           "addTeammates": "Teammitglieder hinzufügen",
-          "sync": "Sync"
+          "sync": "Sync",
+          "messages": {
+            "error": "Ein Fehler ist aufgetreten"
+          }
         },
         "cardNew": {
           "title": "Neu",
@@ -676,6 +679,11 @@
         "cardNew": {
           "title": "Neu",
           "subtitle": "Teammitglied hinzufügen"
+        },
+        "card": {
+          "messages": {
+            "error": "Ein Fehler ist aufgetreten"
+          }
         },
         "modal": {
           "insert": {
@@ -963,6 +971,15 @@
     "magicui": {
       "heroVideoDialog": {
         "closeButton": "Video schließen"
+      }
+    },
+    "mdx": {
+      "mdxPre": {
+        "copyAriaLabel": "Kopieren",
+        "messages": {
+          "success": "Kopiert",
+          "error": "Ein Fehler ist aufgetreten"
+        }
       }
     },
     "ui": {

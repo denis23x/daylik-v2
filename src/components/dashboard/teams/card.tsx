@@ -34,7 +34,7 @@ const TeamsCard = ({ team }: { team: Team }) => {
         teammates: teammates.map(({ teammateUUID }) => teammateUUID),
       });
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'An error occurred');
+      toast.error(error instanceof Error ? error.message : t('messages.error'));
     }
   };
 

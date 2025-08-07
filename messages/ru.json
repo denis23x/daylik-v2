@@ -610,7 +610,10 @@
         },
         "card": {
           "addTeammates": "Добавить тиммейтов",
-          "sync": "Начать синк"
+          "sync": "Начать синк",
+          "messages": {
+            "error": "Произошла ошибка"
+          }
         },
         "cardNew": {
           "title": "Новая команда",
@@ -676,6 +679,11 @@
         "cardNew": {
           "title": "Добавить",
           "subtitle": "Новый тиммейт"
+        },
+        "card": {
+          "messages": {
+            "error": "Произошла ошибка"
+          }
         },
         "modal": {
           "insert": {
@@ -963,6 +971,15 @@
     "magicui": {
       "heroVideoDialog": {
         "closeButton": "Закрыть видео"
+      }
+    },
+    "mdx": {
+      "mdxPre": {
+        "copyAriaLabel": "Скопировать",
+        "messages": {
+          "success": "Скопировано",
+          "error": "Произошла ошибка"
+        }
       }
     },
     "ui": {
