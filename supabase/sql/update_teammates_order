@@ -1,0 +1,16 @@
+create or replace function update_teammates_order(
+  p_team_uuid uuid,
+  p_items jsonb
+)
+returns void
+language plpgsql
+set search_path = public
+as $$
+begin
+  update teams_teammates t
+  set "order" = i."order"
+  from jsonb_to_recordset(p_items) as i("teammateUUID" uuid, "order" int)
+  where t."teamUUID" = p_team_uuid
+    and t."teammateUUID" = i."teammateUUID";
+end;
+$$;

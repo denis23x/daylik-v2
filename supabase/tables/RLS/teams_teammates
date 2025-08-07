@@ -6,7 +6,7 @@ USING (
     SELECT 1
     FROM teams
     WHERE teams."UUID" = teams_teammates."teamUUID"
-      AND teams."userUUID" = auth.uid()
+      AND teams."userUUID" = (select auth.uid())
   )
 )
 WITH CHECK (
@@ -14,6 +14,6 @@ WITH CHECK (
     SELECT 1
     FROM teams
     WHERE teams."UUID" = teams_teammates."teamUUID"
-      AND teams."userUUID" = auth.uid()
+      AND teams."userUUID" = (select auth.uid())
   )
 );

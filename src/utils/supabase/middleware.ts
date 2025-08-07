@@ -49,7 +49,7 @@ export const updateSession = async (request: NextRequest, response: NextResponse
     'sync',
     'teammates',
     'teams',
-    'retro',
+    'retros',
     'kanban',
   ].some((segment) => {
     return path.startsWith(segment);

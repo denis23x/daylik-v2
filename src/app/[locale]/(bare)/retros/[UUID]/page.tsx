@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { PageProps } from '@/types/utils/pageProps.type';
-import RetroDock from '@/components/dashboard/retro/dock/dock-suspense';
-import RetroWordcloud from '@/components/dashboard/retro/wordcloud/wordcloud-dynamic';
-import RetroModal from '@/components/dashboard/retro/modal-dynamic';
+import RetroDock from '@/components/dashboard/retros/dock/dock-suspense';
+import RetroWordcloud from '@/components/dashboard/retros/wordcloud/wordcloud-dynamic';
+import RetroModal from '@/components/dashboard/retros/modal-dynamic';
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;

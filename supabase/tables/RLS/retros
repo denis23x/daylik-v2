@@ -1,5 +1,5 @@
 ALTER POLICY "Self"
-ON "public"."teams"
+ON "public"."retros"
 TO authenticated
 USING (
   "userUUID" = (select auth.uid())

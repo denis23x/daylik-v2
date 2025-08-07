@@ -6,7 +6,7 @@ import { useDateFnsLocale } from '@/hooks/ui/useDateFnsLocale';
 import { useMediaQuery } from '@/hooks/ui/useMediaQuery';
 
 // Mobile optimization
-const Wordcloud = lazy(() => import('@/components/dashboard/retro/wordcloud/wordcloud'));
+const Wordcloud = lazy(() => import('@/components/dashboard/retros/wordcloud/wordcloud'));
 
 const RetroWordcloud = () => {
   const sm = useMediaQuery('(min-width: 640px)');

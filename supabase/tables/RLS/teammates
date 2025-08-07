@@ -2,8 +2,8 @@ ALTER POLICY "Self"
 ON "public"."teammates"
 TO authenticated
 USING (
-  "userUUID" = auth.uid()
+  "userUUID" = (select auth.uid())
 )
 WITH CHECK (
-  "userUUID" = auth.uid()
+  "userUUID" = (select auth.uid())
 );

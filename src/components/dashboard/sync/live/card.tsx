@@ -1,6 +1,6 @@
 import { useSyncLiveStore } from '@/store/useSyncLiveStore';
 import { Button } from '@/components/ui/button';
-import { Check, Pause, Play, RefreshCcw, Siren } from 'lucide-react';
+import { Check, Pause, Play, RefreshCw, Siren } from 'lucide-react';
 import { CircularProgress } from '@/components/ui/circular-progress';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -141,7 +141,7 @@ const SyncLiveCard = ({ team, teammate }: { team: SyncTeam; teammate: SyncTeamma
                     exit={{ opacity: 0, scale: 0 }}
                     transition={{ duration: 0.1 }}
                   >
-                    <RefreshCcw />
+                    <RefreshCw />
                   </motion.div>
                 )}
               </AnimatePresence>

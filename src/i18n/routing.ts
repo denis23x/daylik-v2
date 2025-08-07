@@ -71,10 +71,10 @@ export const routing = defineRouting({
       en: '/teams',
       ru: '/команды',
     },
-    '/retro/[UUID]': {
-      de: '/retro/[UUID]',
-      es: '/retro/[UUID]',
-      en: '/retro/[UUID]',
+    '/retros/[UUID]': {
+      de: '/retros/[UUID]',
+      es: '/retros/[UUID]',
+      en: '/retros/[UUID]',
       ru: '/ретро/[UUID]',
     },
     '/legal/cookies-policy': {
