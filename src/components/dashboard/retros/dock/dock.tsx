@@ -10,7 +10,7 @@ import { useRetroStore } from '@/store/useRetroStore';
 import ThemeToggle from '@/components/theme-toggle';
 import LanguageSwitcher from '@/components/language-switcher';
 
-const RetroDock = () => {
+const RetrosDock = () => {
   const { openModal } = useRetroStore();
 
   const handleNotes = () => {
@@ -49,4 +49,4 @@ const RetroDock = () => {
   );
 };
 
-export default RetroDock;
+export default RetrosDock;

@@ -14,7 +14,7 @@ import { useDayPickerLocale } from '@/hooks/ui/useDayPickerLocale';
 import { getCurrentMonthRange } from '@/utils/getCurrentMonthRange';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '../ui/button';
-import { useRetro } from '@/hooks/useRetro';
+import { useRetros } from '@/hooks/useRetros';
 import type { Retro } from '@/types/retro.type';
 
 type ItemByDate = (Analytics & { type: 'analytics' }) | (Retro & { type: 'retros' });
@@ -34,7 +34,7 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
     gte: from,
     lte: to,
   });
-  const { data: retros } = useRetro({ query: `*`, gte: from, lte: to });
+  const { data: retros } = useRetros({ query: `*`, gte: from, lte: to });
 
   // Close sheet when route changes
   useEffect(() => {

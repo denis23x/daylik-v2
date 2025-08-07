@@ -39,7 +39,7 @@ import { useFeedbackStore } from '@/store/useFeedbackStore';
 import LanguageSwitcher from '../language-switcher';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
-import RetroModal from '../dx/retro/modal';
+import RetrosModal from '../dx/retros/modal';
 
 const NavigationSheet = () => {
   const t = useTranslations('components.dashboard.navbar.sheet');
@@ -101,12 +101,12 @@ const NavigationSheet = () => {
             </NavigationMenuItem>
             <Separator />
             <NavigationMenuItem>
-              <RetroModal>
+              <RetrosModal>
                 <div className="flex cursor-pointer items-center gap-2">
                   <Armchair size={16} />
-                  {t('links.retro')}
+                  {t('links.retros')}
                 </div>
-              </RetroModal>
+              </RetrosModal>
             </NavigationMenuItem>
             <Separator />
             <NavigationMenuItem>

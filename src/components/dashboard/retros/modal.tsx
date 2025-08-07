@@ -6,12 +6,12 @@ import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
 
 // Mobile optimization
-const RetroQrCode = dynamic(() => import('./qr-code'));
-const RetroNotesEditor = dynamic(() => import('./editor/editor'));
+const RetrosQrCode = dynamic(() => import('./qr-code'));
+const RetrosNotesEditor = dynamic(() => import('./editor/editor'));
 
-export default function RetroModal() {
+export default function RetrosModal() {
   const { isOpen, closeModal, mode } = useRetroStore();
-  const t = useTranslations('components.dashboard.retro.modal');
+  const t = useTranslations('components.dashboard.retros.modal');
 
   return (
     <ResponsiveDialog
@@ -19,7 +19,7 @@ export default function RetroModal() {
       onOpenChange={(open) => !open && closeModal()}
       title={t(`${mode}.title`)}
       description={t(`${mode}.description`)}
-      content={mode === 'qr' ? <RetroQrCode /> : <RetroNotesEditor />}
+      content={mode === 'qr' ? <RetrosQrCode /> : <RetrosNotesEditor />}
       trigger={undefined}
       left={undefined}
       right={undefined}

@@ -6,10 +6,10 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useWindowSize } from 'usehooks-ts';
 import WordCloud, { type ListEntry } from 'wordcloud';
 
-const RetroWordcloud = () => {
+const RetrosWordcloud = () => {
   const { width = 0, height = 0 } = useWindowSize();
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const t = useTranslations('components.dashboard.retro.wordcloud');
+  const t = useTranslations('components.dashboard.retros.wordcloud');
   const list = useMemo<ListEntry[]>(() => {
     return [
       [t('words.focus'), 5],
@@ -247,4 +247,4 @@ const RetroWordcloud = () => {
   );
 };
 
-export default RetroWordcloud;
+export default RetrosWordcloud;

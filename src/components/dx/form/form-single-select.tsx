@@ -77,7 +77,7 @@ const FormSingleSelect = ({
                     role="combobox"
                     placeholder={defaultPlaceholder}
                     disabled={formState.isSubmitting}
-                    {...field}
+                    value={items.find((item) => item.value === field.value)?.label || ''}
                     readOnly
                   />
                 </FormControl>

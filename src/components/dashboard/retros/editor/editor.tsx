@@ -14,7 +14,7 @@ import { BtnRedo } from './btn-redo';
 import { BtnClearFormatting } from './btn-clean-formatting';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-const RetroNotesEditor = () => {
+const RetrosNotesEditor = () => {
   const [html, setHtml] = useState('');
   const [tab, setTab] = useState('');
 
@@ -57,4 +57,4 @@ const RetroNotesEditor = () => {
   );
 };
 
-export default RetroNotesEditor;
+export default RetrosNotesEditor;

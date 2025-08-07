@@ -28,7 +28,7 @@
         "description": "View detailed team performance analytics. Analyze metrics, reports and statistics to make informed decisions.",
         "keywords": "analytics, statistics, reports, performance, metrics"
       },
-      "retro": {
+      "retros": {
         "title": "Retro",
         "description": "Run a live retrospective with your team. Share feedback, answer questions, and reflect together to improve team collaboration and trust.",
         "keywords": "retro, team retrospective, feedback, team collaboration, live session"
@@ -246,7 +246,7 @@
           }
         }
       },
-      "retro": {
+      "retros": {
         "modal": {
           "notes": {
             "title": "Retro Notes",
@@ -527,7 +527,7 @@
           "links": {
             "teams": "Teams",
             "teammates": "Teammates",
-            "retro": "Retro",
+            "retros": "Retro",
             "settings": "Settings",
             "feedback": "Feedback"
           },
@@ -940,7 +940,7 @@
           "report": "Report"
         }
       },
-      "retro": {
+      "retros": {
         "title": "Retro",
         "description": "A retro session helps reflect on recent work, uncover challenges, and grow as a team.",
         "form": {
@@ -948,13 +948,6 @@
             "label": "Create a new retro",
             "placeholder": "What's your retro called?",
             "required": "Name must be at least 2 characters"
-          },
-          "namePrevious": {
-            "label": "Select from previous retros",
-            "placeholder": "What's your previous retro called?",
-            "required": "Name must be at least 2 characters",
-            "searchPlaceholder": "Search for previous retro..",
-            "emptyMessage": "No retro found"
           }
         },
         "buttons": {

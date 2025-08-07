@@ -8,8 +8,8 @@ export function useTeamsFromAnalytic({
   lte,
 }: {
   query: string;
-  gte: string;
-  lte: string;
+  gte?: string;
+  lte?: string;
 }) {
   return useQuery({
     queryKey: ['analytics', query, gte, lte],

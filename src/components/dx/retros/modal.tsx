@@ -12,8 +12,8 @@ import { createRetroSchema } from './form/form-schema';
 import { RetroFormFields } from './form/form-fields';
 import { useTranslations } from 'next-intl';
 
-export default function RetroModal({ children }: { children: React.ReactNode }) {
-  const t = useTranslations('components.dx.retro');
+export default function RetrosModal({ children }: { children: React.ReactNode }) {
+  const t = useTranslations('components.dx.retros');
   const [isOpen, setIsOpen] = useState(false);
   // const { mutateAsync: sendFeedback } = useSendFeedback();
   const RetroSchema = createRetroSchema(t);
@@ -21,7 +21,6 @@ export default function RetroModal({ children }: { children: React.ReactNode }) 
   const form = useForm<z.infer<typeof RetroSchema>>({
     defaultValues: {
       name: '',
-      namePrevious: '',
     },
     resolver: zodResolver(RetroSchema),
   });

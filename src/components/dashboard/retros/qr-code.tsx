@@ -2,7 +2,7 @@
 
 import QRCode from 'react-qr-code';
 
-const RetroQrCode = () => {
+const RetrosQrCode = () => {
   const rootStyles = getComputedStyle(document.documentElement);
   const fgColor = rootStyles.getPropertyValue('--foreground');
   const bgColor = rootStyles.getPropertyValue('--background');
@@ -21,4 +21,4 @@ const RetroQrCode = () => {
   );
 };
 
-export default RetroQrCode;
+export default RetrosQrCode;

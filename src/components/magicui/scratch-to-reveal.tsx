@@ -24,7 +24,7 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isScratching, setIsScratching] = useState(false);
   const controls = useAnimation();
-  const t = useTranslations('components.dashboard.retro.wordcloud');
+  const t = useTranslations('components.dashboard.retros.wordcloud');
   const { resolvedTheme } = useTheme();
 
   useEffect(() => {

@@ -28,7 +28,7 @@
         "description": "Ver analíticas detalladas del rendimiento del equipo. Analizar métricas, reportes y estadísticas para tomar decisiones informadas.",
         "keywords": "analíticas, estadísticas, reportes, rendimiento, métricas"
       },
-      "retro": {
+      "retros": {
         "title": "Retro",
         "description": "Dirige una retrospectiva en vivo con tu equipo. Comparte opiniones, responde preguntas y reflexiona en conjunto para fortalecer la colaboración y la confianza del equipo.",
         "keywords": "retro, retrospectiva de equipo, retroalimentación, colaboración, sesión en vivo"
@@ -246,7 +246,7 @@
           }
         }
       },
-      "retro": {
+      "retros": {
         "modal": {
           "notes": {
             "title": "Notas del retro",
@@ -527,7 +527,7 @@
           "links": {
             "teams": "Equipos",
             "teammates": "Compañeros",
-            "retro": "Retro",
+            "retros": "Retro",
             "settings": "Configuración",
             "feedback": "Comentarios"
           },
@@ -940,7 +940,7 @@
           "report": "Reportar"
         }
       },
-      "retro": {
+      "retros": {
         "title": "Retro",
         "description": "Una sesión retro permite reflexionar sobre el trabajo reciente, identificar desafíos y fortalecer al equipo.",
         "form": {
@@ -948,13 +948,6 @@
             "label": "Cree un nuevo retro",
             "placeholder": "¿Cómo se llama tu retro?",
             "required": "El nombre debe tener al menos 2 caracteres"
-          },
-          "namePrevious": {
-            "label": "Selecciona entre retros anteriores",
-            "placeholder": "¿Cómo se llamaba tu retro anterior?",
-            "required": "El nombre debe tener al menos 2 caracteres",
-            "searchPlaceholder": "Buscar retros anteriores..",
-            "emptyMessage": "No se encontró ningún retro"
           }
         },
         "buttons": {

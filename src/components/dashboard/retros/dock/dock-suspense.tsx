@@ -1,14 +1,14 @@
 'use client';
 
 import { Suspense } from 'react';
-import RetroDock from './dock';
+import RetrosDock from './dock';
 
-const RetroDockSuspense = () => {
+const RetrosDockSuspense = () => {
   return (
     <Suspense>
-      <RetroDock />
+      <RetrosDock />
     </Suspense>
   );
 };
 
-export default RetroDockSuspense;
+export default RetrosDockSuspense;

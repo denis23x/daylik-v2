@@ -8,7 +8,7 @@ import { useMediaQuery } from '@/hooks/ui/useMediaQuery';
 // Mobile optimization
 const Wordcloud = lazy(() => import('@/components/dashboard/retros/wordcloud/wordcloud'));
 
-const RetroWordcloud = () => {
+const RetrosWordcloud = () => {
   const sm = useMediaQuery('(min-width: 640px)');
   const [now, setNow] = useState(new Date());
   const locale = useDateFnsLocale();
@@ -35,4 +35,4 @@ const RetroWordcloud = () => {
   return <Suspense>{sm ? DesktopWords : MobileWords}</Suspense>;
 };
 
-export default RetroWordcloud;
+export default RetrosWordcloud;

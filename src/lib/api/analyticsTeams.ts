@@ -5,8 +5,8 @@ import { getSession } from '../session';
 
 type GetTeamsFromAnalyticParams = {
   query: string;
-  gte: string;
-  lte: string;
+  gte?: string;
+  lte?: string;
 };
 
 export async function fetchTeamsFromAnalytic({
@@ -18,8 +18,8 @@ export async function fetchTeamsFromAnalytic({
   const { data, error } = (await supabase
     .from('analytics')
     .select(query)
-    .gte('createdAt', gte)
-    .lte('createdAt', lte)
+    .gte('createdAt', gte || new Date(0).toISOString())
+    .lte('createdAt', lte || new Date().toISOString())
     .eq('userUUID', session?.user.id)) as SupabaseQueryResult<AnalyticsTeamWithRelations[]>;
   if (error) throw error;
   return data || [];
