@@ -11,11 +11,15 @@ import { Form as FormProvider } from '@/components/ui/form';
 import { createRetroSchema } from './form/form-schema';
 import { RetroFormFields } from './form/form-fields';
 import { useTranslations } from 'next-intl';
+import { useCreateRetro } from '@/hooks/useRetros';
+import { toast } from 'sonner';
+import { useRouter } from '@/i18n/navigation';
 
 export default function RetrosModal({ children }: { children: React.ReactNode }) {
   const t = useTranslations('components.dx.retros');
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  // const { mutateAsync: sendFeedback } = useSendFeedback();
+  const { mutateAsync: createRetro } = useCreateRetro();
   const RetroSchema = createRetroSchema(t);
 
   const form = useForm<z.infer<typeof RetroSchema>>({
@@ -35,16 +39,23 @@ export default function RetrosModal({ children }: { children: React.ReactNode })
   }, [form, isOpen]);
 
   const handleSubmit = async (formData: z.infer<typeof RetroSchema>) => {
-    console.log(formData);
-    // try {
-    //   await sendFeedback({ ...formData });
-    //   // Close modal
-    //   closeModal();
-    //   // Show message
-    //   toast.success(t('messages.success'));
-    // } catch (error) {
-    //   toast.error(error instanceof Error ? error.message : t('messages.error'));
-    // }
+    try {
+      const retro = await createRetro({ ...formData });
+
+      // Close modal
+      setIsOpen(false);
+
+      // Redirect
+      router.push({
+        pathname: '/retros/[UUID]',
+        params: { UUID: retro.UUID },
+      });
+
+      // Show message
+      toast.success(t('messages.success'));
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : t('messages.error'));
+    }
   };
 
   return (

@@ -116,42 +116,44 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
               <ul className="flex w-full flex-col gap-2 p-3">
                 {itemsByDate.map((item) =>
                   item.type === 'analytics' ? (
-                    <li key={item.UUID}>
+                    <li className="flex items-center justify-between gap-2" key={item.UUID}>
                       <Link
                         href={{
                           pathname: '/analytics/[UUID]',
                           params: { UUID: item.UUID },
                         }}
-                        className={cn(buttonVariants({ variant: 'secondary' }), 'w-full')}
+                        className={cn(
+                          buttonVariants({ variant: 'secondary', size: 'sm' }),
+                          'flex-1 gap-2'
+                        )}
                       >
                         <RefreshCw />
-                        <p className="inline flex-1 align-middle">
-                          <span className="font-medium">
-                            {item.team?.name}{' '}
-                            <span className="text-muted-foreground text-xs">
-                              {format(item.startedAt, 'HH:mm')}
-                            </span>
+                        <p className="flex flex-1 items-center gap-2">
+                          <span className="font-medium">{item.team?.name} </span>
+                          <span className="text-muted-foreground text-xs">
+                            {format(item.startedAt, 'HH:mm')}
                           </span>
                         </p>
                         <ArrowRight />
                       </Link>
                     </li>
                   ) : (
-                    <li key={item.UUID}>
+                    <li className="flex items-center justify-between gap-2" key={item.UUID}>
                       <Link
                         href={{
                           pathname: '/retros/[UUID]',
                           params: { UUID: item.UUID },
                         }}
-                        className={cn(buttonVariants({ variant: 'secondary' }), 'w-full')}
+                        className={cn(
+                          buttonVariants({ variant: 'secondary', size: 'sm' }),
+                          'flex-1 gap-2'
+                        )}
                       >
                         <Armchair />
-                        <p className="inline flex-1 align-middle">
-                          <span className="font-medium">
-                            {item.name}{' '}
-                            <span className="text-muted-foreground text-xs">
-                              {format(item.createdAt, 'HH:mm')}
-                            </span>
+                        <p className="flex flex-1 items-center gap-2">
+                          <span className="font-medium">{item.name} </span>
+                          <span className="text-muted-foreground text-xs">
+                            {format(item.createdAt, 'HH:mm')}
                           </span>
                         </p>
                         <ArrowRight />

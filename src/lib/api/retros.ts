@@ -20,3 +20,9 @@ export async function fetchRetros({ query, lte, gte }: FetchRetrosParams): Promi
   if (error) throw error;
   return data || [];
 }
+
+export async function createRetro(retro: Pick<Retro, 'name'>): Promise<Retro> {
+  const { data, error } = await supabase.from('retros').insert(retro).select().single();
+  if (error) throw error;
+  return data;
+}

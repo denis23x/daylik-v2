@@ -25,7 +25,7 @@ export function useTeammatesFromTeam({ query, UUID }: { query: string; UUID: str
     queryKey: ['teams_teammates', UUID],
     queryFn: () => fetchTeammatesFromTeam({ query, UUID }),
     staleTime: 1000 * 60 * 5,
-    enabled: !!UUID,
+    enabled: false,
   });
 }
 
@@ -56,7 +56,7 @@ export function useTeamsToTeammate({ query, UUID }: { query: string; UUID: strin
     queryKey: ['teams_teammates', UUID],
     queryFn: () => fetchTeamsToTeammate({ query, UUID }),
     staleTime: 1000 * 60 * 5,
-    enabled: !!UUID,
+    enabled: false,
   });
 }
 
