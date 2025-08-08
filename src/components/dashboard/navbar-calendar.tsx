@@ -30,11 +30,11 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
   const [retrosByDate, setRetrosByDate] = useState<Retro[]>([]);
   const [itemsByDate, setItemsByDate] = useState<ItemByDate[]>([]);
   const { data: analytics } = useTeamsFromAnalytic({
-    query: `*, teams (UUID, name)`,
+    query: '*, teams (UUID, name)',
     gte: from,
     lte: to,
   });
-  const { data: retros } = useRetros({ query: `*`, gte: from, lte: to });
+  const { data: retros } = useRetros({ query: '*', gte: from, lte: to });
 
   // Close sheet when route changes
   useEffect(() => {

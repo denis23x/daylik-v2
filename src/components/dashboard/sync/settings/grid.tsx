@@ -56,7 +56,7 @@ const SyncSettingsGrid = () => {
   const { mutate: updateTeammatesOrder } = useUpdateTeammatesInTeam();
   const { indexes: teammatesIndexes } = useChangedIndexes(teammates);
   const { data, isLoading, error } = useSync({
-    query: `*, teams_teammates (order, teammates (UUID, name, role, color, avatar))`,
+    query: '*, teams_teammates (order, teammates (UUID, name, role, color, avatar))',
     UUID: params.UUID as string,
     enabled: true,
   });

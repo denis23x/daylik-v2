@@ -21,8 +21,23 @@ export async function fetchRetros({ query, lte, gte }: FetchRetrosParams): Promi
   return data || [];
 }
 
-export async function createRetro(retro: Pick<Retro, 'name'>): Promise<Retro> {
+export async function createRetro(retro: Pick<Retro, 'name' | 'body'>): Promise<Retro> {
   const { data, error } = await supabase.from('retros').insert(retro).select().single();
+  if (error) throw error;
+  return data;
+}
+
+export async function updateRetro(
+  retro: Pick<Retro, 'UUID'> & Partial<Pick<Retro, 'name' | 'body'>>
+): Promise<Retro> {
+  const session = await getSession();
+  const { data, error } = await supabase
+    .from('retros')
+    .update(retro)
+    .eq('UUID', retro.UUID)
+    .eq('userUUID', session?.user.id)
+    .select()
+    .single();
   if (error) throw error;
   return data;
 }

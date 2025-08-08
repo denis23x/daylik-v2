@@ -1,5 +1,6 @@
 export type RetroMessage = {
   UUID: string;
   retroUUID: string;
-  content: string;
+  name: string;
+  description: string | null;
 };

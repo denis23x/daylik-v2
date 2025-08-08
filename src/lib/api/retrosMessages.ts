@@ -20,7 +20,7 @@ export async function fetchRetrosMessages({
 }
 
 export async function createRetroMessage(
-  retroMessage: Pick<RetroMessage, 'retroUUID' | 'content'>
+  retroMessage: Pick<RetroMessage, 'retroUUID' | 'name' | 'description'>
 ): Promise<RetroMessage> {
   const { data, error } = await supabase
     .from('retros_messages')

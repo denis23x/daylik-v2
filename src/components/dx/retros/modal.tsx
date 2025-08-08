@@ -25,6 +25,7 @@ export default function RetrosModal({ children }: { children: React.ReactNode })
   const form = useForm<z.infer<typeof RetroSchema>>({
     defaultValues: {
       name: '',
+      body: null,
     },
     resolver: zodResolver(RetroSchema),
   });

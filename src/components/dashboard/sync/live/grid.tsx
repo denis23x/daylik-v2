@@ -42,7 +42,7 @@ const SyncLiveGrid = () => {
   const { team, teammates, active, setTeam, setTeammates, setActive, shuffle } = useSyncLiveStore();
   const { scrollTo } = useAutoScroll();
   const { isLoading, error, refetch } = useSync({
-    query: `*, teams_teammates (order, teammates (UUID, name, role, color, avatar))`,
+    query: '*, teams_teammates (order, teammates (UUID, name, role, color, avatar))',
     UUID: params.UUID as string,
     enabled: false,
   });

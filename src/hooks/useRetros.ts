@@ -1,4 +1,4 @@
-import { createRetro, fetchRetros } from '@/lib/api/retros';
+import { createRetro, fetchRetros, updateRetro } from '@/lib/api/retros';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useRetros({ query, gte, lte }: { query: string; gte?: string; lte?: string }) {
@@ -13,6 +13,16 @@ export function useCreateRetro() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: createRetro,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['retros'] });
+    },
+  });
+}
+
+export function useUpdateRetro() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: updateRetro,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['retros'] });
     },
