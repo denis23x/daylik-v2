@@ -20,11 +20,10 @@ export function useCreateRetro() {
 }
 
 export function useUpdateRetro() {
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: updateRetro,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['retros'] });
+      // TODO: invalidate queries ???
     },
   });
 }

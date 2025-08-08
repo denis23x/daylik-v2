@@ -9,6 +9,7 @@ import { Skeleton } from './ui/skeleton';
 import { useLocale, useTranslations } from 'next-intl';
 import { LOCALES } from '@/lib/constants';
 import { useParams, useSearchParams } from 'next/navigation';
+import type { PageParams } from '@/types/utils/pageParams.type';
 
 const LanguageSwitcher = ({
   variant,
@@ -20,7 +21,7 @@ const LanguageSwitcher = ({
   const t = useTranslations('components.languageSwitcher');
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
-  const params = useParams<{ UUID: string }>();
+  const params = useParams<PageParams>();
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const locale = useLocale();

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Editor, { type ContentEditableEvent, Separator, Toolbar } from 'react-simple-wysiwyg';
 import { BtnLink } from './btn-link';
 import { BtnNumberedList } from './btn-numbered-list';
@@ -12,30 +12,93 @@ import { BtnBold } from './btn-bold';
 import { BtnUndo } from './btn-undo';
 import { BtnRedo } from './btn-redo';
 import { BtnClearFormatting } from './btn-clean-formatting';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useRetros } from '@/hooks/useRetros';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Input } from '@/components/ui/input';
+import { useParams } from 'next/navigation';
+import type { PageParams } from '@/types/utils/pageParams.type';
+import type { Retro } from '@/types/retro.type';
+import { Skeleton } from '@/components/ui/skeleton';
+import { format } from 'date-fns';
+import { useDateFnsLocale } from '@/hooks/ui/useDateFnsLocale';
 
 const RetrosNotesEditor = () => {
-  const [html, setHtml] = useState('');
-  const [tab, setTab] = useState('');
+  const locale = useDateFnsLocale();
+  const { data } = useRetros({ query: '*' });
+  const params = useParams<PageParams>();
+  const [body, setBody] = useState('');
+  const [name, setName] = useState('');
+  const [retro, setRetro] = useState<Retro | null>(null);
 
-  const handleTabsChange = (value: string) => {
-    setTab(value);
-  };
+  useEffect(() => {
+    const retro = data?.find((retro) => retro.UUID === params.UUID);
 
-  const handleChange = (event: ContentEditableEvent) => {
-    setHtml(event.target.value);
+    // Set active retro
+    setRetro(retro || null);
+  }, [data, params]);
+
+  useEffect(() => {
+    if (retro) {
+      setName(retro.name);
+      setBody(retro.body || '');
+    }
+  }, [retro]);
+
+  const handleRetroChange = (UUID: string) => {
+    const retro = data?.find((retro) => retro.UUID === UUID);
+
+    // Set active retro
+    setRetro(retro || null);
   };
 
   return (
-    <Tabs className="mb-4 w-full sm:mb-0" value={tab} onValueChange={handleTabsChange}>
-      <TabsList className="grid w-full grid-cols-5">
-        <TabsTrigger value="1">June 20</TabsTrigger>
-        <TabsTrigger value="2">June 27</TabsTrigger>
-        <TabsTrigger value="3">Jule 13</TabsTrigger>
-        <TabsTrigger value="4">Jule 20</TabsTrigger>
-        <TabsTrigger value="5">Aug 03</TabsTrigger>
-      </TabsList>
-      <Editor value={html} onChange={handleChange} placeholder="..." className="prose min-h-64">
+    <div className="flex flex-col gap-4">
+      {data ? (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Input
+              type="text"
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              readOnly
+            />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="dropdown-content-width-full">
+            <DropdownMenuRadioGroup value={retro?.UUID} onValueChange={handleRetroChange}>
+              {data.map((retro) => (
+                <DropdownMenuRadioItem
+                  className="hover:bg-muted cursor-pointer rounded-sm text-sm transition-colors"
+                  key={retro.UUID}
+                  value={retro.UUID}
+                >
+                  <div className="flex w-full items-center justify-between">
+                    {retro.name}
+                    <span className="text-muted-foreground text-sx block">
+                      {format(new Date(retro.createdAt as string), 'EEEE, do MMMM', {
+                        locale,
+                      })}
+                    </span>
+                  </div>
+                </DropdownMenuRadioItem>
+              ))}
+            </DropdownMenuRadioGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ) : (
+        <Skeleton className="h-9 w-full rounded-md" />
+      )}
+      <Editor
+        value={body}
+        onChange={(event: ContentEditableEvent) => setBody(event.target.value)}
+        placeholder="..."
+        className="prose min-h-64"
+      >
         <Toolbar>
           <BtnUndo />
           <BtnRedo />
@@ -53,7 +116,7 @@ const RetrosNotesEditor = () => {
           <BtnClearFormatting />
         </Toolbar>
       </Editor>
-    </Tabs>
+    </div>
   );
 };
 
