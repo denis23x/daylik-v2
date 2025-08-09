@@ -34,7 +34,11 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
     gte: from,
     lte: to,
   });
-  const { data: retros } = useRetros({ query: '*', gte: from, lte: to });
+  const { data: retros } = useRetros({
+    query: 'UUID, name, createdAt',
+    gte: from,
+    lte: to,
+  });
 
   // Close sheet when route changes
   useEffect(() => {

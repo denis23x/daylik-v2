@@ -247,6 +247,21 @@
         }
       },
       "retros": {
+        "editor": {
+          "bold": "Negrita",
+          "bulletList": "Lista con viñetas",
+          "clearFormatting": "Quitar formato",
+          "italic": "Cursiva",
+          "link": "Enlace",
+          "numberedList": "Lista numerada",
+          "strikeThrough": "Tachado",
+          "underline": "Subrayado",
+          "redo": "Rehacer",
+          "undo": "Deshacer",
+          "blockquote": "Cita",
+          "highlight": "Resaltar",
+          "horizontalRule": "Línea horizontal"
+        },
         "modal": {
           "notes": {
             "title": "Notas del retro",

@@ -1,18 +1,23 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import Editor, { type ContentEditableEvent, Separator, Toolbar } from 'react-simple-wysiwyg';
-import { BtnLink } from './btn-link';
-import { BtnNumberedList } from './btn-numbered-list';
-import { BtnBulletList } from './btn-bullet-list';
-import { BtnStrikeThrough } from './btn-strike-through';
-import { BtnUnderline } from './btn-underline';
-import { BtnItalic } from './btn-italic';
-import { BtnBold } from './btn-bold';
-import { BtnUndo } from './btn-undo';
-import { BtnRedo } from './btn-redo';
-import { BtnClearFormatting } from './btn-clean-formatting';
-import { useRetros } from '@/hooks/useRetros';
+import {
+  BtnNumberedList,
+  BtnBulletList,
+  BtnStrikeThrough,
+  BtnUnderline,
+  BtnItalic,
+  BtnBold,
+  BtnUndo,
+  BtnRedo,
+  BtnClearFormatting,
+  BtnHighlight,
+  BtnHorizontalRule,
+  BtnQuote,
+} from './buttons';
+import { BtnFontSize } from './buttons-font-size';
+import { useRetros, useUpdateRetro } from '@/hooks/useRetros';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,99 +28,135 @@ import {
 import { Input } from '@/components/ui/input';
 import { useParams } from 'next/navigation';
 import type { PageParams } from '@/types/utils/pageParams.type';
-import type { Retro } from '@/types/retro.type';
 import { Skeleton } from '@/components/ui/skeleton';
-import { format } from 'date-fns';
-import { useDateFnsLocale } from '@/hooks/ui/useDateFnsLocale';
+import { intlFormatDistance } from 'date-fns';
+import { useRetroStore } from '@/store/useRetroStore';
+import { Button } from '@/components/ui/button';
+import { Loader, Menu } from 'lucide-react';
+import type { Retro } from '@/types/retro.type';
+import { useLocale, useTranslations } from 'next-intl';
+import { useDebounceCallback } from 'usehooks-ts';
+import { EditorProvider } from './editor-context';
+import { Badge } from '@/components/ui/badge';
+
+// TODO: env
+const DEBOUNCE = 1000;
 
 const RetrosNotesEditor = () => {
-  const locale = useDateFnsLocale();
+  const t = useTranslations('components.dashboard.retros.editor');
+  const locale = useLocale();
   const { data } = useRetros({ query: '*' });
+  const { mutate, isPending } = useUpdateRetro();
+  const { retros, active, setRetros, setActive, setUpdate } = useRetroStore();
   const params = useParams<PageParams>();
-  const [body, setBody] = useState('');
-  const [name, setName] = useState('');
-  const [retro, setRetro] = useState<Retro | null>(null);
+  const retro = useMemo(() => retros.find((r) => r.UUID === active), [retros, active]);
+  const debounce = useRef(useDebounceCallback((r) => mutate(r), DEBOUNCE));
 
   useEffect(() => {
-    const retro = data?.find((retro) => retro.UUID === params.UUID);
-
-    // Set active retro
-    setRetro(retro || null);
-  }, [data, params]);
-
-  useEffect(() => {
-    if (retro) {
-      setName(retro.name);
-      setBody(retro.body || '');
+    if (data) {
+      setRetros(data);
     }
-  }, [retro]);
+  }, [data, setRetros]);
 
-  const handleRetroChange = (UUID: string) => {
-    const retro = data?.find((retro) => retro.UUID === UUID);
+  useEffect(() => {
+    const { UUID } = params;
 
-    // Set active retro
-    setRetro(retro || null);
+    if (UUID) {
+      setActive(UUID);
+    }
+  }, [params, setActive]);
+
+  const handleChange = (retro: Partial<Retro>) => {
+    if (active) {
+      setUpdate(active, { ...retro });
+
+      // Update database
+      debounce.current({
+        UUID: active,
+        ...retro,
+      });
+    }
   };
 
   return (
     <div className="flex flex-col gap-4">
-      {data ? (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Input
-              type="text"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-              readOnly
-            />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start" className="dropdown-content-width-full">
-            <DropdownMenuRadioGroup value={retro?.UUID} onValueChange={handleRetroChange}>
-              {data.map((retro) => (
-                <DropdownMenuRadioItem
-                  className="hover:bg-muted cursor-pointer rounded-sm text-sm transition-colors"
-                  key={retro.UUID}
-                  value={retro.UUID}
-                >
-                  <div className="flex w-full items-center justify-between">
-                    {retro.name}
-                    <span className="text-muted-foreground text-sx block">
-                      {format(new Date(retro.createdAt as string), 'EEEE, do MMMM', {
-                        locale,
-                      })}
-                    </span>
-                  </div>
-                </DropdownMenuRadioItem>
-              ))}
-            </DropdownMenuRadioGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
+      {retro && active ? (
+        <div className="flex items-center justify-start gap-4">
+          <Input
+            type="text"
+            inputMode="text"
+            spellCheck="false"
+            autoCapitalize="none"
+            value={retro.name}
+            onChange={(event) => handleChange({ name: event.target.value })}
+          />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="icon">
+                <Menu />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuRadioGroup value={active} onValueChange={setActive}>
+                {retros &&
+                  retros.map((retro) => (
+                    <DropdownMenuRadioItem
+                      className="hover:bg-muted cursor-pointer rounded-sm text-sm transition-colors"
+                      key={retro.UUID}
+                      value={retro.UUID}
+                    >
+                      <div className="flex w-full items-center justify-between gap-4">
+                        {retro.name}
+                        <Badge>
+                          {intlFormatDistance(new Date(retro.createdAt as string), new Date(), {
+                            locale,
+                          })}
+                        </Badge>
+                      </div>
+                    </DropdownMenuRadioItem>
+                  ))}
+              </DropdownMenuRadioGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       ) : (
         <Skeleton className="h-9 w-full rounded-md" />
       )}
-      <Editor
-        value={body}
-        onChange={(event: ContentEditableEvent) => setBody(event.target.value)}
-        placeholder="..."
-        className="prose min-h-64"
-      >
-        <Toolbar>
-          <BtnUndo />
-          <BtnRedo />
-          <Separator />
-          <BtnBold />
-          <BtnItalic />
-          <BtnUnderline />
-          <BtnStrikeThrough />
-          <Separator />
-          <BtnBulletList />
-          <BtnNumberedList />
-          <Separator />
-          <BtnLink />
-          <Separator />
-          <BtnClearFormatting />
-        </Toolbar>
-      </Editor>
+      <div className="relative">
+        <EditorProvider>
+          <Editor
+            value={retro?.body || ''}
+            onChange={(event: ContentEditableEvent) => handleChange({ body: event.target.value })}
+            placeholder="..."
+            className="prose max-h-96 min-h-64"
+          >
+            <Toolbar>
+              <BtnUndo />
+              <BtnRedo />
+              <Separator />
+              <BtnFontSize />
+              <Separator />
+              <BtnBold title={t('bold')} />
+              <BtnItalic />
+              <BtnUnderline />
+              <BtnStrikeThrough />
+              <Separator />
+              <BtnBulletList />
+              <BtnNumberedList />
+              <Separator />
+              <BtnQuote />
+              <BtnHighlight />
+              <BtnClearFormatting />
+              <BtnHorizontalRule />
+            </Toolbar>
+          </Editor>
+        </EditorProvider>
+        {isPending && (
+          <div className="text-muted-foreground absolute right-4 bottom-4 animate-spin opacity-50">
+            <Loader className="size-4" />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

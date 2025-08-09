@@ -24,7 +24,7 @@ export default function RetrosModal() {
       left={undefined}
       right={undefined}
       showClose={false}
-      maxWidth={mode === 'qr' ? 'sm:max-w-sm' : 'sm:max-w-xl'}
+      maxWidth={mode === 'qr' ? 'sm:max-w-sm' : 'sm:max-w-2xl'}
     />
   );
 }

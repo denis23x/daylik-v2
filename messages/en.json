@@ -247,6 +247,21 @@
         }
       },
       "retros": {
+        "editor": {
+          "bold": "Bold",
+          "bulletList": "Bullet list",
+          "clearFormatting": "Clear formatting",
+          "italic": "Italic",
+          "link": "Link",
+          "numberedList": "Numbered list",
+          "strikeThrough": "Strike through",
+          "underline": "Underline",
+          "redo": "Redo",
+          "undo": "Undo",
+          "blockquote": "Blockquote",
+          "highlight": "Highlight",
+          "horizontalRule": "Horizontal rule"
+        },
         "modal": {
           "notes": {
             "title": "Retro Notes",

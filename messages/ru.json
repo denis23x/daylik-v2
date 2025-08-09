@@ -247,6 +247,21 @@
         }
       },
       "retros": {
+        "editor": {
+          "bold": "Жирный",
+          "bulletList": "Маркированный список",
+          "clearFormatting": "Очистить форматирование",
+          "italic": "Курсив",
+          "link": "Ссылка",
+          "numberedList": "Нумерованный список",
+          "strikeThrough": "Зачёркнутый",
+          "underline": "Подчёркнутый",
+          "redo": "Повторить",
+          "undo": "Отменить",
+          "blockquote": "Цитата",
+          "highlight": "Выделение",
+          "horizontalRule": "Горизонтальная линия"
+        },
         "modal": {
           "notes": {
             "title": "Заметки ретро",

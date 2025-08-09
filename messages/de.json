@@ -247,6 +247,21 @@
         }
       },
       "retros": {
+        "editor": {
+          "bold": "Fett",
+          "bulletList": "Aufzählung",
+          "clearFormatting": "Formatierung löschen",
+          "italic": "Kursiv",
+          "link": "Link",
+          "numberedList": "Nummerierte Liste",
+          "strikeThrough": "Durchgestrichen",
+          "underline": "Unterstrichen",
+          "redo": "Wiederholen",
+          "undo": "Rückgängig",
+          "blockquote": "Zitat",
+          "highlight": "Markieren",
+          "horizontalRule": "Horizontale Linie"
+        },
         "modal": {
           "notes": {
             "title": "Retro-Notizen",
