@@ -260,7 +260,8 @@
           "undo": "Rückgängig",
           "blockquote": "Zitat",
           "highlight": "Markieren",
-          "horizontalRule": "Horizontale Linie"
+          "horizontalRule": "Horizontale Linie",
+          "fontSize": "Schriftgröße"
         },
         "modal": {
           "notes": {
@@ -272,9 +273,13 @@
             "description": "Deine Teammitglieder können den QR-Code scannen und während des Retros anonym Fragen stellen."
           }
         },
+        "qrCode": {
+          "alert": {
+            "title": "Hinweis",
+            "description": "Nachrichten können 24 Stunden lang nach Start des Retros gesendet werden."
+          }
+        },
         "wordcloud": {
-          "title": "Brauchst du Themen für Gespräche?",
-          "description": "Kratzen zum Enthüllen",
           "words": {
             "focus": "Fokus",
             "clarity": "Klarheit",

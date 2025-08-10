@@ -18,65 +18,120 @@ export const BtnBold = ({
   return <ButtonComponent {...props} />;
 };
 
-export const BtnBulletList = createButton(
-  'Bullet list',
-  <List className="size-4" />,
-  'insertUnorderedList'
-);
+export const BtnBulletList = ({
+  title,
+  ...props
+}: { title: string } & React.HTMLAttributes<HTMLButtonElement>) => {
+  const ButtonComponent = createButton(title, <List className="size-4" />, 'insertUnorderedList');
+  return <ButtonComponent {...props} />;
+};
 
-export const BtnClearFormatting = createButton(
-  'Clear formatting',
-  <BrushCleaning className="size-4" />,
-  'removeFormat'
-);
+export const BtnClearFormatting = ({
+  title,
+  ...props
+}: { title: string } & React.HTMLAttributes<HTMLButtonElement>) => {
+  const ButtonComponent = createButton(title, <BrushCleaning className="size-4" />, 'removeFormat');
+  return <ButtonComponent {...props} />;
+};
 
-export const BtnItalic = createButton('Italic', <Italic className="size-4" />, 'italic');
+export const BtnItalic = ({
+  title,
+  ...props
+}: { title: string } & React.HTMLAttributes<HTMLButtonElement>) => {
+  const ButtonComponent = createButton(title, <Italic className="size-4" />, 'italic');
+  return <ButtonComponent {...props} />;
+};
 
-export const BtnLink = createButton('Link', <Link className="size-4" />, ({ $selection }) => {
-  if ($selection?.nodeName === 'A') {
-    document.execCommand('unlink');
-  } else {
-    document.execCommand('createLink', false, prompt('URL', '') || undefined);
-  }
-});
+export const BtnLink = ({
+  title,
+  ...props
+}: { title: string } & React.HTMLAttributes<HTMLButtonElement>) => {
+  const ButtonComponent = createButton(title, <Link className="size-4" />, ({ $selection }) => {
+    if ($selection?.nodeName === 'A') {
+      document.execCommand('unlink');
+    } else {
+      document.execCommand('createLink', false, prompt('URL', '') || undefined);
+    }
+  });
+  return <ButtonComponent {...props} />;
+};
 
-export const BtnNumberedList = createButton(
-  'Numbered list',
-  <ListOrdered className="size-4" />,
-  'insertOrderedList'
-);
+export const BtnNumberedList = ({
+  title,
+  ...props
+}: { title: string } & React.HTMLAttributes<HTMLButtonElement>) => {
+  const ButtonComponent = createButton(
+    title,
+    <ListOrdered className="size-4" />,
+    'insertOrderedList'
+  );
+  return <ButtonComponent {...props} />;
+};
 
-export const BtnStrikeThrough = createButton(
-  'Strike through',
-  <Strikethrough className="size-4" />,
-  'strikeThrough'
-);
+export const BtnStrikeThrough = ({
+  title,
+  ...props
+}: { title: string } & React.HTMLAttributes<HTMLButtonElement>) => {
+  const ButtonComponent = createButton(
+    title,
+    <Strikethrough className="size-4" />,
+    'strikeThrough'
+  );
+  return <ButtonComponent {...props} />;
+};
 
-export const BtnUnderline = createButton(
-  'Underline',
-  <Underline className="size-4" />,
-  'underline'
-);
+export const BtnUnderline = ({
+  title,
+  ...props
+}: { title: string } & React.HTMLAttributes<HTMLButtonElement>) => {
+  const ButtonComponent = createButton(title, <Underline className="size-4" />, 'underline');
+  return <ButtonComponent {...props} />;
+};
 
-export const BtnUndo = createButton('Undo', <Undo2 className="size-4" />, 'undo');
+export const BtnUndo = ({
+  title,
+  ...props
+}: { title: string } & React.HTMLAttributes<HTMLButtonElement>) => {
+  const ButtonComponent = createButton(title, <Undo2 className="size-4" />, 'undo');
+  return <ButtonComponent {...props} />;
+};
 
-export const BtnRedo = createButton('Redo', <Redo2 className="size-4" />, 'redo');
+export const BtnRedo = ({
+  title,
+  ...props
+}: { title: string } & React.HTMLAttributes<HTMLButtonElement>) => {
+  const ButtonComponent = createButton(title, <Redo2 className="size-4" />, 'redo');
+  return <ButtonComponent {...props} />;
+};
 
-export const BtnQuote = createButton('Blockquote', <Quote className="size-4" />, () => {
-  document.execCommand('formatBlock', false, 'blockquote');
-});
+export const BtnQuote = ({
+  title,
+  ...props
+}: { title: string } & React.HTMLAttributes<HTMLButtonElement>) => {
+  const ButtonComponent = createButton(title, <Quote className="size-4" />, () => {
+    document.execCommand('formatBlock', false, 'blockquote');
+  });
+  return <ButtonComponent {...props} />;
+};
 
-export const BtnHighlight = createButton('Highlight', <Highlighter className="size-4" />, () => {
-  const rootStyles = getComputedStyle(document.documentElement);
-  const destructiveColor = rootStyles.getPropertyValue('--destructive');
+export const BtnHighlight = ({
+  title,
+  ...props
+}: { title: string } & React.HTMLAttributes<HTMLButtonElement>) => {
+  const ButtonComponent = createButton(title, <Highlighter className="size-4" />, () => {
+    const rootStyles = getComputedStyle(document.documentElement);
+    const destructiveColor = rootStyles.getPropertyValue('--destructive');
+    document.execCommand('hiliteColor', false, destructiveColor);
+  });
+  return <ButtonComponent {...props} />;
+};
 
-  document.execCommand('hiliteColor', false, destructiveColor);
-});
-
-export const BtnHorizontalRule = createButton(
-  'Horizontal rule',
-  <Minus className="size-4" />,
-  () => {
+export const BtnHorizontalRule = ({
+  title,
+  ...props
+}: { title: string } & React.HTMLAttributes<HTMLButtonElement>) => {
+  const ButtonComponent = createButton(title, <Minus className="size-4" />, () => {
     document.execCommand('insertHorizontalRule');
-  }
-);
+  });
+  return <ButtonComponent {...props} />;
+};

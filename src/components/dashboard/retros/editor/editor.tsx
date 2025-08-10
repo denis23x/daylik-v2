@@ -29,22 +29,19 @@ import { Input } from '@/components/ui/input';
 import { useParams } from 'next/navigation';
 import type { PageParams } from '@/types/utils/pageParams.type';
 import { Skeleton } from '@/components/ui/skeleton';
-import { intlFormatDistance } from 'date-fns';
 import { useRetroStore } from '@/store/useRetroStore';
 import { Button } from '@/components/ui/button';
 import { Loader, Menu } from 'lucide-react';
 import type { Retro } from '@/types/retro.type';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useDebounceCallback } from 'usehooks-ts';
 import { EditorProvider } from './editor-context';
-import { Badge } from '@/components/ui/badge';
 
 // TODO: env
 const DEBOUNCE = 1000;
 
 const RetrosNotesEditor = () => {
   const t = useTranslations('components.dashboard.retros.editor');
-  const locale = useLocale();
   const { data } = useRetros({ query: '*' });
   const { mutate, isPending } = useUpdateRetro();
   const { retros, active, setRetros, setActive, setUpdate } = useRetroStore();
@@ -79,7 +76,7 @@ const RetrosNotesEditor = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="mb-4 flex flex-col gap-4 sm:mb-0">
       {retro && active ? (
         <div className="flex items-center justify-start gap-4">
           <Input
@@ -107,11 +104,6 @@ const RetrosNotesEditor = () => {
                     >
                       <div className="flex w-full items-center justify-between gap-4">
                         {retro.name}
-                        <Badge>
-                          {intlFormatDistance(new Date(retro.createdAt as string), new Date(), {
-                            locale,
-                          })}
-                        </Badge>
                       </div>
                     </DropdownMenuRadioItem>
                   ))}
@@ -131,23 +123,23 @@ const RetrosNotesEditor = () => {
             className="prose max-h-96 min-h-64"
           >
             <Toolbar>
-              <BtnUndo />
-              <BtnRedo />
+              <BtnUndo title={t('undo')} />
+              <BtnRedo title={t('redo')} />
               <Separator />
-              <BtnFontSize />
-              <Separator />
+              <BtnFontSize title={t('fontSize')} className="rsw-btn !hidden sm:!flex" />
+              <Separator className="rsw-separator !hidden sm:!block" />
               <BtnBold title={t('bold')} />
-              <BtnItalic />
-              <BtnUnderline />
-              <BtnStrikeThrough />
+              <BtnItalic title={t('italic')} />
+              <BtnUnderline title={t('underline')} />
+              <BtnStrikeThrough title={t('strikeThrough')} />
               <Separator />
-              <BtnBulletList />
-              <BtnNumberedList />
+              <BtnBulletList title={t('bulletList')} />
+              <BtnNumberedList title={t('numberedList')} />
               <Separator />
-              <BtnQuote />
-              <BtnHighlight />
-              <BtnClearFormatting />
-              <BtnHorizontalRule />
+              <BtnQuote title={t('blockquote')} />
+              <BtnHighlight title={t('highlight')} />
+              <BtnClearFormatting title={t('clearFormatting')} />
+              <BtnHorizontalRule title={t('horizontalRule')} />
             </Toolbar>
           </Editor>
         </EditorProvider>

@@ -1,30 +1,27 @@
 'use client';
 
-import { cn } from '@/lib/utils';
-import { motion, useAnimation } from 'motion/react';
+import React, { useEffect, useRef } from 'react';
 import { useTheme } from 'next-themes';
-import React, { useEffect, useRef, useState } from 'react';
-import { format } from 'date-fns/format';
+import { motion, useAnimation } from 'motion/react';
+import { cn } from '@/lib/utils';
 import { useDateFnsLocale } from '@/hooks/ui/useDateFnsLocale';
+import { format } from 'date-fns';
 
-interface ScratchToRevealProps {
-  children: React.ReactNode;
+interface ScratchToRevealBackgroundProps {
   width: number;
   height: number;
-  className?: string;
   gradientColors?: [string, string, string];
+  className?: string;
 }
 
-export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
+export const ScratchToRevealBackground: React.FC<ScratchToRevealBackgroundProps> = ({
   width,
   height,
-  children,
-  className,
   gradientColors = ['#A97CF8', '#F38CB8', '#FDCC92'],
+  className,
 }) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [isScratching, setIsScratching] = useState(false);
   const controls = useAnimation();
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const { resolvedTheme } = useTheme();
   const locale = useDateFnsLocale();
 
@@ -78,8 +75,7 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
       gradient.addColorStop(0.5, `rgb(${r2},${g2},${b2})`);
       gradient.addColorStop(1, `rgb(${r1},${b1},${g1})`);
 
-      ctx.globalAlpha = 0.5;
-      ctx.globalCompositeOperation = 'source-atop';
+      // ctx.clearRect(0, 0, width, height);
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, width, height);
 
@@ -104,64 +100,7 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
     animationFrameId = requestAnimationFrame(animate);
 
     return () => cancelAnimationFrame(animationFrameId);
-  }, [width, height, resolvedTheme]);
-
-  useEffect(() => {
-    const handleDocumentMouseMove = (event: MouseEvent) => {
-      if (!isScratching) return;
-      scratch(event.clientX, event.clientY);
-    };
-
-    const handleDocumentTouchMove = (event: TouchEvent) => {
-      if (!isScratching) return;
-      const touch = event.touches[0];
-      scratch(touch.clientX, touch.clientY);
-    };
-
-    const handleDocumentMouseUp = () => {
-      setIsScratching(false);
-    };
-
-    const handleDocumentTouchEnd = () => {
-      setIsScratching(false);
-    };
-
-    document.addEventListener('mousedown', handleDocumentMouseMove);
-    document.addEventListener('mousemove', handleDocumentMouseMove);
-    document.addEventListener('touchstart', handleDocumentTouchMove);
-    document.addEventListener('touchmove', handleDocumentTouchMove);
-    document.addEventListener('mouseup', handleDocumentMouseUp);
-    document.addEventListener('touchend', handleDocumentTouchEnd);
-    document.addEventListener('touchcancel', handleDocumentTouchEnd);
-
-    return () => {
-      document.removeEventListener('mousedown', handleDocumentMouseMove);
-      document.removeEventListener('mousemove', handleDocumentMouseMove);
-      document.removeEventListener('touchstart', handleDocumentTouchMove);
-      document.removeEventListener('touchmove', handleDocumentTouchMove);
-      document.removeEventListener('mouseup', handleDocumentMouseUp);
-      document.removeEventListener('touchend', handleDocumentTouchEnd);
-      document.removeEventListener('touchcancel', handleDocumentTouchEnd);
-    };
-  }, [isScratching]);
-
-  const handleMouseDown = () => setIsScratching(true);
-
-  const handleTouchStart = () => setIsScratching(true);
-
-  const scratch = (clientX: number, clientY: number) => {
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext('2d');
-    if (canvas && ctx) {
-      const rect = canvas.getBoundingClientRect();
-      const x = clientX - rect.left + 16;
-      const y = clientY - rect.top + 16;
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.beginPath();
-      ctx.arc(x - 16, y - 16, 16, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  };
+  }, [width, height, resolvedTheme, gradientColors]);
 
   return (
     <motion.div
@@ -177,10 +116,8 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
         width={width}
         height={height}
         className="absolute top-0 left-0"
-        onMouseDown={handleMouseDown}
-        onTouchStart={handleTouchStart}
-      ></canvas>
-      {children}
+        style={{ width, height }}
+      />
     </motion.div>
   );
 };

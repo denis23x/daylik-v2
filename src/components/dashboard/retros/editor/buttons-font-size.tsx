@@ -17,7 +17,10 @@ const fontSizes = [
   ['2xl', 6],
 ];
 
-export const BtnFontSize = () => {
+export const BtnFontSize = ({
+  title,
+  ...props
+}: { title: string } & React.HTMLAttributes<HTMLButtonElement>) => {
   const { $el } = useEditorState();
 
   const handleSelect = (size: string | number) => {
@@ -31,7 +34,7 @@ export const BtnFontSize = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="rsw-btn" title="Font size">
+        <button className="rsw-btn" title={title} {...props}>
           <Type className="size-4" />
         </button>
       </DropdownMenuTrigger>
@@ -42,7 +45,7 @@ export const BtnFontSize = () => {
             onSelect={() => handleSelect(size)}
             className="hover:bg-muted cursor-pointer rounded-sm text-sm transition-colors"
           >
-            <span className={`font-semibold text-${label}`}>Aa {label}</span>
+            <span className={`font-semibold text-${label}`}>text-{label}</span>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

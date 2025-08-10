@@ -260,7 +260,8 @@
           "undo": "Undo",
           "blockquote": "Blockquote",
           "highlight": "Highlight",
-          "horizontalRule": "Horizontal rule"
+          "horizontalRule": "Horizontal rule",
+          "fontSize": "Font Size"
         },
         "modal": {
           "notes": {
@@ -272,9 +273,13 @@
             "description": "Your teammates can scan the QR code and submit anonymous questions in real-time during the retro."
           }
         },
+        "qrCode": {
+          "alert": {
+            "title": "Notice",
+            "description": "You can send messages for 24 hours after the retro starts."
+          }
+        },
         "wordcloud": {
-          "title": "Need topics to discuss?",
-          "description": "Scratch to reveal",
           "words": {
             "focus": "focus",
             "clarity": "clarity",

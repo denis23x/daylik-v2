@@ -260,7 +260,8 @@
           "undo": "Deshacer",
           "blockquote": "Cita",
           "highlight": "Resaltar",
-          "horizontalRule": "Línea horizontal"
+          "horizontalRule": "Línea horizontal",
+          "fontSize": "Tamaño de fuente"
         },
         "modal": {
           "notes": {
@@ -272,9 +273,13 @@
             "description": "Tus compañeros pueden escanear el código QR y enviar preguntas anónimas en tiempo real durante el retro."
           }
         },
+        "qrCode": {
+          "alert": {
+            "title": "Aviso",
+            "description": "Puedes enviar mensajes durante 24 horas después de iniciar el retro."
+          }
+        },
         "wordcloud": {
-          "title": "¿Necesitas temas para discutir?",
-          "description": "Rasca para revelar",
           "words": {
             "focus": "enfoque",
             "clarity": "claridad",
