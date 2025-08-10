@@ -16,7 +16,7 @@ import { toast } from 'sonner';
 import { useRouter } from '@/i18n/navigation';
 
 export default function RetrosModal({ children }: { children: React.ReactNode }) {
-  const t = useTranslations('components.dx.retros');
+  const t = useTranslations('components.dx.retros.modal');
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const { mutateAsync: createRetro } = useCreateRetro();

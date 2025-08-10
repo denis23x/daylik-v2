@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 
 const RetroFormFields = () => {
   const form = useFormContext<z.infer<ReturnType<typeof createRetroSchema>>>();
-  const t = useTranslations('components.dx.retros.form');
+  const t = useTranslations('components.dx.retros.modal.form');
 
   return (
     <>

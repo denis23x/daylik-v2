@@ -11,7 +11,7 @@ import { useTeammatesStore } from '@/store/useTeammatesStore';
 import { useTranslations } from 'next-intl';
 
 const TeammatesCard = ({ teammate }: { teammate: Teammate }) => {
-  const t = useTranslations('dashboard.teammates.card');
+  const t = useTranslations('components.dashboard.teammates.card');
   const { openModal } = useTeammatesStore();
   const { refetch } = useTeamsToTeammate({
     query: 'teamUUID',

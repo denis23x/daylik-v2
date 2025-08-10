@@ -1,5 +1,10 @@
 {
   "app": {
+    "anonymous": {
+      "title": "Anonymous Message",
+      "description": "Send anonymous messages securely and privately without revealing your identity.",
+      "keywords": "anonymous, message, feedback, private, secure, send message, anonymous feedback"
+    },
     "auth": {
       "login": {
         "title": "Sign In",
@@ -27,11 +32,6 @@
         "title": "Analytics",
         "description": "View detailed team performance analytics. Analyze metrics, reports and statistics to make informed decisions.",
         "keywords": "analytics, statistics, reports, performance, metrics"
-      },
-      "retros": {
-        "title": "Retro",
-        "description": "Run a live retrospective with your team. Share feedback, answer questions, and reflect together to improve team collaboration and trust.",
-        "keywords": "retro, team retrospective, feedback, team collaboration, live session"
       },
       "settings": {
         "title": "Settings",
@@ -85,6 +85,11 @@
       "title": "Page Not Found",
       "description": "Looks like you’ve taken a wrong turn. Please check the link or go back to the homepage.",
       "keywords": "page not found, error, not existing, wrong link, back to homepage"
+    },
+    "retros": {
+      "title": "Retro",
+      "description": "Run a live retrospective with your team. Share feedback, answer questions, and reflect together to improve team collaboration and trust.",
+      "keywords": "retro, team retrospective, feedback, team collaboration, live session"
     }
   },
   "components": {
@@ -277,6 +282,10 @@
           "alert": {
             "title": "Notice",
             "description": "You can send messages for 24 hours after the retro starts."
+          },
+          "messages": {
+            "success": "Copied",
+            "error": "An error occurred"
           }
         },
         "wordcloud": {
@@ -969,22 +978,47 @@
         }
       },
       "retros": {
-        "title": "Retro",
-        "description": "A retro session helps reflect on recent work, uncover challenges, and grow as a team.",
-        "form": {
-          "name": {
-            "label": "Create a new retro",
-            "placeholder": "What's your retro called?",
-            "required": "Name must be at least 2 characters"
+        "anonymous": {
+          "title": "Anonymous Message",
+          "form": {
+            "name": {
+              "label": "Name",
+              "placeholder": "Enter your name (optional)"
+            },
+            "description": {
+              "label": "Message",
+              "placeholder": "Write your message here...",
+              "required": "Message is required",
+              "minLength": "Message must be at least 2 characters long"
+            }
+          },
+          "buttons": {
+            "submit": "Send",
+            "loading": "Please wait"
+          },
+          "messages": {
+            "success": "Your message has been sent successfully",
+            "error": "An error occurred"
           }
         },
-        "buttons": {
-          "continue": "Continue",
-          "loading": "Please wait"
-        },
-        "messages": {
-          "success": "Your retro has been created!",
-          "error": "An error occurred"
+        "modal": {
+          "title": "Retro",
+          "description": "A retro session helps reflect on recent work, uncover challenges, and grow as a team.",
+          "form": {
+            "name": {
+              "label": "Create a new retro",
+              "placeholder": "What's your retro called?",
+              "required": "Name must be at least 2 characters"
+            }
+          },
+          "buttons": {
+            "continue": "Continue",
+            "loading": "Please wait"
+          },
+          "messages": {
+            "success": "Your retro has been created!",
+            "error": "An error occurred"
+          }
         }
       }
     },

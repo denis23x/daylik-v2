@@ -1,7 +1,7 @@
-import Sonner from '@/components/sonner';
 import { ReactQueryProvider } from '@/context/ReactQueryProvider';
+import Sonner from '@/components/sonner';
 
-export default function RetrosLayout({ children }: { children: React.ReactNode }) {
+export default function AnonymousLayout({ children }: { children: React.ReactNode }) {
   return (
     <ReactQueryProvider>
       {children}

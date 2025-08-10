@@ -1,5 +1,10 @@
 {
   "app": {
+    "anonymous": {
+      "title": "Anonyme Nachricht",
+      "description": "Senden Sie anonyme Nachrichten sicher und privat, ohne Ihre Identität preiszugeben.",
+      "keywords": "anonym, nachricht, feedback, privat, sicher, nachricht senden, anonymes feedback"
+    },
     "auth": {
       "login": {
         "title": "Anmelden",
@@ -27,11 +32,6 @@
         "title": "Analytik",
         "description": "Detaillierte Teamleistungsanalytik anzeigen. Analysieren Sie Metriken, Berichte und Statistiken, um fundierte Entscheidungen zu treffen.",
         "keywords": "analytik, statistiken, berichte, leistung, metriken"
-      },
-      "retros": {
-        "title": "Retro",
-        "description": "Führe eine Live-Retrospektive mit deinem Team durch. Teilt Feedback, beantwortet Fragen und reflektiert gemeinsam, um Zusammenarbeit und Vertrauen zu stärken.",
-        "keywords": "retro, team retrospektive, feedback, zusammenarbeit, live session"
       },
       "settings": {
         "title": "Einstellungen",
@@ -85,6 +85,11 @@
       "title": "Seite nicht gefunden",
       "description": "Sieht so aus, als wären Sie falsch abgebogen. Überprüfen Sie den Link oder kehren Sie zur Startseite zurück.",
       "keywords": "seite nicht gefunden, fehler, existiert nicht, falscher link, zurück zur startseite"
+    },
+    "retros": {
+      "title": "Retro",
+      "description": "Führe eine Live-Retrospektive mit deinem Team durch. Teilt Feedback, beantwortet Fragen und reflektiert gemeinsam, um Zusammenarbeit und Vertrauen zu stärken.",
+      "keywords": "retro, team retrospektive, feedback, zusammenarbeit, live session"
     }
   },
   "components": {
@@ -277,6 +282,10 @@
           "alert": {
             "title": "Hinweis",
             "description": "Nachrichten können 24 Stunden lang nach Start des Retros gesendet werden."
+          },
+          "messages": {
+            "success": "Kopiert",
+            "error": "Ein Fehler ist aufgetreten"
           }
         },
         "wordcloud": {
@@ -969,22 +978,47 @@
         }
       },
       "retros": {
-        "title": "Retro",
-        "description": "Eine Retro-Sitzung dient dazu, über die letzte Arbeit nachzudenken, Herausforderungen zu erkennen und das Team weiterzuentwickeln.",
-        "form": {
-          "name": {
-            "label": "Erstellen Sie ein neues Retro",
-            "placeholder": "Wie heißt deine Retro?",
-            "required": "Der Name muss mindestens 2 Zeichen lang sein"
+        "anonymous": {
+          "title": "Anonyme Nachricht",
+          "form": {
+            "name": {
+              "label": "Name",
+              "placeholder": "Geben Sie Ihren Namen ein (optional)"
+            },
+            "description": {
+              "label": "Nachricht",
+              "placeholder": "Schreiben Sie Ihre Nachricht hier...",
+              "required": "Nachricht ist erforderlich",
+              "minLength": "Die Nachricht muss mindestens 2 Zeichen lang sein"
+            }
+          },
+          "buttons": {
+            "submit": "Senden",
+            "loading": "Bitte warten"
+          },
+          "messages": {
+            "success": "Ihre Nachricht wurde erfolgreich gesendet",
+            "error": "Es ist ein Fehler aufgetreten"
           }
         },
-        "buttons": {
-          "continue": "Weiter",
-          "loading": "Bitte warten"
-        },
-        "messages": {
-          "success": "Dein Retro wurde erstellt!",
-          "error": "Ein Fehler ist aufgetreten"
+        "modal": {
+          "title": "Retro",
+          "description": "Eine Retro-Sitzung dient dazu, über die letzte Arbeit nachzudenken, Herausforderungen zu erkennen und das Team weiterzuentwickeln.",
+          "form": {
+            "name": {
+              "label": "Erstellen Sie ein neues Retro",
+              "placeholder": "Wie heißt deine Retro?",
+              "required": "Der Name muss mindestens 2 Zeichen lang sein"
+            }
+          },
+          "buttons": {
+            "continue": "Weiter",
+            "loading": "Bitte warten"
+          },
+          "messages": {
+            "success": "Dein Retro wurde erstellt!",
+            "error": "Ein Fehler ist aufgetreten"
+          }
         }
       }
     },

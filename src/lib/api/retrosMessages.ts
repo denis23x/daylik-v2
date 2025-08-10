@@ -2,6 +2,7 @@ import { supabase } from '@/utils/supabase/client';
 import { getSession } from '../session';
 import type { SupabaseQueryResult } from '@/types/utils/supabaseQueryResult.type';
 import type { RetroMessage } from '@/types/retroMessage.type';
+import type { NullablePick } from '@/types/utils/nullablePick.type';
 
 type FetchRetrosMessagesParams = {
   query: string;
@@ -20,13 +21,9 @@ export async function fetchRetrosMessages({
 }
 
 export async function createRetroMessage(
-  retroMessage: Pick<RetroMessage, 'retroUUID' | 'name' | 'description'>
-): Promise<RetroMessage> {
-  const { data, error } = await supabase
-    .from('retros_messages')
-    .insert(retroMessage)
-    .select()
-    .single();
+  retroMessage: Pick<RetroMessage, 'retroUUID' | 'description'> & NullablePick<RetroMessage, 'name'>
+): Promise<void> {
+  const { data, error } = await supabase.from('retros_messages').insert(retroMessage).single();
   if (error) throw error;
   return data;
 }

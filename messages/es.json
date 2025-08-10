@@ -1,5 +1,10 @@
 {
   "app": {
+    "anonymous": {
+      "title": "Mensaje Anónimo",
+      "description": "Envía mensajes anónimos de forma segura y privada sin revelar tu identidad.",
+      "keywords": "anónimo, mensaje, retroalimentación, privado, seguro, enviar mensaje, retroalimentación anónima"
+    },
     "auth": {
       "login": {
         "title": "Iniciar Sesión",
@@ -27,11 +32,6 @@
         "title": "Analíticas",
         "description": "Ver analíticas detalladas del rendimiento del equipo. Analizar métricas, reportes y estadísticas para tomar decisiones informadas.",
         "keywords": "analíticas, estadísticas, reportes, rendimiento, métricas"
-      },
-      "retros": {
-        "title": "Retro",
-        "description": "Dirige una retrospectiva en vivo con tu equipo. Comparte opiniones, responde preguntas y reflexiona en conjunto para fortalecer la colaboración y la confianza del equipo.",
-        "keywords": "retro, retrospectiva de equipo, retroalimentación, colaboración, sesión en vivo"
       },
       "settings": {
         "title": "Configuración",
@@ -85,6 +85,11 @@
       "title": "Página no encontrada",
       "description": "Parece que te perdiste. Verifica el enlace o vuelve a la página principal.",
       "keywords": "página no encontrada, error, enlace incorrecto, no existe, volver al inicio"
+    },
+    "retros": {
+      "title": "Retro",
+      "description": "Dirige una retrospectiva en vivo con tu equipo. Comparte opiniones, responde preguntas y reflexiona en conjunto para fortalecer la colaboración y la confianza del equipo.",
+      "keywords": "retro, retrospectiva de equipo, retroalimentación, colaboración, sesión en vivo"
     }
   },
   "components": {
@@ -277,6 +282,10 @@
           "alert": {
             "title": "Aviso",
             "description": "Puedes enviar mensajes durante 24 horas después de iniciar el retro."
+          },
+          "messages": {
+            "success": "Copiado",
+            "error": "Ocurrió un error"
           }
         },
         "wordcloud": {
@@ -969,22 +978,47 @@
         }
       },
       "retros": {
-        "title": "Retro",
-        "description": "Una sesión retro permite reflexionar sobre el trabajo reciente, identificar desafíos y fortalecer al equipo.",
-        "form": {
-          "name": {
-            "label": "Cree un nuevo retro",
-            "placeholder": "¿Cómo se llama tu retro?",
-            "required": "El nombre debe tener al menos 2 caracteres"
+        "anonymous": {
+          "title": "Mensaje anónimo",
+          "form": {
+            "name": {
+              "label": "Nombre",
+              "placeholder": "Introduce tu nombre (opcional)"
+            },
+            "description": {
+              "label": "Mensaje",
+              "placeholder": "Escribe tu mensaje aquí...",
+              "required": "El mensaje es obligatorio",
+              "minLength": "El mensaje debe tener al menos 2 caracteres"
+            }
+          },
+          "buttons": {
+            "submit": "Enviar",
+            "loading": "Por favor, espera"
+          },
+          "messages": {
+            "success": "Tu mensaje ha sido enviado con éxito",
+            "error": "Ocurrió un error"
           }
         },
-        "buttons": {
-          "continue": "Continuar",
-          "loading": "Por favor espera"
-        },
-        "messages": {
-          "success": "¡Tu retro ha sido creada!",
-          "error": "Ocurrió un error"
+        "modal": {
+          "title": "Retro",
+          "description": "Una sesión retro permite reflexionar sobre el trabajo reciente, identificar desafíos y fortalecer al equipo.",
+          "form": {
+            "name": {
+              "label": "Cree un nuevo retro",
+              "placeholder": "¿Cómo se llama tu retro?",
+              "required": "El nombre debe tener al menos 2 caracteres"
+            }
+          },
+          "buttons": {
+            "continue": "Continuar",
+            "loading": "Por favor espera"
+          },
+          "messages": {
+            "success": "¡Tu retro ha sido creada!",
+            "error": "Ocurrió un error"
+          }
         }
       }
     },

@@ -1,13 +1,11 @@
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { PageProps } from '@/types/utils/pageProps.type';
-import RetrosDock from '@/components/dashboard/retros/dock/dock-suspense';
-import RetrosWordcloud from '@/components/dashboard/retros/wordcloud/wordcloud-dynamic';
-import RetrosModal from '@/components/dashboard/retros/modal-dynamic';
+import AnonymousForm from '@/components/dx/retros/anonymous/form';
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'app.retros' });
+  const t = await getTranslations({ locale, namespace: 'app.anonymous' });
 
   return {
     title: t('title'),
@@ -29,12 +27,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function RetrosPage() {
-  return (
-    <>
-      <RetrosWordcloud />
-      <RetrosModal />
-      <RetrosDock />
-    </>
-  );
+export default async function AnonymousPage() {
+  return <AnonymousForm />;
 }

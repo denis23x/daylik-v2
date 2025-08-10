@@ -1,6 +1,6 @@
 import { createServerClient } from '@supabase/ssr';
 import { type NextRequest, NextResponse } from 'next/server';
-import { LOCALES } from '@/lib/constants';
+import { getOriginalPath } from '../getOriginalPath';
 
 export const updateSession = async (request: NextRequest, response: NextResponse) => {
   const supabase = createServerClient(
@@ -33,32 +33,29 @@ export const updateSession = async (request: NextRequest, response: NextResponse
   // The following section handles redirect logic
   // for authenticated and unauthenticated users.
 
-  const path =
-    request.nextUrl.pathname
-      .split('/')
-      .filter((segment) => !!segment)
-      .filter((segment) => !LOCALES.includes(segment))
-      .shift() || '/';
+  const [locale, ...urlSegments] = request.nextUrl.pathname.split('/').filter(Boolean);
+  const pathnameLocalized = '/' + urlSegments.join('/');
+  const pathname = getOriginalPath(pathnameLocalized, locale) || pathnameLocalized;
 
   // If a user is not authenticated and tries to access a private route,
   // they should be redirected to the login page.
 
   const isDashboard = [
-    'analytics',
-    'settings',
-    'sync',
-    'teammates',
-    'teams',
-    'retros',
-    'kanban',
+    '/analytics',
+    '/settings',
+    '/sync',
+    '/teammates',
+    '/teams',
+    '/retros',
+    '/kanban',
   ].some((segment) => {
-    return path.startsWith(segment);
+    return pathname.startsWith(segment);
   });
 
   if (!user && isDashboard) {
     const url = request.nextUrl.clone();
 
-    url.pathname = `/login`;
+    url.pathname = `/${locale}/login`;
 
     return NextResponse.redirect(url);
   }
@@ -66,16 +63,16 @@ export const updateSession = async (request: NextRequest, response: NextResponse
   // If a user is already authenticated and tries to access an authentication route or the index route,
   // they should be redirected to the teams page.
 
-  const isAuth = ['login', 'signup', 'verify-email', 'reset-password'].some((segment) => {
-    return path.startsWith(segment);
+  const isAuth = ['/login', '/signup', '/verify-email', '/reset-password'].some((segment) => {
+    return pathname.startsWith(segment);
   });
 
-  const isIndex = path === '/';
+  const isIndex = pathname === '/';
 
   if (user && (isAuth || isIndex)) {
     const url = request.nextUrl.clone();
 
-    url.pathname = `/teams`;
+    url.pathname = `/${locale}/teams`;
 
     return NextResponse.redirect(url);
   }
