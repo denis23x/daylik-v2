@@ -1,6 +1,8 @@
 import { createServerClient } from '@supabase/ssr';
 import { type NextRequest, NextResponse } from 'next/server';
 import { getOriginalPath } from '../getOriginalPath';
+import { cookies } from 'next/headers';
+import { getLocale } from 'next-intl/server';
 
 export const updateSession = async (request: NextRequest, response: NextResponse) => {
   const supabase = createServerClient(
@@ -33,7 +35,10 @@ export const updateSession = async (request: NextRequest, response: NextResponse
   // The following section handles redirect logic
   // for authenticated and unauthenticated users.
 
-  const [locale, ...urlSegments] = request.nextUrl.pathname.split('/').filter(Boolean);
+  const cookieStore = await cookies();
+  const cookieLocale = cookieStore.get('NEXT_LOCALE');
+  const [l, ...urlSegments] = request.nextUrl.pathname.split('/').filter(Boolean);
+  const locale = l || cookieLocale?.value || (await getLocale());
   const pathnameLocalized = '/' + urlSegments.join('/');
   const pathname = getOriginalPath(pathnameLocalized, locale) || pathnameLocalized;
 
