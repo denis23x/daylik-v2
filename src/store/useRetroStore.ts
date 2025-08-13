@@ -1,7 +1,7 @@
 import type { Retro } from '@/types/retro.type';
 import { create } from 'zustand';
 
-type RetroMode = 'notes' | 'qr';
+type RetroMode = 'notes' | 'qr' | 'messages';
 
 interface RetroStore {
   retros: Retro[];

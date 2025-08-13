@@ -276,6 +276,10 @@
           "qr": {
             "title": "Anonym fragen",
             "description": "Deine Teammitglieder können den QR-Code scannen und während des Retros anonym Fragen stellen."
+          },
+          "messages": {
+            "title": "Nachrichten",
+            "description": "Alles, was dein Team während der Retro geteilt hat, hier gesammelt, damit du jederzeit darauf zurückblicken kannst."
           }
         },
         "qrCode": {
@@ -450,6 +454,10 @@
             "chaos": "Chaos",
             "pivot": "Wende"
           }
+        },
+        "messages": {
+          "error": "Ups! Nachrichten konnten nicht geladen werden.",
+          "empty": "Hier ist noch nichts — noch keine Nachrichten."
         }
       },
       "settings": {

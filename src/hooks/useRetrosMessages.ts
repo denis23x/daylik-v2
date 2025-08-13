@@ -1,10 +1,17 @@
-import { createRetroMessage, fetchRetrosMessages } from '@/lib/api/retrosMessages';
+import {
+  createRetroMessage,
+  fetchRetrosMessages,
+  subscribeRetrosMessages,
+} from '@/lib/api/retrosMessages';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { supabase } from '@/utils/supabase/client';
+import type { RetroMessage } from '@/types/retroMessage.type';
 
-export function useRetrosMessages({ query }: { query: string }) {
+export function useRetrosMessages({ query, UUID }: { query: string; UUID: string }) {
   return useQuery({
-    queryKey: ['retros_messages', query],
-    queryFn: () => fetchRetrosMessages({ query }),
+    queryKey: ['retros_messages', query, UUID],
+    queryFn: () => fetchRetrosMessages({ query, UUID }),
     staleTime: 1000 * 60 * 5,
   });
 }
@@ -17,4 +24,27 @@ export function useCreateRetroMessage() {
       queryClient.invalidateQueries({ queryKey: ['retros_messages'] });
     },
   });
+}
+
+export function useRetrosMessagesRealtime(UUID: string) {
+  const [lastEvent, setLastEvent] = useState<RetroMessage | null>(null);
+  const subscriptionRef = useRef<ReturnType<typeof supabase.channel> | null>(null);
+
+  const event = useCallback((message: RetroMessage) => {
+    setLastEvent(message);
+  }, []);
+
+  useEffect(() => {
+    if (!UUID) return;
+    subscribeRetrosMessages(UUID, event).then((s) => (subscriptionRef.current = s));
+
+    return () => {
+      if (subscriptionRef.current) {
+        supabase.removeChannel(subscriptionRef.current);
+        subscriptionRef.current = null;
+      }
+    };
+  }, [UUID, event]);
+
+  return { event: lastEvent };
 }

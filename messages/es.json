@@ -276,6 +276,10 @@
           "qr": {
             "title": "Haz una pregunta anónima",
             "description": "Tus compañeros pueden escanear el código QR y enviar preguntas anónimas en tiempo real durante el retro."
+          },
+          "messages": {
+            "title": "Mensajes",
+            "description": "Todo lo que tu equipo compartió durante la retro, reunido aquí para que puedas consultarlo en cualquier momento."
           }
         },
         "qrCode": {
@@ -450,6 +454,10 @@
             "chaos": "caos",
             "pivot": "giro"
           }
+        },
+        "messages": {
+          "error": "¡Ups! No se pudieron cargar los mensajes.",
+          "empty": "Aquí está vacío — todavía no hay mensajes."
         }
       },
       "settings": {

@@ -276,6 +276,10 @@
           "qr": {
             "title": "Ask Anonymously",
             "description": "Your teammates can scan the QR code and submit anonymous questions in real-time during the retro."
+          },
+          "messages": {
+            "title": "Messages",
+            "description": "Everything your team shared during the retro, collected here for you to look back on anytime."
           }
         },
         "qrCode": {
@@ -450,6 +454,10 @@
             "chaos": "chaos",
             "pivot": "pivot"
           }
+        },
+        "messages": {
+          "error": "Oops! Failed to load messages.",
+          "empty": "It's empty here — no messages yet."
         }
       },
       "settings": {

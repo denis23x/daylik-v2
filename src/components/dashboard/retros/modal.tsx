@@ -8,10 +8,25 @@ import dynamic from 'next/dynamic';
 // Mobile optimization
 const RetrosQrCode = dynamic(() => import('./qr-code'));
 const RetrosNotesEditor = dynamic(() => import('./editor/editor'));
+const RetrosMessages = dynamic(() => import('./messages'));
 
 export default function RetrosModal() {
   const { isOpen, closeModal, mode } = useRetroStore();
   const t = useTranslations('components.dashboard.retros.modal');
+  const modalMap = {
+    qr: {
+      component: <RetrosQrCode />,
+      maxWidth: 'sm:max-w-sm',
+    },
+    messages: {
+      component: <RetrosMessages />,
+      maxWidth: 'sm:max-w-md',
+    },
+    notes: {
+      component: <RetrosNotesEditor />,
+      maxWidth: 'sm:max-w-2xl',
+    },
+  };
 
   return (
     <ResponsiveDialog
@@ -19,12 +34,12 @@ export default function RetrosModal() {
       onOpenChange={(open) => !open && closeModal()}
       title={t(`${mode}.title`)}
       description={t(`${mode}.description`)}
-      content={mode === 'qr' ? <RetrosQrCode /> : <RetrosNotesEditor />}
+      content={modalMap[mode].component}
       trigger={undefined}
       left={undefined}
       right={undefined}
       showClose={false}
-      maxWidth={mode === 'qr' ? 'sm:max-w-sm' : 'sm:max-w-2xl'}
+      maxWidth={modalMap[mode].maxWidth}
     />
   );
 }
