@@ -56,6 +56,16 @@ function DrawerContent({
           className
         )}
         {...props}
+        onOpenAutoFocus={(e) => e.preventDefault()}
+        onInteractOutside={(e) => {
+          const target = e.target as HTMLElement;
+          const clickOutside = target.dataset.slot === 'alert-dialog-overlay';
+          const clickInside = target.closest('[data-slot="alert-dialog-content"]');
+
+          if (clickOutside || clickInside) {
+            e.preventDefault();
+          }
+        }}
       >
         <div className="bg-muted mx-auto mt-4 hidden h-2 w-[100px] shrink-0 rounded-full group-data-[vaul-drawer-direction=bottom]/drawer-content:block" />
         {children}

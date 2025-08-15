@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic';
 // Mobile optimization
 const RetrosQrCode = dynamic(() => import('./qr-code'));
 const RetrosNotesEditor = dynamic(() => import('./editor/editor'));
-const RetrosMessages = dynamic(() => import('./messages'));
+const RetrosMessages = dynamic(() => import('./messages/messages'));
 
 export default function RetrosModal() {
   const { isOpen, closeModal, mode } = useRetroStore();
