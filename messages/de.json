@@ -1,10 +1,5 @@
 {
   "app": {
-    "anonymous": {
-      "title": "Anonyme Nachricht",
-      "description": "Senden Sie anonyme Nachrichten sicher und privat, ohne Ihre Identität preiszugeben.",
-      "keywords": "anonym, nachricht, feedback, privat, sicher, nachricht senden, anonymes feedback"
-    },
     "auth": {
       "login": {
         "title": "Anmelden",
@@ -80,6 +75,11 @@
         "description": "Lesen Sie die Bedingungen für die Nutzung unseres Dienstes, einschließlich Nutzerpflichten, Haftungsbeschränkungen, Streitbeilegung und rechtlicher Einhaltung.",
         "keywords": "AGB, Nutzungsbedingungen, Benutzervereinbarung, Haftung, Streitbeilegung, rechtliche Einhaltung, Datenschutz, Website-Bedingungen, daylik, Servicenutzung, Privatsphäre"
       }
+    },
+    "messages": {
+      "title": "Nachrichten",
+      "description": "Sende Fragen, Vorschläge oder Feedback schnell und einfach an dein Team. Du kannst deinen Namen angeben oder anonym bleiben.",
+      "keywords": "nachricht, feedback, frage, vorschlag, team, nachricht senden, kommunikation"
     },
     "notFound": {
       "title": "Seite nicht gefunden",
@@ -270,12 +270,12 @@
         },
         "modal": {
           "notes": {
-            "title": "Retro-Notizen",
+            "title": "Anmerkungen",
             "description": "Schreibe, bearbeite und speichere deine Gedanken während des Retros. Du kannst später jederzeit darauf zurückgreifen."
           },
           "qr": {
-            "title": "Anonym fragen",
-            "description": "Deine Teammitglieder können den QR-Code scannen und während des Retros anonym Fragen stellen."
+            "title": "QR-Code",
+            "description": "Deine Teammitglieder können den QR-Code scannen, um das Formular zu öffnen und Fragen, Vorschläge oder Feedback zu senden."
           },
           "messages": {
             "title": "Nachrichten",
@@ -457,7 +457,7 @@
         },
         "messages": {
           "error": "Ups! Nachrichten konnten nicht geladen werden.",
-          "empty": "Hier ist noch nichts — noch keine Nachrichten."
+          "empty": "Hier ist noch nichts."
         }
       },
       "settings": {
@@ -561,10 +561,13 @@
         "sheet": {
           "title": "Navigation",
           "description": "Schneller Zugriff auf deine Tools und Einstellungen.",
+          "new": "Neu",
           "links": {
             "teams": "Teams",
             "teammates": "Teammitglieder",
             "retros": "Retro",
+            "poker": "Planung",
+            "kanban": "Kanban",
             "settings": "Einstellungen",
             "feedback": "Rückmeldung"
           },
@@ -986,29 +989,6 @@
         }
       },
       "retros": {
-        "anonymous": {
-          "title": "Anonyme Nachricht",
-          "form": {
-            "name": {
-              "label": "Name",
-              "placeholder": "Geben Sie Ihren Namen ein (optional)"
-            },
-            "description": {
-              "label": "Nachricht",
-              "placeholder": "Schreiben Sie Ihre Nachricht hier...",
-              "required": "Nachricht ist erforderlich",
-              "minLength": "Die Nachricht muss mindestens 2 Zeichen lang sein"
-            }
-          },
-          "buttons": {
-            "submit": "Senden",
-            "loading": "Bitte warten"
-          },
-          "messages": {
-            "success": "Ihre Nachricht wurde erfolgreich gesendet",
-            "error": "Es ist ein Fehler aufgetreten"
-          }
-        },
         "modal": {
           "title": "Retro",
           "description": "Eine Retro-Sitzung dient dazu, über die letzte Arbeit nachzudenken, Herausforderungen zu erkennen und das Team weiterzuentwickeln.",
@@ -1042,6 +1022,32 @@
           "success": "Kopiert",
           "error": "Ein Fehler ist aufgetreten"
         }
+      }
+    },
+    "messages": {
+      "title": "Nachricht senden",
+      "form": {
+        "name": {
+          "label": "Name",
+          "placeholder": "Geben Sie Ihren Namen ein (optional)"
+        },
+        "description": {
+          "label": "Nachricht",
+          "placeholder": "Schreiben Sie Ihre Nachricht hier...",
+          "required": "Nachricht ist erforderlich",
+          "minLength": "Die Nachricht muss mindestens 2 Zeichen lang sein"
+        },
+        "anonymous": {
+          "label": "Anonym"
+        }
+      },
+      "buttons": {
+        "submit": "Senden",
+        "loading": "Bitte warten"
+      },
+      "messages": {
+        "success": "Ihre Nachricht wurde erfolgreich gesendet",
+        "error": "Es ist ein Fehler aufgetreten"
       }
     },
     "ui": {

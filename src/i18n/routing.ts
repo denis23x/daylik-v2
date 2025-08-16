@@ -11,11 +11,11 @@ export const routing = defineRouting({
       en: '/',
       ru: '/',
     },
-    '/anonymous': {
-      de: '/anonymität',
-      es: '/anonimato',
-      en: '/anonymous',
-      ru: '/анонимность',
+    '/messages': {
+      de: '/nachrichten',
+      es: '/mensajes',
+      en: '/messages',
+      ru: '/сообщения',
     },
     '/login': {
       de: '/anmelden',

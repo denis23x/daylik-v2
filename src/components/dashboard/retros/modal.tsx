@@ -16,11 +16,11 @@ export default function RetrosModal() {
   const modalMap = {
     qr: {
       component: <RetrosQrCode />,
-      maxWidth: 'sm:max-w-sm',
+      maxWidth: 'sm:max-w-md',
     },
     messages: {
       component: <RetrosMessages />,
-      maxWidth: 'sm:max-w-md',
+      maxWidth: 'sm:max-w-lg',
     },
     notes: {
       component: <RetrosNotesEditor />,

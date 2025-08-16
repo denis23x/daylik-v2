@@ -1,10 +1,5 @@
 {
   "app": {
-    "anonymous": {
-      "title": "Anonymous Message",
-      "description": "Send anonymous messages securely and privately without revealing your identity.",
-      "keywords": "anonymous, message, feedback, private, secure, send message, anonymous feedback"
-    },
     "auth": {
       "login": {
         "title": "Sign In",
@@ -80,6 +75,11 @@
         "description": "Review the terms and conditions governing your use of our Service, including user responsibilities, limitations of liability, dispute resolution, and legal compliance.",
         "keywords": "terms and conditions, user agreement, service terms, liability, dispute resolution, legal compliance, data protection, website terms, daylik, service usage, privacy"
       }
+    },
+    "messages": {
+      "title": "Messages",
+      "description": "Send questions, suggestions, or feedback to your team quickly and easily. You can include your name or stay anonymous.",
+      "keywords": "message, feedback, question, suggestion, team, send message, communication"
     },
     "notFound": {
       "title": "Page Not Found",
@@ -270,12 +270,12 @@
         },
         "modal": {
           "notes": {
-            "title": "Retro Notes",
+            "title": "Notes",
             "description": "Write, edit and save your thoughts during retros. You can revisit them later anytime."
           },
           "qr": {
-            "title": "Ask Anonymously",
-            "description": "Your teammates can scan the QR code and submit anonymous questions in real-time during the retro."
+            "title": "QR Code",
+            "description": "Your teammates can scan the QR code to open the form and send questions, suggestions, or feedback."
           },
           "messages": {
             "title": "Messages",
@@ -561,10 +561,13 @@
         "sheet": {
           "title": "Navigation",
           "description": "Quick access to your tools and settings.",
+          "new": "New",
           "links": {
             "teams": "Teams",
             "teammates": "Teammates",
             "retros": "Retro",
+            "poker": "Poker Planning",
+            "kanban": "Kanban",
             "settings": "Settings",
             "feedback": "Feedback"
           },
@@ -986,29 +989,6 @@
         }
       },
       "retros": {
-        "anonymous": {
-          "title": "Anonymous Message",
-          "form": {
-            "name": {
-              "label": "Name",
-              "placeholder": "Enter your name (optional)"
-            },
-            "description": {
-              "label": "Message",
-              "placeholder": "Write your message here...",
-              "required": "Message is required",
-              "minLength": "Message must be at least 2 characters long"
-            }
-          },
-          "buttons": {
-            "submit": "Send",
-            "loading": "Please wait"
-          },
-          "messages": {
-            "success": "Your message has been sent successfully",
-            "error": "An error occurred"
-          }
-        },
         "modal": {
           "title": "Retro",
           "description": "A retro session helps reflect on recent work, uncover challenges, and grow as a team.",
@@ -1042,6 +1022,32 @@
           "success": "Copied",
           "error": "An error occurred"
         }
+      }
+    },
+    "messages": {
+      "title": "Send Message",
+      "form": {
+        "name": {
+          "label": "Name",
+          "placeholder": "Enter your name (optional)"
+        },
+        "description": {
+          "label": "Message",
+          "placeholder": "Write your message here...",
+          "required": "Message is required",
+          "minLength": "Message must be at least 2 characters long"
+        },
+        "anonymous": {
+          "label": "Anonymous"
+        }
+      },
+      "buttons": {
+        "submit": "Send",
+        "loading": "Please wait"
+      },
+      "messages": {
+        "success": "Your message has been sent successfully",
+        "error": "An error occurred"
       }
     },
     "ui": {

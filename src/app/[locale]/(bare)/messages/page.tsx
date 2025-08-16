@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { PageProps } from '@/types/utils/pageProps.type';
-import AnonymousForm from '@/components/dx/retros/anonymous/form';
+import MessagesForm from '@/components/messages/form';
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'app.anonymous' });
+  const t = await getTranslations({ locale, namespace: 'app.messages' });
 
   return {
     title: t('title'),
@@ -27,6 +27,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function AnonymousPage() {
-  return <AnonymousForm />;
+export default async function MessagesPage() {
+  return <MessagesForm />;
 }

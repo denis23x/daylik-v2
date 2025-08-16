@@ -40,6 +40,7 @@ import LanguageSwitcher from '../language-switcher';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import RetrosModal from '../dx/retros/modal';
+import { Badge } from '../ui/badge';
 
 const NavigationSheet = () => {
   const t = useTranslations('components.dashboard.navbar.sheet');
@@ -105,9 +106,29 @@ const NavigationSheet = () => {
                 <div className="flex cursor-pointer items-center gap-2">
                   <Armchair size={16} />
                   {t('links.retros')}
+                  <Badge variant="destructive">{t('new')}</Badge>
                 </div>
               </RetrosModal>
             </NavigationMenuItem>
+            {/* 
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link className="flex items-center gap-2" href="/poker">
+                  <Spade size={16} />
+                  {t('links.poker')}
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <Separator />
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link className="flex items-center gap-2" href="/kanban">
+                  <Kanban size={16} />
+                  {t('links.kanban')}
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem> 
+            */}
             <Separator />
             <NavigationMenuItem>
               <NavigationMenuLink asChild>

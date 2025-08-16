@@ -24,8 +24,8 @@ const RetrosQrCode = () => {
   useEffect(() => {
     const [locale, ...urlSegments] = window.location.pathname.split('/').filter(Boolean);
     const UUID = urlSegments.pop();
-    const anonymous = pathnames['/anonymous'];
-    const pathname = anonymous[locale as keyof typeof anonymous].slice(1);
+    const messages = pathnames['/messages'];
+    const pathname = messages[locale as keyof typeof messages].slice(1);
     const url = new URL(window.location.origin);
 
     url.pathname = [locale, pathname].join('/');
@@ -48,23 +48,21 @@ const RetrosQrCode = () => {
 
   return (
     <div className="mb-4 flex flex-col gap-4 sm:mb-0">
-      <div className="rounded-xl border p-4">
-        <QRCode
-          className="h-auto w-full rounded-md"
-          size={256}
-          value={value}
-          viewBox={`0 0 256 256`}
-          bgColor={bgColor}
-          fgColor={fgColor}
-        />
-      </div>
+      <QRCode
+        className="mx-auto my-4 h-auto max-w-48"
+        size={256}
+        value={value}
+        viewBox={`0 0 256 256`}
+        bgColor={bgColor}
+        fgColor={fgColor}
+      />
       <div className="flex items-center justify-between gap-4">
         <Input type="text" className="w-full" value={value} readOnly />
         <Button variant="outline" size="icon" onClick={handleClickCopy}>
           {isCopied ? <Check /> : <Clipboard />}
         </Button>
       </div>
-      <Alert variant="destructive">
+      <Alert>
         <Siren />
         <AlertTitle>{t('alert.title')}</AlertTitle>
         <AlertDescription>{t('alert.description')}</AlertDescription>

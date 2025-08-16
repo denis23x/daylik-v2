@@ -7,6 +7,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useTranslations } from 'next-intl';
+import { Bug, MessageCircleOff } from 'lucide-react';
 
 const RetrosMessages = () => {
   const t = useTranslations('components.dashboard.retros.messages');
@@ -33,10 +34,16 @@ const RetrosMessages = () => {
           </ul>
         )}
         {error && (
-          <div className="text-muted-foreground py-3 text-center text-sm">{t('error')}</div>
+          <div className="flex flex-col items-center justify-center gap-4 py-4">
+            <Bug />
+            <div className="text-center text-sm">{t('error')}</div>
+          </div>
         )}
         {!isLoading && !error && messages?.length === 0 && (
-          <div className="text-muted-foreground py-3 text-center text-sm">{t('empty')}</div>
+          <div className="flex flex-col items-center justify-center gap-4 pt-4">
+            <MessageCircleOff />
+            <div className="text-center text-sm">{t('empty')}</div>
+          </div>
         )}
         {!isLoading && !error && messages?.length !== 0 && (
           <ul className="flex flex-col gap-2">

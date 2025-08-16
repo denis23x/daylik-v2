@@ -1,14 +1,12 @@
 .rsw-editor {
-  all: unset;
-
-  @apply !border-border;
+  @apply dark:bg-input/30 !border-input !rounded-lg shadow-xs;
 
   .rsw-ce {
     @apply text-foreground focus:outline-none;
   }
 
   .rsw-toolbar {
-    @apply bg-background !border-border;
+    @apply bg-background !border-input;
 
     .rsw-btn {
       @apply text-foreground bg-background hover:bg-accent hover:text-accent-foreground dark:hover:bg-input/50 flex size-8 cursor-pointer items-center justify-center dark:bg-transparent;
@@ -19,7 +17,7 @@
     }
 
     .rsw-separator {
-      @apply border-border m-0;
+      @apply border-input m-0;
     }
   }
 }
