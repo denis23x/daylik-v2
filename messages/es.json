@@ -457,7 +457,15 @@
         },
         "messages": {
           "error": "¡Ups! No se pudieron cargar los mensajes.",
-          "empty": "Aquí no hay nada todavía."
+          "empty": "Aquí no hay nada todavía.",
+          "refresh": "Actualizar"
+        },
+        "messagesAlert": {
+          "title": "Nuevo mensaje",
+          "anonymous": "Anónimo",
+          "confirm": {
+            "close": "Cerrar"
+          }
         }
       },
       "settings": {
@@ -513,9 +521,11 @@
             "deleting": "Eliminando..",
             "error": "Ocurrió un error"
           },
-          "deleteConfirm": {
-            "title": "¿Estás absolutamente seguro?",
-            "description": "Esta acción eliminará permanentemente tu cuenta y todos los datos asociados. Esto no se puede deshacer."
+          "delete": {
+            "confirm": {
+              "title": "¿Estás absolutamente seguro?",
+              "description": "Esta acción eliminará permanentemente tu cuenta y todos los datos asociados. Esto no se puede deshacer."
+            }
           }
         },
         "password": {

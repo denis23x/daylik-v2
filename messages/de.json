@@ -457,7 +457,15 @@
         },
         "messages": {
           "error": "Ups! Nachrichten konnten nicht geladen werden.",
-          "empty": "Hier ist noch nichts."
+          "empty": "Hier ist noch nichts.",
+          "refresh": "Aktualisieren"
+        },
+        "messagesAlert": {
+          "title": "Neue Nachricht",
+          "anonymous": "Anonym",
+          "confirm": {
+            "close": "Schließen"
+          }
         }
       },
       "settings": {
@@ -513,9 +521,11 @@
             "deleting": "Wird gelöscht..",
             "error": "Ein Fehler ist aufgetreten"
           },
-          "deleteConfirm": {
-            "title": "Sind Sie absolut sicher?",
-            "description": "Diese Aktion wird Ihr Konto und alle zugehörigen Daten dauerhaft löschen. Dies kann nicht rückgängig gemacht werden."
+          "delete": {
+            "confirm": {
+              "title": "Sind Sie absolut sicher?",
+              "description": "Diese Aktion wird Ihr Konto und alle zugehörigen Daten dauerhaft löschen. Dies kann nicht rückgängig gemacht werden."
+            }
           }
         },
         "password": {

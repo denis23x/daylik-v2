@@ -158,8 +158,8 @@ const TabsEmail = () => {
           </form>
         </Form>
         <ConfirmDialog
-          title={t('deleteConfirm.title')}
-          description={t('deleteConfirm.description')}
+          title={t('delete.confirm.title')}
+          description={t('delete.confirm.description')}
           open={isConfirmOpen}
           onOpenChange={setIsConfirmOpen}
           onConfirmAction={handleDeleteUser}

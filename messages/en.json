@@ -457,7 +457,15 @@
         },
         "messages": {
           "error": "Oops! Failed to load messages.",
-          "empty": "It's empty here — no messages yet."
+          "empty": "It's empty here — no messages yet.",
+          "refresh": "Refresh"
+        },
+        "messagesAlert": {
+          "title": "New message",
+          "anonymous": "Anonymous",
+          "confirm": {
+            "close": "Close"
+          }
         }
       },
       "settings": {
@@ -513,9 +521,11 @@
             "deleting": "Deleting..",
             "error": "An error occurred"
           },
-          "deleteConfirm": {
-            "title": "Are you absolutely sure?",
-            "description": "This action will permanently delete your account and all associated data. This cannot be undone."
+          "delete": {
+            "confirm": {
+              "title": "Are you absolutely sure?",
+              "description": "This action will permanently delete your account and all associated data. This cannot be undone."
+            }
           }
         },
         "password": {

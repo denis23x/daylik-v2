@@ -34,7 +34,7 @@ export default function RetrosModal() {
       onOpenChange={(open) => !open && closeModal()}
       title={t(`${mode}.title`)}
       description={t(`${mode}.description`)}
-      content={modalMap[mode].component}
+      content={<div className="mb-4 sm:mb-0">{modalMap[mode].component}</div>}
       trigger={undefined}
       left={undefined}
       right={undefined}

@@ -18,9 +18,12 @@ interface ConfirmDialogProps {
   title: string;
   description: string;
   trigger?: React.ReactNode;
+  confirmShow?: boolean;
+  cancelShow?: boolean;
   confirmText?: string;
   cancelText?: string;
-  onConfirmAction: () => void;
+  onConfirmAction?: () => void;
+  onCancelAction?: () => void;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
@@ -31,7 +34,10 @@ export const ConfirmDialog = ({
   trigger,
   confirmText,
   cancelText,
+  confirmShow = true,
+  cancelShow = true,
   onConfirmAction,
+  onCancelAction,
   open: controlledOpen,
   onOpenChange: controlledOnOpenChange,
 }: ConfirmDialogProps) => {
@@ -47,7 +53,12 @@ export const ConfirmDialog = ({
   const onOpenChange = isControlled ? controlledOnOpenChange : setUncontrolledOpen;
 
   const handleConfirm = () => {
-    onConfirmAction();
+    onConfirmAction?.();
+    onOpenChange(false);
+  };
+
+  const handleCancel = () => {
+    onCancelAction?.();
     onOpenChange(false);
   };
 
@@ -60,8 +71,12 @@ export const ConfirmDialog = ({
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>{defaultCancelText}</AlertDialogCancel>
-          <AlertDialogAction onClick={handleConfirm}>{defaultConfirmText}</AlertDialogAction>
+          {cancelShow && (
+            <AlertDialogCancel onClick={handleCancel}>{defaultCancelText}</AlertDialogCancel>
+          )}
+          {confirmShow && (
+            <AlertDialogAction onClick={handleConfirm}>{defaultConfirmText}</AlertDialogAction>
+          )}
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

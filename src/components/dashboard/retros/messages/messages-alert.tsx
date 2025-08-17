@@ -3,43 +3,36 @@
 import { ConfirmDialog } from '@/components/confirm-dialog';
 import { useRetrosMessagesRealtime } from '@/hooks/useRetrosMessages';
 import { PageParams } from '@/types/utils/pageParams.type';
+import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const RetrosMessagesAlert = () => {
+  const t = useTranslations('components.dashboard.retros.messagesAlert');
   const params = useParams<PageParams>();
   const { event: message } = useRetrosMessagesRealtime(params.UUID);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
 
   useEffect(() => {
     if (message) {
+      setName(message.name || t('anonymous'));
+      setDescription(message.description);
+
+      // Show the alert
       setIsConfirmOpen(true);
     }
-  }, [message]);
-
-  // TODO: test
-  // useEffect(() => {
-  //   let confirmTimeout: NodeJS.Timeout | null = null;
-
-  //   if (params?.UUID) {
-  //     confirmTimeout = setTimeout(() => {
-  //       setIsConfirmOpen(true);
-  //     }, 2000);
-  //   }
-
-  //   return () => {
-  //     if (confirmTimeout) clearTimeout(confirmTimeout);
-  //   };
-  //   // Only run when params.UUID changes
-  // }, [params?.UUID]);
+  }, [message, setName, setDescription]);
 
   return (
     <ConfirmDialog
-      title="New message"
-      description="You have a new message from your team. Would you like to read it?"
+      title={t('title')}
+      description={`${name}: ${description}`}
+      confirmShow={false}
+      cancelText={t('confirm.close')}
       open={isConfirmOpen}
       onOpenChange={setIsConfirmOpen}
-      onConfirmAction={() => {}}
     />
   );
 };

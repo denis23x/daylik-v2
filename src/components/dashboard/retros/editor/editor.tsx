@@ -76,7 +76,7 @@ const RetrosNotesEditor = () => {
   };
 
   return (
-    <div className="mb-4 flex flex-col gap-4 sm:mb-0">
+    <div className="flex flex-col gap-4">
       {retro && active ? (
         <div className="flex items-center justify-start gap-4">
           <Input

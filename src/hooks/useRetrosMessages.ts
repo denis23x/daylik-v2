@@ -27,6 +27,7 @@ export function useCreateRetroMessage() {
 }
 
 export function useRetrosMessagesRealtime(UUID: string) {
+  const queryClient = useQueryClient();
   const [lastEvent, setLastEvent] = useState<RetroMessage | null>(null);
   const subscriptionRef = useRef<ReturnType<typeof supabase.channel> | null>(null);
 
@@ -45,6 +46,13 @@ export function useRetrosMessagesRealtime(UUID: string) {
       }
     };
   }, [UUID, event]);
+
+  useEffect(() => {
+    if (lastEvent) {
+      // Invalidate the query to get the latest data
+      queryClient.invalidateQueries({ queryKey: ['retros_messages'] });
+    }
+  }, [lastEvent, queryClient]);
 
   return { event: lastEvent };
 }

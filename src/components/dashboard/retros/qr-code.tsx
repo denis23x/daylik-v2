@@ -47,7 +47,7 @@ const RetrosQrCode = () => {
   };
 
   return (
-    <div className="mb-4 flex flex-col gap-4 sm:mb-0">
+    <div className="flex flex-col gap-4">
       <QRCode
         className="mx-auto my-4 h-auto max-w-48"
         size={256}
