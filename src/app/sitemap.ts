@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { LOCALES } from '@/lib/constants';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://daylik.io';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.daylik.io';
   const locales = LOCALES;
   const defaultLocale = 'en';
 

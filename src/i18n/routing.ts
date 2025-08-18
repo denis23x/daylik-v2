@@ -17,6 +17,12 @@ export const routing = defineRouting({
       en: '/messages',
       ru: '/сообщения',
     },
+    '/poker/[UUID]': {
+      de: '/poker-planung',
+      es: '/poker-planificacion',
+      en: '/poker-planning',
+      ru: '/покер-планирование',
+    },
     '/login': {
       de: '/anmelden',
       es: '/iniciar-sesion',

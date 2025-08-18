@@ -23,7 +23,7 @@ const RetrosMessagesAlert = () => {
       // Show the alert
       setIsConfirmOpen(true);
     }
-  }, [message, setName, setDescription]);
+  }, [message, setName, setDescription, t]);
 
   return (
     <ConfirmDialog

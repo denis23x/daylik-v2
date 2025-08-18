@@ -81,6 +81,11 @@
       "description": "Send questions, suggestions, or feedback to your team quickly and easily. You can include your name or stay anonymous.",
       "keywords": "message, feedback, question, suggestion, team, send message, communication"
     },
+    "poker": {
+      "title": "Poker Planning",
+      "description": "Estimate tasks together with your team using planning poker. Discuss, vote, and align on priorities to achieve better results.",
+      "keywords": "poker planning, planning poker, agile, estimation, team, tasks, scrum, vote"
+    },
     "notFound": {
       "title": "Page Not Found",
       "description": "Looks like you’ve taken a wrong turn. Please check the link or go back to the homepage.",

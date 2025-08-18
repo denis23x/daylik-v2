@@ -21,6 +21,7 @@ import {
   Settings,
   UsersRound,
   Armchair,
+  Spade,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { usePathname } from '@/i18n/navigation';
@@ -110,16 +111,15 @@ const NavigationSheet = () => {
                 </div>
               </RetrosModal>
             </NavigationMenuItem>
-            {/* 
-            <NavigationMenuItem>
-              <NavigationMenuLink asChild>
-                <Link className="flex items-center gap-2" href="/poker">
-                  <Spade size={16} />
-                  {t('links.poker')}
-                </Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
             <Separator />
+            <NavigationMenuItem>
+              <div className="flex cursor-pointer items-center gap-2">
+                <Spade size={16} />
+                {t('links.poker')}
+                <Badge variant="destructive">{t('new')}</Badge>
+              </div>
+            </NavigationMenuItem>
+            {/* <Separator />
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link className="flex items-center gap-2" href="/kanban">

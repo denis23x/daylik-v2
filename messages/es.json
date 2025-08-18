@@ -81,6 +81,11 @@
       "description": "Envía preguntas, sugerencias o comentarios a tu equipo de manera rápida y sencilla. Puedes incluir tu nombre o permanecer anónimo.",
       "keywords": "mensaje, retroalimentación, pregunta, sugerencia, equipo, enviar mensaje, comunicación"
     },
+    "poker": {
+      "title": "Poker Planning",
+      "description": "Estima tareas junto con tu equipo utilizando planning poker. Discute, vota y alinea prioridades para obtener mejores resultados.",
+      "keywords": "poker planning, planning poker, agile, estimación, equipo, tareas, scrum, votación"
+    },
     "notFound": {
       "title": "Página no encontrada",
       "description": "Parece que te perdiste. Verifica el enlace o vuelve a la página principal.",
