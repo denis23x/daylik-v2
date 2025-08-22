@@ -18,10 +18,10 @@ export const routing = defineRouting({
       ru: '/сообщения',
     },
     '/poker/[UUID]': {
-      de: '/poker-planung',
-      es: '/poker-planificacion',
-      en: '/poker-planning',
-      ru: '/покер-планирование',
+      de: '/poker/[UUID]',
+      es: '/poker/[UUID]',
+      en: '/poker/[UUID]',
+      ru: '/покер/[UUID]',
     },
     '/login': {
       de: '/anmelden',

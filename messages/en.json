@@ -1003,6 +1003,27 @@
           "report": "Report"
         }
       },
+      "poker": {
+        "modal": {
+          "title": "Poker Planning",
+          "description": "This format helps estimate tasks, align expectations, and support better team decisions.",
+          "form": {
+            "name": {
+              "label": "Create new planning",
+              "placeholder": "What is your planning called?",
+              "required": "Name must be at least 2 characters"
+            }
+          },
+          "buttons": {
+            "continue": "Continue",
+            "loading": "Please wait"
+          },
+          "messages": {
+            "success": "Planning has been created!",
+            "error": "An error occurred"
+          }
+        }
+      },
       "retros": {
         "modal": {
           "title": "Retro",

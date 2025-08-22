@@ -1003,6 +1003,27 @@
           "report": "Melden"
         }
       },
+      "poker": {
+        "modal": {
+          "title": "Poker-Planung",
+          "description": "Dieses Format hilft dabei, Aufgaben zu schätzen, Erwartungen abzugleichen und bessere Teamentscheidungen zu treffen.",
+          "form": {
+            "name": {
+              "label": "Neue Planung erstellen",
+              "placeholder": "Wie heißt Ihre Planung?",
+              "required": "Der Name muss mindestens 2 Zeichen enthalten"
+            }
+          },
+          "buttons": {
+            "continue": "Weiter",
+            "loading": "Bitte warten"
+          },
+          "messages": {
+            "success": "Planung wurde erstellt!",
+            "error": "Es ist ein Fehler aufgetreten"
+          }
+        }
+      },
       "retros": {
         "modal": {
           "title": "Retro",

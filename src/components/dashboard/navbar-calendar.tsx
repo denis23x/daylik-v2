@@ -9,15 +9,20 @@ import { isSameDay, format } from 'date-fns';
 import { useTeamsFromAnalytic } from '@/hooks/useAnalyticsTeams';
 import { Link, usePathname } from '@/i18n/navigation';
 import type { Analytics } from '@/types/analytics.type';
-import { Armchair, ArrowRight, RefreshCw } from 'lucide-react';
+import { Armchair, ArrowRight, RefreshCw, Spade } from 'lucide-react';
 import { useDayPickerLocale } from '@/hooks/ui/useDayPickerLocale';
 import { getCurrentMonthRange } from '@/utils/getCurrentMonthRange';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '../ui/button';
 import { useRetros } from '@/hooks/useRetros';
 import type { Retro } from '@/types/retro.type';
+import { usePoker } from '@/hooks/usePoker';
+import { Poker } from '@/types/poker.type';
 
-type ItemByDate = (Analytics & { type: 'analytics' }) | (Retro & { type: 'retros' });
+type ItemByDate =
+  | (Analytics & { type: 'analytics' })
+  | (Retro & { type: 'retros' })
+  | (Poker & { type: 'poker' });
 
 const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
   const locale = useDayPickerLocale();
@@ -28,6 +33,7 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false);
   const [analyticsByDate, setAnalyticsByDate] = useState<Analytics[]>([]);
   const [retrosByDate, setRetrosByDate] = useState<Retro[]>([]);
+  const [pokerByDate, setPokerByDate] = useState<Poker[]>([]);
   const [itemsByDate, setItemsByDate] = useState<ItemByDate[]>([]);
   const { data: analytics } = useTeamsFromAnalytic({
     query: '*, teams (UUID, name)',
@@ -35,6 +41,11 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
     lte: to,
   });
   const { data: retros } = useRetros({
+    query: 'UUID, name, createdAt',
+    gte: from,
+    lte: to,
+  });
+  const { data: poker } = usePoker({
     query: 'UUID, name, createdAt',
     gte: from,
     lte: to,
@@ -58,20 +69,37 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
   }, [day, retros, setRetrosByDate]);
 
   useEffect(() => {
+    if (day && poker) {
+      setPokerByDate(poker.filter((p) => isSameDay(p.createdAt, day)));
+    }
+  }, [day, poker, setPokerByDate]);
+
+  useEffect(() => {
     const analyticsByDateWithType = analyticsByDate.map((analytic) => ({
       ...analytic,
       type: 'analytics',
     }));
+
     const retrosByDateWithType = retrosByDate.map((retro) => ({
       ...retro,
       type: 'retros',
     }));
-    const itemsByDate = [...analyticsByDateWithType, ...retrosByDateWithType].sort((a, b) => {
+
+    const pokerByDateWithType = pokerByDate.map((poker) => ({
+      ...poker,
+      type: 'poker',
+    }));
+
+    const itemsByDate = [
+      ...analyticsByDateWithType,
+      ...retrosByDateWithType,
+      ...pokerByDateWithType,
+    ].sort((a, b) => {
       return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
     });
 
     setItemsByDate(itemsByDate as ItemByDate[]);
-  }, [analyticsByDate, retrosByDate, setItemsByDate]);
+  }, [analyticsByDate, retrosByDate, pokerByDate, setItemsByDate]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -141,7 +169,7 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
                         <ArrowRight />
                       </Link>
                     </li>
-                  ) : (
+                  ) : item.type === 'retros' ? (
                     <li className="flex items-center justify-between gap-2" key={item.UUID}>
                       <Link
                         href={{
@@ -163,7 +191,29 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
                         <ArrowRight />
                       </Link>
                     </li>
-                  )
+                  ) : item.type === 'poker' ? (
+                    <li className="flex items-center justify-between gap-2" key={item.UUID}>
+                      <Link
+                        href={{
+                          pathname: '/poker/[UUID]',
+                          params: { UUID: item.UUID },
+                        }}
+                        className={cn(
+                          buttonVariants({ variant: 'secondary', size: 'sm' }),
+                          'flex-1 gap-2'
+                        )}
+                      >
+                        <Spade />
+                        <p className="flex flex-1 items-center gap-2">
+                          <span className="font-medium">{item.name} </span>
+                          <span className="text-muted-foreground text-xs">
+                            {format(item.createdAt, 'HH:mm')}
+                          </span>
+                        </p>
+                        <ArrowRight />
+                      </Link>
+                    </li>
+                  ) : null
                 )}
               </ul>
             </div>

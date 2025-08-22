@@ -1,0 +1,9 @@
+ALTER POLICY "Self"
+ON "public"."poker"
+TO authenticated
+USING (
+  "userUUID" = (select auth.uid())
+)
+WITH CHECK (
+  "userUUID" = (select auth.uid())
+);

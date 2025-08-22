@@ -1003,6 +1003,27 @@
           "report": "Reportar"
         }
       },
+      "poker": {
+        "modal": {
+          "title": "Planificación Poker",
+          "description": "Este formato ayuda a estimar tareas, alinear expectativas y apoyar mejores decisiones en equipo.",
+          "form": {
+            "name": {
+              "label": "Crear nueva planificación",
+              "placeholder": "¿Cómo se llama tu planificación?",
+              "required": "El nombre debe tener al menos 2 caracteres"
+            }
+          },
+          "buttons": {
+            "continue": "Continuar",
+            "loading": "Por favor, espera"
+          },
+          "messages": {
+            "success": "¡Planificación creada!",
+            "error": "Ocurrió un error"
+          }
+        }
+      },
       "retros": {
         "modal": {
           "title": "Retro",

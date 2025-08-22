@@ -42,6 +42,7 @@ import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import RetrosModal from '../dx/retros/modal';
 import { Badge } from '../ui/badge';
+import PokerModal from '../dx/poker/modal';
 
 const NavigationSheet = () => {
   const t = useTranslations('components.dashboard.navbar.sheet');
@@ -113,11 +114,13 @@ const NavigationSheet = () => {
             </NavigationMenuItem>
             <Separator />
             <NavigationMenuItem>
-              <div className="flex cursor-pointer items-center gap-2">
-                <Spade size={16} />
-                {t('links.poker')}
-                <Badge variant="destructive">{t('new')}</Badge>
-              </div>
+              <PokerModal>
+                <div className="flex cursor-pointer items-center gap-2">
+                  <Spade size={16} />
+                  {t('links.poker')}
+                  <Badge variant="destructive">{t('new')}</Badge>
+                </div>
+              </PokerModal>
             </NavigationMenuItem>
             {/* <Separator />
             <NavigationMenuItem>
