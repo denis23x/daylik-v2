@@ -15,7 +15,6 @@ export async function fetchSync({ query, UUID }: FetchSyncParams): Promise<Team 
     .select(query)
     .eq('UUID', UUID)
     .eq('userUUID', session?.user.id)
-    .order('createdAt', { ascending: false })
     .single()) as SupabaseQueryResult<Team>;
   if (error) throw error;
   return data;

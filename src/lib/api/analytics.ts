@@ -18,7 +18,6 @@ export async function fetchAnalytics({
     .select(query)
     .eq('UUID', UUID)
     .eq('userUUID', session?.user.id)
-    .order('createdAt', { ascending: false })
     .single()) as SupabaseQueryResult<Analytics>;
   if (error) throw error;
   return data;
