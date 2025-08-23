@@ -1,4 +1,4 @@
-import { Card as CardWrapper, CardContent } from '../ui/card';
+import { Card as CardWrapper, CardContent } from '../../ui/card';
 
 export default function Card({ item }: { item: number | string }) {
   return (

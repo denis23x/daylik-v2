@@ -36,7 +36,7 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
   const [pokerByDate, setPokerByDate] = useState<Poker[]>([]);
   const [itemsByDate, setItemsByDate] = useState<ItemByDate[]>([]);
   const { data: analytics } = useTeamsFromAnalytic({
-    query: '*, teams (UUID, name)',
+    query: 'UUID, startedAt, createdAt, teams (name)',
     gte: from,
     lte: to,
   });
@@ -98,6 +98,8 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
       return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
     });
 
+    console.log(itemsByDate);
+
     setItemsByDate(itemsByDate as ItemByDate[]);
   }, [analyticsByDate, retrosByDate, pokerByDate, setItemsByDate]);
 
@@ -122,9 +124,9 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
                 return (
                   <CalendarDayButton day={day} modifiers={modifiers} {...props}>
                     {children}
-                    {analytics && retros && (
+                    {analytics && retros && poker && (
                       <ul className="absolute right-0 bottom-0 left-0 flex justify-center gap-1 px-2 py-1">
-                        {[...analytics, ...retros]
+                        {[...analytics, ...retros, ...poker]
                           .filter((a) => isSameDay(new Date(a.createdAt), day.date))
                           .slice(0, 3)
                           .map((item) => {

@@ -25,6 +25,7 @@ export default function PokerModal({ children }: { children: React.ReactNode }) 
   const form = useForm<z.infer<typeof PokerSchema>>({
     defaultValues: {
       name: '',
+      cards: '',
     },
     resolver: zodResolver(PokerSchema),
   });
@@ -40,7 +41,10 @@ export default function PokerModal({ children }: { children: React.ReactNode }) 
 
   const handleSubmit = async (formData: z.infer<typeof PokerSchema>) => {
     try {
-      const poker = await createPoker(formData);
+      const poker = await createPoker({
+        ...formData,
+        cards: formData.cards.split(',').map((c) => c.trim()),
+      });
 
       // Close modal
       setIsOpen(false);

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { PageProps } from '@/types/utils/pageProps.type';
-import PokerGrid from '@/components/poker/grid';
+import PokerGrid from '@/components/dashboard/poker/grid';
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;

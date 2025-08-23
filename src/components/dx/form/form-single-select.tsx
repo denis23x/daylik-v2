@@ -29,6 +29,7 @@ const FormSingleSelect = ({
   name,
   label,
   placeholder,
+  search = true,
   searchPlaceholder,
   emptyMessage,
   items = [],
@@ -37,6 +38,7 @@ const FormSingleSelect = ({
   name: string;
   label: string;
   placeholder?: string;
+  search?: boolean;
   searchPlaceholder?: string;
   emptyMessage?: string;
   items: SingleSelectItem[];
@@ -90,10 +92,12 @@ const FormSingleSelect = ({
               onOpenAutoFocus={(e) => e.preventDefault()}
             >
               <Command className="w-full">
-                <CommandInput
-                  placeholder={defaultSearchPlaceholder}
-                  className="h-9 text-base md:text-sm"
-                />
+                {search && (
+                  <CommandInput
+                    placeholder={defaultSearchPlaceholder}
+                    className="h-9 text-base md:text-sm"
+                  />
+                )}
                 <CommandList>
                   <CommandEmpty>{defaultEmptyMessage}</CommandEmpty>
                   <CommandGroup>

@@ -1012,6 +1012,16 @@
               "label": "Create new planning",
               "placeholder": "What is your planning called?",
               "required": "Name must be at least 2 characters"
+            },
+            "cards": {
+              "label": "Cards",
+              "placeholder": "Select cards",
+              "required": "Select cards for planning",
+              "types": {
+                "fibonacci": "Fibonacci",
+                "fixed": "Fixed",
+                "tshirts": "T-Shirts"
+              }
             }
           },
           "buttons": {

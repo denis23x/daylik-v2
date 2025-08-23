@@ -29,6 +29,7 @@ const FormMultiSelect = ({
   name,
   label,
   placeholder,
+  search = true,
   searchPlaceholder,
   emptyMessage,
   items = [],
@@ -37,6 +38,7 @@ const FormMultiSelect = ({
   name: string;
   label: string;
   placeholder?: string;
+  search?: boolean;
   searchPlaceholder?: string;
   emptyMessage?: string;
   items: MultiSelectItem[];
@@ -132,10 +134,12 @@ const FormMultiSelect = ({
               onOpenAutoFocus={(e) => e.preventDefault()}
             >
               <Command className="w-full">
-                <CommandInput
-                  placeholder={defaultSearchPlaceholder}
-                  className="h-9 text-base md:text-sm"
-                />
+                {search && (
+                  <CommandInput
+                    placeholder={defaultSearchPlaceholder}
+                    className="h-9 text-base md:text-sm"
+                  />
+                )}
                 <CommandList>
                   <CommandEmpty>{defaultEmptyMessage}</CommandEmpty>
                   <CommandGroup>

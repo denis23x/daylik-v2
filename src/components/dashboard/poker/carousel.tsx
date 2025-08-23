@@ -8,7 +8,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from '../ui/carousel';
+} from '../../ui/carousel';
 
 const PokerCarousel = () => {
   const [api, setApi] = useState<CarouselApi>();

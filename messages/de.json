@@ -1012,6 +1012,16 @@
               "label": "Neue Planung erstellen",
               "placeholder": "Wie heißt Ihre Planung?",
               "required": "Der Name muss mindestens 2 Zeichen enthalten"
+            },
+            "cards": {
+              "label": "Karten",
+              "placeholder": "Wählen Sie Karten aus",
+              "required": "Wählen Sie Karten für die Planung aus",
+              "types": {
+                "fibonacci": "Fibonacci",
+                "fixed": "Festgelegt",
+                "tshirts": "T-Shirts"
+              }
             }
           },
           "buttons": {
