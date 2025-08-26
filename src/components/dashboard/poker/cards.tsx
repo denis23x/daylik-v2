@@ -1,14 +1,9 @@
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Card as CardWrapper, CardContent } from '../../ui/card';
-import { usePokerByUUID } from '@/hooks/usePoker';
-import { useParams } from 'next/navigation';
+import { usePokerStore } from '@/store/usePokerStore';
 
 function PokerCards() {
-  const params = useParams();
-  const { data: poker } = usePokerByUUID({
-    query: '*',
-    UUID: params.UUID as string,
-  });
+  const { poker } = usePokerStore();
 
   return (
     <ScrollArea className="w-full max-w-screen rounded-md border whitespace-nowrap">
