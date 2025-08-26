@@ -80,7 +80,9 @@ const ThemeToggle = ({
               aria-selected={theme === option.value}
               role="option"
             >
-              <Check className={`size-4 ${theme === option.value ? 'visible' : 'invisible'}`} />
+              <Check
+                className={`size-4 text-green-600 ${theme === option.value ? 'visible' : 'invisible'}`}
+              />
               <span className="first-letter:uppercase">{option.label}</span>
             </li>
           ))}

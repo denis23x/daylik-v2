@@ -1019,8 +1019,9 @@
               "required": "Wählen Sie Karten für die Planung aus",
               "types": {
                 "fibonacci": "Fibonacci",
-                "fixed": "Festgelegt",
-                "tshirts": "T-Shirts"
+                "binary": "Binär",
+                "tshirts": "T-Shirts",
+                "hours": "Stunden"
               }
             }
           },

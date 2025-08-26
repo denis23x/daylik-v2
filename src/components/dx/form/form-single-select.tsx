@@ -1,6 +1,6 @@
 'use client';
 
-import { Check, ChevronsUpDown } from 'lucide-react';
+import { Check, ChevronsUpDown, Coffee, Infinity } from 'lucide-react';
 import {
   Command,
   CommandEmpty,
@@ -32,6 +32,7 @@ const FormSingleSelect = ({
   search = true,
   searchPlaceholder,
   emptyMessage,
+  specialSymbols,
   items = [],
 }: {
   required?: boolean;
@@ -41,6 +42,7 @@ const FormSingleSelect = ({
   search?: boolean;
   searchPlaceholder?: string;
   emptyMessage?: string;
+  specialSymbols?: string;
   items: SingleSelectItem[];
 }) => {
   const form = useFormContext();
@@ -108,14 +110,55 @@ const FormSingleSelect = ({
                         onSelect={() => handleSelect(item)}
                       >
                         {item.label}
-                        {item.description && (
-                          <small className="text-muted-foreground text-xs">
-                            {item.description}
-                          </small>
-                        )}
+                        {item.description &&
+                          (specialSymbols === 'poker' ? (
+                            <small className="text-muted-foreground flex items-center gap-1 text-xs">
+                              {(() => {
+                                const parts = item.description.split(', ');
+                                const qIdx = parts.indexOf('?');
+                                const beforeIcons = qIdx !== -1 ? parts.slice(0, qIdx + 1) : parts;
+                                const afterIcons = qIdx !== -1 ? parts.slice(qIdx + 1) : [];
+
+                                return (
+                                  <>
+                                    {/* Render the string up to and including '?' as plain text */}
+                                    {beforeIcons.length > 0 && (
+                                      <span className="block">
+                                        {beforeIcons.join(', ')}
+                                        {afterIcons.length > 0 && ', '}
+                                      </span>
+                                    )}
+                                    {/* Render icons for special symbols after '?' */}
+                                    {afterIcons.map((char, idx) => {
+                                      let icon = null;
+                                      if (char === '∞') {
+                                        icon = <Infinity className="!size-3" />;
+                                      } else if (char === '☕') {
+                                        icon = <Coffee className="!size-3" />;
+                                      } else {
+                                        icon = char;
+                                      }
+                                      // Add comma after icon if not last
+                                      const isLast = idx === afterIcons.length - 1;
+                                      return (
+                                        <span key={idx} className="flex items-center">
+                                          {icon}
+                                          {!isLast && ', '}
+                                        </span>
+                                      );
+                                    })}
+                                  </>
+                                );
+                              })()}
+                            </small>
+                          ) : (
+                            <small className="text-muted-foreground text-xs">
+                              {item.description}
+                            </small>
+                          ))}
                         <Check
                           className={cn(
-                            'ml-auto',
+                            'ml-auto text-green-600',
                             field.value === item.value ? 'opacity-100' : 'opacity-0'
                           )}
                         />

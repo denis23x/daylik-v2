@@ -1,5 +1,6 @@
 'use client';
 
+import PokerCards from './cards';
 import PokerCarousel from './carousel';
 import { usePokerByUUID } from '@/hooks/usePoker';
 import { useParams } from 'next/navigation';
@@ -12,13 +13,10 @@ const PokerGrid = () => {
   });
 
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center gap-10 p-4">
+    <div className="flex h-screen w-screen flex-col items-center justify-between p-4">
       <div className="text-2xl font-bold">{poker?.name}</div>
-      {poker && (
-        <div className="flex w-full max-w-xl">
-          <PokerCarousel />
-        </div>
-      )}
+      <div className="max-w-xl">{poker && <PokerCarousel />}</div>
+      {poker && <PokerCards />}
     </div>
   );
 };

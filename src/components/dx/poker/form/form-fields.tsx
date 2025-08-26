@@ -16,17 +16,22 @@ const PokerFormFields = () => {
     {
       UUID: uuidv4(),
       name: t('cards.types.fibonacci'),
-      value: [1, 2, 3, 5, 8, 13],
+      value: [0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, '?', '∞', '☕'],
     },
     {
       UUID: uuidv4(),
-      name: t('cards.types.fixed'),
-      value: [1, 2, 4, 8, 16, 32],
+      name: t('cards.types.binary'),
+      value: [0, 1, 2, 4, 8, 16, 32, 64, '?', '∞', '☕'],
+    },
+    {
+      UUID: uuidv4(),
+      name: t('cards.types.hours'),
+      value: [0, 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 40, '?', '∞', '☕'],
     },
     {
       UUID: uuidv4(),
       name: t('cards.types.tshirts'),
-      value: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+      value: ['XS', 'S', 'M', 'L', 'XL', 'XXL', '?', '∞', '☕'],
     },
   ];
 
@@ -58,6 +63,7 @@ const PokerFormFields = () => {
         placeholder={t('cards.placeholder')}
         required={true}
         search={false}
+        specialSymbols="poker"
         items={cards.map((card) => ({
           key: card.UUID,
           value: card.value.toString(),

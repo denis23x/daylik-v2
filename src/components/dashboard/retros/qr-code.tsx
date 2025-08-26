@@ -59,7 +59,7 @@ const RetrosQrCode = () => {
       <div className="flex items-center justify-between gap-4">
         <Input type="text" className="w-full" value={value} readOnly />
         <Button variant="outline" size="icon" onClick={handleClickCopy}>
-          {isCopied ? <Check /> : <Clipboard />}
+          {isCopied ? <Check className="text-green-600" /> : <Clipboard />}
         </Button>
       </div>
       <Alert>

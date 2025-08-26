@@ -67,7 +67,9 @@ const LanguageSwitcher = ({
               aria-selected={locale === l}
               role="option"
             >
-              <Check className={`size-4 ${locale === l ? 'visible' : 'invisible'}`} />
+              <Check
+                className={`size-4 text-green-600 ${locale === l ? 'visible' : 'invisible'}`}
+              />
               <span className="uppercase">{l}</span>
             </li>
           ))}

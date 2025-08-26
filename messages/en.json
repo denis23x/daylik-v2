@@ -1019,8 +1019,9 @@
               "required": "Select cards for planning",
               "types": {
                 "fibonacci": "Fibonacci",
-                "fixed": "Fixed",
-                "tshirts": "T-Shirts"
+                "binary": "Binary",
+                "tshirts": "T-Shirts",
+                "hours": "Hours"
               }
             }
           },

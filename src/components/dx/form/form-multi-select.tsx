@@ -157,7 +157,7 @@ const FormMultiSelect = ({
                         )}
                         <Check
                           className={cn(
-                            'ml-auto',
+                            'ml-auto text-green-600',
                             field.value.includes(item.value) ? 'opacity-100' : 'opacity-0'
                           )}
                         />

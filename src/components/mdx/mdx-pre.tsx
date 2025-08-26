@@ -41,7 +41,7 @@ export default function MdxPre({
         onClick={handleClickCopy}
         className="absolute top-2 right-2 z-10"
       >
-        {isCopied ? <Check /> : <Clipboard />}
+        {isCopied ? <Check className="text-green-600" /> : <Clipboard />}
       </Button>
       <pre ref={preRef} {...props} className="relative">
         {children}

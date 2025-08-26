@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '../../ui/carousel';
 import { textareaVariants } from '@/components/ui/textarea';
-import { Eye, Plus, RefreshCw, Trash } from 'lucide-react';
+import { Play, Plus, RefreshCw, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -14,15 +14,15 @@ const PokerCarousel = () => {
   const [questions, setQuestions] = useState([
     {
       UUID: '1',
-      question: 'Question 1',
+      question: 'Question 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     },
     {
       UUID: '2',
-      question: 'Question 2',
+      question: 'Question 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     },
     {
       UUID: '3',
-      question: 'Question 3',
+      question: 'Question 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     },
   ]);
 
@@ -63,6 +63,7 @@ const PokerCarousel = () => {
 
   const handleContentChange = (e: React.ChangeEvent<HTMLDivElement>) => {
     const newContent = e.target.innerHTML;
+    console.log(newContent);
   };
 
   return (
@@ -75,7 +76,7 @@ const PokerCarousel = () => {
             onClick={() => handleDeleteQuestion(questions[current - 1].UUID)}
             disabled={questions.length === 1}
           >
-            <Trash />
+            <Trash2 />
           </Button>
           <Button variant="outline" size="icon" onClick={handleAddQuestion}>
             <Plus />
@@ -86,13 +87,14 @@ const PokerCarousel = () => {
         </div>
         <div className="flex items-center gap-2 sm:w-1/3">
           <Button variant="default">
-            <Eye />
-            Reveal
+            <RefreshCw />
+            Flip Cards
           </Button>
           <Button variant="outline">
-            <RefreshCw />
-            Reset
+            <Play />
+            Start Voting
           </Button>
+          <Button variant="outline">Clear Votes</Button>
         </div>
       </div>
       <Carousel setApi={setApi}>
@@ -104,7 +106,7 @@ const PokerCarousel = () => {
                   contentEditable
                   className={cn(
                     textareaVariants({ variant: 'default' }),
-                    'flex min-h-48 flex-col items-center justify-center !text-3xl'
+                    'flex min-h-48 flex-col items-center justify-center text-center !text-3xl'
                   )}
                   dangerouslySetInnerHTML={{ __html: question.question }}
                   onInput={handleContentChange}
