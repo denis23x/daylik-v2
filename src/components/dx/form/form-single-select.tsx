@@ -71,7 +71,7 @@ const FormSingleSelect = ({
             {label}
             {required && <span className="text-destructive">*</span>}
           </FormLabel>
-          <Popover open={isOpen} onOpenChange={setIsOpen} modal={true}>
+          <Popover open={isOpen} onOpenChange={setIsOpen}>
             <PopoverTrigger asChild>
               <div className="relative">
                 <FormControl>

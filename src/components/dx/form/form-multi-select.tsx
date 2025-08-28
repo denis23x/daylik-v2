@@ -89,14 +89,14 @@ const FormMultiSelect = ({
               )}
               {required && <span className="text-destructive">*</span>}
             </FormLabel>
-            <span
+            <FormLabel
               className="text-muted-foreground cursor-pointer text-xs"
               onClick={() => handleSelectAll()}
             >
               {field.value.length === items.length ? t('deselectAll') : t('selectAll')}
-            </span>
+            </FormLabel>
           </div>
-          <Popover open={isOpen} onOpenChange={setIsOpen} modal={true}>
+          <Popover open={isOpen} onOpenChange={setIsOpen}>
             <PopoverTrigger asChild>
               <div className="relative">
                 <FormControl>
