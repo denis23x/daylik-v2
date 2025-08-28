@@ -21,7 +21,8 @@ export async function fetchPoker({ query, lte, gte }: FetchPokerParams): Promise
     .select(query)
     .gte('createdAt', gte || new Date(0).toISOString())
     .lte('createdAt', lte || new Date().toISOString())
-    .eq('userUUID', session?.user.id)) as SupabaseQueryResult<Poker[]>;
+    .eq('userUUID', session?.user.id)
+    .order('createdAt', { ascending: false })) as SupabaseQueryResult<Poker[]>;
   if (error) throw error;
   return data || [];
 }

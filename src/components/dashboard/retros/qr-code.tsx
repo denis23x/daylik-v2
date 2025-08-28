@@ -31,7 +31,7 @@ const RetrosQrCode = () => {
     url.pathname = [locale, pathname].join('/');
     url.searchParams.append('retroUUID', UUID as string);
 
-    setValue(decodeURIComponent(url.toString()));
+    setValue(url.toString());
   }, [pathnames]);
 
   const handleClickCopy = () => {
@@ -57,7 +57,7 @@ const RetrosQrCode = () => {
         fgColor={fgColor}
       />
       <div className="flex items-center justify-between gap-4">
-        <Input type="text" className="w-full" value={value} readOnly />
+        <Input type="text" className="w-full" value={decodeURIComponent(value)} readOnly />
         <Button variant="outline" size="icon" onClick={handleClickCopy}>
           {isCopied ? <Check className="text-green-600" /> : <Clipboard />}
         </Button>

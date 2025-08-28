@@ -98,8 +98,6 @@ const NavbarCalendar = ({ children }: { children: React.ReactNode }) => {
       return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
     });
 
-    console.log(itemsByDate);
-
     setItemsByDate(itemsByDate as ItemByDate[]);
   }, [analyticsByDate, retrosByDate, pokerByDate, setItemsByDate]);
 

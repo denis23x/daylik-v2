@@ -16,7 +16,8 @@ export async function fetchRetros({ query, lte, gte }: FetchRetrosParams): Promi
     .select(query)
     .gte('createdAt', gte || new Date(0).toISOString())
     .lte('createdAt', lte || new Date().toISOString())
-    .eq('userUUID', session?.user.id)) as SupabaseQueryResult<Retro[]>;
+    .eq('userUUID', session?.user.id)
+    .order('createdAt', { ascending: false })) as SupabaseQueryResult<Retro[]>;
   if (error) throw error;
   return data || [];
 }
